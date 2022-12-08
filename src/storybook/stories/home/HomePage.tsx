@@ -15,7 +15,7 @@ import { MockedUserProvider } from "../customers/MockedUserProvider";
 const shop = shopFixture(placeholderImage);
 
 const homePageProps: Omit<HomePageProps, "classes"> = {
-  activities: mapEdgesToItems(shop.activities),
+  activities: [],
   noChannel: false,
   createNewChannelHref: "",
   ordersToFulfillHref: "",

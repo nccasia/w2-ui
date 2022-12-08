@@ -6,6 +6,7 @@ import RequirePermissions from "@saleor/components/RequirePermissions";
 import Skeleton from "@saleor/components/Skeleton";
 import { HomeQuery, PermissionEnum } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
+import { IActivityAction } from "@saleor/type/Task";
 import { RelayToFlat } from "@saleor/types";
 import React from "react";
 
@@ -40,7 +41,7 @@ const useStyles = makeStyles(
 );
 
 export interface HomePageProps {
-  activities: RelayToFlat<HomeQuery["activities"]>;
+  activities: IActivityAction[];
   orders: number | null;
   ordersToCapture: number | null;
   ordersToFulfill: number | null;
@@ -85,7 +86,7 @@ const HomePage: React.FC<HomePageProps> = props => {
           >
             <div className={classes.cardContainer}>
               <HomeAnalyticsCard
-                title={"Sales"}
+                title={"Tasks"}
                 testId="sales-analytics"
                 icon={
                   <Sales
@@ -104,7 +105,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                 )}
               </HomeAnalyticsCard>
               <HomeAnalyticsCard
-                title={"Orders"}
+                title={"Meeting"}
                 testId="orders-analytics"
                 icon={
                   <Orders
@@ -155,10 +156,7 @@ const HomePage: React.FC<HomePageProps> = props => {
             <RequirePermissions
               requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
             >
-              <HomeActivityCard
-                activities={activities}
-                testId="activity-card"
-              />
+              <HomeActivityCard activities={activities} />
             </RequirePermissions>
           </div>
         )}

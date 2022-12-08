@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Card,
   List,
   ListItem,
@@ -7,16 +8,10 @@ import {
 } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import { DateTime } from "@saleor/components/Date";
-import Skeleton from "@saleor/components/Skeleton";
-import { HomeQuery } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
-import { RelayToFlat } from "@saleor/types";
+import { IActivityAction } from "@saleor/type/Task";
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
-
-import { renderCollection } from "../../../misc";
-import { getActivityMessage } from "./activityMessages";
-
+import { useIntl } from "react-intl";
 const useStyles = makeStyles(
   {
     loadingProducts: {
@@ -27,23 +22,25 @@ const useStyles = makeStyles(
       paddingBottom: "16px",
       paddingTop: "16px",
     },
+    listItemText: {
+      marginLeft: "10px",
+    },
   },
   { name: "HomeActivityCard" },
 );
 
 interface HomeActivityCardProps {
-  activities: RelayToFlat<HomeQuery["activities"]>;
-  testId?: string;
+  activities: IActivityAction[];
 }
 
 const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
-  const { activities, testId } = props;
+  const { activities } = props;
   const classes = useStyles(props);
 
   const intl = useIntl();
 
   return (
-    <Card data-test-id={testId}>
+    <Card>
       <CardTitle
         title={intl.formatMessage({
           id: "BXkF8Z",
@@ -52,43 +49,17 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
         })}
       />
       <List dense={true}>
-        {renderCollection(
-          activities,
-          (activity, activityId) => (
-            <ListItem key={activityId}>
-              {activity ? (
-                <ListItemText
-                  primary={
-                    <Typography>
-                      {getActivityMessage(activity, intl)}
-                    </Typography>
-                  }
-                  secondary={<DateTime date={activity.date} />}
-                />
-              ) : (
-                <ListItemText className={classes.loadingProducts}>
-                  <Typography>
-                    <Skeleton />
-                  </Typography>
-                </ListItemText>
-              )}
-            </ListItem>
-          ),
-          () => (
-            <ListItem className={classes.noProducts}>
+        {activities &&
+          activities?.map(activity => (
+            <ListItem key={activity.id}>
+              <Avatar src={activity.user.avatar} />
               <ListItemText
-                primary={
-                  <Typography>
-                    <FormattedMessage
-                      id="wWTUrM"
-                      defaultMessage="No activities found"
-                    />
-                  </Typography>
-                }
+                className={classes.listItemText}
+                primary={<Typography>{activity.typeAction} Action</Typography>}
+                secondary={<DateTime date={activity.date} />}
               />
             </ListItem>
-          ),
-        )}
+          ))}
       </List>
     </Card>
   );

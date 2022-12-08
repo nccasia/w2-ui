@@ -11,7 +11,7 @@ import Skeleton from "@saleor/components/Skeleton";
 import { AppQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import React from "react";
-import SVG from "react-inlinesvg";
+import InlineSVG from "react-inlinesvg";
 import { FormattedMessage, useIntl } from "react-intl";
 import ReactMarkdown from "react-markdown";
 
@@ -66,7 +66,8 @@ export const AppDetailsPage: React.FC<AppDetailsPageProps> = ({
               href={data.supportUrl}
               target="_blank"
             >
-              <SVG src={supportIcon} />
+              <InlineSVG src={supportIcon} />
+              {/* <SVG src={supportIcon} /> */}
               <FormattedMessage
                 id="Gjb6eq"
                 defaultMessage="Get Support"
@@ -78,7 +79,7 @@ export const AppDetailsPage: React.FC<AppDetailsPageProps> = ({
               disableRipple
               onClick={data.isActive ? onAppDeactivateOpen : onAppActivateOpen}
             >
-              <SVG src={activateIcon} />
+              <InlineSVG src={activateIcon} />
               {data?.isActive ? (
                 <FormattedMessage
                   id="whTEcF"

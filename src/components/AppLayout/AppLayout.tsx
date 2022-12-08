@@ -117,7 +117,7 @@ const useStyles = makeStyles(
 );
 
 interface AppLayoutProps {
-  children: React.ReactNode;
+  children: JSX.Element;
   fullSize?: boolean;
 }
 
@@ -165,8 +165,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({
             onMenuItemClick={handleMenuItemClick}
             logoHref="/"
             linkComponent={SidebarLink}
+            className="abc"
           />
         )}
+        <span>Aloooo</span>
         <div className={classes.content}>
           {appState.loading ? (
             <LinearProgress className={classes.appLoader} color="primary" />

@@ -82,15 +82,9 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                 {ordersToFulfill === undefined ? (
                   <Skeleton />
                 ) : ordersToFulfill === 0 ? (
-                  <Typography>
-                    {intl.formatMessage(messages.noOrders)}
-                  </Typography>
+                  <Typography>0 pending tasks</Typography>
                 ) : (
-                  <Typography>
-                    {intl.formatMessage(messages.orderReady, {
-                      amount: <strong>{ordersToFulfill}</strong>,
-                    })}
-                  </Typography>
+                  <Typography>{ordersToFulfill} pending tasks</Typography>
                 )}
               </TableCell>
               <TableCell className={classes.arrowIcon}>
@@ -102,15 +96,9 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                 {ordersToCapture === undefined ? (
                   <Skeleton />
                 ) : ordersToCapture === 0 ? (
-                  <Typography>
-                    {intl.formatMessage(messages.noPaymentWaiting)}
-                  </Typography>
+                  <Typography>0 complate tasks</Typography>
                 ) : (
-                  <Typography>
-                    {intl.formatMessage(messages.paymentCapture, {
-                      amount: <strong>{ordersToCapture}</strong>,
-                    })}
-                  </Typography>
+                  <Typography>{ordersToCapture} complate tasks</Typography>
                 )}
               </TableCell>
               <TableCell className={classes.arrowIcon}>

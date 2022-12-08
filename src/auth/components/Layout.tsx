@@ -3,7 +3,7 @@ import saleorDarkLogo from "@assets/images/logo-dark.svg";
 import saleorLightLogo from "@assets/images/logo-light.svg";
 import { makeStyles, useTheme } from "@saleor/macaw-ui";
 import React from "react";
-import SVG from "react-inlinesvg";
+import InlineSVG from "react-inlinesvg";
 
 const useStyles = makeStyles(
   theme => ({
@@ -79,14 +79,14 @@ const Layout: React.FC = props => {
   return (
     <div className={classes.root}>
       <div className={classes.mainPanel}>
-        <SVG
+        <InlineSVG
           className={classes.logo}
           src={themeType === "dark" ? saleorDarkLogo : saleorLightLogo}
         />
         <div className={classes.mainPanelContent}>{children}</div>
       </div>
       <div className={classes.sidebar}>
-        <SVG className={classes.sidebarArt} src={backgroundArt} />
+        <InlineSVG className={classes.sidebarArt} src={backgroundArt} />
       </div>
     </div>
   );
