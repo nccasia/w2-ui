@@ -65,6 +65,7 @@ import errorTracker from "./services/errorTracking";
 import ShippingSection from "./shipping";
 import SiteSettingsSection from "./siteSettings";
 import StaffSection from "./staff";
+import TasksSection from "./tasks";
 import TaxesSection from "./taxes";
 import themeOverrides from "./themeOverrides";
 import TranslationsSection from "./translations";
@@ -201,6 +202,11 @@ const Routes: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_ORDERS]}
                 path="/orders"
                 component={OrdersSection}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_ORDERS]}
+                path="/tasks"
+                component={TasksSection}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}

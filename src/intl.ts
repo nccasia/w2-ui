@@ -396,6 +396,11 @@ export const sectionNames = defineMessages({
     defaultMessage: "Home",
     description: "home section name",
   },
+  tasks: {
+    id: "A+ysQp",
+    defaultMessage: "Tasks",
+    description: "task section name",
+  },
   marketplace: {
     id: "ti4Hqw",
     defaultMessage: "Saleor Apps Marketplace",
