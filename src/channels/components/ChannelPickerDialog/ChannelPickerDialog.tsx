@@ -1,42 +1,59 @@
-import { MenuItem } from "@material-ui/core";
+import { MenuItem, TextField } from "@material-ui/core";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { Choice } from "@saleor/components/SingleSelectField";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { Autocomplete, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
-import React from "react";
+import { Task, TaskState, TaskStatus } from "@saleor/tasks/interface/Task";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 
+import { useStyles } from "../styles";
 import { messages } from "./messages";
 
 export interface ChannelPickerDialogProps {
   channelsChoices: Array<Choice<string, string>>;
   confirmButtonState: ConfirmButtonTransitionState;
-  defaultChoice: string;
+  // defaultChoice: string;
   open: boolean;
   onClose: () => void;
-  onConfirm: (choice: string) => void;
+  onConfirm: (fieldNewTask: Task) => void;
 }
 
 const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
   channelsChoices = [],
   confirmButtonState,
-  defaultChoice,
+  // defaultChoice,
   open,
   onClose,
   onConfirm,
 }) => {
+  const classes = useStyles();
   const intl = useIntl();
-  const [choice, setChoice] = useStateFromProps(
-    defaultChoice || (!!channelsChoices.length ? channelsChoices[0].value : ""),
-  );
+  const [choice, setChoice] = useStateFromProps("");
+  const idRandom = new Date().getTime();
+  const [fieldNewTask, setFieldNewTodo] = useState<Task>({
+    id: idRandom.toString(),
+    name: "",
+    userName: "",
+    createdDate: "",
+    status: TaskStatus.READY,
+    type: choice,
+    state: TaskState.WAIT_PM_APPROVE,
+  });
   const { result, search } = useChoiceSearch(channelsChoices);
 
   useModalDialogOpen(open, {
     onClose: () => {
       search("");
-      setChoice(defaultChoice);
+      setChoice("");
+      setFieldNewTodo({
+        ...fieldNewTask,
+        name: "",
+        userName: "",
+        createdDate: "",
+      });
     },
   });
 
@@ -45,7 +62,7 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
       confirmButtonState={confirmButtonState}
       open={open}
       onClose={onClose}
-      onConfirm={() => onConfirm(choice)}
+      onConfirm={() => onConfirm(fieldNewTask)}
       title={intl.formatMessage(messages.selectChannel)}
     >
       <Autocomplete
@@ -55,7 +72,7 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
         data-test-id="channel-autocomplete"
         value={choice}
         onChange={e => setChoice(e.target.value)}
-        onInputChange={search}
+        // onInputChange={setSelectType}
       >
         {({ getItemProps, highlightedIndex }) =>
           result.map((choice, choiceIndex) => (
@@ -70,6 +87,43 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
           ))
         }
       </Autocomplete>
+      {choice && (
+        <div className={classes.inputs} style={{ marginTop: "25px" }}>
+          <TextField
+            onChange={e =>
+              setFieldNewTodo({
+                ...fieldNewTask,
+                name: e.target.value,
+              })
+            }
+            value={fieldNewTask.name}
+            label="Task Name"
+            fullWidth={true}
+          />
+          <TextField
+            onChange={e =>
+              setFieldNewTodo({
+                ...fieldNewTask,
+                userName: e.target.value,
+              })
+            }
+            value={fieldNewTask.userName}
+            label="User"
+            fullWidth={true}
+          />
+          <TextField
+            onChange={e =>
+              setFieldNewTodo({
+                ...fieldNewTask,
+                createdDate: e.target.value,
+              })
+            }
+            value={fieldNewTask.createdDate}
+            type="datetime-local"
+            fullWidth={true}
+          />
+        </div>
+      )}
     </ActionDialog>
   );
 };

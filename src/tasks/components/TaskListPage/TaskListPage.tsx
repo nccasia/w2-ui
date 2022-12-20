@@ -15,7 +15,11 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import TaskList from "../TaskList/TaskList";
 
-const TaskListPage: React.FC = () => {
+interface TaskListPageProps {
+  onAdd: () => void;
+}
+
+const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
   const intl = useIntl();
   const { ORDER_OVERVIEW_CREATE } = useExtensions(
     extensionMountPoints.ORDER_LIST,
@@ -27,6 +31,7 @@ const TaskListPage: React.FC = () => {
         <ButtonWithSelect
           options={extensionCreateButtonItems}
           data-test-id="create-order-button"
+          onClick={onAdd}
         >
           <FormattedMessage
             id="K0G7T1"

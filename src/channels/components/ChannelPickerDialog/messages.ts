@@ -2,13 +2,13 @@ import { defineMessages } from "react-intl";
 
 export const messages = defineMessages({
   channelName: {
-    defaultMessage: "Channel name",
-    id: "nKwgxY",
+    defaultMessage: "Type name",
+    id: "i19abv",
     description: "select label",
   },
   selectChannel: {
-    id: "G/pgG3",
-    defaultMessage: "Select a channel",
+    id: "OKWAD2",
+    defaultMessage: "Select a type",
     description: "dialog header",
   },
 });
