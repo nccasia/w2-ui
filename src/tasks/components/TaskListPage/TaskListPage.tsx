@@ -13,9 +13,14 @@ import { sectionNames } from "@saleor/intl";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import { Task } from "../../model/Task";
 import TaskList from "../TaskList/TaskList";
 
-const TaskListPage: React.FC = () => {
+export interface TaskListPageProps {
+  tasks: Task[] | [];
+}
+
+const TaskListPage: React.FC<TaskListPageProps> = ({ tasks }) => {
   const intl = useIntl();
   const { ORDER_OVERVIEW_CREATE } = useExtensions(
     extensionMountPoints.ORDER_LIST,
@@ -72,7 +77,7 @@ const TaskListPage: React.FC = () => {
           }}
         />
       </Card>
-      <TaskList />
+      <TaskList tasks={tasks} />
     </Container>
   );
 };
