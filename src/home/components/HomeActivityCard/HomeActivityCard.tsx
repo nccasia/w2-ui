@@ -1,6 +1,7 @@
 import {
   Avatar,
   Card,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -55,7 +56,13 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
               <Avatar src={activity.user.avatar} />
               <ListItemText
                 className={classes.listItemText}
-                primary={<Typography>{activity.typeAction} Action</Typography>}
+                primary={
+                  <Typography>
+                    <Link href="#" color="inherit">
+                      {activity.typeAction} Action
+                    </Link>
+                  </Typography>
+                }
                 secondary={<DateTime date={activity.date} />}
               />
             </ListItem>

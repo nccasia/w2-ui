@@ -151,6 +151,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 
   const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
 
+  const logoContent = (
+    <img
+      src="https://avatars.githubusercontent.com/u/57796807?s=200&v=4"
+      height={36}
+      width={36}
+    />
+  );
   return (
     <>
       <Navigator
@@ -164,11 +171,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({
             menuItems={menuStructure}
             onMenuItemClick={handleMenuItemClick}
             logoHref="/"
-            linkComponent={SidebarLink}
-            className="abc"
+            logo={logoContent}
           />
         )}
-        <span>Aloooo</span>
         <div className={classes.content}>
           {appState.loading ? (
             <LinearProgress className={classes.appLoader} color="primary" />

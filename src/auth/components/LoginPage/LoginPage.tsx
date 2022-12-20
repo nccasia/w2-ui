@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { UserContextError } from "@saleor/auth/types";
-import { passwordResetUrl } from "@saleor/auth/urls";
+import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import { AvailableExternalAuthenticationsQuery } from "@saleor/graphql";
@@ -115,19 +115,34 @@ const LoginCard: React.FC<LoginCardProps> = props => {
               <EyeIcon />
             </IconButton>
           </div>
-          <Typography
-            component={Link}
-            className={classes.link}
-            to={passwordResetUrl}
-            variant="body2"
-            data-test-id="reset-password-link"
-          >
-            <FormattedMessage
-              id="3tbL7x"
-              defaultMessage="Forgot password?"
-              description="description"
-            />
-          </Typography>
+          <div className={classes.option}>
+            <Typography
+              component={Link}
+              className={classes.link}
+              to={passwordResetUrl}
+              variant="body2"
+              data-test-id="reset-password-link"
+            >
+              <FormattedMessage
+                id="3tbL7x"
+                defaultMessage="Forgot password?"
+                description="description"
+              />
+            </Typography>
+            <Typography
+              component={Link}
+              className={classes.link}
+              to={signUpResetUrl}
+              variant="body2"
+              data-test-id="signup"
+            >
+              <FormattedMessage
+                id="7qIf/y"
+                defaultMessage="Signup"
+                description="description"
+              />
+            </Typography>
+          </div>
           <div className={classes.buttonContainer}>
             <Button
               className={classes.loginButton}

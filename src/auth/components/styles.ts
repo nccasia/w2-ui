@@ -54,6 +54,10 @@ const useStyles = makeStyles(
     submit: {
       width: "100%",
     },
+    option: {
+      display: "flex",
+      justifyContent: "space-between",
+    },
   }),
   { name: "Login" },
 );
