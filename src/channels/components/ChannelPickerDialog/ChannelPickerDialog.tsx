@@ -18,7 +18,7 @@ export interface ChannelPickerDialogProps {
   // defaultChoice: string;
   open: boolean;
   onClose: () => void;
-  onConfirm: (fieldNewTask: Task) => void;
+  onConfirm?: (fieldNewTask: Task) => void;
 }
 
 const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
