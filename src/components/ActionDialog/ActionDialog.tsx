@@ -12,7 +12,7 @@ export interface ActionDialogProps extends DialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
   disabled?: boolean;
   maxWidth?: Size | false;
-  title: string;
+  title?: string;
   variant?: ActionDialogVariant;
   onConfirm();
 }
