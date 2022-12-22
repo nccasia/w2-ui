@@ -1,32 +1,32 @@
-import { RJSFSchema } from "@rjsf/utils";
-// chia nho file
-export const schema: RJSFSchema = {
+import Ajv from "ajv";
+import { JSONSchemaBridge } from "uniforms-bridge-json-schema";
+
+const ajv = new Ajv({ allErrors: true, useDefaults: true });
+
+const schema = {
+  title: "Person",
   type: "object",
   properties: {
-    NewRequest: {
-      type: "object",
-      properties: {
-        currentOffice: {
-          type: "string",
-          enum: ["one", "two", "three"],
-        },
-        cestinationOffice: {
-          type: "string",
-          enum: ["one", "two", "three"],
-        },
-        createDate: {
-          type: "string",
-          format: "date",
-        },
-        Content: {
-          type: "string",
-        },
-        file: {
-          type: "string",
-          format: "file",
-        },
-      },
-      required: ["currentOffice", "cestinationOffice", "createDate"],
+    firstName: { type: "string" },
+    lastName: { type: "string" },
+    age: {
+      description: "Age in years",
+      type: "integer",
+      minimum: 0,
     },
   },
+  required: ["firstName", "lastName"],
 };
+
+function createValidator(schema: object) {
+  const validator = ajv.compile(schema);
+
+  return (model: object) => {
+    validator(model);
+    return validator.errors?.length ? { details: validator.errors } : null;
+  };
+}
+
+const schemaValidator = createValidator(schema);
+
+export const bridge = new JSONSchemaBridge(schema, schemaValidator);
