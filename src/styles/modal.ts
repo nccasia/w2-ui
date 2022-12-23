@@ -34,14 +34,3 @@ export const iconClose = {
   color: "#fff",
   cursor: "pointer",
 };
-
-export const btnSaveRequest = {
-  padding: "10px 15px",
-  borderRadius: "4px",
-  border: "none",
-  fontSize: 16,
-  fontWeight: 500,
-  background: "#333",
-  color: "#fff",
-  cursor: "pointer",
-};

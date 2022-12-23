@@ -218,6 +218,12 @@ export const useStyles = makeStyles(
         marginRight: theme.spacing(1),
       },
     },
+    root: {
+      marginTop: "30px",
+      "& > *": {
+        margin: "0 0 20px 0",
+      },
+    },
   }),
   { name: "AppList" },
 );

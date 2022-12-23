@@ -4,18 +4,16 @@ import { JSONSchemaBridge } from "uniforms-bridge-json-schema";
 const ajv = new Ajv({ allErrors: true, useDefaults: true });
 
 const schema = {
-  title: "Person",
+  title: "NewRequest",
   type: "object",
   properties: {
-    firstName: { type: "string" },
-    lastName: { type: "string" },
-    age: {
-      description: "Age in years",
-      type: "integer",
-      minimum: 0,
-    },
+    currentOffice: { type: "string" },
+    destinationOffice: { type: "string" },
+    content: { type: "string" },
+    createDate: { type: "string" },
+    file: { type: "string" },
   },
-  required: ["firstName", "lastName"],
+  required: ["currentOffice", "destinationOffice", "createDate"],
 };
 
 function createValidator(schema: object) {

@@ -494,8 +494,26 @@ export type AttributeValueFilterInput = {
 export type AttributeValueInput = {
   /** ID of the selected attribute. */
   id?: InputMaybe<Scalars['ID']>;
-  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
+  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. This field will be removed in Saleor 4.0. */
   values?: InputMaybe<Array<Scalars['String']>>;
+  /**
+   * Attribute value ID.
+   *
+   * Added in Saleor 3.9.
+   */
+  dropdown?: InputMaybe<AttributeValueSelectableTypeInput>;
+  /**
+   * List of attribute value IDs.
+   *
+   * Added in Saleor 3.9.
+   */
+  multiselect?: InputMaybe<Array<AttributeValueSelectableTypeInput>>;
+  /**
+   * Numeric value of an attribute.
+   *
+   * Added in Saleor 3.9.
+   */
+  numeric?: InputMaybe<Scalars['String']>;
   /** URL of the file attribute. Every time, a new value is created. */
   file?: InputMaybe<Scalars['String']>;
   /** File content type. */
@@ -512,6 +530,18 @@ export type AttributeValueInput = {
   date?: InputMaybe<Scalars['Date']>;
   /** Represents the date/time value of the attribute value. */
   dateTime?: InputMaybe<Scalars['DateTime']>;
+};
+
+/**
+ * Represents attribute value. If no ID provided, value will be resolved.
+ *
+ * Added in Saleor 3.9.
+ */
+export type AttributeValueSelectableTypeInput = {
+  /** ID of an attribute value. */
+  id?: InputMaybe<Scalars['ID']>;
+  /** The value or slug of an attribute to resolve. If the passed value is non-existent, it will be created. */
+  value?: InputMaybe<Scalars['String']>;
 };
 
 export type AttributeValueTranslationInput = {
@@ -2784,6 +2814,18 @@ export enum MeasurementUnitsEnum {
   KG = 'KG',
   TONNE = 'TONNE'
 }
+
+export enum MediaChoicesSortField {
+  /** Sort media by ID. */
+  ID = 'ID'
+}
+
+export type MediaSortingInput = {
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort media by the selected field. */
+  field: MediaChoicesSortField;
+};
 
 export type MenuCreateInput = {
   /** Name of the menu. */
