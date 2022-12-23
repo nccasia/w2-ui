@@ -7,7 +7,6 @@ import { useStyles } from "@saleor/apps/styles";
 import QuillEditor from "@saleor/components/QuillEditor/QuillEditor";
 import { iconModal } from "@saleor/styles/modal";
 import React from "react";
-import { useForm } from "uniforms";
 import { AutoForm, ErrorField } from "uniforms-material";
 
 import { bridge as schema } from "./schema";
@@ -33,11 +32,6 @@ const professions = [
 ];
 
 export default function GeneralnewTask() {
-  const context = useForm();
-  console.log(
-    "🚀 ~ file: GeneralNewRequest.tsx:37 ~ GeneralnewTask ~ context",
-    context,
-  );
   const classes = useStyles();
   return (
     <AutoForm schema={schema} onSubmit={e => console.log(e)}>
