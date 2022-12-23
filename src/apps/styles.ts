@@ -223,6 +223,10 @@ export const useStyles = makeStyles(
       "& > *": {
         margin: "0 0 20px 0",
       },
+      "& .MuiOutlinedInput-inputMarginDense": {
+        paddingTop: "25px!important",
+        paddingBottom: "10px!important",
+      },
     },
   }),
   { name: "AppList" },
