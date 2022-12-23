@@ -1,15 +1,11 @@
-// import backgroundArt from "@assets/images/login-background.svg";
-// import saleorDarkLogo from "@assets/images/logo-dark.svg";
-// import saleorLightLogo from "@assets/images/logo-light.svg";
+import logo from "@assets/logo.png";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
-// import InlineSVG from "react-inlinesvg";
 
 const useStyles = makeStyles(
   theme => ({
     logo: {
-      display: "block",
-      width: "36px",
+      height: "36px",
       marginBottom: theme.spacing(4),
     },
     mainPanel: {
@@ -51,6 +47,9 @@ const useStyles = makeStyles(
       overflow: "hidden",
       position: "relative",
       width: "100vw",
+      backgroundPosition: "60% 50%",
+      background:
+        "no-repeat url('https://media-exp1.licdn.com/dms/image/C561BAQFTaio1r_PXdg/company-background_10000/0/1594888793315?e=2147483647&v=beta&t=9MZsyoj8BaO9bMzOYJdkXgXvhtKU_RKMoGakmOzp80k')",
     },
     sidebar: {
       [theme.breakpoints.up("lg")]: {
@@ -60,6 +59,8 @@ const useStyles = makeStyles(
     },
     backgroundImg: {
       height: "100%",
+      width: "100%",
+      objectFit: "cover",
     },
     sidebarArt: {
       "& svg": {
@@ -76,23 +77,17 @@ const Layout: React.FC = props => {
   const { children } = props;
 
   const classes = useStyles(props);
-  // const { themeType } = useTheme();
 
   return (
     <div className={classes.root}>
       <div className={classes.mainPanel}>
-        <img
-          className={classes.logo}
-          src="https://avatars.githubusercontent.com/u/57796807?s=200&v=4"
-        />
+        <div>
+          <img className={classes.logo} src={logo} />
+        </div>
         <div className={classes.mainPanelContent}>{children}</div>
       </div>
       <div className={classes.sidebar}>
-        <img
-          className={classes.backgroundImg}
-          src="https://media-exp1.licdn.com/dms/image/C561BAQFTaio1r_PXdg/company-background_10000/0/1594888793315?e=2147483647&v=beta&t=9MZsyoj8BaO9bMzOYJdkXgXvhtKU_RKMoGakmOzp80k"
-        />
-        {/* <InlineSVG className={classes.sidebarArt} src={backgroundArt} /> */}
+        {/* <img className={classes.backgroundImg} src='https://media-exp1.licdn.com/dms/image/C561BAQFTaio1r_PXdg/company-background_10000/0/1594888793315?e=2147483647&v=beta&t=9MZsyoj8BaO9bMzOYJdkXgXvhtKU_RKMoGakmOzp80k'/> */}
       </div>
     </div>
   );

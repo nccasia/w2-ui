@@ -1,6 +1,5 @@
 import appleTouchIcon from "@assets/favicons/apple-touch-icon.png";
-import favicon16 from "@assets/favicons/favicon-16x16.png";
-import favicon32 from "@assets/favicons/favicon-32x32.png";
+import logoIcon from "@assets/favicons/logo-icon.png";
 import safariPinnedTab from "@assets/favicons/safari-pinned-tab.svg";
 import { useUser } from "@saleor/auth";
 import { ShopInfoQuery, useShopInfoQuery } from "@saleor/graphql";
@@ -21,8 +20,8 @@ export const ShopProvider: React.FC = ({ children }) => {
     <>
       <Helmet>
         <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
-        <link rel="icon" type="image/png" sizes="32x32" href={favicon32} />
-        <link rel="icon" type="image/png" sizes="16x16" href={favicon16} />
+        <link rel="icon" type="image/png" sizes="32x32" href={logoIcon} />
+        <link rel="icon" type="image/png" sizes="16x16" href={logoIcon} />
         <link rel="mask-icon" href={safariPinnedTab} />
       </Helmet>
       <ShopContext.Provider value={data ? data.shop : undefined}>

@@ -17,15 +17,15 @@ export const homeNotificationTableMessages = defineMessages({
     id: "bFhzRX",
     defaultMessage: "No products are out of stock",
   },
-  orderReady: {
-    id: "c0H45L",
+  pendingTasks: {
+    id: "iYFScv",
     defaultMessage:
-      "{amount, plural,one {One order is ready to fulfill} other {{amount} orders are ready to fulfill}}",
+      "{amount, plural,one {One order is ready to fulfill} other {{amount} pending tasks}}",
   },
-  paymentCapture: {
-    id: "md326v",
+  doneTasks: {
+    id: "CJWMt+",
     defaultMessage:
-      "{amount, plural,one {One payment to capture}other {{amount} payments to capture}}",
+      "{amount, plural,one {One payment to capture}other {{amount} done tasks}}",
   },
   productOut: {
     id: "cdxwA8",

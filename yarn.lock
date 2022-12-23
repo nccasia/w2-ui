@@ -2965,7 +2965,7 @@
     "uuid" "^8.3.2"
 
 "@saleor/macaw-ui@github:nccasia/macaw-ui":
-  "resolved" "git+ssh://git@github.com/nccasia/macaw-ui.git#03ce150f7004bfd7ac7cf0d1799c2b2733041e0f"
+  "resolved" "git+ssh://git@github.com/nccasia/macaw-ui.git#a8878fa027229f42c904b42113132d5091deb4c0"
   "version" "0.7.1"
   dependencies:
     "@floating-ui/react-dom-interactions" "^0.5.0"
