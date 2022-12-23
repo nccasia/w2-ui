@@ -1,3 +1,4 @@
+import TaskDetailPage from "@saleor/tasks/components/TaskDetailPage";
 import React from "react";
 
 interface TaskDetailsProps {
@@ -5,6 +6,10 @@ interface TaskDetailsProps {
   params: any;
 }
 
-const TaskDetails: React.FC<TaskDetailsProps> = ({}) => <div>TaskDetails</div>;
+const TaskDetails: React.FC<TaskDetailsProps> = ({}) => (
+  <>
+    <TaskDetailPage />
+  </>
+);
 
 export default TaskDetails;
