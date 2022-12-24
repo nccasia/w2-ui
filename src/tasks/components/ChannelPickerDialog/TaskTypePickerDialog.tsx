@@ -5,6 +5,7 @@ import { Choice } from "@saleor/components/SingleSelectField";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import { iconClose, iconModal, styleModal } from "@saleor/styles/modal";
+import { TaskNewRequest } from "@saleor/tasks/views/TaskList";
 import React, { useState } from "react";
 
 import FormStepCreateTask from "./components/FormCreateTask/FormCreateTask";
@@ -13,12 +14,14 @@ export interface TaskTypePickerDialogProps {
   TypeChoices: Array<Choice<string, string>>;
   open: boolean;
   onClose: () => void;
+  onNewRequest: (data: TaskNewRequest, type: string) => void;
 }
 
 const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
   TypeChoices = [],
   open,
   onClose,
+  onNewRequest,
 }) => {
   const [typeTask, setTypeTask] = useState<string>("");
   const { result, search } = useChoiceSearch(TypeChoices);
@@ -57,6 +60,7 @@ const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
             typeList={result}
             fieldTask={typeTask}
             onSetType={setTypeTask}
+            onNewRequest={onNewRequest}
           />
         </Box>
       </Modal>

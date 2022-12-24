@@ -16,6 +16,15 @@ interface TaskListProps {
   params: TaskListUrlQueryParams;
 }
 
+export interface TaskNewRequest {
+  id?: string;
+  type?: string;
+  currentOffice: string;
+  destinationOffice: string;
+  createDate: string;
+  content: string;
+}
+
 export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   const navigate = useNavigator();
 
@@ -33,6 +42,20 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
     TaskListUrlQueryParams
   >(navigate, orderListUrl, params);
 
+  const handleNewRequest = (data: TaskNewRequest, type: string) => {
+    const idRandom = new Date().getTime().toString();
+    const newRequest: TaskNewRequest = {
+      id: idRandom,
+      type,
+      currentOffice: data.currentOffice || "",
+      destinationOffice: data.destinationOffice || "",
+      createDate: data.createDate,
+      content: data.content || "",
+    };
+    // eslint-disable-next-line no-console
+    console.log("new request", newRequest);
+  };
+
   return (
     <>
       <TaskListPage onAdd={() => openModal("create-task")} />
@@ -41,6 +64,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
           TypeChoices={channelOpts}
           open={params.action === "create-task"}
           onClose={closeModal}
+          onNewRequest={handleNewRequest}
         />
       )}
     </>
