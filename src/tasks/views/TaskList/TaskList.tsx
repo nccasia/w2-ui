@@ -43,17 +43,22 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   >(navigate, orderListUrl, params);
 
   const handleNewRequest = (data: TaskNewRequest, type: string) => {
-    const idRandom = new Date().getTime().toString();
-    const newRequest: TaskNewRequest = {
-      id: idRandom,
-      type,
-      currentOffice: data.currentOffice || "",
-      destinationOffice: data.destinationOffice || "",
-      createDate: data.createDate,
-      content: data.content || "",
-    };
-    // eslint-disable-next-line no-console
-    console.log("new request", newRequest);
+    if (data.currentOffice && data.destinationOffice && data.createDate) {
+      const idRandom = new Date().getTime().toString();
+      const newRequest: TaskNewRequest = {
+        id: idRandom,
+        type,
+        currentOffice: data.currentOffice || "",
+        destinationOffice: data.destinationOffice || "",
+        createDate: data.createDate,
+        content: data.content || "",
+      };
+      // eslint-disable-next-line no-console
+      console.log("New Request Success !", newRequest);
+      closeModal();
+    } else {
+      alert("New Request Failed !");
+    }
   };
 
   return (

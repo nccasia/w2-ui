@@ -90,7 +90,7 @@ export default defineConfig(({ command, mode }) => {
    "qs" package uses 'get-intrinsic' whish refers to the global object, we need to recreate it.
    Issue presents only on development mode.
   */
-  const globals = isDev ? { global: {} } : {};
+  const globals = isDev ? {} : {};
 
   return {
     root: "src",
@@ -101,7 +101,6 @@ export default defineConfig(({ command, mode }) => {
     },
     define: {
       ...globals,
-
       /*
         We still have references to process.env, we need to peserve them as workaround.
       */
