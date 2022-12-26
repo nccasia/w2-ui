@@ -5,7 +5,9 @@ import SelectOffice from "../SelectOffice/SelectOffice";
 
 const FormSchemaProvider: React.FC = ({ children }) => {
   const value = useCallback((props, uniforms) => {
-    if (props.format === "office") {
+    // eslint-disable-next-line no-console
+    console.log("🚀 ~ file: FormSchemaProvider.tsx:8 ~ value ~ props", props);
+    if (props.uiWidget === "COR") {
       return SelectOffice;
     }
     return AutoField.defaultComponentDetector(props, uniforms);

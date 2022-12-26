@@ -1,4 +1,4 @@
-import Ajv, { JSONSchemaType } from "ajv";
+import Ajv from "ajv";
 import { JSONSchemaBridge } from "uniforms-bridge-json-schema";
 
 const ajv = new Ajv({
@@ -7,12 +7,20 @@ const ajv = new Ajv({
   useDefaults: true,
 });
 
-const schema: JSONSchemaType<any> = {
+const schema = {
   title: "NewRequest",
   type: "object",
   properties: {
-    currentOffice: { type: "string", nullable: true, format: "office" },
-    destinationOffice: { type: "string", nullable: true, format: "office" },
+    currentOffice: {
+      type: "string",
+      nullable: true,
+      uniforms: { uiWidget: "COR" },
+    },
+    destinationOffice: {
+      type: "string",
+      nullable: true,
+      uniforms: { uiWidget: "COR" },
+    },
     createDate: {
       type: "object",
       format: "date-time",
@@ -21,7 +29,6 @@ const schema: JSONSchemaType<any> = {
     },
     content: { type: "string", nullable: true },
   },
-  // @ts-ignore
   required: ["createDate"] as never[],
 };
 
@@ -33,6 +40,8 @@ function createValidator(schema: object) {
     return validator.errors?.length ? { details: validator.errors } : null;
   };
 }
+
+ajv.addVocabulary(["uniforms"]);
 
 const schemaValidator = createValidator(schema);
 
