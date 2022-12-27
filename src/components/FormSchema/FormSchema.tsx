@@ -1,9 +1,18 @@
+import { handleSchema, useSchemaAction } from "@saleor/hooks/useSchemaAction";
 import React from "react";
-import { AutoFormProps } from "uniforms";
 import { AutoForm } from "uniforms-material";
 
-type Props<T> = AutoFormProps<T>;
+interface PropsFormSchema {
+  formId: string;
+  onSubmit: any;
+}
 
-export function FormSchema<T = any>(props: Props<T>) {
-  return <AutoForm {...props} />;
+export function FormSchema(props: PropsFormSchema) {
+  handleSchema(props.formId);
+  const { bridge } = useSchemaAction(props.formId);
+  return (
+    <>
+      {bridge ? <AutoForm schema={bridge} onSubmit={props.onSubmit} /> : <></>}
+    </>
+  );
 }

@@ -1,30 +1,22 @@
-/* eslint-disable no-console */
 import { useStyles } from "@saleor/apps/styles";
+import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import React from "react";
-import { AutoForm } from "uniforms-material";
-
-import { bridge as schema } from "./schema";
-// https://github.com/vazco/uniforms/issues/750#issuecomment-646588538
 
 interface Props {
-  fieldTask: string;
-  onNewRequest: (data: any, type: string) => void;
+  formId: string;
+  onNewRequest: (data: any, type: any) => void;
 }
 
-const GeneralnewTask: React.FC<Props> = ({ fieldTask, onNewRequest }) => {
+const GeneralNewRequest: React.FC<Props> = ({ formId, onNewRequest }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AutoForm
-        model={{
-          currentOffice: "HN1",
-          destinationOffice: "HN1",
-        }}
-        schema={schema}
-        onSubmit={newR => onNewRequest(newR, fieldTask)}
+      <FormSchema
+        formId={formId}
+        onSubmit={newR => onNewRequest(newR, formId)}
       />
     </div>
   );
 };
 
-export default GeneralnewTask;
+export default GeneralNewRequest;

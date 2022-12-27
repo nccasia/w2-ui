@@ -1,14 +1,16 @@
 import React, { useCallback } from "react";
 import { AutoField } from "uniforms-material";
 
+import QuillEditorField from "../QuillEditor/QuillEditorField";
 import SelectOffice from "../SelectOffice/SelectOffice";
 
 const FormSchemaProvider: React.FC = ({ children }) => {
   const value = useCallback((props, uniforms) => {
-    // eslint-disable-next-line no-console
-    console.log("🚀 ~ file: FormSchemaProvider.tsx:8 ~ value ~ props", props);
-    if (props.uiWidget === "COR") {
+    if (props.uiComponent === "SelectOffice") {
       return SelectOffice;
+    }
+    if (props.uiComponent === "QuillEditorField") {
+      return QuillEditorField;
     }
     return AutoField.defaultComponentDetector(props, uniforms);
   }, []);

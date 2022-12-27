@@ -4,11 +4,12 @@ import React from "react";
 import ReactQuill from "react-quill";
 
 interface QuillEditorProps {
-  value: string | null;
+  value: string;
+  onChange: (text: any) => void;
 }
 
-const QuillEditor: React.FC<QuillEditorProps> = ({ value }) => {
-  return <ReactQuill theme="snow" value={value} />;
+const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
+  return <ReactQuill theme="snow" value={value} onChange={onChange} />;
 };
 
 export default QuillEditor;

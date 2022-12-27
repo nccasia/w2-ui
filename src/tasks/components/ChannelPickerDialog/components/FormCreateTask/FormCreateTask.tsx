@@ -2,26 +2,36 @@ import { Box } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CloseIcon from "@material-ui/icons/Close";
 import { iconClose, iconModal } from "@saleor/styles/modal";
-import { TaskNewRequest } from "@saleor/tasks/views/TaskList";
 import React, { useState } from "react";
 
-import GeneralnewTask from "../GeneralNewRequest/GeneralNewRequest";
+import GeneralNewRequest from "../GeneralNewRequest/GeneralNewRequest";
 import SelectTypeStep from "../SelectType/SelectType";
 
 interface Props {
   typeList: any;
   onClose: () => void;
-  onNewRequest: (data: TaskNewRequest, type: string) => void;
 }
 
-const FormCreateTask: React.FC<Props> = ({
-  typeList,
-  onClose,
-  onNewRequest,
-}) => {
+const FormCreateTask: React.FC<Props> = ({ typeList, onClose }) => {
   const [typeTask, setTypeTask] = useState<string>("");
 
   const typeName = typeList.find(item => item.value === typeTask);
+
+  const handleNewRequest = (data, type) => {
+    const idRandom = new Date().getTime();
+    const newRequest = {
+      id: `${idRandom}`,
+      type,
+      currentOffice: data.currentOffice || "",
+      destinationOffice: data.destinationOffice || "",
+      createDate: data.createDate,
+      content: data.content || "",
+    };
+    // eslint-disable-next-line no-console
+    console.log("New Request Success !", newRequest);
+    onClose();
+  };
+
   return (
     <>
       <Box sx={iconModal}>
@@ -30,11 +40,11 @@ const FormCreateTask: React.FC<Props> = ({
         ) : (
           <>&nbsp;</>
         )}
-        {typeName !== null ? <b>{typeName?.label}</b> : <></>}
+        {typeName && <b>{typeName?.label}</b>}
         <CloseIcon style={iconClose} onClick={() => onClose()} />
       </Box>
       {typeTask && (
-        <GeneralnewTask fieldTask={typeTask} onNewRequest={onNewRequest} />
+        <GeneralNewRequest formId={typeTask} onNewRequest={handleNewRequest} />
       )}
       {!typeTask && (
         <SelectTypeStep typeList={typeList} onSetType={setTypeTask} />

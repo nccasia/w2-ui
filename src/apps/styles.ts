@@ -228,7 +228,7 @@ export const useStyles = makeStyles(
         paddingBottom: "10px!important",
       },
       "& .MuiButtonBase-root": {
-        // float: "right",
+        float: "right",
         marginTop: 25,
         background: "#333",
         border: "none",
