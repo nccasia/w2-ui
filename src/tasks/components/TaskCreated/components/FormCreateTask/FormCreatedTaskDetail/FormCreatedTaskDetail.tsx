@@ -7,7 +7,7 @@ interface Props {
   onNewRequest: (data: any, type: any) => void;
 }
 
-const GeneralNewRequest: React.FC<Props> = ({ formId, onNewRequest }) => {
+const FormCreatedTaskDetail: React.FC<Props> = ({ formId, onNewRequest }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -19,4 +19,4 @@ const GeneralNewRequest: React.FC<Props> = ({ formId, onNewRequest }) => {
   );
 };
 
-export default GeneralNewRequest;
+export default FormCreatedTaskDetail;

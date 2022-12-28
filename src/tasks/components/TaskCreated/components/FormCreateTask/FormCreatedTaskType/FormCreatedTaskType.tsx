@@ -15,7 +15,7 @@ interface Props {
   onSetType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SelectType: React.FC<Props> = ({ typeList, onSetType }) => {
+const FormCreatedTaskType: React.FC<Props> = ({ typeList, onSetType }) => {
   const [typeSelect, SetTyprSelect] = useState<string>("");
   return (
     <>
@@ -52,4 +52,4 @@ const SelectType: React.FC<Props> = ({ typeList, onSetType }) => {
   );
 };
 
-export default SelectType;
+export default FormCreatedTaskType;

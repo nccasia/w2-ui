@@ -4,8 +4,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import { iconClose, iconModal } from "@saleor/styles/modal";
 import React, { useState } from "react";
 
-import GeneralNewRequest from "../GeneralNewRequest/GeneralNewRequest";
-import SelectTypeStep from "../SelectType/SelectType";
+import FormCreatedTaskDetail from "./FormCreatedTaskDetail/FormCreatedTaskDetail";
+import FormCreatedTaskType from "./FormCreatedTaskType/FormCreatedTaskType";
 
 interface Props {
   typeList: any;
@@ -45,10 +45,13 @@ const FormCreateTask: React.FC<Props> = ({ typeList, onClose }) => {
         <CloseIcon style={iconClose} onClick={() => onClose()} />
       </Box>
       {typeTask && (
-        <GeneralNewRequest formId={typeTask} onNewRequest={handleNewRequest} />
+        <FormCreatedTaskDetail
+          formId={typeTask}
+          onNewRequest={handleNewRequest}
+        />
       )}
       {!typeTask && (
-        <SelectTypeStep typeList={typeList} onSetType={setTypeTask} />
+        <FormCreatedTaskType typeList={typeList} onSetType={setTypeTask} />
       )}
     </>
   );
