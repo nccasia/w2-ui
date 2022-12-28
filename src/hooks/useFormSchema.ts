@@ -6,10 +6,6 @@ const schemaOffice = {
   title: "NewRequestCOR",
   type: "object",
   properties: {
-    other: {
-      type: "string",
-      nullable: true,
-    },
     currentOffice: {
       type: "string",
       nullable: true,
@@ -105,7 +101,7 @@ function createValidator(schema: object) {
 
 ajv.addVocabulary(["uniforms"]);
 
-export function useSchemaAction(typeSelect: string) {
+export function useFormSchema(typeSelect: string) {
   const [schema, setSchema] = useState<any>();
 
   useEffect(() => {

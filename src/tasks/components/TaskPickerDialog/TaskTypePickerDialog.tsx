@@ -41,5 +41,5 @@ const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
     </>
   );
 };
-TaskTypePickerDialog.displayName = "ChannelPickerDialog";
+TaskTypePickerDialog.displayName = "TaskPickerDialog";
 export default TaskTypePickerDialog;

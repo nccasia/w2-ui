@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useCallback } from "react";
 import { useField } from "uniforms";
 import { AutoFieldProps } from "uniforms-material";

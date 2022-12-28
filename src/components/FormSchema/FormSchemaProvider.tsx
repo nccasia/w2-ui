@@ -3,6 +3,7 @@ import { AutoField } from "uniforms-material";
 
 import QuillEditorField from "../QuillEditor/QuillEditorField";
 import SelectOffice from "../SelectOffice/SelectOffice";
+import TestField from "../TestField/TestField";
 
 const FormSchemaProvider: React.FC = ({ children }) => {
   const value = useCallback((props, uniforms) => {
@@ -11,6 +12,9 @@ const FormSchemaProvider: React.FC = ({ children }) => {
     }
     if (props.uiComponent === "QuillEditorField") {
       return QuillEditorField;
+    }
+    if (props.uiComponent === "test") {
+      return TestField;
     }
     return AutoField.defaultComponentDetector(props, uniforms);
   }, []);

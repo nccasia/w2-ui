@@ -1,8 +1,8 @@
 import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
-import TaskTypePickerDialog from "@saleor/tasks/components/ChannelPickerDialog/TaskTypePickerDialog";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
+import TaskTypePickerDialog from "@saleor/tasks/components/TaskPickerDialog/TaskTypePickerDialog";
 import {
   orderListUrl,
   TaskListUrlDialog,

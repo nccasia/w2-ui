@@ -22,6 +22,7 @@ const FormCreateTask: React.FC<Props> = ({ typeList, onClose }) => {
     const newRequest = {
       id: `${idRandom}`,
       type,
+      otherOption: data.otherOption,
       currentOffice: data.currentOffice || "",
       destinationOffice: data.destinationOffice || "",
       createDate: data.createDate,
