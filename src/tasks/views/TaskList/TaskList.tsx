@@ -1,10 +1,29 @@
+import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
+import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
+import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
+import TaskCreation from "@saleor/tasks/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
+import {
+  orderListUrl,
+  TaskListUrlDialog,
+  TaskListUrlQueryParams,
+} from "@saleor/tasks/urls";
+import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
+import { mapNodeToChoice } from "@saleor/utils/maps";
 import React from "react";
 
 import { tasks } from "../../__mock__/Task";
 
-export const TaskList: React.FC = () => {
+interface TaskListProps {
+  params: TaskListUrlQueryParams;
+}
+
+export const TaskList: React.FC<TaskListProps> = ({ params }) => {
+  const navigate = useNavigator();
+
+  const { channel, availableChannels } = useAppChannel(false);
+
   const paginationValues = usePaginator({
     pageInfo: {
       endCursor: "WyIxMjcyMyJd",
@@ -20,10 +39,32 @@ export const TaskList: React.FC = () => {
       after: "WyIxMjcyMyJd",
     },
   });
+
+  // mock api type
+  // eslint-disable-next-line no-console
+  console.log(availableChannels.length);
+  const channelOpts = typeTaskMock ? mapNodeToChoice(typeTaskMock) : null;
+  // --------------
+
+  const noTaskType = !channel && typeof channel !== "undefined";
+  const [openModal, closeModal] = createDialogActionHandlers<
+    TaskListUrlDialog,
+    TaskListUrlQueryParams
+  >(navigate, orderListUrl, params);
+
   return (
-    <PaginatorContext.Provider value={paginationValues}>
-      <TaskListPage tasks={tasks} />
-    </PaginatorContext.Provider>
+    <>
+      <PaginatorContext.Provider value={paginationValues}>
+        <TaskListPage onAdd={() => openModal("create-task")} tasks={tasks} />
+        {!noTaskType && (
+          <TaskCreation
+            TypeChoices={channelOpts}
+            open={params.action === "create-task"}
+            onClose={closeModal}
+          />
+        )}
+      </PaginatorContext.Provider>
+    </>
   );
 };
 

@@ -9,6 +9,10 @@ export const useStyles = makeStyles(
         },
       },
     },
+    container: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
     alignRight: {
       textAlign: "right",
     },
@@ -212,6 +216,24 @@ export const useStyles = makeStyles(
     activateButton: {
       "& img": {
         marginRight: theme.spacing(1),
+      },
+    },
+    root: {
+      marginTop: "30px",
+      "& > *": {
+        margin: "0 0 20px 0",
+      },
+      "& .MuiOutlinedInput-inputMarginDense": {
+        paddingTop: "25px!important",
+        paddingBottom: "10px!important",
+      },
+      "& .MuiButtonBase-root": {
+        float: "right",
+        marginTop: 60,
+        background: "#333",
+        border: "none",
+        color: "#fff",
+        marginRight: 0,
       },
     },
   }),

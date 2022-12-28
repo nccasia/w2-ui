@@ -18,9 +18,10 @@ import TaskList from "../TaskList/TaskList";
 
 export interface TaskListPageProps {
   tasks: Task[] | [];
+  onAdd: () => void;
 }
 
-const TaskListPage: React.FC<TaskListPageProps> = ({ tasks }) => {
+const TaskListPage: React.FC<TaskListPageProps> = ({ tasks, onAdd }) => {
   const intl = useIntl();
   const { ORDER_OVERVIEW_CREATE } = useExtensions(
     extensionMountPoints.ORDER_LIST,
@@ -32,6 +33,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ tasks }) => {
         <ButtonWithSelect
           options={extensionCreateButtonItems}
           data-test-id="create-order-button"
+          onClick={onAdd}
         >
           <FormattedMessage
             id="K0G7T1"

@@ -6,12 +6,12 @@ import SaveFilterTabDialog, {
 } from "@saleor/components/SaveFilterTabDialog";
 import { useShopLimitsQuery } from "@saleor/components/Shop/queries";
 import {
-  useOrderDraftCreateMutation,
+  // useOrderDraftCreateMutation,
   useOrderListQuery,
 } from "@saleor/graphql";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useNotifier from "@saleor/hooks/useNotifier";
+// import useNotifier from "@saleor/hooks/useNotifier";
 import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState,
@@ -26,8 +26,8 @@ import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems, mapNodeToChoice } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
 import React from "react";
-import { useIntl } from "react-intl";
 
+// import { useIntl } from "react-intl";
 import OrderListPage from "../../components/OrderListPage/OrderListPage";
 import {
   orderListUrl,
@@ -35,7 +35,7 @@ import {
   OrderListUrlQueryParams,
   OrderListUrlSortField,
   orderSettingsPath,
-  orderUrl,
+  // orderUrl,
 } from "../../urls";
 import {
   deleteFilterTab,
@@ -55,27 +55,27 @@ interface OrderListProps {
 
 export const OrderList: React.FC<OrderListProps> = ({ params }) => {
   const navigate = useNavigator();
-  const notify = useNotifier();
+  // const notify = useNotifier();
   const { updateListSettings, settings } = useListSettings(
     ListViews.ORDER_LIST,
   );
 
   usePaginationReset(orderListUrl, params, settings.rowNumber);
 
-  const intl = useIntl();
+  // const intl = useIntl();
 
-  const [createOrder] = useOrderDraftCreateMutation({
-    onCompleted: data => {
-      notify({
-        status: "success",
-        text: intl.formatMessage({
-          id: "6udlH+",
-          defaultMessage: "Order draft successfully created",
-        }),
-      });
-      navigate(orderUrl(data.draftOrderCreate.order.id));
-    },
-  });
+  // const [createOrder] = useOrderDraftCreateMutation({
+  //   onCompleted: data => {
+  //     notify({
+  //       status: "success",
+  //       text: intl.formatMessage({
+  //         id: "6udlH+",
+  //         defaultMessage: "Order draft successfully created",
+  //       }),
+  //     });
+  //     navigate(orderUrl(data.draftOrderCreate.order.id));
+  //   },
+  // });
 
   const { channel, availableChannels } = useAppChannel(false);
   const limitOpts = useShopLimitsQuery({
@@ -196,16 +196,16 @@ export const OrderList: React.FC<OrderListProps> = ({ params }) => {
         <ChannelPickerDialog
           channelsChoices={channelOpts}
           confirmButtonState="success"
-          defaultChoice={channel.id}
+          // defaultChoice={channel.id}
           open={params.action === "create-order"}
           onClose={closeModal}
-          onConfirm={channelId =>
-            createOrder({
-              variables: {
-                input: { channelId },
-              },
-            })
-          }
+          // onConfirm={channelId =>
+          //   createOrder({
+          //     variables: {
+          //       input: { channelId },
+          //     },
+          //   })
+          // }
         />
       )}
     </PaginatorContext.Provider>

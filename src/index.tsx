@@ -32,6 +32,7 @@ import useAppChannel, {
 import { DateProvider } from "./components/Date";
 import ErrorPage from "./components/ErrorPage";
 import ExitFormDialogProvider from "./components/Form/ExitFormDialogProvider";
+import FormSchemaProvider from "./components/FormSchema/FormSchemaProvider";
 import { LocaleProvider } from "./components/Locale";
 import MessageManagerProvider from "./components/messages";
 import { ShopProvider } from "./components/Shop";
@@ -94,7 +95,9 @@ const App: React.FC = () => (
                         <AppChannelProvider>
                           <ExternalAppProvider>
                             <ExitFormDialogProvider>
-                              <Routes />
+                              <FormSchemaProvider>
+                                <Routes />
+                              </FormSchemaProvider>
                             </ExitFormDialogProvider>
                           </ExternalAppProvider>
                         </AppChannelProvider>

@@ -22,6 +22,10 @@ export const useStyles = makeStyles(
       marginBottom: theme.spacing(2),
       marginTop: theme.spacing(2),
     },
+    inputs: {
+      display: "grid",
+      rowGap: theme.spacing(3),
+    },
   }),
   { name: "ChannelComponents" },
 );
