@@ -19,7 +19,11 @@ const Task = () => {
   return (
     <Card className={classes.container}>
       <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" />
-      <QuillEditor value="<h1>Hello</h1>" title="Description" />
+      <QuillEditor
+        value="<h1>Hello</h1>"
+        // title="Description"
+        onChange={() => ""}
+      />
     </Card>
   );
 };
