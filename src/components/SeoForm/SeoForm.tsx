@@ -1,10 +1,5 @@
 import { Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { Button } from "@saleor/components/Button";
-import {
-  CollectionErrorFragment,
-  PageErrorFragment,
-  ProductErrorFragment,
-} from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getFieldError, getProductErrorMessage } from "@saleor/utils/errors";
 import getPageErrorMessage from "@saleor/utils/errors/page";
@@ -81,9 +76,7 @@ interface SeoFormProps {
   description?: string | null;
   descriptionPlaceholder: string;
   disabled?: boolean;
-  errors?: Array<
-    PageErrorFragment | ProductErrorFragment | CollectionErrorFragment
-  >;
+  errors?: any[];
   loading?: boolean;
   helperText?: string;
   allowEmptySlug?: boolean;
@@ -142,8 +135,8 @@ const SeoForm: React.FC<SeoFormProps> = props => {
     const { __typename: type } = error;
 
     return type === "ProductError"
-      ? getProductErrorMessage(error as ProductErrorFragment, intl)
-      : getPageErrorMessage(error as PageErrorFragment, intl);
+      ? getProductErrorMessage(error as any, intl)
+      : getPageErrorMessage(error as any, intl);
   };
 
   const handleSlugChange = (event: React.ChangeEvent<any>) => {

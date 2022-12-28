@@ -1,16 +1,11 @@
 import { ApolloClient, ApolloError } from "@apollo/client";
 import { IMessageContext } from "@saleor/components/messages";
 import { DEMO_MODE } from "@saleor/config";
-import { useUserDetailsQuery } from "@saleor/graphql";
+import { useAuth } from "@saleor/hooks/useAuth";
+import { useAuthState } from "@saleor/hooks/useAuthState";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { commonMessages } from "@saleor/intl";
-import {
-  GetExternalAccessTokenData,
-  LoginData,
-  useAuth,
-  useAuthState,
-} from "@saleor/sdk";
 import {
   isSupported as isCredentialsManagementAPISupported,
   login as loginWithCredentialsManagementAPI,
@@ -23,8 +18,6 @@ import urlJoin from "url-join";
 
 import { parseAuthError } from "../errors";
 import {
-  ExternalLoginInput,
-  RequestExternalLoginInput,
   RequestExternalLogoutInput,
   UserContext,
   UserContextError,
@@ -81,14 +74,6 @@ export function useAuthProvider({
     }
   }, [authenticated, authenticating]);
 
-  const userDetails = useUserDetailsQuery({
-    client: apolloClient,
-    skip: !authenticated,
-    // Don't change this to 'network-only' - update of intl provider's
-    // state will cause an error
-    fetchPolicy: "cache-and-network",
-  });
-
   const handleLoginError = (error: ApolloError) => {
     const parsedErrors = parseAuthError(error);
 
@@ -105,11 +90,7 @@ export function useAuthProvider({
       getAppMountUriForRedirect(),
     );
 
-    const result = await logout({
-      input: JSON.stringify({
-        returnTo,
-      } as RequestExternalLogoutInput),
-    });
+    const result = await logout();
 
     if (isCredentialsManagementAPISupported) {
       navigator.credentials.preventSilentAccess();
@@ -163,25 +144,19 @@ export function useAuthProvider({
 
   const handleRequestExternalLogin = async (
     pluginId: string,
-    input: RequestExternalLoginInput,
+    input: any,
   ) => {
-    const result = await getExternalAuthUrl({
-      pluginId,
-      input: JSON.stringify(input),
-    });
+    const result = await getExternalAuthUrl();
 
     return result?.data?.externalAuthenticationUrl;
   };
 
   const handleExternalLogin = async (
     pluginId: string,
-    input: ExternalLoginInput,
+    input: any,
   ) => {
     try {
-      const result = await getExternalAccessToken({
-        pluginId,
-        input: JSON.stringify(input),
-      });
+      const result = null
 
       if (result && !result.data?.externalObtainAccessTokens.errors.length) {
         if (DEMO_MODE) {
@@ -200,7 +175,7 @@ export function useAuthProvider({
   };
 
   const logoutNonStaffUser = async (
-    data: LoginData | GetExternalAccessTokenData,
+    data: any,
   ) => {
     if (data.user && !data.user.isStaff) {
       notify({
@@ -219,7 +194,7 @@ export function useAuthProvider({
     logout: handleLogout,
     authenticating: authenticating && !errors.length,
     authenticated: authenticated && user?.isStaff,
-    user: userDetails.data?.me,
+    user: null,
     errors,
   };
 }

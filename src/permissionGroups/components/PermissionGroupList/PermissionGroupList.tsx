@@ -10,7 +10,6 @@ import { TableButtonWrapper } from "@saleor/components/TableButtonWrapper/TableB
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { PermissionGroupFragment } from "@saleor/graphql";
 import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection, stopPropagation } from "@saleor/misc";
 import {
@@ -59,7 +58,7 @@ const numberOfColumns = 3;
 interface PermissionGroupListProps
   extends ListProps,
     SortPage<PermissionGroupListUrlSortField> {
-  permissionGroups: PermissionGroupFragment[];
+  permissionGroups: any[];
   onDelete: (id: string) => void;
 }
 

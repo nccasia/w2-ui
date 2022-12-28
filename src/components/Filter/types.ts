@@ -1,4 +1,3 @@
-import { PermissionEnum } from "@saleor/graphql";
 import { FetchMoreProps, KeyValue, SearchPageProps } from "@saleor/types";
 import { MessageDescriptor } from "react-intl";
 
@@ -60,7 +59,7 @@ type FilterElementCommon<K extends string = string> = {
   required?: boolean;
   id?: string;
   dependencies?: string[];
-  permissions?: PermissionEnum[];
+  permissions?: any[];
   multipleFields?: Array<FilterElement<K>>;
 } & FilterElementCommonData &
   Partial<FetchMoreProps & SearchPageProps>;

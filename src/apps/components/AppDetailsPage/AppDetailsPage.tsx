@@ -8,7 +8,6 @@ import Container from "@saleor/components/Container";
 import ExternalLink from "@saleor/components/ExternalLink";
 import PageHeader from "@saleor/components/PageHeader";
 import Skeleton from "@saleor/components/Skeleton";
-import { AppQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import React from "react";
 import InlineSVG from "react-inlinesvg";
@@ -22,7 +21,7 @@ import DeactivatedText from "../DeactivatedText";
 
 export interface AppDetailsPageProps {
   loading: boolean;
-  data: AppQuery["app"];
+  data: any;
   navigateToApp: () => void;
   onAppActivateOpen: () => void;
   onAppDeactivateOpen: () => void;

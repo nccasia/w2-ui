@@ -1,6 +1,5 @@
 import { Card, CardContent, TextField } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
-import { MenuErrorFragment } from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { getFormErrors } from "@saleor/utils/errors";
 import getMenuErrorMessage from "@saleor/utils/errors/menu";
@@ -12,7 +11,7 @@ import { MenuDetailsFormData } from "../MenuDetailsPage";
 export interface MenuPropertiesProps {
   data: MenuDetailsFormData;
   disabled: boolean;
-  errors: MenuErrorFragment[];
+  errors: any[];
   onChange: (event: React.ChangeEvent<any>) => void;
 }
 

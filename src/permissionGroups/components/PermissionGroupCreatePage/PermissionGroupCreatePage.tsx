@@ -4,7 +4,6 @@ import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Savebar from "@saleor/components/Savebar";
-import { PermissionEnum, PermissionGroupErrorFragment } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
@@ -22,7 +21,7 @@ export interface PermissionGroupCreateFormData {
   name: string;
   hasFullAccess: boolean;
   isActive: boolean;
-  permissions: PermissionEnum[];
+  permissions: any[];
 }
 
 const initialForm: PermissionGroupCreateFormData = {
@@ -34,7 +33,7 @@ const initialForm: PermissionGroupCreateFormData = {
 
 export interface PermissionGroupCreatePageProps {
   disabled: boolean;
-  errors: PermissionGroupErrorFragment[];
+  errors: any[];
   permissions: PermissionData[];
   saveButtonBarState: ConfirmButtonTransitionState;
   onSubmit: (data: PermissionGroupCreateFormData) => SubmitPromise;

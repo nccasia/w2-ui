@@ -1,4 +1,3 @@
-import { AppPermissionFragment } from "@saleor/graphql";
 import {
   IconButton,
   makeStyles,
@@ -19,7 +18,7 @@ const useStyles = makeStyles(
 );
 
 interface AppPermissionsProps {
-  permissions: AppPermissionFragment[];
+  permissions: any;
 }
 
 export const AppPermissions = ({ permissions }: AppPermissionsProps) => {

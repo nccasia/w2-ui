@@ -1,4 +1,3 @@
-import { AttributeEntityTypeEnum, SearchPagesQuery } from "@saleor/graphql";
 import { RelayToFlat } from "@saleor/types";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";

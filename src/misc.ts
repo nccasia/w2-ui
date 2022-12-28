@@ -1,23 +1,12 @@
 import { FetchResult, MutationFunction, MutationResult } from "@apollo/client";
-import {
-  AddressInput,
-  CountryCode,
-  DateRangeInput,
-  OrderStatus,
-  PaymentChargeStatusEnum,
-} from "@saleor/graphql";
 import { ConfirmButtonTransitionState, ThemeType } from "@saleor/macaw-ui";
 import uniqBy from "lodash/uniqBy";
 import moment from "moment-timezone";
 import { IntlShape } from "react-intl";
 
 import { MultiAutocompleteChoiceType } from "./components/MultiAutocompleteSelectField";
-import { AddressType, AddressTypeInput } from "./customers/types";
 import {
-  commonStatusMessages,
   errorMessages,
-  orderStatusMessages,
-  paymentStatusMessages,
 } from "./intl";
 import {
   MutationResultAdditionalProps,
@@ -75,109 +64,21 @@ export const removeDoubleSlashes = (url: string) =>
 
 export const transformPaymentStatus = (
   status: string,
-  intl: IntlShape,
-): { localized: string; status: StatusType } => {
-  switch (status) {
-    case PaymentChargeStatusEnum.PARTIALLY_CHARGED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.partiallyPaid),
-        status: StatusType.ERROR,
-      };
-    case PaymentChargeStatusEnum.FULLY_CHARGED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.paid),
-        status: StatusType.SUCCESS,
-      };
-    case PaymentChargeStatusEnum.PARTIALLY_REFUNDED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.partiallyRefunded),
-        status: StatusType.INFO,
-      };
-    case PaymentChargeStatusEnum.FULLY_REFUNDED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.refunded),
-        status: StatusType.INFO,
-      };
-    case PaymentChargeStatusEnum.PENDING:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.pending),
-        status: StatusType.WARNING,
-      };
-    case PaymentChargeStatusEnum.REFUSED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.refused),
-        status: StatusType.ERROR,
-      };
-    case PaymentChargeStatusEnum.CANCELLED:
-      return {
-        localized: intl.formatMessage(commonStatusMessages.cancelled),
-        status: StatusType.ERROR,
-      };
-    case PaymentChargeStatusEnum.NOT_CHARGED:
-      return {
-        localized: intl.formatMessage(paymentStatusMessages.unpaid),
-        status: StatusType.ERROR,
-      };
-  }
-  return {
+  _intl: IntlShape,
+): { localized: string; status: StatusType } => ({
     localized: status,
     status: StatusType.ERROR,
-  };
-};
+  });
 
 export const transformOrderStatus = (
   status: string,
-  intl: IntlShape,
-): { localized: string; status: StatusType } => {
-  switch (status) {
-    case OrderStatus.FULFILLED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.fulfilled),
-        status: StatusType.SUCCESS,
-      };
-    case OrderStatus.PARTIALLY_FULFILLED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.partiallyFulfilled),
-        status: StatusType.WARNING,
-      };
-    case OrderStatus.UNFULFILLED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.unfulfilled),
-        status: StatusType.ERROR,
-      };
-    case OrderStatus.CANCELED:
-      return {
-        localized: intl.formatMessage(commonStatusMessages.cancelled),
-        status: StatusType.ERROR,
-      };
-    case OrderStatus.DRAFT:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.draft),
-        status: StatusType.INFO,
-      };
-    case OrderStatus.UNCONFIRMED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.unconfirmed),
-        status: StatusType.INFO,
-      };
-    case OrderStatus.PARTIALLY_RETURNED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.partiallyReturned),
-        status: StatusType.INFO,
-      };
-    case OrderStatus.RETURNED:
-      return {
-        localized: intl.formatMessage(orderStatusMessages.returned),
-        status: StatusType.INFO,
-      };
-  }
-  return {
+  _intl: IntlShape,
+): { localized: string; status: StatusType } => ({
     localized: status,
     status: StatusType.ERROR,
-  };
-};
+  });
 
-export const transformAddressToForm = (data?: AddressType) => ({
+export const transformAddressToForm = (data?: any) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
   companyName: data?.companyName || "",
@@ -444,11 +345,11 @@ export function capitalize(s: string) {
 }
 
 export function transformFormToAddressInput<T>(
-  address: T & AddressTypeInput,
-): T & AddressInput {
+  address: T & any,
+): T & any {
   return {
     ...address,
-    country: findInEnum(address.country, CountryCode),
+    country: findInEnum(address.country, 'CountryCode'),
   };
 }
 
@@ -459,7 +360,7 @@ export function getStringOrPlaceholder(
   return s || placeholder || "...";
 }
 
-export const getDatePeriod = (days: number): DateRangeInput => {
+export const getDatePeriod = (days: number): any => {
   if (days < 1) {
     return {};
   }
@@ -476,11 +377,11 @@ export const getDatePeriod = (days: number): DateRangeInput => {
 
 export const isDarkTheme = (themeType: ThemeType) => themeType === "dark";
 
-export const transformAddressToAddressInput = (data?: AddressType) => ({
+export const transformAddressToAddressInput = (data?: any) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
   companyName: data?.companyName || "",
-  country: findInEnum(data?.country?.code || "", CountryCode),
+  country: findInEnum(data?.country?.code || "", 'CountryCode'),
   countryArea: data?.countryArea || "",
   firstName: data?.firstName || "",
   lastName: data?.lastName || "",

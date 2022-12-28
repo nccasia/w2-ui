@@ -1,8 +1,4 @@
 import { Typography } from "@material-ui/core";
-import {
-  SearchPermissionGroupsQuery,
-  StaffErrorFragment,
-} from "@saleor/graphql";
 import { FormChange } from "@saleor/hooks/useForm";
 import { FetchMoreProps, RelayToFlat, SearchPageProps } from "@saleor/types";
 import { getFormErrors } from "@saleor/utils/errors";
@@ -21,8 +17,8 @@ export interface AccountPermissionGroupsProps
     permissionGroups: string[];
   };
   disabled: boolean;
-  errors: StaffErrorFragment[];
-  availablePermissionGroups: RelayToFlat<SearchPermissionGroupsQuery["search"]>;
+  errors: any;
+  availablePermissionGroups: RelayToFlat<any>;
   onChange: FormChange;
   displayValues: MultiAutocompleteChoiceType[];
 }

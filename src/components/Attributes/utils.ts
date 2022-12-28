@@ -4,17 +4,12 @@ import { FileChoiceType } from "@saleor/components/FileUploadField";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import { SortableChipsFieldValueType } from "@saleor/components/SortableChipsField";
-import {
-  AttributeValueFragment,
-  PageErrorWithAttributesFragment,
-  ProductErrorWithAttributesFragment,
-} from "@saleor/graphql";
 import { getProductErrorMessage } from "@saleor/utils/errors";
 import getPageErrorMessage from "@saleor/utils/errors/page";
 import { IntlShape } from "react-intl";
 
 export function getSingleChoices(
-  values: AttributeValueFragment[],
+  values: any[],
 ): SingleAutocompleteChoiceType[] {
   return values.map(value => ({
     label: value.name,
@@ -83,7 +78,7 @@ export function getReferenceDisplayValue(
 }
 
 export function getMultiChoices(
-  values: AttributeValueFragment[],
+  values: any[],
 ): MultiAutocompleteChoiceType[] {
   return values.map(value => ({
     label: value.name,
@@ -93,7 +88,7 @@ export function getMultiChoices(
 
 export function getSingleDisplayValue(
   attribute: AttributeInput,
-  attributeValues: AttributeValueFragment[],
+  attributeValues: any[],
 ): string {
   return (
     attributeValues.find(value => value.slug === attribute.value[0])?.name ||
@@ -106,7 +101,7 @@ export function getSingleDisplayValue(
 
 export function getMultiDisplayValue(
   attribute: AttributeInput,
-  attributeValues: AttributeValueFragment[],
+  attributeValues: any[],
 ): MultiAutocompleteChoiceType[] {
   if (!attribute.value) {
     return [];
@@ -135,7 +130,7 @@ export function getMultiDisplayValue(
 }
 
 export function getErrorMessage(
-  err: ProductErrorWithAttributesFragment | PageErrorWithAttributesFragment,
+  err: any,
   intl: IntlShape,
 ): string {
   switch (err?.__typename) {

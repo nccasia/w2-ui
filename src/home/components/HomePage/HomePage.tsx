@@ -4,10 +4,8 @@ import Grid from "@saleor/components/Grid";
 import Money from "@saleor/components/Money";
 import RequirePermissions from "@saleor/components/RequirePermissions";
 import Skeleton from "@saleor/components/Skeleton";
-import { HomeQuery, PermissionEnum } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import { IActivityAction } from "@saleor/type/Task";
-import { RelayToFlat } from "@saleor/types";
 import React from "react";
 
 import Orders from "../../../icons/Orders";
@@ -46,13 +44,13 @@ export interface HomePageProps {
   ordersToCapture: number | null;
   ordersToFulfill: number | null;
   productsOutOfStock: number;
-  sales: HomeQuery["salesToday"]["gross"];
-  topProducts: RelayToFlat<HomeQuery["productTopToday"]> | null;
+  sales: any;
+  topProducts: any;
   userName: string;
-  createNewChannelHref: string;
-  ordersToFulfillHref: string;
-  ordersToCaptureHref: string;
-  productsOutOfStockHref: string;
+  createNewChannelHref?: string;
+  ordersToFulfillHref?: string;
+  ordersToCaptureHref?: string;
+  productsOutOfStockHref?: string;
   noChannel: boolean;
 }
 
@@ -82,7 +80,7 @@ const HomePage: React.FC<HomePageProps> = props => {
       <Grid>
         <div>
           <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
+            requiredPermissions={['MANAGE_ORDERS']}
           >
             <div className={classes.cardContainer}>
               <HomeAnalyticsCard
@@ -139,8 +137,6 @@ const HomePage: React.FC<HomePageProps> = props => {
           {topProducts && (
             <RequirePermissions
               requiredPermissions={[
-                PermissionEnum.MANAGE_ORDERS,
-                PermissionEnum.MANAGE_PRODUCTS,
               ]}
             >
               <HomeProductListCard
@@ -154,7 +150,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         {activities && (
           <div>
             <RequirePermissions
-              requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
+              requiredPermissions={['MANAGE_ORDERS']}
             >
               <HomeActivityCard activities={activities} />
             </RequirePermissions>

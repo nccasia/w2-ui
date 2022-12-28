@@ -1,10 +1,5 @@
 import { appMessages } from "@saleor/apps/messages";
 import NotFoundPage from "@saleor/components/NotFoundPage";
-import {
-  useAppActivateMutation,
-  useAppDeactivateMutation,
-  useAppQuery,
-} from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import getAppErrorMessage from "@saleor/utils/errors/app";

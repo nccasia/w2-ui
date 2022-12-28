@@ -1,20 +1,15 @@
 import appleTouchIcon from "@assets/favicons/apple-touch-icon.png";
 import logoIcon from "@assets/favicons/logo-icon.png";
 import safariPinnedTab from "@assets/favicons/safari-pinned-tab.svg";
-import { useUser } from "@saleor/auth";
-import { ShopInfoQuery, useShopInfoQuery } from "@saleor/graphql";
 import React from "react";
 import Helmet from "react-helmet";
 
-type ShopContext = ShopInfoQuery["shop"];
+type ShopContext = any;
 
 export const ShopContext = React.createContext<ShopContext>(undefined);
 
 export const ShopProvider: React.FC = ({ children }) => {
-  const { authenticated, user } = useUser();
-  const { data } = useShopInfoQuery({
-    skip: !authenticated || !user,
-  });
+  const { data } =  { data: null }
 
   return (
     <>

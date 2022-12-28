@@ -1,13 +1,12 @@
-import { MenuSortField } from "@saleor/graphql";
 import { MenuListUrlSortField } from "@saleor/navigation/urls";
 import { createGetSortQueryVariables } from "@saleor/utils/sort";
 
-export function getSortQueryField(sort: MenuListUrlSortField): MenuSortField {
+export function getSortQueryField(sort: MenuListUrlSortField): any {
   switch (sort) {
     case MenuListUrlSortField.name:
-      return MenuSortField.NAME;
+      return 'NAME';
     case MenuListUrlSortField.items:
-      return MenuSortField.ITEMS_COUNT;
+      return 'ITEMS_COUNT';
     default:
       return undefined;
   }

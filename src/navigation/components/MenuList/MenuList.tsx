@@ -8,7 +8,6 @@ import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { MenuFragment } from "@saleor/graphql";
 import { DeleteIcon, makeStyles } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { MenuListUrlSortField, menuUrl } from "@saleor/navigation/urls";

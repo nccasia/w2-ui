@@ -4,7 +4,6 @@ import RequirePermissions from "@saleor/components/RequirePermissions";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { PermissionEnum } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -60,7 +59,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
         <TableBody className={classes.tableRow}>
           {noChannel && (
             <RequirePermissions
-              requiredPermissions={[PermissionEnum.MANAGE_CHANNELS]}
+              requiredPermissions={['MANAGE_CHANNELS']}
             >
               <TableRowLink hover={true} href={createNewChannelHref}>
                 <TableCell>
@@ -75,7 +74,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
             </RequirePermissions>
           )}
           <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
+            requiredPermissions={['MANAGE_ORDERS']}
           >
             <TableRowLink hover={true} href={ordersToFulfillHref}>
               <TableCell data-test-id="orders-to-fulfill">
@@ -119,7 +118,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
             </TableRowLink>
           </RequirePermissions>
           <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_PRODUCTS]}
+            requiredPermissions={['MANAGE_PRODUCTS']}
           >
             <TableRowLink hover={true} href={productsOutOfStockHref}>
               <TableCell data-test-id="products-out-of-stock">

@@ -1,13 +1,12 @@
 import { useUserPermissions } from "@saleor/auth/hooks/useUserPermissions";
-import { PermissionEnum, UserPermissionFragment } from "@saleor/graphql";
 import React from "react";
 
 const findPerm = (permList, perm) =>
   permList.find(userPerm => userPerm.code === perm);
 
 export function hasPermissions(
-  userPermissions: UserPermissionFragment[],
-  requiredPermissions: PermissionEnum[],
+  userPermissions: any[],
+  requiredPermissions: any[],
 ): boolean {
   return requiredPermissions.reduce(
     (acc, perm) => acc && !!findPerm(userPermissions, perm),
@@ -16,16 +15,16 @@ export function hasPermissions(
 }
 
 export function hasOneOfPermissions(
-  userPermissions: UserPermissionFragment[],
-  givenPermissions: PermissionEnum[],
+  userPermissions: any[],
+  givenPermissions: any[],
 ): boolean {
   return givenPermissions.some(perm => !!findPerm(userPermissions, perm));
 }
 
 export interface RequirePermissionsProps {
   children: React.ReactNode | React.ReactNodeArray;
-  requiredPermissions?: PermissionEnum[];
-  oneOfPermissions?: PermissionEnum[];
+  requiredPermissions?: any[];
+  oneOfPermissions?: any[];
 }
 
 const RequirePermissions: React.FC<RequirePermissionsProps> = ({

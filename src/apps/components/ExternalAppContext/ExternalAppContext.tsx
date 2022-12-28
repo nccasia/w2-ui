@@ -1,5 +1,4 @@
 import { appDeepUrl, AppDetailsUrlMountQueryParams } from "@saleor/apps/urls";
-import { AppExtensionTargetEnum } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import React from "react";
 
@@ -11,7 +10,7 @@ export interface AppData {
   appToken: string;
   src: string;
   label: string;
-  target: AppExtensionTargetEnum;
+  target: any;
   params?: AppDetailsUrlMountQueryParams;
 }
 
@@ -53,7 +52,7 @@ export const useExternalApp = () => {
   const navigate = useNavigator();
 
   const openApp = (appData: AppData) => {
-    if (appData.target === AppExtensionTargetEnum.POPUP) {
+    if (appData.target === 'POPUP') {
       setOpen(true);
       setAppData(appData);
     } else {

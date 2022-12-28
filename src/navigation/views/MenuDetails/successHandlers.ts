@@ -1,9 +1,3 @@
-import {
-  MenuDeleteMutation,
-  MenuItemCreateMutation,
-  MenuItemUpdateMutation,
-  MenuUpdateMutation,
-} from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { IntlShape } from "react-intl";
 
@@ -12,7 +6,7 @@ import { UseNotifierResult } from "../../../hooks/useNotifier";
 import { menuListUrl, menuUrl } from "../../urls";
 
 export function handleItemCreate(
-  data: MenuItemCreateMutation,
+  data: any,
   notify: UseNotifierResult,
   closeModal: () => void,
   intl: IntlShape,
@@ -27,7 +21,7 @@ export function handleItemCreate(
 }
 
 export function handleItemUpdate(
-  data: MenuItemUpdateMutation,
+  data: any,
   id: string,
   navigate: UseNavigatorResult,
   notify: UseNotifierResult,
@@ -48,7 +42,7 @@ export function handleItemUpdate(
 }
 
 export function handleDelete(
-  data: MenuDeleteMutation,
+  data: any,
   navigate: UseNavigatorResult,
   notify: UseNotifierResult,
   intl: IntlShape,
@@ -63,7 +57,7 @@ export function handleDelete(
 }
 
 export function handleUpdate(
-  data: MenuUpdateMutation,
+  data: any,
   notify: UseNotifierResult,
   refetch: () => void,
   intl: IntlShape,

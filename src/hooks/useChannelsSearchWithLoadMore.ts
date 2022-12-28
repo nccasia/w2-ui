@@ -1,4 +1,3 @@
-import { useBaseChannelsQuery } from "@saleor/graphql";
 import chunk from "lodash/chunk";
 import compact from "lodash/compact";
 import concat from "lodash/concat";
@@ -15,7 +14,7 @@ const INITIAL_INDEX = 0;
 export const useChannelsSearchWithLoadMore = (
   itemsPerPage: number = DEFAULT_ITEMS_PER_PAGE,
 ): ChannelsWithLoadMoreProps => {
-  const { data, loading } = useBaseChannelsQuery({});
+  const { data, loading } = { data: { channels: [] }, loading: false } as any; // useChannels
 
   const {
     query,

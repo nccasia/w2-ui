@@ -8,7 +8,6 @@ import { UserContextError } from "@saleor/auth/types";
 import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
 import { FormSpacer } from "@saleor/components/FormSpacer";
-import { AvailableExternalAuthenticationsQuery } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { EyeIcon, IconButton } from "@saleor/macaw-ui";
@@ -24,7 +23,7 @@ export interface LoginCardProps {
   errors: UserContextError[];
   disabled: boolean;
   loading: boolean;
-  externalAuthentications?: AvailableExternalAuthenticationsQuery["shop"]["availableExternalAuthentications"];
+  externalAuthentications?: any;
   onExternalAuthentication: (pluginId: string) => void;
   onSubmit?: (event: LoginFormData) => SubmitPromise;
 }

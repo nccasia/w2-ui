@@ -1,32 +1,25 @@
-import { AddressTypeInput } from "@saleor/customers/types";
-import {
-  AccountErrorCode,
-  AccountErrorFragment,
-  AddressInput,
-  AddressTypeEnum,
-} from "@saleor/graphql";
 import { transformFormToAddressInput } from "@saleor/misc";
 import { add, remove } from "@saleor/utils/lists";
 import { useState } from "react";
 
 interface UseAddressValidation<TInput, TOutput> {
-  errors: AccountErrorFragment[];
+  errors: any[];
   submit: (
-    data: TInput & AddressTypeInput,
-  ) => TOutput | Promise<AccountErrorFragment[]>;
+    data: TInput & any,
+  ) => TOutput | Promise<any[]>;
 }
 
 function useAddressValidation<TInput, TOutput>(
-  onSubmit: (address: TInput & AddressInput) => TOutput,
-  addressType?: AddressTypeEnum,
+  onSubmit: (address: TInput & any) => TOutput,
+  addressType?: any,
 ): UseAddressValidation<TInput, TOutput> {
   const [validationErrors, setValidationErrors] = useState<
-    AccountErrorFragment[]
+    any[]
   >([]);
 
-  const countryRequiredError: AccountErrorFragment = {
+  const countryRequiredError: any = {
     __typename: "AccountError",
-    code: AccountErrorCode.REQUIRED,
+    code: 'REQUIRED',
     field: "country",
     addressType,
     message: "Country required",
@@ -34,7 +27,7 @@ function useAddressValidation<TInput, TOutput>(
 
   return {
     errors: validationErrors,
-    submit: (data: TInput & AddressTypeInput) => {
+    submit: (data: TInput & any) => {
       try {
         setValidationErrors(
           remove(

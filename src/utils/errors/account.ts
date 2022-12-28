@@ -1,4 +1,3 @@
-import { AccountErrorCode } from "@saleor/graphql";
 import { SetPasswordData } from "@saleor/sdk";
 import { defineMessages, IntlShape } from "react-intl";
 
@@ -48,35 +47,35 @@ const messages = defineMessages({
 });
 
 interface ErrorFragment {
-  code: AccountErrorCode | SetPasswordData["errors"][number]["code"];
+  code: any;
   field: string | null;
 }
 
 function getAccountErrorMessage(err: ErrorFragment, intl: IntlShape): string {
-  if (err) {
-    switch (err.code) {
-      case AccountErrorCode.INVALID_PASSWORD:
-        return intl.formatMessage(messages.invalidPassword);
-      case AccountErrorCode.OUT_OF_SCOPE_USER:
-        return intl.formatMessage(messages.outOfScopeUser);
-      case AccountErrorCode.OUT_OF_SCOPE_GROUP:
-        return intl.formatMessage(messages.outOfScopeGroup);
-      case AccountErrorCode.PASSWORD_ENTIRELY_NUMERIC:
-        return intl.formatMessage(messages.passwordNumeric);
-      case AccountErrorCode.PASSWORD_TOO_COMMON:
-        return intl.formatMessage(messages.tooCommon);
-      case AccountErrorCode.PASSWORD_TOO_SHORT:
-        return intl.formatMessage(messages.tooShort);
-      case AccountErrorCode.PASSWORD_TOO_SIMILAR:
-        return intl.formatMessage(messages.tooSimilar);
-      case AccountErrorCode.UNIQUE:
-        return intl.formatMessage(messages.unique);
-      case AccountErrorCode.INVALID:
-        return intl.formatMessage(messages.invalidToken);
-      case AccountErrorCode.NOT_FOUND:
-        return intl.formatMessage(messages.userNotFound);
-    }
-  }
+  // if (err) {
+  //   switch (err.code) {
+  //     case AccountErrorCode.INVALID_PASSWORD:
+  //       return intl.formatMessage(messages.invalidPassword);
+  //     case AccountErrorCode.OUT_OF_SCOPE_USER:
+  //       return intl.formatMessage(messages.outOfScopeUser);
+  //     case AccountErrorCode.OUT_OF_SCOPE_GROUP:
+  //       return intl.formatMessage(messages.outOfScopeGroup);
+  //     case AccountErrorCode.PASSWORD_ENTIRELY_NUMERIC:
+  //       return intl.formatMessage(messages.passwordNumeric);
+  //     case AccountErrorCode.PASSWORD_TOO_COMMON:
+  //       return intl.formatMessage(messages.tooCommon);
+  //     case AccountErrorCode.PASSWORD_TOO_SHORT:
+  //       return intl.formatMessage(messages.tooShort);
+  //     case AccountErrorCode.PASSWORD_TOO_SIMILAR:
+  //       return intl.formatMessage(messages.tooSimilar);
+  //     case AccountErrorCode.UNIQUE:
+  //       return intl.formatMessage(messages.unique);
+  //     case AccountErrorCode.INVALID:
+  //       return intl.formatMessage(messages.invalidToken);
+  //     case AccountErrorCode.NOT_FOUND:
+  //       return intl.formatMessage(messages.userNotFound);
+  //   }
+  // }
 
   return getCommonFormFieldErrorMessage(err, intl);
 }

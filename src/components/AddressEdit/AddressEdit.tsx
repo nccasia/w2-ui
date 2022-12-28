@@ -1,6 +1,4 @@
 import { TextField } from "@material-ui/core";
-import { AddressTypeInput } from "@saleor/customers/types";
-import { AccountErrorFragment, OrderErrorFragment } from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getFormErrors } from "@saleor/utils/errors";
@@ -28,15 +26,15 @@ const useStyles = makeStyles(
 interface AddressEditProps {
   countries: SingleAutocompleteChoiceType[];
   countryDisplayValue: string;
-  data: AddressTypeInput;
+  data: any;
   disabled?: boolean;
-  errors: Array<AccountErrorFragment | OrderErrorFragment>;
+  errors: Array<any | any>;
   onChange(event: React.ChangeEvent<any>);
   onCountryChange(event: React.ChangeEvent<any>);
 }
 
 function getErrorMessage(
-  err: AccountErrorFragment | OrderErrorFragment,
+  err: any | any,
   intl: IntlShape,
 ): string {
   if (err?.__typename === "AccountError") {
@@ -60,7 +58,7 @@ const AddressEdit: React.FC<AddressEditProps> = props => {
   const classes = useStyles(props);
   const intl = useIntl();
 
-  const formFields: Array<keyof AddressTypeInput> = [
+  const formFields: Array<keyof any> = [
     "city",
     "cityArea",
     "country",
@@ -74,10 +72,7 @@ const AddressEdit: React.FC<AddressEditProps> = props => {
     "streetAddress2",
   ];
 
-  const formErrors = getFormErrors<
-    keyof AddressTypeInput,
-    AccountErrorFragment | OrderErrorFragment
-  >(formFields, errors);
+  const formErrors = getFormErrors(formFields, errors);
 
   return (
     <>

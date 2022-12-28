@@ -1,9 +1,6 @@
-import { attributeListUrl } from "@saleor/attributes/urls";
 import { useUser } from "@saleor/auth";
-import { channelsListUrl } from "@saleor/channels/urls";
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import { APP_VERSION as dashboardVersion } from "@saleor/config";
-import { PermissionEnum } from "@saleor/graphql";
 import useShop from "@saleor/hooks/useShop";
 import Attributes from "@saleor/icons/Attributes";
 import Channels from "@saleor/icons/Channels";
@@ -20,15 +17,9 @@ import Warehouses from "@saleor/icons/Warehouses";
 import { sectionNames } from "@saleor/intl";
 import { maybe } from "@saleor/misc";
 import { menuListUrl } from "@saleor/navigation/urls";
-import { pageTypeListUrl } from "@saleor/pageTypes/urls";
 import { permissionGroupListUrl } from "@saleor/permissionGroups/urls";
-import { pluginListUrl } from "@saleor/plugins/urls";
-import { productTypeListUrl } from "@saleor/productTypes/urls";
-import { shippingZonesListUrl } from "@saleor/shipping/urls";
 import { siteSettingsUrl } from "@saleor/siteSettings/urls";
 import { staffListUrl } from "@saleor/staff/urls";
-import { taxConfigurationListUrl } from "@saleor/taxes/urls";
-import { warehouseSection } from "@saleor/warehouses/urls";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
@@ -49,12 +40,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Determine attributes used to create product types",
           }),
           icon: <Attributes />,
-          permissions: [
-            PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES,
-            PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES,
-          ],
+          permissions: [],
           title: intl.formatMessage(sectionNames.attributes),
-          url: attributeListUrl(),
+          url: "/",
           testId: "configuration-menu-attributes",
         },
         {
@@ -63,9 +51,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Define types of products you sell",
           }),
           icon: <ProductTypes />,
-          permissions: [PermissionEnum.MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES],
+          permissions: ['MANAGE_PRODUCT_TYPES_AND_ATTRIBUTES'],
           title: intl.formatMessage(sectionNames.productTypes),
-          url: productTypeListUrl(),
+          url: "/",
           testId: "configuration-menu-product-types",
         },
       ],
@@ -83,7 +71,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
           }),
           icon: <Taxes />,
           title: intl.formatMessage(sectionNames.taxes),
-          url: taxConfigurationListUrl(),
+          url: "/",
           testId: "configuration-menu-taxes",
         },
       ],
@@ -100,7 +88,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Manage your employees and their permissions",
           }),
           icon: <StaffMembers />,
-          permissions: [PermissionEnum.MANAGE_STAFF],
+          permissions: ['MANAGE_STAFF'],
           title: intl.formatMessage(sectionNames.staff),
           url: staffListUrl(),
           testId: "configuration-menu-staff",
@@ -112,7 +100,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
               "Manage your permission groups and their permissions",
           }),
           icon: <PermissionGroups />,
-          permissions: [PermissionEnum.MANAGE_STAFF],
+          permissions: ['MANAGE_STAFF'],
           title: intl.formatMessage(sectionNames.permissionGroups),
           url: permissionGroupListUrl(),
           testId: "configuration-menu-permission-groups",
@@ -131,9 +119,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Manage how you ship out orders",
           }),
           icon: <ShippingMethods />,
-          permissions: [PermissionEnum.MANAGE_SHIPPING],
+          permissions: ['MANAGE_SHIPPING'],
           title: intl.formatMessage(sectionNames.shipping),
-          url: shippingZonesListUrl(),
+          url: "/",
           testId: "configurationMenuShipping",
         },
         {
@@ -142,9 +130,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Manage and update your warehouse information",
           }),
           icon: <Warehouses />,
-          permissions: [PermissionEnum.MANAGE_PRODUCTS],
+          permissions: ['MANAGE_PRODUCTS'],
           title: intl.formatMessage(sectionNames.warehouses),
-          url: warehouseSection,
+          url: "/",
           testId: "configuration-menu-warehouses",
         },
       ],
@@ -161,9 +149,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Define and manage your sales channels",
           }),
           icon: <Channels />,
-          permissions: [PermissionEnum.MANAGE_CHANNELS],
+          permissions: ['MANAGE_CHANNELS'],
           title: intl.formatMessage(sectionNames.channels),
-          url: channelsListUrl(),
+          url: "/",
           testId: "configuration-menu-channels",
         },
       ],
@@ -181,11 +169,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
           }),
           icon: <PageTypes />,
           permissions: [
-            PermissionEnum.MANAGE_PAGES,
-            PermissionEnum.MANAGE_PAGE_TYPES_AND_ATTRIBUTES,
           ],
           title: intl.formatMessage(sectionNames.pageTypes),
-          url: pageTypeListUrl(),
+          url: "/",
           testId: "configuration-menu-page-types",
         },
       ],
@@ -202,7 +188,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "Define how users can navigate through your store",
           }),
           icon: <Navigation />,
-          permissions: [PermissionEnum.MANAGE_MENUS],
+          permissions: ['MANAGE_MENUS'],
           title: intl.formatMessage(sectionNames.navigation),
           url: menuListUrl(),
           testId: "configuration-menu-navigation",
@@ -213,7 +199,7 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
             defaultMessage: "View and update your site settings",
           }),
           icon: <SiteSettings />,
-          permissions: [PermissionEnum.MANAGE_SETTINGS],
+          permissions: ['MANAGE_SETTINGS'],
           title: intl.formatMessage(sectionNames.siteSettings),
           url: siteSettingsUrl(),
           testId: "configuration-menu-site-settings",
@@ -230,9 +216,9 @@ export function createConfigurationMenu(intl: IntlShape): MenuSection[] {
               preserveAspectRatio="xMinYMin meet"
             />
           ),
-          permissions: [PermissionEnum.MANAGE_PLUGINS],
+          permissions: ['MANAGE_PLUGINS'],
           title: intl.formatMessage(sectionNames.plugins),
-          url: pluginListUrl(),
+          url: "/",
           testId: "configuration-plugins-pages",
         },
       ],

@@ -6,7 +6,6 @@ import FilterBar from "@saleor/components/FilterBar";
 import LimitReachedAlert from "@saleor/components/LimitReachedAlert";
 import PageHeader from "@saleor/components/PageHeader";
 import { configurationMenuUrl } from "@saleor/configuration";
-import { RefreshLimitsQuery, StaffListQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { StaffListUrlSortField } from "@saleor/staff/urls";
 import {
@@ -32,8 +31,8 @@ export interface StaffListPageProps
     FilterPageProps<StaffFilterKeys, StaffListFilterOpts>,
     SortPage<StaffListUrlSortField>,
     TabPageProps {
-  limits: RefreshLimitsQuery["shop"]["limits"];
-  staffMembers: RelayToFlat<StaffListQuery["staffUsers"]>;
+  limits: any;
+  staffMembers: any;
   onAdd: () => void;
 }
 

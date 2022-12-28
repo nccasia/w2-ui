@@ -1,4 +1,3 @@
-import { MetadataInput } from "@saleor/graphql";
 import { ChangeEvent } from "@saleor/hooks/useForm";
 import { removeAtIndex, updateAtIndex } from "@saleor/utils/lists";
 import React from "react";
@@ -10,7 +9,7 @@ import { getDataKey, parseEventData } from "./utils";
 
 export interface MetadataProps
   extends Omit<MetadataCardProps, "data" | "isPrivate"> {
-  data: Record<"metadata" | "privateMetadata", MetadataInput[]>;
+  data: Record<"metadata" | "privateMetadata", any[]>;
 }
 
 const Metadata: React.FC<MetadataProps> = ({ data, onChange }) => {

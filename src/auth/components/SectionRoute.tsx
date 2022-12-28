@@ -1,15 +1,13 @@
-import { PermissionEnum } from "@saleor/graphql";
 import React from "react";
 import { Route, RouteProps } from "react-router-dom";
 
 import { useUser } from "..";
 import NotFound from "../../NotFound";
-import { hasAllPermissions, hasAnyPermissions } from "../misc";
 
 type MatchPermissionType = "all" | "any";
 
 interface SectionRouteProps extends RouteProps {
-  permissions?: PermissionEnum[];
+  permissions?: any[];
   matchPermission?: MatchPermissionType;
 }
 
@@ -33,10 +31,11 @@ export const SectionRoute: React.FC<SectionRouteProps> = ({
     }
 
     if (matchAll(matchPermission)) {
-      return hasAllPermissions(permissions, user);
+      return true;
+      // return hasAllPermissions(permissions, user);
     }
 
-    return hasAnyPermissions(permissions, user);
+    return false;
   };
 
   return hasSectionPermissions() ? <Route {...props} /> : <NotFound />;

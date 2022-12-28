@@ -1,8 +1,3 @@
-import {
-  PermissionGroupErrorFragment,
-  usePermissionGroupDeleteMutation,
-  usePermissionGroupListQuery,
-} from "@saleor/graphql";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
@@ -11,7 +6,6 @@ import usePaginator, {
   createPaginationState,
   PaginatorContext,
 } from "@saleor/hooks/usePaginator";
-import { getStringOrPlaceholder } from "@saleor/misc";
 import PermissionGroupDeleteDialog from "@saleor/permissionGroups/components/PermissionGroupDeleteDialog";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
@@ -27,7 +21,6 @@ import {
   PermissionGroupListUrlDialog,
   PermissionGroupListUrlQueryParams,
 } from "../../urls";
-import { getSortQueryVariables } from "./sort";
 
 interface PermissionGroupListProps {
   params: PermissionGroupListUrlQueryParams;
@@ -46,20 +39,9 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
   usePaginationReset(permissionGroupListUrl, params, settings.rowNumber);
 
   const paginationState = createPaginationState(settings.rowNumber, params);
-  const queryVariables = React.useMemo(
-    () => ({
-      ...paginationState,
-      sort: getSortQueryVariables(params),
-    }),
-    [params, settings.rowNumber],
-  );
-  const { data, loading, refetch } = usePermissionGroupListQuery({
-    displayLoader: true,
-    variables: queryVariables,
-  });
 
   const paginationValues = usePaginator({
-    pageInfo: data?.permissionGroups.pageInfo,
+    pageInfo: null,
     paginationState,
     queryString: params,
   });
@@ -75,34 +57,15 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
     PermissionGroupListUrlQueryParams
   >(navigate, permissionGroupListUrl, params);
 
-  const permissionGroups = mapEdgesToItems(data?.permissionGroups);
+  const permissionGroups = mapEdgesToItems(null);
   const [deleteError, setDeleteError] = React.useState<
-    PermissionGroupErrorFragment
+    any
   >();
-
-  const [permissionGroupDelete] = usePermissionGroupDeleteMutation({
-    onCompleted: data => {
-      if (data.permissionGroupDelete.errors.length === 0) {
-        notify({
-          status: "success",
-          text: intl.formatMessage({
-            id: "DovGIa",
-            defaultMessage: "Permission Group Deleted",
-          }),
-        });
-        refetch();
-        setDeleteError(undefined);
-        closeModal();
-      } else {
-        setDeleteError(data.permissionGroupDelete.errors[0]);
-      }
-    },
-  });
 
   return (
     <PaginatorContext.Provider value={paginationValues}>
       <PermissionGroupListPage
-        disabled={loading}
+        disabled={false}
         settings={settings}
         sort={getSortParams(params)}
         permissionGroups={permissionGroups}
@@ -112,16 +75,10 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
       />
       <PermissionGroupDeleteDialog
         onConfirm={() =>
-          permissionGroupDelete({
-            variables: {
-              id: params.id,
-            },
-          })
+          {}
         }
         error={deleteError}
-        name={getStringOrPlaceholder(
-          permissionGroups?.find(group => group.id === params.id)?.name,
-        )}
+        name={' '}
         confirmButtonState={"default"}
         open={params.action === "remove"}
         onClose={closeModal}

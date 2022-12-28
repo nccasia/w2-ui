@@ -16,7 +16,6 @@ import ConfirmButton from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { SearchStaffMembersQuery } from "@saleor/graphql";
 import useElementScroll, {
   isScrolledToBottom,
 } from "@saleor/hooks/useElementScroll";
@@ -125,18 +124,18 @@ export interface AssignMembersDialogProps
     SearchPageProps {
   confirmButtonState: ConfirmButtonTransitionState;
   disabled: boolean;
-  staffMembers: RelayToFlat<SearchStaffMembersQuery["search"]>;
+  staffMembers: RelayToFlat<any>;
   hasMore: boolean;
   onFetchMore: () => void;
-  onSubmit: (data: RelayToFlat<SearchStaffMembersQuery["search"]>) => void;
+  onSubmit: (data: RelayToFlat<any>) => void;
 }
 
 function handleStaffMemberAssign(
-  member: RelayToFlat<SearchStaffMembersQuery["search"]>[0],
+  member: RelayToFlat<any>[0],
   isSelected: boolean,
-  selectedMembers: RelayToFlat<SearchStaffMembersQuery["search"]>,
+  selectedMembers: RelayToFlat<any>,
   setSelectedMembers: (
-    data: RelayToFlat<SearchStaffMembersQuery["search"]>,
+    data: RelayToFlat<any>,
   ) => void,
 ) {
   if (isSelected) {
@@ -167,7 +166,7 @@ const AssignMembersDialog: React.FC<AssignMembersDialogProps> = ({
   const [query, onQueryChange] = useSearchQuery(onSearchChange);
 
   const [selectedMembers, setSelectedMembers] = React.useState<
-    RelayToFlat<SearchStaffMembersQuery["search"]>
+    RelayToFlat<any>
   >([]);
 
   const anchor = React.useRef<HTMLDivElement>();

@@ -3,7 +3,6 @@ import { Button } from "@saleor/components/Button";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { configurationMenuUrl } from "@saleor/configuration";
-import { MenuFragment } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { menuListUrl, MenuListUrlSortField } from "@saleor/navigation/urls";
 import { ListActions, PageListProps, SortPage } from "@saleor/types";
@@ -16,7 +15,7 @@ export interface MenuListPageProps
   extends PageListProps,
     ListActions,
     SortPage<MenuListUrlSortField> {
-  menus: MenuFragment[];
+  menus: any[];
   onDelete: (id: string) => void;
 }
 

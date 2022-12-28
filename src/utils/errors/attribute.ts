@@ -1,4 +1,3 @@
-import { AttributeErrorCode, AttributeErrorFragment } from "@saleor/graphql";
 import { defineMessages, IntlShape } from "react-intl";
 
 import { getCommonFormFieldErrorMessage } from "./common";
@@ -19,19 +18,9 @@ const messages = defineMessages({
 });
 
 function getAttributeErrorMessage(
-  err: Omit<AttributeErrorFragment, "__typename"> | undefined,
+  err: any
   intl: IntlShape,
 ): string {
-  if (err) {
-    switch (err.code) {
-      case AttributeErrorCode.ALREADY_EXISTS:
-        return intl.formatMessage(messages.alreadyExists);
-      case AttributeErrorCode.UNIQUE:
-        return intl.formatMessage(messages.nameAlreadyTaken);
-      case AttributeErrorCode.NOT_FOUND:
-        return intl.formatMessage(messages.notFound);
-    }
-  }
 
   return getCommonFormFieldErrorMessage(err, intl);
 }

@@ -6,11 +6,6 @@ import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import {
-  AppErrorFragment,
-  PermissionEnum,
-  PermissionFragment,
-} from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
@@ -25,16 +20,16 @@ import CustomAppInformation from "../CustomAppInformation";
 export interface CustomAppCreatePageFormData {
   hasFullAccess: boolean;
   name: string;
-  permissions: PermissionEnum[];
+  permissions: any[];
 }
 export interface CustomAppCreatePageProps {
   disabled: boolean;
-  errors: AppErrorFragment[];
-  permissions: PermissionFragment[];
+  errors: any[];
+  permissions: any[];
   saveButtonBarState: ConfirmButtonTransitionState;
   onSubmit: (
     data: CustomAppCreatePageFormData,
-  ) => SubmitPromise<AppErrorFragment[]>;
+  ) => SubmitPromise<any[]>;
 }
 
 const CustomAppCreatePage: React.FC<CustomAppCreatePageProps> = props => {
