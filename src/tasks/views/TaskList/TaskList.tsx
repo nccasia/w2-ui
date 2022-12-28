@@ -2,7 +2,7 @@ import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
 import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
-import TaskTypePickerDialog from "@saleor/tasks/components/TaskCreated/TaskTypePickerDialog";
+import TaskTypePickerDialog from "@saleor/tasks/components/TaskCreation/TaskTypePickerDialog";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
 import {
   orderListUrl,

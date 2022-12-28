@@ -5,7 +5,7 @@ import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import { styleModal } from "@saleor/styles/modal";
 import React from "react";
 
-import FormStepCreateTask from "./components/FormCreateTask/FormCreateTask";
+import FormCreateTask from "../FormCreateTask/FormCreateTask";
 
 export interface TaskTypePickerDialogProps {
   TypeChoices: Array<Choice<string, string>>;
@@ -35,7 +35,7 @@ const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
         onClose={onClose}
       >
         <Box sx={styleModal}>
-          <FormStepCreateTask typeList={result} onClose={onClose} />
+          <FormCreateTask typeList={result} onClose={onClose} />
         </Box>
       </Modal>
     </>
