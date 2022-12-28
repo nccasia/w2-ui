@@ -229,7 +229,7 @@ export const useStyles = makeStyles(
       },
       "& .MuiButtonBase-root": {
         float: "right",
-        marginTop: 25,
+        marginTop: 60,
         background: "#333",
         border: "none",
         color: "#fff",
