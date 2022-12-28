@@ -83,11 +83,11 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   <Skeleton />
                 ) : ordersToFulfill === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noOrders)}
+                    {intl.formatMessage(messages.pendingTasks)}
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.orderReady, {
+                    {intl.formatMessage(messages.pendingTasks, {
                       amount: <strong>{ordersToFulfill}</strong>,
                     })}
                   </Typography>
@@ -107,7 +107,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.paymentCapture, {
+                    {intl.formatMessage(messages.doneTasks, {
                       amount: <strong>{ordersToCapture}</strong>,
                     })}
                   </Typography>

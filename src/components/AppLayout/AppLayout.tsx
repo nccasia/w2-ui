@@ -1,3 +1,5 @@
+import logoPng from "@assets/logo.png";
+import logoPngNoText from "@assets/logo2.png";
 import { LinearProgress, useMediaQuery } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import useAppState from "@saleor/hooks/useAppState";
@@ -12,16 +14,13 @@ import {
 } from "@saleor/macaw-ui";
 import { isDarkTheme } from "@saleor/misc";
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import useRouter from "use-react-router";
 
 import Container from "../Container";
 import Navigator from "../Navigator";
-import NavigatorButton from "../NavigatorButton/NavigatorButton";
 import UserChip from "../UserChip";
-import useAppChannel from "./AppChannelContext";
-import AppChannelSelect from "./AppChannelSelect";
 import { appLoaderHeight } from "./consts";
 import useMenuStructure from "./menuStructure";
 import { SidebarLink } from "./SidebarLink";
@@ -116,8 +115,11 @@ const useStyles = makeStyles(
   },
 );
 
+const logoContent = <img src={logoPng} height={36} />;
+const logoContentNoText = <img src={logoPngNoText} height={36} />;
+
 interface AppLayoutProps {
-  children: React.ReactNode;
+  children: JSX.Element;
   fullSize?: boolean;
 }
 
@@ -137,12 +139,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   const isMdUp = useMediaQuery((theme: SaleorTheme) =>
     theme.breakpoints.up("md"),
   );
-  const {
-    availableChannels,
-    channel,
-    isPickerActive,
-    setChannel,
-  } = useAppChannel(false);
 
   const [menuStructure, handleMenuItemClick] = useMenuStructure(intl, user);
   const activeMenu = menuStructure.find(menuItem =>
@@ -150,6 +146,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   )?.id;
 
   const toggleTheme = () => setTheme(isDarkTheme(themeType) ? "light" : "dark");
+  const [logoSidebar, setLogoSiderbar] = useState<JSX.Element>();
+
+  const onExpand = value => {
+    if (value) {
+      setLogoSiderbar(logoContentNoText);
+    } else {
+      setLogoSiderbar(logoContent);
+    }
+  };
 
   return (
     <>
@@ -163,8 +168,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({
             activeId={activeMenu}
             menuItems={menuStructure}
             onMenuItemClick={handleMenuItemClick}
-            logoHref="/"
             linkComponent={SidebarLink}
+            logoHref="/"
+            logo={logoSidebar}
+            onExpand={onExpand}
           />
         )}
         <div className={classes.content}>
@@ -185,21 +192,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                         logoHref="/"
                         onMenuItemClick={handleMenuItemClick}
                         linkComponent={SidebarLink}
+                        logo={logoContent}
                       />
                     )}
                     <div className={classes.spacer} />
                     <div className={classes.userBar}>
-                      <NavigatorButton
-                        isMac={navigator.platform.toLowerCase().includes("mac")}
-                        onClick={() => setNavigatorVisibility(true)}
-                      />
-                      {isPickerActive && (
-                        <AppChannelSelect
-                          channels={availableChannels}
-                          selectedChannelId={channel?.id}
-                          onChannelSelect={setChannel}
-                        />
-                      )}
                       <UserChip
                         isDarkThemeEnabled={isDarkTheme(themeType)}
                         user={user}

@@ -2,7 +2,6 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import { IconProps } from "@material-ui/core/Icon";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
-import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -73,9 +72,7 @@ const HomeAnalyticsCard: React.FC<HomeAnalyticsCardProps> = props => {
             className={classes.cardSubtitle}
             variant="caption"
             color="textSecondary"
-          >
-            <FormattedMessage id="zWgbGg" defaultMessage="Today" />
-          </Typography>
+          ></Typography>
           <Typography
             className={classes.value}
             color="textPrimary"

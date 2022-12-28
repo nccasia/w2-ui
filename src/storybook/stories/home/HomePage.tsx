@@ -15,19 +15,19 @@ import { MockedUserProvider } from "../customers/MockedUserProvider";
 const shop = shopFixture(placeholderImage);
 
 const homePageProps: Omit<HomePageProps, "classes"> = {
-  activities: mapEdgesToItems(shop.activities),
+  activities: [],
   noChannel: false,
   createNewChannelHref: "",
   ordersToFulfillHref: "",
   ordersToCaptureHref: "",
   productsOutOfStockHref: "",
-  orders: shop.ordersToday.totalCount,
   ordersToCapture: shop.ordersToCapture.totalCount,
   ordersToFulfill: shop.ordersToFulfill.totalCount,
   productsOutOfStock: shop.productsOutOfStock.totalCount,
   sales: shop.salesToday.gross,
   topProducts: mapEdgesToItems(shop.productTopToday),
   userName: "admin@example.com",
+  quantityTasks: undefined,
 };
 
 const HomePage = props => {
