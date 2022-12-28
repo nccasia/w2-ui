@@ -2,7 +2,6 @@ import { DEMO_MODE } from "@saleor/config";
 import useForm, { FormChange, SubmitPromise } from "@saleor/hooks/useForm";
 import useHandleFormSubmit from "@saleor/hooks/useHandleFormSubmit";
 import React from "react";
-
 export interface LoginFormData {
   email: string;
   password: string;

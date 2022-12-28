@@ -9,6 +9,7 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing(3),
     },
     buttonContainer: {
+      marginTop: "2.5rem",
       display: "flex",
       justifyContent: "flex-end",
     },
@@ -32,6 +33,10 @@ const useStyles = makeStyles(
     },
     loginButton: {
       width: "100%",
+    },
+    googleLoginButton: {
+      width: "100%",
+      borderRadius: "4px",
     },
     panel: {
       "& span": {

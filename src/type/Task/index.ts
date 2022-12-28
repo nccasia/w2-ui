@@ -6,3 +6,8 @@ export interface IActivityAction {
   typeAction: string;
   date: string;
 }
+
+export interface IQuantityTasks {
+  pending: number;
+  done: number;
+}

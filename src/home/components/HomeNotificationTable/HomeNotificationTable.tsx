@@ -87,7 +87,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.doneTasks, {
+                    {intl.formatMessage(messages.pendingTasks, {
                       amount: <strong>{ordersToFulfill}</strong>,
                     })}
                   </Typography>

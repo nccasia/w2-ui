@@ -6,7 +6,7 @@ import {
   StockAvailability,
   useHomeQuery,
 } from "@saleor/graphql";
-import { IActivityAction } from "@saleor/type/Task";
+import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 
@@ -50,6 +50,11 @@ const acti: IActivityAction[] = [
     date: "2022/12/04",
   },
 ];
+
+const quantity: IQuantityTasks = {
+  pending: 5,
+  done: 6,
+};
 const HomeSection = () => {
   const { user } = useUser();
   const { channel } = useAppChannel();
@@ -65,7 +70,7 @@ const HomeSection = () => {
   return (
     <HomePage
       activities={acti}
-      orders={data?.ordersToday?.totalCount}
+      quantityTasks={quantity}
       sales={data?.salesToday?.gross}
       topProducts={mapEdgesToItems(data?.productTopToday)}
       createNewChannelHref={channelsListUrl()}
