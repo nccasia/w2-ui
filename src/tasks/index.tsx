@@ -9,11 +9,12 @@ import { WindowTitle } from "../components/WindowTitle";
 import {
   TaskListUrlQueryParams,
   TaskListUrlSortField,
+  taskPath,
   taskSectionUrl,
 } from "./urls";
 import TaskListComponent from "./views/TaskList";
 
-const TaskList: React.FC<RouteComponentProps<any>> = ({ location }) => {
+const TaskLists: React.FC<RouteComponentProps<any>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
   const params: TaskListUrlQueryParams = asSortParams(
     qs,
@@ -23,6 +24,17 @@ const TaskList: React.FC<RouteComponentProps<any>> = ({ location }) => {
   );
   return <TaskListComponent params={params} />;
 };
+import TaskDetailsComponent from "./views/TaskDetails";
+
+const TaskDetails: React.FC<RouteComponentProps<any>> = ({
+  location,
+  match,
+}) => {
+  const qs = parseQs(location.search.substr(1));
+  const params: any = qs;
+  const id = match.params.id;
+  return <TaskDetailsComponent id={decodeURIComponent(id)} params={params} />;
+};
 
 const Component = () => {
   const intl = useIntl();
@@ -31,7 +43,8 @@ const Component = () => {
     <>
       <WindowTitle title={intl.formatMessage(sectionNames.tasks)} />
       <Switch>
-        <Route exact path={taskSectionUrl} component={TaskList} />
+        <Route exact path={taskSectionUrl} component={TaskLists} />
+        <Route path={taskPath(":id")} component={TaskDetails} />
       </Switch>
     </>
   );

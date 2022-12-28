@@ -1,10 +1,22 @@
-import { TableBody, TableCell, TableHead } from "@material-ui/core";
+import {
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+} from "@material-ui/core";
+import { ExpandLessSharp } from "@material-ui/icons";
+import { Skeleton } from "@material-ui/lab";
 import { CSSProperties } from "@material-ui/styles";
+import Container from "@saleor/components/Container";
 import { DateTime } from "@saleor/components/Date";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
+import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { makeStyles } from "@saleor/macaw-ui";
+import { makeStyles, Pill } from "@saleor/macaw-ui";
+import { maybe, renderCollection } from "@saleor/misc";
+import { Task } from "@saleor/tasks/model/Task";
+import { taskUrl } from "@saleor/tasks/urls";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -31,6 +43,11 @@ const useStyles = makeStyles(
         },
         colType: {},
         colDate: {},
+        colPriority: {},
+        colState: {},
+        colRow: {
+          cursor: "pointer",
+        },
       },
       pill: {
         maxWidth: "100%",
@@ -38,8 +55,15 @@ const useStyles = makeStyles(
       },
       colUser: overflowing,
       colType: {},
+      colPriority: {},
+      colState: {},
       colID: {},
       colStatus: {},
+      priority: {
+        display: "flex",
+        padding: "0 !important",
+        alignItems: "center",
+      },
       colDate: {
         textAlign: "right",
       },
@@ -51,8 +75,17 @@ const useStyles = makeStyles(
   { name: "OrderList" },
 );
 
-export const TaskList: React.FC = () => {
+interface TaskListProps {
+  tasks: Task[] | [];
+}
+
+const numberOfColumns = 8;
+
+export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
   const classes = useStyles();
+
+  const onUpdateListSettings = (_key: any, _value: any) => null;
+
   return (
     <ResponsiveTable>
       <TableHead>
@@ -72,33 +105,100 @@ export const TaskList: React.FC = () => {
           <TableCellHeader className={classes.colStatus}>
             <FormattedMessage id="tzMNF3" defaultMessage="Status" />
           </TableCellHeader>
+          <TableCellHeader className={classes.colPriority}>
+            <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
+          </TableCellHeader>
+          <TableCellHeader className={classes.colState}>
+            <FormattedMessage id="ku+mDU" defaultMessage="State" />
+          </TableCellHeader>
           <TableCellHeader textAlign="right" className={classes.colDate}>
             <FormattedMessage id="tLfo5O" defaultMessage="Created date" />
           </TableCellHeader>
         </TableRowLink>
       </TableHead>
-      <TableBody>
-        <TableRowLink>
-          <TableCell className={classes.colID}>1123</TableCell>
-          <TableCell className={classes.colTask}>Fix bug aaa</TableCell>
-          <TableCell className={classes.colUser}>Son</TableCell>
-          <TableCell className={classes.colType}>Request Device</TableCell>
-          <TableCell className={classes.colStatus}>PENDING</TableCell>
-          <TableCell className={classes.colDate}>
-            <DateTime date={"2022-12-15T11:07:55.916944+00:00"} />
-          </TableCell>
-        </TableRowLink>
-      </TableBody>
-      {/* <TableFooter>
+      <TableFooter>
         <TableRowLink>
           <TablePaginationWithContext
             colSpan={numberOfColumns}
-            settings={{rowNumber: 6}}
+            settings={{ rowNumber: 10 }}
             disabled={false}
             onUpdateListSettings={onUpdateListSettings}
           />
         </TableRowLink>
-      </TableFooter> */}
+      </TableFooter>
+      <TableBody>
+        {renderCollection(
+          tasks,
+          task => (
+            <TableRowLink
+              hover={!!task}
+              href={task && taskUrl(task.id)}
+              className={classes.colRow}
+            >
+              <TableCell className={classes.colID}>
+                {maybe(() => task.id) ? task.id : <Skeleton />}
+              </TableCell>
+              <TableCell className={classes.colTask}>
+                {maybe(() => task.name) ? task.name : <Skeleton />}
+              </TableCell>
+              <TableCell className={classes.colUser}>
+                {maybe(() => task.userName) ? task.userName : <Skeleton />}
+              </TableCell>
+              <TableCell className={classes.colType}>
+                {maybe(() => task.type) ? (
+                  <Pill label={task.type} color="info" />
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colStatus}>
+                {maybe(() => task.status) ? (
+                  <Pill label={task.status} color="success" />
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colPriority}>
+                {maybe(() => task.priority) ? (
+                  <Container className={classes.priority}>
+                    <Pill label={task.priority} color="error" />
+                    <ExpandLessSharp
+                      style={{ fontSize: "30px" }}
+                      color="error"
+                    />
+                  </Container>
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colState}>
+                {maybe(() => task.state) ? (
+                  <Pill label={task.state} color="warning" />
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colDate}>
+                {maybe(() => task.createdDate) ? (
+                  <DateTime date={task.createdDate} />
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+            </TableRowLink>
+          ),
+          () => (
+            <TableRowLink>
+              <TableCell colSpan={numberOfColumns}>
+                <FormattedMessage
+                  id="RlfqSV"
+                  defaultMessage="No orders found"
+                />
+              </TableCell>
+            </TableRowLink>
+          ),
+        )}
+      </TableBody>
     </ResponsiveTable>
   );
 };
