@@ -7,13 +7,13 @@ import React from "react";
 
 import FormCreateTask from "../FormCreateTask/FormCreateTask";
 
-export interface TaskTypePickerDialogProps {
+export interface TaskCreationProps {
   TypeChoices: Array<Choice<string, string>>;
   open: boolean;
   onClose: () => void;
 }
 
-const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
+const TaskCreation: React.FC<TaskCreationProps> = ({
   TypeChoices = [],
   open,
   onClose,
@@ -41,5 +41,5 @@ const TaskTypePickerDialog: React.FC<TaskTypePickerDialogProps> = ({
     </>
   );
 };
-TaskTypePickerDialog.displayName = "TaskPickerDialog";
-export default TaskTypePickerDialog;
+TaskCreation.displayName = "TaskCreation";
+export default TaskCreation;

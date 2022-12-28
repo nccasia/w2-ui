@@ -2,7 +2,7 @@ import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
 import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
-import TaskTypePickerDialog from "@saleor/tasks/components/TaskCreation/TaskTypePickerDialog";
+import TaskCreation from "@saleor/tasks/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
 import {
   orderListUrl,
@@ -57,7 +57,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
       <PaginatorContext.Provider value={paginationValues}>
         <TaskListPage onAdd={() => openModal("create-task")} tasks={tasks} />
         {!noTaskType && (
-          <TaskTypePickerDialog
+          <TaskCreation
             TypeChoices={channelOpts}
             open={params.action === "create-task"}
             onClose={closeModal}

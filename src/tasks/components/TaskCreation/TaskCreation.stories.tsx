@@ -2,11 +2,9 @@ import Decorator from "@saleor/storybook/Decorator";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
-import TaskTypePickerDialog, {
-  TaskTypePickerDialogProps,
-} from "./TaskTypePickerDialog";
+import TaskCreation, { TaskCreationProps } from "./TaskCreation";
 
-const props: TaskTypePickerDialogProps = {
+const props: TaskCreationProps = {
   onClose: () => undefined,
   open: true,
   TypeChoices: [],
@@ -14,4 +12,4 @@ const props: TaskTypePickerDialogProps = {
 
 storiesOf("Views / Type / Settings dialog", module)
   .addDecorator(Decorator)
-  .add("default", () => <TaskTypePickerDialog {...props} />);
+  .add("default", () => <TaskCreation {...props} />);
