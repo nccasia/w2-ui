@@ -3,11 +3,13 @@ export const styleModal = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 700,
+  maxHeight: 700,
   bgcolor: "background.paper",
   borderRadius: "7px",
   boxShadow: 24,
   p: 4,
+  overflow: "auto",
 };
 
 export const radioType = {

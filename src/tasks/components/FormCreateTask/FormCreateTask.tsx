@@ -22,11 +22,13 @@ const FormCreateTask: React.FC<Props> = ({ typeList, onClose }) => {
     const newRequest = {
       id: `${idRandom}`,
       type,
-      otherOption: data.otherOption,
+      devices: data.device || null,
       currentOffice: data.currentOffice || "",
       destinationOffice: data.destinationOffice || "",
-      createDate: data.createDate,
-      content: data.content || "",
+      dueDate: data.dueDate || null,
+      dueDateStart: data.dueDateStart || null,
+      dueDateEnd: data.dueDateEnd || null,
+      content: data.content || null,
     };
     // eslint-disable-next-line no-console
     console.log("New Request Success !", newRequest);
