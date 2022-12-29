@@ -106,7 +106,7 @@ const AppsListPage: React.FC<AppsListPageProps> = ({
               <FormattedMessage
                 defaultMessage="Third party apps are installed with App Manifests. They contain UI
               accessible from dashboard and can extend it."
-                id="MYA6EV"
+                id="09t+vB"
               />
             </p>
             {!!appsInProgress?.length && (
@@ -142,7 +142,7 @@ const AppsListPage: React.FC<AppsListPageProps> = ({
               <FormattedMessage
                 defaultMessage="Local apps are custom webhooks & token pairs that can be used to
               connect apps and access Saleor API."
-                id="GDJHXl"
+                id="S9DuLE"
               />
             </p>
             <CustomApps
@@ -160,7 +160,7 @@ const AppsListPage: React.FC<AppsListPageProps> = ({
               <FormattedMessage
                 defaultMessage="Saleor apps are hosted and maintained by Saleor Team. They are
               preinstalled for you and ready to use"
-                id="FLtdaw"
+                id="I+8MyM"
               />
             </p>
             <InstalledApps

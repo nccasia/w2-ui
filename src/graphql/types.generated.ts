@@ -2785,6 +2785,18 @@ export enum MeasurementUnitsEnum {
   TONNE = 'TONNE'
 }
 
+export enum MediaChoicesSortField {
+  /** Sort media by ID. */
+  ID = 'ID'
+}
+
+export type MediaSortingInput = {
+  /** Specifies the direction in which to sort products. */
+  direction: OrderDirection;
+  /** Sort media by the selected field. */
+  field: MediaChoicesSortField;
+};
+
 export type MenuCreateInput = {
   /** Name of the menu. */
   name: Scalars['String'];

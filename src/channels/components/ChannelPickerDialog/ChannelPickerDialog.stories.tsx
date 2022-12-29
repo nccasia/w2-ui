@@ -13,7 +13,7 @@ const channelsChoices = mapNodeToChoice(channelsList);
 const props: ChannelPickerDialogProps = {
   channelsChoices,
   confirmButtonState: "default",
-  defaultChoice: channelsChoices[0]?.value,
+  // defaultChoice: channelsChoices[0]?.value,
   onClose: () => undefined,
   onConfirm: () => undefined,
   open: true,

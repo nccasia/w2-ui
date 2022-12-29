@@ -1,14 +1,13 @@
 import customerIcon from "@assets/images/menu-customers-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import translationIcon from "@assets/images/menu-translation-icon.svg";
-import tasksIcon from "@assets/images/tasks-icon.svg";
 import {
   extensionMountPoints,
   useExtensions,
 } from "@saleor/apps/useExtensions";
 import { PermissionEnum, UserFragment } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
-import { SidebarMenuItem } from "@saleor/macaw-ui";
+import { SidebarMenuItem, TasksIcon } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
 
 import { customerListUrl } from "../../customers/urls";
@@ -50,7 +49,7 @@ function useMenuStructure(
     },
     {
       ariaLabel: "tasks",
-      iconSrc: tasksIcon,
+      iconSrc: TasksIcon,
       label: intl.formatMessage(sectionNames.tasks),
       id: "tasks",
       url: "/tasks",

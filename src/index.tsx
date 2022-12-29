@@ -32,6 +32,7 @@ import useAppChannel, {
 import { DateProvider } from "./components/Date";
 import ErrorPage from "./components/ErrorPage";
 import ExitFormDialogProvider from "./components/Form/ExitFormDialogProvider";
+import FormSchemaProvider from "./components/FormSchema/FormSchemaProvider";
 import { LocaleProvider } from "./components/Locale";
 import MessageManagerProvider from "./components/messages";
 import { ShopProvider } from "./components/Shop";
@@ -65,6 +66,7 @@ import errorTracker from "./services/errorTracking";
 import ShippingSection from "./shipping";
 import SiteSettingsSection from "./siteSettings";
 import StaffSection from "./staff";
+import TasksSection from "./tasks";
 import TaxesSection from "./taxes";
 import themeOverrides from "./themeOverrides";
 import TranslationsSection from "./translations";
@@ -93,7 +95,9 @@ const App: React.FC = () => (
                         <AppChannelProvider>
                           <ExternalAppProvider>
                             <ExitFormDialogProvider>
-                              <Routes />
+                              <FormSchemaProvider>
+                                <Routes />
+                              </FormSchemaProvider>
                             </ExitFormDialogProvider>
                           </ExternalAppProvider>
                         </AppChannelProvider>
@@ -201,6 +205,11 @@ const Routes: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_ORDERS]}
                 path="/orders"
                 component={OrdersSection}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_ORDERS]}
+                path="/tasks"
+                component={TasksSection}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PRODUCTS]}

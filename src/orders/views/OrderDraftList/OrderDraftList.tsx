@@ -9,7 +9,7 @@ import SaveFilterTabDialog, {
 import { useShopLimitsQuery } from "@saleor/components/Shop/queries";
 import {
   useOrderDraftBulkCancelMutation,
-  useOrderDraftCreateMutation,
+  // useOrderDraftCreateMutation,
   useOrderDraftListQuery,
 } from "@saleor/graphql";
 import useBulkActions from "@saleor/hooks/useBulkActions";
@@ -37,7 +37,7 @@ import {
   orderDraftListUrl,
   OrderDraftListUrlDialog,
   OrderDraftListUrlQueryParams,
-  orderUrl,
+  // orderUrl,
 } from "../../urls";
 import {
   deleteFilterTab,
@@ -89,20 +89,20 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
     },
   });
 
-  const [createOrder] = useOrderDraftCreateMutation({
-    onCompleted: data => {
-      notify({
-        status: "success",
-        text: intl.formatMessage({
-          id: "6udlH+",
-          defaultMessage: "Order draft successfully created",
-        }),
-      });
-      navigate(orderUrl(data.draftOrderCreate.order.id));
-    },
-  });
+  // const [createOrder] = useOrderDraftCreateMutation({
+  //   onCompleted: data => {
+  //     notify({
+  //       status: "success",
+  //       text: intl.formatMessage({
+  //         id: "6udlH+",
+  //         defaultMessage: "Order draft successfully created",
+  //       }),
+  //     });
+  //     navigate(orderUrl(data.draftOrderCreate.order.id));
+  //   },
+  // });
 
-  const { channel, availableChannels } = useAppChannel(false);
+  const { availableChannels } = useAppChannel(false);
   const limitOpts = useShopLimitsQuery({
     variables: {
       orders: true,
@@ -261,16 +261,16 @@ export const OrderDraftList: React.FC<OrderDraftListProps> = ({ params }) => {
       <ChannelPickerDialog
         channelsChoices={mapNodeToChoice(availableChannels)}
         confirmButtonState="success"
-        defaultChoice={channel?.id}
+        // defaultChoice={channel?.id}
         open={params.action === "create-order"}
         onClose={closeModal}
-        onConfirm={channelId =>
-          createOrder({
-            variables: {
-              input: { channelId },
-            },
-          })
-        }
+        // onConfirm={channelId =>
+        //   createOrder({
+        //     variables: {
+        //       input: { channelId },
+        //     },
+        //   })
+        // }
       />
     </PaginatorContext.Provider>
   );
