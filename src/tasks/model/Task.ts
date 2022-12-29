@@ -13,6 +13,12 @@ export enum TaskType {
   WFH_REQ = "WFH_REQ",
 }
 
+export enum HistoryType {
+  CONFIRM = "CONFIRM",
+  REJECT = "REJECT",
+  APPROVE = "APPROVE",
+}
+
 export enum TaskPriority {
   HIGHEST = "HIGHEST",
   HIGH = "HIGH",
@@ -50,6 +56,21 @@ export interface TaskDetail {
   state: TaskState | null;
   activity: string[];
   type: TaskType | null;
+}
+
+export interface History {
+  amount: any;
+  app: any;
+  date: string | null;
+  discount: string;
+  email: string;
+  emailType: string;
+  id: string;
+  invoiceNumber: number | null;
+  lines: any | null;
+  message: string | null;
+  type: HistoryType | null;
+  user: any | null;
 }
 
 interface SubTask {

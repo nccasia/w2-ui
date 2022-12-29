@@ -16,7 +16,7 @@ const useStyles = makeStyles(
   { name: "QuillEditor" },
 );
 
-interface QuillEditorProps {
+export interface QuillEditorProps {
   value: string | null;
   key?: number;
   modules?: { toolbar: boolean };
