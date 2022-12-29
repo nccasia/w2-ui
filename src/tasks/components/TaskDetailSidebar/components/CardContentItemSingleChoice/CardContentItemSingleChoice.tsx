@@ -9,6 +9,7 @@ const useStyles = makeStyles(
       justifyContent: "flex-start",
       alignItems: "center",
       marginTop: theme.spacing(5),
+      overflow: "hidden",
     },
     containerTitle: {
       width: "30%",
@@ -22,8 +23,7 @@ const useStyles = makeStyles(
     },
   }),
   {
-    name:
-      "C:Workspacew2-uisrc\taskscomponentsTaskDetailSidebarcomponentsCardContentItemSingleChoiceCardContentItemSingleChoice",
+    name: "CardContentItemSingleChoice",
   },
 );
 

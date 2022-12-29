@@ -33,7 +33,7 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing(4),
     },
   }),
-  { name: "C:Workspacew2-uisrc\taskscomponentsTaskCommentTaskComment" },
+  { name: "TaskComment" },
 );
 
 const TaskComment = () => {
