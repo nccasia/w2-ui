@@ -3,6 +3,9 @@ import { stringifyQs } from "@saleor/utils/urls";
 export const passwordResetPath = "/reset-password/";
 export const passwordResetUrl = passwordResetPath;
 
+export const signUpResetPath = "/sign-up/";
+export const signUpResetUrl = signUpResetPath;
+
 export const passwordResetSuccessPath = "/reset-password/success/";
 export const passwordResetSuccessUrl = passwordResetSuccessPath;
 

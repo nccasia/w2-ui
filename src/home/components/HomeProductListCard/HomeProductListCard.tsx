@@ -59,8 +59,8 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
     <Card data-test-id={testId}>
       <CardTitle
         title={intl.formatMessage({
-          id: "rr8fyf",
-          defaultMessage: "Top Products",
+          id: "XfCcNM",
+          defaultMessage: "Important Tasks",
           description: "header",
         })}
       />

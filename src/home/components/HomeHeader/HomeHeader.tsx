@@ -1,5 +1,6 @@
 import { Typography } from "@material-ui/core";
 import Skeleton from "@saleor/components/Skeleton";
+import useRamdomString from "@saleor/hooks/useRamdomString";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -27,6 +28,7 @@ interface HomeOrdersCardProps {
 }
 
 const HomeOrdersCard: React.FC<HomeOrdersCardProps> = props => {
+  const titleHeader = useRamdomString();
   const { userName } = props;
 
   const classes = useStyles(props);
@@ -54,9 +56,10 @@ const HomeOrdersCard: React.FC<HomeOrdersCardProps> = props => {
         </Typography>
         <Typography className={classes.subtitle}>
           {userName ? (
+            // eslint-disable-next-line formatjs/enforce-id
             <FormattedMessage
               id="aCX8rl"
-              defaultMessage="Here is some information we gathered about your store"
+              defaultMessage={titleHeader}
               description="subheader"
             />
           ) : (

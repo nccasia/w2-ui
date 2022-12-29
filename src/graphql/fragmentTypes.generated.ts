@@ -297,9 +297,9 @@
       "ProductVariant",
       "Product",
       "ProductType",
-      "ProductMedia",
-      "Category",
       "Collection",
+      "Category",
+      "ProductMedia",
       "PageType"
     ]
   }

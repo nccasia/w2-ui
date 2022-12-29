@@ -9,6 +9,7 @@ const useStyles = makeStyles(
       marginBottom: theme.spacing(3),
     },
     buttonContainer: {
+      marginTop: "2.5rem",
       display: "flex",
       justifyContent: "flex-end",
     },
@@ -33,6 +34,10 @@ const useStyles = makeStyles(
     loginButton: {
       width: "100%",
     },
+    googleLoginButton: {
+      width: "100%",
+      borderRadius: "4px",
+    },
     panel: {
       "& span": {
         color: theme.palette.error.contrastText,
@@ -53,6 +58,10 @@ const useStyles = makeStyles(
     },
     submit: {
       width: "100%",
+    },
+    option: {
+      display: "flex",
+      justifyContent: "space-between",
     },
   }),
   { name: "Login" },
