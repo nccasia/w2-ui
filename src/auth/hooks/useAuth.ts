@@ -1,7 +1,4 @@
-import { useLoginMutation } from "@saleor/graphql";
-
 export const useAuth = () => {
-  const [loginMutatioo, { }] = useLoginMutation();
 
   const login = async ({ password, email, includeDetails }) => {
     // do some dummy authentication process here
