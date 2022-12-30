@@ -1,9 +1,14 @@
+import { useLoginMutation } from "@saleor/graphql";
+
 export const useAuth = () => {
+  const [loginMutatioo, { }] = useLoginMutation();
+
   const login = async ({ password, email, includeDetails }) => {
     // do some dummy authentication process here
     const authenticated = true;
     if (authenticated) {
-      return { data: null };
+      
+      return { data: { tokenCreate: { user: { email:  "" } } }};
     } else {
       return { authenticated: false, error: "Invalid login credentials" };
     }

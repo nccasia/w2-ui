@@ -60,7 +60,9 @@ const App: React.FC = () => (
                     <AuthProvider>
                       <ShopProvider>
                         <ExitFormDialogProvider>
-                          <Routes />
+                          <FormSchemaProvider>
+                            <Routes />
+                          </FormSchemaProvider>
                         </ExitFormDialogProvider>
                       </ShopProvider>
                     </AuthProvider>

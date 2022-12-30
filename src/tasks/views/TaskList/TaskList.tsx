@@ -1,4 +1,3 @@
-import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
 import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
@@ -22,7 +21,7 @@ interface TaskListProps {
 export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   const navigate = useNavigator();
 
-  const { channel, availableChannels } = useAppChannel(false);
+  const { channel, availableChannels } = { channel: undefined, availableChannels: [] };
 
   const paginationValues = usePaginator({
     pageInfo: {
@@ -42,7 +41,6 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
 
   // mock api type
   // eslint-disable-next-line no-console
-  console.log(availableChannels.length);
   const channelOpts = typeTaskMock ? mapNodeToChoice(typeTaskMock) : null;
   // --------------
 
