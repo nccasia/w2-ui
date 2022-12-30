@@ -17,6 +17,7 @@ import AppLayout from "./components/AppLayout";
 import { DateProvider } from "./components/Date";
 import ErrorPage from "./components/ErrorPage";
 import ExitFormDialogProvider from "./components/Form/ExitFormDialogProvider";
+import FormSchemaProvider from "./components/FormSchema/FormSchemaProvider";
 import { LocaleProvider } from "./components/Locale";
 import MessageManagerProvider from "./components/messages";
 import { ShopProvider } from "./components/Shop";
@@ -37,6 +38,7 @@ import PermissionGroupSection from "./permissionGroups";
 import errorTracker from "./services/errorTracking";
 import SiteSettingsSection from "./siteSettings";
 import StaffSection from "./staff";
+import TasksSection from "./tasks";
 import themeOverrides from "./themeOverrides";
 
 if (process.env.GTM_ID) {
@@ -120,6 +122,11 @@ const Routes: React.FC = () => {
           >
             <Switch>
               <SectionRoute exact path="/" component={HomePage} />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_STAFF]}
+                path="/tasks"
+                component={TasksSection}
+              />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
                 path="/staff"

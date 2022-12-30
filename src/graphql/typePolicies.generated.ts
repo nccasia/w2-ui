@@ -370,7 +370,8 @@ export type PageInfobeFieldPolicy = {
 	endCursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>,
 	hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>,
-	startCursor?: FieldPolicy<any> | FieldReadFunction<any>
+	startCursor?: FieldPolicy<any> | FieldReadFunction<any>,
+	endCursor?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PermissionKeySpecifier = ('Organization' | 'PermissionGroup' | 'createdAt' | 'description' | 'id' | 'name' | 'organizationId' | 'permissionGroupId' | 'updatedAt' | PermissionKeySpecifier)[];
 export type PermissionFieldPolicy = {

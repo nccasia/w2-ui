@@ -11,7 +11,9 @@ import { FormSpacer } from "@saleor/components/FormSpacer";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { EyeIcon, IconButton } from "@saleor/macaw-ui";
-import React from "react";
+import { gapi } from "gapi-script";
+import React, { useEffect } from "react";
+import { GoogleLogin } from "react-google-login";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -37,6 +39,13 @@ const LoginCard: React.FC<LoginCardProps> = props => {
     onExternalAuthentication,
     onSubmit,
   } = props;
+  const clientId =
+    "297834965215-lcf3u4r5cb0psirejjulvne91fqgiha8.apps.googleusercontent.com";
+  useEffect(() => {
+    gapi.load("client:auth2", () => {
+      gapi.client.init({ clientId });
+    });
+  }, []);
 
   const classes = useStyles(props);
   const intl = useIntl();
@@ -49,6 +58,14 @@ const LoginCard: React.FC<LoginCardProps> = props => {
       </div>
     );
   }
+  const responseGoogle = response => {
+    // eslint-disable-next-line no-console
+    console.log("success->", response);
+  };
+  const responseGoogleFail = response => {
+    // eslint-disable-next-line no-console
+    console.log("fail->", response);
+  };
 
   return (
     <LoginForm onSubmit={onSubmit}>
@@ -157,6 +174,15 @@ const LoginCard: React.FC<LoginCardProps> = props => {
                 description="button"
               />
             </Button>
+          </div>
+          <div className={classes.buttonContainer}>
+            <GoogleLogin
+              clientId={clientId}
+              className={classes.googleLoginButton}
+              buttonText="Login with Google"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogleFail}
+            />
           </div>
           {externalAuthentications.length > 0 && (
             <>

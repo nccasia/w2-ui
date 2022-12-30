@@ -1,4 +1,3 @@
-import customerIcon from "@assets/images/menu-customers-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import tasksIcon from "@assets/images/tasks-icon.svg";
 import {
@@ -8,7 +7,7 @@ import { sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
 
-import { getMenuItemExtension, mapToExtensionsItems } from "./utils";
+import { getMenuItemExtension } from "./utils";
 
 export interface FilterableMenuItem extends Omit<SidebarMenuItem, "children"> {
   children?: FilterableMenuItem[];
@@ -29,12 +28,6 @@ function useMenuStructure(
     }
   };
 
-  const appExtensionsHeaderItem = {
-    id: "extensions",
-    ariaLabel: "apps",
-    label: intl.formatMessage(sectionNames.appExtensions),
-  };
-
   const menuItems: FilterableMenuItem[] = [
     {
       ariaLabel: "home",
@@ -49,27 +42,6 @@ function useMenuStructure(
       label: intl.formatMessage(sectionNames.tasks),
       id: "tasks",
       url: "/tasks",
-    },
-    {
-      ariaLabel: "customers",
-      children: extensions.NAVIGATION_CUSTOMERS.length > 0 && [
-        {
-          ariaLabel: "customers",
-          label: intl.formatMessage(sectionNames.customers),
-          permissions: ['MANAGE_USERS'],
-          id: "customers",
-          url: "/",
-        },
-        ...mapToExtensionsItems(
-          extensions.NAVIGATION_CUSTOMERS,
-          appExtensionsHeaderItem,
-        ),
-      ],
-      iconSrc: customerIcon,
-      label: intl.formatMessage(sectionNames.customers),
-      permissions: ['MANAGE_USERS'],
-      id: "customers",
-      url: "/",
     },
   ];
 

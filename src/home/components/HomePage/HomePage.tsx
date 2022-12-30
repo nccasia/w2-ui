@@ -1,11 +1,10 @@
+import { Typography } from "@material-ui/core";
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
-import Money from "@saleor/components/Money";
 import RequirePermissions from "@saleor/components/RequirePermissions";
-import Skeleton from "@saleor/components/Skeleton";
 import { makeStyles } from "@saleor/macaw-ui";
-import { IActivityAction } from "@saleor/type/Task";
+import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
 import React from "react";
 
 import Orders from "../../../icons/Orders";
@@ -40,7 +39,7 @@ const useStyles = makeStyles(
 
 export interface HomePageProps {
   activities: IActivityAction[];
-  orders: number | null;
+  quantityTasks: IQuantityTasks;
   ordersToCapture: number | null;
   ordersToFulfill: number | null;
   productsOutOfStock: number;
@@ -57,10 +56,9 @@ export interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = props => {
   const {
     userName,
-    orders,
-    sales,
     topProducts,
     activities,
+    quantityTasks,
     createNewChannelHref,
     ordersToFulfillHref,
     ordersToCaptureHref,
@@ -84,42 +82,30 @@ const HomePage: React.FC<HomePageProps> = props => {
           >
             <div className={classes.cardContainer}>
               <HomeAnalyticsCard
-                title={"Tasks"}
+                title={"Pending Tasks"}
                 testId="sales-analytics"
                 icon={
                   <Sales
+                    fontSize="inherit"
                     className={classes.icon}
-                    fontSize={"inherit"}
                     viewBox="0 0 64 64"
                   />
                 }
               >
-                {noChannel ? (
-                  0
-                ) : sales ? (
-                  <Money money={sales} />
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
+                <Typography>{quantityTasks.pending}</Typography>
               </HomeAnalyticsCard>
               <HomeAnalyticsCard
-                title={"Meeting"}
+                title={"Done Tasks"}
                 testId="orders-analytics"
                 icon={
                   <Orders
+                    fontSize="inherit"
                     className={classes.icon}
-                    fontSize={"inherit"}
                     viewBox="0 0 64 64"
                   />
                 }
               >
-                {noChannel ? (
-                  0
-                ) : orders !== undefined ? (
-                  orders
-                ) : (
-                  <Skeleton style={{ width: "5em" }} />
-                )}
+                <Typography>{quantityTasks.done}</Typography>
               </HomeAnalyticsCard>
             </div>
           </RequirePermissions>
