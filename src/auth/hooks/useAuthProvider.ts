@@ -1,8 +1,7 @@
 import { ApolloClient, ApolloError } from "@apollo/client";
+import { useAuth } from "@saleor/auth/hooks/useAuth";
 import { IMessageContext } from "@saleor/components/messages";
 import { DEMO_MODE } from "@saleor/config";
-import { useAuth } from "@saleor/hooks/useAuth";
-import { useAuthState } from "@saleor/hooks/useAuthState";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { commonMessages } from "@saleor/intl";
@@ -23,6 +22,7 @@ import {
   UserContextError,
 } from "../types";
 import { displayDemoMessage } from "../utils";
+import { useAuthState } from "./useAuthState";
 
 export interface UseAuthProviderOpts {
   intl: IntlShape;
