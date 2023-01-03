@@ -5,17 +5,17 @@ export const homeNotificationTableMessages = defineMessages({
     id: "Nuq83+",
     defaultMessage: "Create new channel",
   },
-  noOrders: {
-    id: "E9Jssl",
-    defaultMessage: "No orders ready to fulfill",
+  noTasks: {
+    id: "LazGNy",
+    defaultMessage: "No tasks ready to fulfill",
   },
   noPaymentWaiting: {
     id: "5dyOs0",
     defaultMessage: "No payments waiting for capture",
   },
-  noProductsOut: {
-    id: "bFhzRX",
-    defaultMessage: "No products are out of stock",
+  noTasksOut: {
+    id: "2tpxYm",
+    defaultMessage: "No tasks are out of stock",
   },
   pendingTasks: {
     id: "iYFScv",
@@ -27,9 +27,9 @@ export const homeNotificationTableMessages = defineMessages({
     defaultMessage:
       "{amount, plural,one {One payment to capture}other {{amount} done tasks}}",
   },
-  productOut: {
-    id: "cdxwA8",
+  TasksOut: {
+    id: "OjXwwt",
     defaultMessage:
-      "{amount, plural,one {One product out of stock}other {{amount} products out of stock}}",
+      "{amount, plural,one {One Tasks out of stock}other {{amount} Tasks out of stock}}",
   },
 });

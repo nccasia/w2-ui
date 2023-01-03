@@ -16,11 +16,7 @@ import { IntlShape } from "react-intl";
 import urlJoin from "url-join";
 
 import { parseAuthError } from "../errors";
-import {
-  RequestExternalLogoutInput,
-  UserContext,
-  UserContextError,
-} from "../types";
+import { UserContext, UserContextError } from "../types";
 import { displayDemoMessage } from "../utils";
 import { useAuthState } from "./useAuthState";
 
@@ -38,11 +34,11 @@ export function useAuthProvider({
   const {
     login,
     getExternalAuthUrl,
-    getExternalAccessToken,
+    // getExternalAccessToken,
     logout,
   } = useAuth();
   const navigate = useNavigator();
-  const { authenticated, authenticating, user } = useAuthState();
+  const { authenticated, authenticating, user, setUser } = useAuthState();
   const [requestedExternalPluginId] = useLocalStorage(
     "requestedExternalPluginId",
     null,
@@ -85,6 +81,7 @@ export function useAuthProvider({
   };
 
   const handleLogout = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const returnTo = urlJoin(
       window.location.origin,
       getAppMountUriForRedirect(),
@@ -99,11 +96,12 @@ export function useAuthProvider({
     // Forget last logged in user data.
     // On next login, user details query will be refetched due to cache-and-network fetch policy.
     apolloClient.clearStore();
-
+    // @ts-ignore
     const errors = result?.errors || [];
 
     const externalLogoutUrl = result
-      ? JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl
+      ? // @ts-ignore
+        JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl
       : "";
 
     if (!errors.length) {
@@ -113,6 +111,9 @@ export function useAuthProvider({
         navigate("/");
       }
     }
+
+    // TODO: fetch data logout
+    setUser(null);
 
     return;
   };
@@ -136,27 +137,23 @@ export function useAuthProvider({
 
       await logoutNonStaffUser(result.data.tokenCreate);
 
-      return result.data.tokenCreate;
+      setUser(result.data.tokenCreate.user);
+
+      return result.data.tokenCreate.user;
     } catch (error) {
       handleLoginError(error);
     }
   };
-
-  const handleRequestExternalLogin = async (
-    pluginId: string,
-    input: any,
-  ) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleRequestExternalLogin = async (pluginId: string, input: any) => {
     const result = await getExternalAuthUrl();
 
     return result?.data?.externalAuthenticationUrl;
   };
-
-  const handleExternalLogin = async (
-    pluginId: string,
-    input: any,
-  ) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleExternalLogin = async (pluginId: string, input: any) => {
     try {
-      const result = null
+      const result = null;
 
       if (result && !result.data?.externalObtainAccessTokens.errors.length) {
         if (DEMO_MODE) {
@@ -174,9 +171,7 @@ export function useAuthProvider({
     }
   };
 
-  const logoutNonStaffUser = async (
-    data: any,
-  ) => {
+  const logoutNonStaffUser = async (data: any) => {
     if (data.user && !data.user.isStaff) {
       notify({
         status: "error",
@@ -189,12 +184,13 @@ export function useAuthProvider({
 
   return {
     login: handleLogin,
+    // @ts-ignore
     requestLoginByExternalPlugin: handleRequestExternalLogin,
     loginByExternalPlugin: handleExternalLogin,
     logout: handleLogout,
     authenticating: authenticating && !errors.length,
     authenticated: authenticated && user?.isStaff,
-    user: null,
+    user,
     errors,
   };
 }

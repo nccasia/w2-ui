@@ -48,32 +48,32 @@ if (process.env.GTM_ID) {
 errorTracker.init();
 
 const App: React.FC = () => (
-    <ApolloProvider client={apolloClient}>
-      <BrowserRouter basename={getAppMountUri()}>
-        <ThemeProvider overrides={themeOverrides}>
-          <DateProvider>
-            <LocaleProvider>
-              <MessageManagerProvider>
-                <ServiceWorker />
-                <BackgroundTasksProvider>
-                  <AppStateProvider>
-                    <AuthProvider>
-                      <ShopProvider>
-                        <ExitFormDialogProvider>
-                          <FormSchemaProvider>
-                            <Routes />
-                          </FormSchemaProvider>
-                        </ExitFormDialogProvider>
-                      </ShopProvider>
-                    </AuthProvider>
-                  </AppStateProvider>
-                </BackgroundTasksProvider>
-              </MessageManagerProvider>
-            </LocaleProvider>
-          </DateProvider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </ApolloProvider>
+  <ApolloProvider client={apolloClient}>
+    <BrowserRouter basename={getAppMountUri()}>
+      <ThemeProvider overrides={themeOverrides}>
+        <DateProvider>
+          <LocaleProvider>
+            <MessageManagerProvider>
+              <ServiceWorker />
+              <BackgroundTasksProvider>
+                <AppStateProvider>
+                  <AuthProvider>
+                    <ShopProvider>
+                      <ExitFormDialogProvider>
+                        <FormSchemaProvider>
+                          <Routes />
+                        </FormSchemaProvider>
+                      </ExitFormDialogProvider>
+                    </ShopProvider>
+                  </AuthProvider>
+                </AppStateProvider>
+              </BackgroundTasksProvider>
+            </MessageManagerProvider>
+          </LocaleProvider>
+        </DateProvider>
+      </ThemeProvider>
+    </BrowserRouter>
+  </ApolloProvider>
 );
 
 const Routes: React.FC = () => {
@@ -83,7 +83,7 @@ const Routes: React.FC = () => {
 
   const { channel } = { channel: undefined };
 
-  const channelLoaded = typeof channel !== "undefined";
+  const channelLoaded = typeof channel !== undefined;
 
   const homePageLoaded = channelLoaded && authenticated;
 

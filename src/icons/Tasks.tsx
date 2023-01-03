@@ -1,7 +1,7 @@
 import { createSvgIcon } from "@material-ui/core/utils";
 import React from "react";
 
-const Orders = createSvgIcon(
+const Tasks = createSvgIcon(
   <>
     <path
       fillRule="evenodd"
@@ -10,7 +10,7 @@ const Orders = createSvgIcon(
       fill="#06847B"
     />
   </>,
-  "Orders",
+  "Tasks",
 );
 
-export default Orders;
+export default Tasks;

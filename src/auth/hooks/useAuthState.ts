@@ -6,22 +6,9 @@ export const useAuthState = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      setAuthenticating(true);
-      // do some dummy check for authenticated status here
-      const authenticated = true;
-      if (authenticated) {
-        setAuthenticated(true);
-        // get dummy user data here
-        setUser({ username: "dummy-user" });
-      } else {
-        setAuthenticated(false);
-        setUser(null);
-      }
-      setAuthenticating(false);
-    };
-    checkAuthStatus();
-  }, []);
+    setAuthenticated(user ? true : false);
+    setAuthenticating(user ? true : false);
+  }, [user]);
 
-  return { authenticated, authenticating, user };
+  return { authenticated, authenticating, user, setUser };
 };

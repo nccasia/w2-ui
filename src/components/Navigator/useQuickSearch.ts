@@ -30,13 +30,7 @@ function useQuickSearch(
   const [{ data: orderData }, getOrderData] = useCheckIfOrderExists();
   const [{ data: catalog }, searchCatalog] = useSearchCatalog(5);
   // @ts-ignore
-  const [createOrder] = useOrderDraftCreateMutation({
-    onCompleted: result => {
-      if (result.draftOrderCreate.errors.length === 0) {
-        navigate("/");
-      }
-    },
-  });
+  const [createOrder] = "/"; // TODO
 
   useModalDialogOpen(open, {
     onClose: () => {

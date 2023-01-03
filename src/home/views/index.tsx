@@ -3,7 +3,7 @@ import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 
-import { getDatePeriod, getUserName } from "../../misc";
+import { getUserName } from "../../misc";
 import HomePage from "../components/HomePage";
 
 const acti: IActivityAction[] = [
@@ -49,21 +49,20 @@ const quantity: IQuantityTasks = {
 const HomeSection = () => {
   const { user } = useUser();
   const { channel } = { channel: undefined };
-
   const noChannel = !channel && typeof channel !== "undefined";
 
-  const { data } = { data: undefined }
+  const { data } = { data: undefined };
 
   return (
     <HomePage
       activities={acti}
       quantityTasks={quantity}
       sales={data?.salesToday?.gross}
-      topProducts={mapEdgesToItems(data?.productTopToday)}
+      topTasks={mapEdgesToItems(data?.tasksTopToday)}
       createNewChannelHref={"/"}
-      ordersToCapture={data?.ordersToCapture?.totalCount}
-      ordersToFulfill={data?.ordersToFulfill?.totalCount}
-      productsOutOfStock={data?.productsOutOfStock.totalCount}
+      tasksToCapture={data?.tasksToCapture?.totalCount}
+      tasksToFulfill={data?.tasksToFulfill?.totalCount}
+      tasksOutOfStock={data?.tasksOutOfStock.totalCount}
       userName={getUserName(user, true)}
       noChannel={noChannel}
     />

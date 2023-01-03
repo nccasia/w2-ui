@@ -1,7 +1,6 @@
 import {
   GetExternalAccessTokenData,
   GetExternalAuthUrlData,
-  LoginData,
 } from "@saleor/sdk";
 
 export interface RequestExternalLoginInput {
@@ -28,7 +27,7 @@ export const UserContextError = {
 export type UserContextError = typeof UserContextError[keyof typeof UserContextError];
 
 export interface UserContext {
-  login: (username: string, password: string) => Promise<LoginData>;
+  login: (username: string, password: string) => Promise<any>;
   loginByExternalPlugin: (
     pluginId: string,
     input: ExternalLoginInput,
