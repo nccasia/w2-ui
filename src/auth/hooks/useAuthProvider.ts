@@ -81,6 +81,7 @@ export function useAuthProvider({
   };
 
   const handleLogout = async () => {
+    // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const returnTo = urlJoin(
       window.location.origin,
