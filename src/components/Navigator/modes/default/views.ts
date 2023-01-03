@@ -1,24 +1,10 @@
 import { appsListUrl } from "@saleor/apps/urls";
-import { attributeListUrl } from "@saleor/attributes/urls";
-import { categoryListUrl } from "@saleor/categories/urls";
-import { collectionListUrl } from "@saleor/collections/urls";
-import { customerListUrl } from "@saleor/customers/urls";
-import { saleListUrl, voucherListUrl } from "@saleor/discounts/urls";
 import { UseNavigatorResult } from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import { menuListUrl } from "@saleor/navigation/urls";
-import { orderDraftListUrl, orderListUrl } from "@saleor/orders/urls";
-import { pageListUrl } from "@saleor/pages/urls";
 import { permissionGroupListUrl } from "@saleor/permissionGroups/urls";
-import { pluginListUrl } from "@saleor/plugins/urls";
-import { productListUrl } from "@saleor/products/urls";
-import { productTypeListUrl } from "@saleor/productTypes/urls";
-import { shippingZonesListUrl } from "@saleor/shipping/urls";
 import { siteSettingsUrl } from "@saleor/siteSettings/urls";
 import { staffListUrl } from "@saleor/staff/urls";
-import { taxConfigurationListUrl } from "@saleor/taxes/urls";
-import { languageListUrl } from "@saleor/translations/urls";
-import { warehouseListUrl } from "@saleor/warehouses/urls";
 import { score } from "fuzzaldrin";
 import { IntlShape } from "react-intl";
 
@@ -40,23 +26,23 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.attributes),
-      url: attributeListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.categories),
-      url: categoryListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.collections),
-      url: collectionListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.customers),
-      url: customerListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.draftOrders),
-      url: orderDraftListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.home),
@@ -68,11 +54,11 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.orders),
-      url: orderListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.pages),
-      url: pageListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.permissionGroups),
@@ -80,23 +66,23 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.plugins),
-      url: pluginListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.productTypes),
-      url: productTypeListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.products),
-      url: productListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.sales),
-      url: saleListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.shipping),
-      url: shippingZonesListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.siteSettings),
@@ -108,19 +94,15 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.taxes),
-      url: taxConfigurationListUrl(),
-    },
-    {
-      label: intl.formatMessage(sectionNames.translations),
-      url: languageListUrl,
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.vouchers),
-      url: voucherListUrl(),
+      url: '/',
     },
     {
       label: intl.formatMessage(sectionNames.warehouses),
-      url: warehouseListUrl(),
+      url: '/',
     },
   ];
 

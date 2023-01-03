@@ -1,10 +1,9 @@
 import { IconProps } from "@material-ui/core";
-import { PermissionEnum } from "@saleor/graphql";
 
 export interface MenuItem {
   description: string;
   icon: React.ReactElement<IconProps>;
-  permissions?: PermissionEnum[];
+  permissions?: any[];
   title: string;
   url?: string;
   testId?: string;

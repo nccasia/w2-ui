@@ -11,8 +11,6 @@ import {
 } from "@material-ui/core";
 import { Button } from "@saleor/components/Button";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { MetadataInput } from "@saleor/graphql";
-import { FormChange } from "@saleor/hooks/useForm";
 import { DeleteIcon, ExpandIcon, IconButton } from "@saleor/macaw-ui";
 import clsx from "clsx";
 import React, { useEffect } from "react";
@@ -24,9 +22,9 @@ import useStyles from "./styles";
 import { EventDataAction, EventDataField } from "./types";
 
 export interface MetadataCardProps {
-  data: MetadataInput[];
+  data: any[];
   isPrivate: boolean;
-  onChange: FormChange;
+  onChange: any;
 }
 
 export const nameSeparator = ":";

@@ -1,22 +1,11 @@
-import {
-  SearchCatalogQueryHookResult,
-  useSearchCatalogQuery,
-} from "@saleor/graphql";
-import useDebounce from "@saleor/hooks/useDebounce";
-import { useState } from "react";
-
-type UseSearchCatalog = [SearchCatalogQueryHookResult, (query: string) => void];
-function useSearchCatalog(first: number): UseSearchCatalog {
-  const [query, setQuery] = useState("");
-  const setQueryDebounced = useDebounce(setQuery);
-  const result = useSearchCatalogQuery({
-    skip: query === "",
-    variables: {
-      first,
-      query,
-    },
-  });
-
-  return [result, setQueryDebounced];
+type UseSearchCatalog = [any, (query: string) => void];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function useSearchCatalog(_first: number): UseSearchCatalog {
+  // fetch data backend
+  const datafetch = {
+    email: "admin@example.com",
+    password: "admin",
+  };
+  return [datafetch, null];
 }
 export default useSearchCatalog;

@@ -4,7 +4,6 @@ import { Button } from "@saleor/components/Button";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { configurationMenuUrl } from "@saleor/configuration";
-import { PermissionGroupFragment } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -19,7 +18,7 @@ import PermissionGroupList from "../PermissionGroupList";
 export interface PermissionGroupListPageProps
   extends PageListProps,
     SortPage<PermissionGroupListUrlSortField> {
-  permissionGroups: PermissionGroupFragment[];
+  permissionGroups: any[];
   onDelete: (id: string) => void;
 }
 

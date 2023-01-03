@@ -10,12 +10,6 @@ import AutocompleteSelectMenu from "@saleor/components/AutocompleteSelectMenu";
 import BackButton from "@saleor/components/BackButton";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import FormSpacer from "@saleor/components/FormSpacer";
-import {
-  MenuErrorFragment,
-  SearchCategoriesQuery,
-  SearchCollectionsQuery,
-  SearchPagesQuery,
-} from "@saleor/graphql";
 import useModalDialogErrors from "@saleor/hooks/useModalDialogErrors";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
@@ -42,14 +36,14 @@ export interface MenuItemDialogFormData extends MenuItemData {
 export interface MenuItemDialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
   disabled: boolean;
-  errors: MenuErrorFragment[];
+  errors: any[];
   initial?: MenuItemDialogFormData;
   initialDisplayValue?: string;
   loading: boolean;
   open: boolean;
-  collections: RelayToFlat<SearchCollectionsQuery["search"]>;
-  categories: RelayToFlat<SearchCategoriesQuery["search"]>;
-  pages: RelayToFlat<SearchPagesQuery["search"]>;
+  collections: RelayToFlat<any>;
+  categories: RelayToFlat<any>;
+  pages: RelayToFlat<any>;
   onClose: () => void;
   onSubmit: (data: MenuItemDialogFormData) => void;
   onQueryChange: (query: string) => void;

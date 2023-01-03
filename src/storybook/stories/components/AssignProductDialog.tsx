@@ -2,7 +2,6 @@ import AssignProductDialog, {
   AssignProductDialogProps,
 } from "@saleor/components/AssignProductDialog";
 import { fetchMoreProps } from "@saleor/fixtures";
-import { products } from "@saleor/shipping/fixtures";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
@@ -16,7 +15,7 @@ const props: AssignProductDialogProps = {
   onFetch: () => undefined,
   onSubmit: () => undefined,
   open: true,
-  products,
+  products: null,
 };
 
 storiesOf("Generics / Assign product", module)

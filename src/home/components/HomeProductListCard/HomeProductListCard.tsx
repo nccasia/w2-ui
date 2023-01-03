@@ -5,10 +5,7 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { HomeQuery } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
-import { productVariantEditUrl } from "@saleor/products/urls";
-import { RelayToFlat } from "@saleor/types";
 import clsx from "clsx";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -46,7 +43,7 @@ const useStyles = makeStyles(
 
 interface HomeProductListProps {
   testId?: string;
-  topProducts: RelayToFlat<HomeQuery["productTopToday"]>;
+  topProducts: any;
 }
 
 export const HomeProductList: React.FC<HomeProductListProps> = props => {
@@ -75,16 +72,16 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
             topProducts,
             variant => (
               <TableRowLink
-                key={variant ? variant.id : "skeleton"}
+                key={"skeleton"}
                 hover={!!variant}
                 className={clsx({
                   [classes.tableRow]: !!variant,
                 })}
-                href={productVariantEditUrl(variant.product.id, variant.id)}
+                href={"/"}
               >
                 <TableCellAvatar
                   className={classes.colAvatar}
-                  thumbnail={maybe(() => variant.product.thumbnail.url)}
+                  thumbnail={maybe(() => ' ')}
                   avatarProps={classes.avatarProps}
                 />
 
@@ -92,14 +89,10 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
                   {variant ? (
                     <>
                       <Typography color={"primary"}>
-                        {variant.product.name}
+                        {' '}
                       </Typography>
                       <Typography color={"textSecondary"}>
-                        {maybe(() =>
-                          variant.attributes
-                            .map(attribute => attribute.values[0].name)
-                            .join(" / "),
-                        )}
+                        {' '}
                       </Typography>
                       <Typography color={"textSecondary"}>
                         <FormattedMessage
@@ -107,7 +100,7 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
                           defaultMessage="{amount, plural,one {One ordered}other {{amount} Ordered}}"
                           description="number of ordered products"
                           values={{
-                            amount: variant.quantityOrdered,
+                            amount: '0',
                           }}
                         />
                       </Typography>
@@ -121,7 +114,7 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
                   <Typography align={"right"}>
                     {maybe(
                       () => (
-                        <Money money={variant.revenue.gross} />
+                        <Money money={null} />
                       ),
                       <Skeleton />,
                     )}

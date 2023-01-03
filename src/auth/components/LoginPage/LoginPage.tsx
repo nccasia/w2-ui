@@ -5,9 +5,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { UserContextError } from "@saleor/auth/types";
+import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
 import { FormSpacer } from "@saleor/components/FormSpacer";
-import { AvailableExternalAuthenticationsQuery } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { EyeIcon, IconButton } from "@saleor/macaw-ui";
@@ -15,6 +15,7 @@ import { gapi } from "gapi-script";
 import React, { useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 import { FormattedMessage, useIntl } from "react-intl";
+import { Link } from "react-router-dom";
 
 import useStyles from "../styles";
 import LoginForm, { LoginFormData } from "./form";
@@ -24,7 +25,7 @@ export interface LoginCardProps {
   errors: UserContextError[];
   disabled: boolean;
   loading: boolean;
-  externalAuthentications?: AvailableExternalAuthenticationsQuery["shop"]["availableExternalAuthentications"];
+  externalAuthentications?: any;
   onExternalAuthentication: (pluginId: string) => void;
   onSubmit?: (event: LoginFormData) => SubmitPromise;
 }
@@ -129,6 +130,34 @@ const LoginCard: React.FC<LoginCardProps> = props => {
             >
               <EyeIcon />
             </IconButton>
+          </div>
+          <div className={classes.option}>
+            <Typography
+              component={Link}
+              className={classes.link}
+              to={passwordResetUrl}
+              variant="body2"
+              data-test-id="reset-password-link"
+            >
+              <FormattedMessage
+                id="3tbL7x"
+                defaultMessage="Forgot password?"
+                description="description"
+              />
+            </Typography>
+            <Typography
+              component={Link}
+              className={classes.link}
+              to={signUpResetUrl}
+              variant="body2"
+              data-test-id="signup"
+            >
+              <FormattedMessage
+                id="7qIf/y"
+                defaultMessage="Signup"
+                description="description"
+              />
+            </Typography>
           </div>
           <div className={classes.buttonContainer}>
             <Button

@@ -4,9 +4,7 @@ import { mapCountriesToChoices } from "@saleor/utils/maps";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
-import { customer } from "../../../customers/fixtures";
 import { transformAddressToForm } from "../../../misc";
-import { countries } from "../../../orders/fixtures";
 import Decorator from "../../Decorator";
 
 storiesOf("Generics / AddressEdit", module)
@@ -21,8 +19,11 @@ storiesOf("Generics / AddressEdit", module)
       <CardContent>
         <AddressEdit
           errors={[]}
+          // @ts-ignore
           data={transformAddressToForm(customer.defaultBillingAddress)}
+          // @ts-ignore
           countries={mapCountriesToChoices(countries)}
+          // @ts-ignore
           countryDisplayValue={customer.defaultBillingAddress.country.country}
           onChange={undefined}
           onCountryChange={() => undefined}

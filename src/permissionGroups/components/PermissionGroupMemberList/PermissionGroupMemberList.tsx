@@ -13,7 +13,6 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import TableHead from "@saleor/components/TableHead";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { PermissionGroupMemberFragment } from "@saleor/graphql";
 import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import {
   getUserInitials,
@@ -86,7 +85,7 @@ const numberOfColumns = 4;
 interface PermissionGroupProps
   extends ListActions,
     SortPage<MembersListUrlSortField> {
-  users: PermissionGroupMemberFragment[];
+  users: any[];
   disabled: boolean;
   onUnassign: (ida: string[]) => void;
   onAssign: () => void;

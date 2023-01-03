@@ -1,6 +1,5 @@
 import { Card, CardContent, TextField } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
-import { PermissionGroupErrorFragment } from "@saleor/graphql";
 import { FormChange } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { getFieldError, getFormErrors } from "@saleor/utils/errors";
@@ -10,7 +9,7 @@ import { useIntl } from "react-intl";
 
 export interface PermissionGroupInfoProps {
   disabled: boolean;
-  errors: PermissionGroupErrorFragment[];
+  errors: any[];
   onChange: FormChange;
   data: {
     name: string;

@@ -6,7 +6,6 @@ import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import Hr from "@saleor/components/Hr";
-import { AppQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import clsx from "clsx";
 import React from "react";
@@ -17,7 +16,7 @@ import { useStyles } from "./styles";
 import useSettingsBreadcrumbs from "./useSettingsBreadcrumbs";
 
 export interface AppPageProps {
-  data: AppQuery["app"];
+  data: any;
   url: string;
   onError: () => void;
   aboutHref: string;

@@ -1,18 +1,9 @@
 import { useUser } from "@saleor/auth";
-import { channelsListUrl } from "@saleor/channels/urls";
-import useAppChannel from "@saleor/components/AppLayout/AppChannelContext";
-import {
-  OrderStatusFilter,
-  StockAvailability,
-  useHomeQuery,
-} from "@saleor/graphql";
 import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 
-import { getDatePeriod, getUserName } from "../../misc";
-import { orderListUrl } from "../../orders/urls";
-import { productListUrl } from "../../products/urls";
+import { getUserName } from "../../misc";
 import HomePage from "../components/HomePage";
 
 const acti: IActivityAction[] = [
@@ -57,38 +48,21 @@ const quantity: IQuantityTasks = {
 };
 const HomeSection = () => {
   const { user } = useUser();
-  const { channel } = useAppChannel();
-
+  const { channel } = { channel: undefined };
   const noChannel = !channel && typeof channel !== "undefined";
 
-  const { data } = useHomeQuery({
-    displayLoader: true,
-    skip: noChannel,
-    variables: { channel: channel?.slug, datePeriod: getDatePeriod(1) },
-  });
+  const { data } = { data: undefined };
 
   return (
     <HomePage
       activities={acti}
       quantityTasks={quantity}
       sales={data?.salesToday?.gross}
-      topProducts={mapEdgesToItems(data?.productTopToday)}
-      createNewChannelHref={channelsListUrl()}
-      ordersToCaptureHref={orderListUrl({
-        status: [OrderStatusFilter.READY_TO_CAPTURE],
-        channel: [channel?.id],
-      })}
-      ordersToFulfillHref={orderListUrl({
-        status: [OrderStatusFilter.READY_TO_FULFILL],
-        channel: [channel?.id],
-      })}
-      productsOutOfStockHref={productListUrl({
-        stockStatus: StockAvailability.OUT_OF_STOCK,
-        channel: channel?.slug,
-      })}
-      ordersToCapture={data?.ordersToCapture?.totalCount}
-      ordersToFulfill={data?.ordersToFulfill?.totalCount}
-      productsOutOfStock={data?.productsOutOfStock.totalCount}
+      topTasks={mapEdgesToItems(data?.tasksTopToday)}
+      createNewChannelHref={"/"}
+      tasksToCapture={data?.tasksToCapture?.totalCount}
+      tasksToFulfill={data?.tasksToFulfill?.totalCount}
+      tasksOutOfStock={data?.tasksOutOfStock.totalCount}
       userName={getUserName(user, true)}
       noChannel={noChannel}
     />

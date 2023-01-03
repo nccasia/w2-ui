@@ -1,12 +1,6 @@
-import {
-  PermissionGroupDetailsQuery,
-  ShopInfoQuery,
-  UserDetailsQuery,
-} from "@saleor/graphql";
-
 export const getLastSourcesOfPermission = (
   groupId: string,
-  userPermissions: PermissionGroupDetailsQuery["user"]["userPermissions"],
+  userPermissions: any,
 ) =>
   userPermissions
     .filter(
@@ -17,8 +11,8 @@ export const getLastSourcesOfPermission = (
     .map(perm => perm.code);
 
 export const getPermissionsComponentChoices = (
-  userPermissions: UserDetailsQuery["me"]["userPermissions"],
-  shopPermissions: ShopInfoQuery["shop"]["permissions"],
+  userPermissions: any,
+  shopPermissions: any,
   lastSourcesOfPermissionIds: string[],
 ) => {
   const userCodes = userPermissions.map(p => p.code) || [];

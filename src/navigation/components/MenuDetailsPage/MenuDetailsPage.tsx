@@ -5,7 +5,6 @@ import Container from "@saleor/components/Container";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Savebar from "@saleor/components/Savebar";
-import { MenuDetailsFragment, MenuErrorFragment } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
@@ -30,8 +29,8 @@ export interface MenuDetailsSubmitData extends MenuDetailsFormData {
 export interface MenuDetailsPageProps {
   saveButtonState: ConfirmButtonTransitionState;
   disabled: boolean;
-  errors: MenuErrorFragment[];
-  menu: MenuDetailsFragment;
+  errors: any[];
+  menu: any;
   onDelete: () => void;
   onItemAdd: () => void;
   onItemClick: (id: string, type: MenuItemType) => void;

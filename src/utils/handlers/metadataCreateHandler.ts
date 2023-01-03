@@ -1,8 +1,4 @@
 import { MetadataFormData } from "@saleor/components/Metadata/types";
-import {
-  UpdateMetadataMutationFn,
-  UpdatePrivateMetadataMutationFn,
-} from "@saleor/graphql";
 
 import { filterMetadataArray } from "./filterMetadataArray";
 
@@ -13,8 +9,8 @@ export interface CreateMetadataHandlerFunctionResult<TError> {
 
 function createMetadataCreateHandler<T extends MetadataFormData, TError>(
   create: (data: T) => Promise<CreateMetadataHandlerFunctionResult<TError>>,
-  setMetadata: UpdateMetadataMutationFn,
-  setPrivateMetadata: UpdatePrivateMetadataMutationFn,
+  setMetadata: any,
+  setPrivateMetadata: any,
   onComplete?: (id: string) => void,
 ) {
   return async (data: T) => {

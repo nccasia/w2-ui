@@ -190,10 +190,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
           () => (
             <TableRowLink>
               <TableCell colSpan={numberOfColumns}>
-                <FormattedMessage
-                  id="RlfqSV"
-                  defaultMessage="No orders found"
-                />
+                <FormattedMessage id="qMYISc" defaultMessage="No tasks found" />
               </TableCell>
             </TableRowLink>
           ),

@@ -10,7 +10,6 @@ import CardTitle from "@saleor/components/CardTitle";
 import { IconButton } from "@saleor/components/IconButton";
 import { TableButtonWrapper } from "@saleor/components/TableButtonWrapper/TableButtonWrapper";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { AppsInstallationsQuery, JobStatusEnum } from "@saleor/graphql";
 import {
   DeleteIcon,
   Indicator,
@@ -26,7 +25,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { useStyles } from "../../styles";
 
 export interface AppsInProgressProps {
-  appsList: AppsInstallationsQuery["appsInstallations"];
+  appsList: any;
   onAppInstallRetry: (id: string) => void;
   onRemove: (id: string) => void;
 }
@@ -56,7 +55,7 @@ const AppsInProgress: React.FC<AppsInProgressProps> = ({
               <TableCell className={classes.colName}>
                 <span data-tc="name">{appName}</span>
               </TableCell>
-              {status === JobStatusEnum.PENDING && (
+              {status === 'PENDING' && (
                 <TableCell
                   className={clsx(classes.colAction, classes.colInstallAction)}
                 >
@@ -72,7 +71,7 @@ const AppsInProgress: React.FC<AppsInProgressProps> = ({
                   </div>
                 </TableCell>
               )}
-              {status === JobStatusEnum.FAILED && (
+              {status === 'FAILED' && (
                 <TableCell
                   className={clsx(classes.colAction, classes.colInstallAction)}
                 >

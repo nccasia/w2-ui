@@ -1,25 +1,9 @@
 import { useUser } from "@saleor/auth";
 import { Button } from "@saleor/components/Button";
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
-import {
-  usePermissionGroupDetailsQuery,
-  usePermissionGroupUpdateMutation,
-} from "@saleor/graphql";
-import useBulkActions from "@saleor/hooks/useBulkActions";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useNotifier from "@saleor/hooks/useNotifier";
 import useShop from "@saleor/hooks/useShop";
-import useStateFromProps from "@saleor/hooks/useStateFromProps";
-import { commonMessages } from "@saleor/intl";
-import { extractMutationErrors } from "@saleor/misc";
 import MembersErrorDialog from "@saleor/permissionGroups/components/MembersErrorDialog";
-import {
-  arePermissionsExceeded,
-  permissionsDiff,
-  usersDiff,
-} from "@saleor/permissionGroups/utils";
-import useStaffMemberSearch from "@saleor/searches/useStaffMemberSearch";
-import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
+import PermissionGroupDetailsPage from "@saleor/permissionGroups/components/PermissionGroupDetailsPage";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
@@ -27,13 +11,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import AssignMembersDialog from "../../components/AssignMembersDialog";
-import PermissionGroupDetailsPage, {
-  PermissionGroupDetailsPageFormData,
-} from "../../components/PermissionGroupDetailsPage";
 import UnassignMembersDialog from "../../components/UnassignMembersDialog";
 import {
   permissionGroupDetailsUrl,
-  PermissionGroupDetailsUrlDialog,
   PermissionGroupDetailsUrlQueryParams,
 } from "../../urls";
 
@@ -48,51 +28,10 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
 }) => {
   const navigate = useNavigator();
   const shop = useShop();
-  const notify = useNotifier();
   const intl = useIntl();
   const user = useUser();
 
-  const { data, loading, refetch } = usePermissionGroupDetailsQuery({
-    displayLoader: true,
-    variables: { id, userId: user?.user.id },
-  });
-
-  const [membersList, setMembersList] = useStateFromProps(
-    data?.permissionGroup.users,
-  );
-
-  const { search, result: searchResult, loadMore } = useStaffMemberSearch({
-    variables: DEFAULT_INITIAL_SEARCH_DATA,
-  });
-
-  const { isSelected, listElements, toggle, toggleAll } = useBulkActions(
-    params.ids,
-  );
-
-  const [
-    permissionGroupUpdate,
-    permissionGroupUpdateResult,
-  ] = usePermissionGroupUpdateMutation({
-    onCompleted: data => {
-      if (data.permissionGroupUpdate.errors.length === 0) {
-        notify({
-          status: "success",
-          text: intl.formatMessage(commonMessages.savedChanges),
-        });
-        refetch();
-        closeModal();
-      } else if (
-        data.permissionGroupUpdate.errors.some(e => e.field === "removeUsers")
-      ) {
-        openModal("unassignError");
-      }
-    },
-  });
-
-  const [openModal, closeModal] = createDialogActionHandlers<
-    PermissionGroupDetailsUrlDialog,
-    PermissionGroupDetailsUrlQueryParams
-  >(navigate, params => permissionGroupDetailsUrl(id, params), params);
+  const [membersList] = [null];
 
   const handleSort = createSortHandler(
     navigate,
@@ -100,21 +39,7 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
     params,
   );
 
-  const unassignMembers = () => {
-    setMembersList(membersList?.filter(m => !listElements.includes(m.id)));
-    closeModal();
-  };
-
-  const isGroupEditable =
-    (data?.user.editableGroups || []).filter(g => g.id === id).length > 0;
-
-  const lastSourcesOfPermission = (data?.user.userPermissions || [])
-    .filter(
-      perm =>
-        perm.sourcePermissionGroups.length === 1 &&
-        perm.sourcePermissionGroups[0].id === id,
-    )
-    .map(perm => perm.code);
+  const lastSourcesOfPermission = [];
 
   const userPermissions = user?.user.userPermissions.map(p => p.code) || [];
 
@@ -124,51 +49,32 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
     lastSource: lastSourcesOfPermission.includes(perm.code),
   }));
 
-  const permissionsExceeded = arePermissionsExceeded(
-    data?.permissionGroup,
-    user.user,
-  );
-  const disabled = loading || !isGroupEditable || permissionsExceeded;
-
-  const handleSubmit = async (formData: PermissionGroupDetailsPageFormData) =>
-    extractMutationErrors(
-      permissionGroupUpdate({
-        variables: {
-          id,
-          input: {
-            name: formData.name,
-            ...permissionsDiff(data?.permissionGroup, formData),
-            ...usersDiff(data?.permissionGroup, formData),
-          },
-        },
-      }),
-    );
+  const disabled = false;
 
   return (
     <>
       <PermissionGroupDetailsPage
-        permissionGroup={data?.permissionGroup}
-        permissionsExceeded={permissionsExceeded}
+        permissionGroup={null}
+        permissionsExceeded={null}
         members={membersList || []}
-        onAssign={() => openModal("assign")}
-        onUnassign={ids => openModal("unassign", { ids })}
-        errors={
-          permissionGroupUpdateResult?.data?.permissionGroupUpdate.errors || []
-        }
-        onSubmit={handleSubmit}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onAssign={() => {}}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onUnassign={() => {}}
+        errors={[]}
+        onSubmit={async () => true}
         permissions={permissions}
-        saveButtonBarState={permissionGroupUpdateResult.status}
+        saveButtonBarState={null}
         disabled={disabled}
-        toggle={toggle}
-        toggleAll={toggleAll}
-        isChecked={isSelected}
-        selected={listElements.length}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        toggle={() => {}}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        toggleAll={() => {}}
+        isChecked={() => false}
+        selected={0}
         sort={getSortParams(params)}
         toolbar={
-          <Button
-            variant="secondary"
-            onClick={() => openModal("unassign", { ids: listElements })}
-          >
+          <Button variant="secondary" onClick={() => true}>
             {intl.formatMessage({
               id: "15PiOX",
               defaultMessage: "Unassign",
@@ -179,36 +85,35 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
         onSort={handleSort}
       />
       <AssignMembersDialog
-        loading={searchResult.loading}
-        staffMembers={mapEdgesToItems(searchResult?.data?.search)}
-        onSearchChange={search}
-        onFetchMore={loadMore}
+        loading={false}
+        staffMembers={mapEdgesToItems({ edges: [] })}
+        onSearchChange={() => true}
+        onFetchMore={() => true}
         disabled={disabled}
-        hasMore={searchResult?.data?.search.pageInfo.hasNextPage}
+        hasMore={false}
         initialSearch=""
-        confirmButtonState={permissionGroupUpdateResult.status}
+        confirmButtonState={null}
         open={params.action === "assign"}
-        onClose={closeModal}
-        onSubmit={formData => {
-          setMembersList([
-            ...membersList,
-            ...formData.filter(member => !membersList.includes(member)),
-          ]);
-          closeModal();
-        }}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClose={() => {}}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onSubmit={() => {}}
       />
       <UnassignMembersDialog
-        onConfirm={unassignMembers}
-        confirmButtonState={permissionGroupUpdateResult.status}
-        quantity={listElements.length}
+        onConfirm={() => true}
+        confirmButtonState={null}
+        quantity={0}
         open={params.action === "unassign"}
-        onClose={closeModal}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClose={() => {}}
       />
       <MembersErrorDialog
-        onConfirm={closeModal}
-        confirmButtonState={permissionGroupUpdateResult.status}
-        open={params.action === "unassignError"}
-        onClose={closeModal}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onConfirm={() => {}}
+        confirmButtonState={null}
+        open={false}
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        onClose={() => {}}
       />
     </>
   );

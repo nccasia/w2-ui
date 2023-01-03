@@ -1,6 +1,5 @@
 import { Typography } from "@material-ui/core";
 import { Button } from "@saleor/components/Button";
-import { FileFragment } from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import React from "react";
@@ -11,7 +10,7 @@ import Skeleton from "../Skeleton";
 export interface FileChoiceType {
   label: string;
   value: string;
-  file?: FileFragment;
+  file?: any;
 }
 
 export interface FileUploadFieldProps {

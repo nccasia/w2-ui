@@ -1,5 +1,3 @@
-import { customerUrl } from "@saleor/customers/urls";
-import { SearchCustomersQuery } from "@saleor/graphql";
 import { UseNavigatorResult } from "@saleor/hooks/useNavigator";
 import { RelayToFlat } from "@saleor/types";
 import { IntlShape } from "react-intl";
@@ -10,7 +8,7 @@ import messages from "./messages";
 export function searchInCustomers(
   intl: IntlShape,
   navigate: UseNavigatorResult,
-  customers: RelayToFlat<SearchCustomersQuery["search"]>,
+  customers: RelayToFlat<any>,
 ): QuickSearchAction[] {
   return customers.map(customer => ({
     caption: customer.email,
@@ -22,7 +20,7 @@ export function searchInCustomers(
           })
         : customer.email,
     onClick: () => {
-      navigate(customerUrl(customer.id));
+      navigate("/");
       return false;
     },
     score: 1,
@@ -33,7 +31,7 @@ export function searchInCustomers(
 function getCustomersModeActions(
   intl: IntlShape,
   navigate: UseNavigatorResult,
-  customers: RelayToFlat<SearchCustomersQuery["search"]>,
+  customers: RelayToFlat<any>,
 ): QuickSearchAction[] {
   return searchInCustomers(intl, navigate, customers);
 }

@@ -1,10 +1,6 @@
 import { TextField } from "@material-ui/core";
 import { TextFieldProps } from "@material-ui/core/TextField";
 import { getErrorMessage } from "@saleor/components/Attributes/utils";
-import {
-  PageErrorWithAttributesFragment,
-  ProductErrorWithAttributesFragment,
-} from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { joinDateTime, splitDateTime } from "@saleor/misc";
 import React from "react";
@@ -14,7 +10,7 @@ import { useStyles } from "./styles";
 
 type DateTimeFieldProps = Omit<TextFieldProps, "label" | "error"> & {
   onChange: (value: string) => void;
-  error: ProductErrorWithAttributesFragment | PageErrorWithAttributesFragment;
+  error: any;
   value: string;
 };
 

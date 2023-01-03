@@ -1,9 +1,8 @@
-import { ChannelData } from "@saleor/channels/utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 import useChannels from "./useChannels";
 
-const channels: ChannelData[] = [
+const channels: any = [
   {
     id: "channel1",
     name: "Channel 1",

@@ -3,13 +3,11 @@ import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import RequirePermissions from "@saleor/components/RequirePermissions";
-import { HomeQuery, PermissionEnum } from "@saleor/graphql";
+import Tasks from "@saleor/icons/Tasks";
 import { makeStyles } from "@saleor/macaw-ui";
 import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
-import { RelayToFlat } from "@saleor/types";
 import React from "react";
 
-import Orders from "../../../icons/Orders";
 import Sales from "../../../icons/Sales";
 import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
@@ -42,35 +40,34 @@ const useStyles = makeStyles(
 export interface HomePageProps {
   activities: IActivityAction[];
   quantityTasks: IQuantityTasks;
-  ordersToCapture: number | null;
-  ordersToFulfill: number | null;
-  productsOutOfStock: number;
-  sales: HomeQuery["salesToday"]["gross"];
-  topProducts: RelayToFlat<HomeQuery["productTopToday"]> | null;
+  tasksToCapture: number | null;
+  tasksToFulfill: number | null;
+  tasksOutOfStock: number;
+  sales: any;
+  topTasks: any;
   userName: string;
-  createNewChannelHref: string;
-  ordersToFulfillHref: string;
-  ordersToCaptureHref: string;
-  productsOutOfStockHref: string;
+  createNewChannelHref?: string;
+  tasksToFulfillHref?: string;
+  tasksToCaptureHref?: string;
+  tasksOutOfStockHref?: string;
   noChannel: boolean;
 }
 
 const HomePage: React.FC<HomePageProps> = props => {
   const {
     userName,
-    topProducts,
+    topTasks,
     activities,
     quantityTasks,
     createNewChannelHref,
-    ordersToFulfillHref,
-    ordersToCaptureHref,
-    productsOutOfStockHref,
-    ordersToCapture = 0,
-    ordersToFulfill = 0,
-    productsOutOfStock = 0,
+    tasksToFulfillHref,
+    tasksToCaptureHref,
+    tasksOutOfStockHref,
+    tasksToCapture = 0,
+    tasksToFulfill = 0,
+    tasksOutOfStock = 0,
     noChannel,
   } = props;
-
   const classes = useStyles(props);
 
   return (
@@ -79,9 +76,7 @@ const HomePage: React.FC<HomePageProps> = props => {
       <CardSpacer />
       <Grid>
         <div>
-          <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          >
+          <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
             <div className={classes.cardContainer}>
               <HomeAnalyticsCard
                 title={"Pending Tasks"}
@@ -98,9 +93,9 @@ const HomePage: React.FC<HomePageProps> = props => {
               </HomeAnalyticsCard>
               <HomeAnalyticsCard
                 title={"Done Tasks"}
-                testId="orders-analytics"
+                testId="tasks-analytics"
                 icon={
-                  <Orders
+                  <Tasks
                     fontSize="inherit"
                     className={classes.icon}
                     viewBox="0 0 64 64"
@@ -113,25 +108,20 @@ const HomePage: React.FC<HomePageProps> = props => {
           </RequirePermissions>
           <HomeNotificationTable
             createNewChannelHref={createNewChannelHref}
-            ordersToFulfillHref={ordersToFulfillHref}
-            ordersToCaptureHref={ordersToCaptureHref}
-            productsOutOfStockHref={productsOutOfStockHref}
-            ordersToCapture={ordersToCapture}
-            ordersToFulfill={ordersToFulfill}
-            productsOutOfStock={productsOutOfStock}
+            tasksToFulfillHref={tasksToFulfillHref}
+            tasksToCaptureHref={tasksToCaptureHref}
+            tasksOutOfStockHref={tasksOutOfStockHref}
+            tasksToCapture={tasksToCapture}
+            tasksToFulfill={tasksToFulfill}
+            tasksOutOfStock={tasksOutOfStock}
             noChannel={noChannel}
           />
           <CardSpacer />
-          {topProducts && (
-            <RequirePermissions
-              requiredPermissions={[
-                PermissionEnum.MANAGE_ORDERS,
-                PermissionEnum.MANAGE_PRODUCTS,
-              ]}
-            >
+          {topTasks && (
+            <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
               <HomeProductListCard
                 testId="top-products"
-                topProducts={topProducts}
+                topProducts={topTasks}
               />
               <CardSpacer />
             </RequirePermissions>
@@ -139,9 +129,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         </div>
         {activities && (
           <div>
-            <RequirePermissions
-              requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-            >
+            <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
               <HomeActivityCard activities={activities} />
             </RequirePermissions>
           </div>
