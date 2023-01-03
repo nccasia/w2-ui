@@ -38,6 +38,8 @@ export interface PermissionGroupDetailsPageFormData {
 export interface PermissionData {
   lastSource?: boolean;
   disabled?: boolean;
+  code?: string;
+  name?: string;
 }
 
 export interface PermissionGroupDetailsPageProps

@@ -1,14 +1,10 @@
-import {
-  Card,
-  TableBody,
-} from "@material-ui/core";
+import { Card, TableBody } from "@material-ui/core";
 import { InstallWithManifestFormButton } from "@saleor/apps/components/InstallWithManifestFormButton";
 import CardTitle from "@saleor/components/CardTitle";
 import { ResponsiveTable } from "@saleor/macaw-ui";
 import React, { useCallback } from "react";
 
 import { useStyles } from "../../styles";
-
 
 export interface InstalledAppsProps {
   appsList: any;
@@ -24,7 +20,7 @@ const InstalledApps: React.FC<InstalledAppsProps> = ({
 }) => {
   const classes = useStyles(props);
   // eslint-disable-next-line react-hooks/exhaustive-deps, @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
-  const navigate = (url: string) => {};
+  const navigate = (_url: string) => {};
 
   const navigateToAppInstallPage = useCallback(
     (url: string) => {
@@ -48,9 +44,7 @@ const InstalledApps: React.FC<InstalledAppsProps> = ({
         }
       />
       <ResponsiveTable>
-        <TableBody>
-         
-        </TableBody>
+        <TableBody></TableBody>
       </ResponsiveTable>
     </Card>
   );

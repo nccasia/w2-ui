@@ -4,7 +4,6 @@ import { FileChoiceType } from "@saleor/components/FileUploadField";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import { SingleAutocompleteChoiceType } from "@saleor/components/SingleAutocompleteSelectField";
 import { SortableChipsFieldValueType } from "@saleor/components/SortableChipsField";
-import { getProductErrorMessage } from "@saleor/utils/errors";
 import getPageErrorMessage from "@saleor/utils/errors/page";
 import { IntlShape } from "react-intl";
 
@@ -77,9 +76,7 @@ export function getReferenceDisplayValue(
   });
 }
 
-export function getMultiChoices(
-  values: any[],
-): MultiAutocompleteChoiceType[] {
+export function getMultiChoices(values: any[]): MultiAutocompleteChoiceType[] {
   return values.map(value => ({
     label: value.name,
     value: value.slug,
@@ -129,13 +126,10 @@ export function getMultiDisplayValue(
   });
 }
 
-export function getErrorMessage(
-  err: any,
-  intl: IntlShape,
-): string {
+export function getErrorMessage(err: any, intl: IntlShape): string {
   switch (err?.__typename) {
     case "ProductError":
-      return getProductErrorMessage(err, intl);
+      return getErrorMessage(err, intl);
     case "PageError":
       return getPageErrorMessage(err, intl);
   }

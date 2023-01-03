@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { makeStyles } from "@saleor/macaw-ui";
+import { LanguageCodeEnum } from "@saleor/sdk/dist/apollo/types";
 import clsx from "clsx";
 import React from "react";
 import { FormattedMessage } from "react-intl";
@@ -17,7 +18,7 @@ import { Link } from "react-router-dom";
 
 export interface LanguageSwitchProps {
   currentLanguage: LanguageCodeEnum;
-  languages: LanguageFragment[];
+  languages: any;
   getLanguageUrl: (lang: LanguageCodeEnum) => string;
 }
 

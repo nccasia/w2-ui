@@ -19,10 +19,11 @@ export const CustomAppCreate: React.FC<CustomAppCreateProps> = ({}) => {
       <CustomAppCreatePage
         disabled={false}
         errors={[]}
+        // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onSubmit={() => {}}
         permissions={shop?.permissions}
-        saveButtonBarState={'default'}
+        saveButtonBarState={"default"}
       />
     </>
   );

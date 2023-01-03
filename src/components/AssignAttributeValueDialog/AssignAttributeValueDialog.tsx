@@ -1,3 +1,4 @@
+import { AttributeEntityTypeEnum } from "@saleor/sdk/dist/apollo/types";
 import { RelayToFlat } from "@saleor/types";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
@@ -6,7 +7,6 @@ import AssignContainerDialog from "../AssignContainerDialog";
 import AssignProductDialog, {
   AssignProductDialogProps,
 } from "../AssignProductDialog";
-import AssignVariantDialog from "../AssignVariantDialog";
 
 const pagesMessages = defineMessages({
   confirmBtn: {
@@ -33,7 +33,7 @@ const pagesMessages = defineMessages({
 
 type AssignAttributeValueDialogProps = AssignProductDialogProps & {
   entityType: AttributeEntityTypeEnum;
-  pages: RelayToFlat<SearchPagesQuery["search"]>;
+  pages: RelayToFlat<any>;
 };
 
 const AssignAttributeValueDialog: React.FC<AssignAttributeValueDialogProps> = ({
@@ -45,7 +45,7 @@ const AssignAttributeValueDialog: React.FC<AssignAttributeValueDialogProps> = ({
   const intl = useIntl();
 
   switch (entityType) {
-    case AttributeEntityTypeEnum.PAGE:
+    case "PAGE":
       return (
         <AssignContainerDialog
           containers={pages.map(page => ({ id: page.id, name: page.title }))}
@@ -58,10 +58,8 @@ const AssignAttributeValueDialog: React.FC<AssignAttributeValueDialogProps> = ({
           {...rest}
         />
       );
-    case AttributeEntityTypeEnum.PRODUCT:
+    case "PRODUCT":
       return <AssignProductDialog products={products} {...rest} />;
-    case AttributeEntityTypeEnum.PRODUCT_VARIANT:
-      return <AssignVariantDialog products={products} {...rest} />;
   }
 };
 AssignAttributeValueDialog.displayName = "AssignAttributeValueDialog";

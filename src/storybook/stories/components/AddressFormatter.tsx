@@ -2,6 +2,7 @@ import AddressFormatter from "@saleor/components/AddressFormatter";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 
+// @ts-ignore
 import { customer } from "../../../customers/fixtures";
 import CardDecorator from "../../CardDecorator";
 import Decorator from "../../Decorator";

@@ -1,50 +1,49 @@
-import { SetPasswordData } from "@saleor/sdk";
-import { defineMessages, IntlShape } from "react-intl";
+import { IntlShape } from "react-intl";
 
 import { getCommonFormFieldErrorMessage } from "./common";
 
-const messages = defineMessages({
-  invalidPassword: {
-    id: "eu98dw",
-    defaultMessage: "Invalid password",
-  },
-  outOfScopeGroup: {
-    id: "1n1tOR",
-    defaultMessage: "Group is out of your permission scope",
-  },
-  outOfScopeUser: {
-    id: "KRqgfo",
-    defaultMessage: "User is out of your permissions scope",
-  },
-  passwordNumeric: {
-    id: "cY42ht",
-    defaultMessage: "Password cannot be entirely numeric",
-  },
-  tooCommon: {
-    id: "wn3di2",
-    defaultMessage: "This password is too commonly used",
-  },
-  tooShort: {
-    id: "LR3HlT",
-    defaultMessage: "This password is too short",
-  },
-  tooSimilar: {
-    id: "1wyZpQ",
-    defaultMessage: "These passwords are too similar",
-  },
-  unique: {
-    id: "TDhHMi",
-    defaultMessage: "This needs to be unique",
-  },
-  invalidToken: {
-    id: "ByYtFB",
-    defaultMessage: "Invalid or expired token. Please check your token in URL",
-  },
-  userNotFound: {
-    id: "tR+UuE",
-    defaultMessage: "User doesn't exist. Please check your email in URL",
-  },
-});
+// const messages = defineMessages({
+//   invalidPassword: {
+//     id: "eu98dw",
+//     defaultMessage: "Invalid password",
+//   },
+//   outOfScopeGroup: {
+//     id: "1n1tOR",
+//     defaultMessage: "Group is out of your permission scope",
+//   },
+//   outOfScopeUser: {
+//     id: "KRqgfo",
+//     defaultMessage: "User is out of your permissions scope",
+//   },
+//   passwordNumeric: {
+//     id: "cY42ht",
+//     defaultMessage: "Password cannot be entirely numeric",
+//   },
+//   tooCommon: {
+//     id: "wn3di2",
+//     defaultMessage: "This password is too commonly used",
+//   },
+//   tooShort: {
+//     id: "LR3HlT",
+//     defaultMessage: "This password is too short",
+//   },
+//   tooSimilar: {
+//     id: "1wyZpQ",
+//     defaultMessage: "These passwords are too similar",
+//   },
+//   unique: {
+//     id: "TDhHMi",
+//     defaultMessage: "This needs to be unique",
+//   },
+//   invalidToken: {
+//     id: "ByYtFB",
+//     defaultMessage: "Invalid or expired token. Please check your token in URL",
+//   },
+//   userNotFound: {
+//     id: "tR+UuE",
+//     defaultMessage: "User doesn't exist. Please check your email in URL",
+//   },
+// });
 
 interface ErrorFragment {
   code: any;

@@ -4,21 +4,18 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import BackgroundTasksContext from "./context";
-import {
-  handleTask,
-  queueCustom,
-} from "./tasks";
+import { handleTask, queueCustom } from "./tasks";
 import { QueuedTask, Task, TaskData, TaskStatus } from "./types";
 
 export const backgroundTasksRefreshTime = 15 * 1000;
 
 export function useBackgroundTasks(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  apolloClient: any,
+  _apolloClient: any,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  notify: any,
+  _notify: any,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  intl: IntlShape,
+  _intl: IntlShape,
 ) {
   const idCounter = React.useRef(0);
   const tasks = React.useRef<QueuedTask[]>([]);

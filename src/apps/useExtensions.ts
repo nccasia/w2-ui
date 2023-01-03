@@ -1,8 +1,5 @@
-import { useUserPermissions } from "@saleor/auth/hooks/useUserPermissions";
 import { RelayToFlat } from "@saleor/types";
-import { mapEdgesToItems } from "@saleor/utils/maps";
 
-import { AppData, useExternalApp } from "./components/ExternalAppContext";
 import { AppDetailsUrlMountQueryParams } from "./urls";
 
 export interface Extension {
@@ -20,33 +17,7 @@ export interface ExtensionWithParams extends Omit<Extension, "open"> {
   open(params: AppDetailsUrlMountQueryParams): void;
 }
 
-export const extensionMountPoints = {
-};
-
-const filterAndMapToTarget = (
-  extensions: RelayToFlat<any>,
-  openApp: (appData: AppData) => void,
-): ExtensionWithParams[] =>
-  extensions.map(
-    ({ id, accessToken, permissions, url, label, mount, target, app }) => ({
-      id,
-      app,
-      accessToken,
-      permissions: permissions.map(({ code }) => code),
-      url,
-      label,
-      mount,
-      open: (params: AppDetailsUrlMountQueryParams) =>
-        openApp({
-          id: app.id,
-          appToken: accessToken,
-          src: url,
-          label,
-          target,
-          params,
-        }),
-    }),
-  );
+export const extensionMountPoints = {};
 
 const mapToMenuItem = ({ label, id, open }: Extension) => ({
   label,

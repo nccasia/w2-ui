@@ -20,6 +20,7 @@ export interface MenuListProps
   extends ListProps,
     ListActions,
     SortPage<MenuListUrlSortField> {
+  // @ts-ignore
   menus: MenuFragment[];
   onDelete: (id: string) => void;
 }

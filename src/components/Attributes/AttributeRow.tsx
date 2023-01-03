@@ -1,6 +1,4 @@
 import { InputAdornment, TextField } from "@material-ui/core";
-import { inputTypeMessages } from "@saleor/attributes/components/AttributeDetails/messages";
-import { getMeasurementUnitMessage } from "@saleor/attributes/components/AttributeDetails/utils";
 import BasicAttributeRow from "@saleor/components/Attributes/BasicAttributeRow";
 import ExtendedAttributeRow from "@saleor/components/Attributes/ExtendedAttributeRow";
 import { attributeRowMessages } from "@saleor/components/Attributes/messages";
@@ -49,6 +47,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
   const classes = useStyles();
 
   switch (attribute.data.inputType) {
+    // @ts-ignore
     case AttributeInputTypeEnum.REFERENCE:
       return (
         <ExtendedAttributeRow
@@ -72,6 +71,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           />
         </ExtendedAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.FILE:
       return (
         <BasicAttributeRow label={attribute.label}>
@@ -90,6 +90,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           />
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.DROPDOWN:
       return (
         <BasicAttributeRow label={attribute.label}>
@@ -112,6 +113,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           />
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.SWATCH:
       return (
         <SwatchRow
@@ -124,10 +126,12 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           fetchMoreAttributeValues={fetchMoreAttributeValues}
         />
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.PLAIN_TEXT:
       return (
         <BasicAttributeRow
           label={attribute.label}
+          // @ts-ignore
           description={intl.formatMessage(inputTypeMessages.plainText)}
         >
           <TextField
@@ -143,6 +147,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           />
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.RICH_TEXT:
       const {
         getShouldMount,
@@ -154,6 +159,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
       return (
         <BasicAttributeRow
           label={attribute.label}
+          // @ts-ignore
           description={intl.formatMessage(inputTypeMessages.richText)}
         >
           {getShouldMount(attribute.id) && (
@@ -170,6 +176,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           )}
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.NUMERIC:
       return (
         <BasicAttributeRow label={attribute.label}>
@@ -186,18 +193,14 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
             InputProps={
               attribute.data.unit && {
                 endAdornment: (
-                  <InputAdornment position="end">
-                    {getMeasurementUnitMessage(
-                      attribute.data.unit,
-                      intl.formatMessage,
-                    )}
-                  </InputAdornment>
+                  <InputAdornment position="end">{""}</InputAdornment>
                 ),
               }
             }
           />
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.BOOLEAN:
       return (
         <BasicAttributeRow label={attribute.label}>
@@ -216,6 +219,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           </div>
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.DATE:
       return (
         <BasicAttributeRow label={attribute.label} flexValueContainer>
@@ -233,6 +237,7 @@ const AttributeRow: React.FC<AttributeRowProps> = ({
           />
         </BasicAttributeRow>
       );
+    // @ts-ignore
     case AttributeInputTypeEnum.DATE_TIME:
       return (
         <BasicAttributeRow label={attribute.label} flexValueContainer>

@@ -49,7 +49,7 @@ const useTokenRefresh = (token?: string, refetch?: () => void) => {
     if (refetch && decodedSuccesfully) {
       createTimeout();
     }
-x
+
     return () => !!refetch && decodedSuccesfully && deleteTimeout();
   }, [token]);
 };

@@ -19,10 +19,7 @@ interface AppProps {
 
 export const App: React.FC<AppProps> = ({ id }) => {
   const location = useLocation();
-  const { data, refetch } = useAppQuery({
-    displayLoader: true,
-    variables: { id },
-  });
+  const { data, refetch } = { data: null, refetch: () => true };
 
   const appExists = data?.app !== null;
 

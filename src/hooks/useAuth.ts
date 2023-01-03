@@ -1,4 +1,6 @@
 export const useAuth = () => {
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const login = async ({ password, email, includeDetails }) => {
     // do some dummy authentication process here
     const authenticated = true;
@@ -10,20 +12,18 @@ export const useAuth = () => {
   };
 
   const getExternalAuthUrl = () => ({
-            data: {
-                externalAuthenticationUrl: "https://example.com/external-auth",
-            },
-        });
+    data: {
+      externalAuthenticationUrl: "https://example.com/external-auth",
+    },
+  });
 
-  const getExternalAccessToken = () => 
+  const getExternalAccessToken = () =>
     // get dummy external access token here using the auth code
-    ({ data: null })
-  ;
+    ({ data: null });
 
-  const logout = () => 
+  const logout = () =>
     // do some dummy logout process here
-     true
-  ;
+    true;
 
   return {
     login,

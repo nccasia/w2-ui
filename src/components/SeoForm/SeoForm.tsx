@@ -1,7 +1,7 @@
 import { Card, CardContent, TextField, Typography } from "@material-ui/core";
 import { Button } from "@saleor/components/Button";
 import { makeStyles } from "@saleor/macaw-ui";
-import { getFieldError, getProductErrorMessage } from "@saleor/utils/errors";
+import { getFieldError } from "@saleor/utils/errors";
 import getPageErrorMessage from "@saleor/utils/errors/page";
 import clsx from "clsx";
 import React from "react";
@@ -135,7 +135,7 @@ const SeoForm: React.FC<SeoFormProps> = props => {
     const { __typename: type } = error;
 
     return type === "ProductError"
-      ? getProductErrorMessage(error as any, intl)
+      ? getPageErrorMessage(error as any, intl)
       : getPageErrorMessage(error as any, intl);
   };
 

@@ -1,7 +1,9 @@
 import { useUser } from "@saleor/auth";
 import { Button } from "@saleor/components/Button";
 import useNavigator from "@saleor/hooks/useNavigator";
+import useShop from "@saleor/hooks/useShop";
 import MembersErrorDialog from "@saleor/permissionGroups/components/MembersErrorDialog";
+import PermissionGroupDetailsPage from "@saleor/permissionGroups/components/PermissionGroupDetailsPage";
 import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
@@ -29,16 +31,13 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
   const intl = useIntl();
   const user = useUser();
 
-  const [membersList, setMembersList] = [null, null]
+  const [membersList] = [null];
 
   const handleSort = createSortHandler(
     navigate,
     params => permissionGroupDetailsUrl(id, params),
     params,
   );
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const isGroupEditable = false;
 
   const lastSourcesOfPermission = [];
 
@@ -50,9 +49,7 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
     lastSource: lastSourcesOfPermission.includes(perm.code),
   }));
 
-  const permissionsExceeded = false;
   const disabled = false;
-
 
   return (
     <>
@@ -64,9 +61,8 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
         onAssign={() => {}}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onUnassign={() => {}}
-        errors={ []  }
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onSubmit={() => {}}
+        errors={[]}
+        onSubmit={async () => true}
         permissions={permissions}
         saveButtonBarState={null}
         disabled={disabled}
@@ -74,14 +70,11 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
         toggle={() => {}}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         toggleAll={() => {}}
-        isChecked={false}
+        isChecked={() => false}
         selected={0}
         sort={getSortParams(params)}
         toolbar={
-          <Button
-            variant="secondary"
-            onClick={() =>  {}}
-          >
+          <Button variant="secondary" onClick={() => true}>
             {intl.formatMessage({
               id: "15PiOX",
               defaultMessage: "Unassign",
@@ -94,8 +87,8 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
       <AssignMembersDialog
         loading={false}
         staffMembers={mapEdgesToItems({ edges: [] })}
-        onSearchChange={() => {}}
-        onFetchMore={() => {}}
+        onSearchChange={() => true}
+        onFetchMore={() => true}
         disabled={disabled}
         hasMore={false}
         initialSearch=""
@@ -107,12 +100,12 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
         onSubmit={() => {}}
       />
       <UnassignMembersDialog
-        onConfirm={() => {}}
+        onConfirm={() => true}
         confirmButtonState={null}
         quantity={0}
         open={params.action === "unassign"}
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onClose={() =>{}}
+        onClose={() => {}}
       />
       <MembersErrorDialog
         // eslint-disable-next-line @typescript-eslint/no-empty-function

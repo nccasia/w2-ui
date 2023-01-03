@@ -1,7 +1,6 @@
 import { defineMessages, IntlShape } from "react-intl";
 
 import { getCommonFormFieldErrorMessage } from "./common";
-import getProductErrorMessage from "./product";
 
 const messages = defineMessages({
   slugUnique: {
@@ -12,13 +11,10 @@ const messages = defineMessages({
   },
 });
 
-function getStockErrorMessage(
-  err: any,
-  intl: IntlShape,
-): string {
+function getStockErrorMessage(err: any, intl: IntlShape): string {
   if (err) {
     switch (err.code) {
-      case 'UNIQUE':
+      case "UNIQUE":
         return intl.formatMessage(messages.slugUnique);
     }
   }
@@ -26,11 +22,8 @@ function getStockErrorMessage(
   return getCommonFormFieldErrorMessage(err, intl);
 }
 
-export function getBulkStockErrorMessage(
-  err: any,
-  intl: IntlShape,
-): string {
-  return getProductErrorMessage(err, intl);
+export function getBulkStockErrorMessage(_err: any, _intl: IntlShape): string {
+  return "";
 }
 
 export default getStockErrorMessage;

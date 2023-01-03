@@ -1,13 +1,10 @@
-import { useUser } from "@saleor/auth";
-import { ChannelFragment, useBaseChannelsQuery } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
-import { getById } from "@saleor/orders/components/OrderReturnPage/utils";
 import { useSaleorConfig } from "@saleor/sdk";
 import React from "react";
 
 interface UseAppTaskType {
-  availableTaskTypes: ChannelFragment[];
-  TaskType: ChannelFragment;
+  availableTaskTypes: any;
+  TaskType: any;
   isPickerActive: boolean;
   refreshTaskTypes: () => void;
   setTaskType: (id: string) => void;
@@ -25,24 +22,24 @@ const AppTaskTypeContext = React.createContext<AppTaskTypeContextData>({
   setPickerActive: () => undefined,
 });
 
-const isValidTaskType = (TypeId: string, TypeList?: ChannelFragment[]) => {
+const isValidTaskType = (TypeId: string, _TypeList?: any) => {
   if (!TypeId) {
     return false;
   }
 
-  return TypeList?.some(getById(TypeId));
+  return true;
 };
 
 export const AppTaskTypeProvider: React.FC = ({ children }) => {
   const { setChannel } = useSaleorConfig();
-  const { authenticated, user } = useUser();
   const [selectedTaskType, setSelectedTaskType] = useLocalStorage(
     "TaskType",
     "",
   );
-  const { data: TaskTypeData, refetch } = useBaseChannelsQuery({
-    skip: !authenticated || !user,
-  });
+  const { data: TaskTypeData, refetch } = {
+    data: { channels: [] },
+    refetch: () => true,
+  };
 
   const [isPickerActive, setPickerActive] = React.useState(false);
   React.useEffect(() => {
@@ -60,9 +57,7 @@ export const AppTaskTypeProvider: React.FC = ({ children }) => {
 
   const availableTaskTypes = TaskTypeData?.channels || [];
 
-  const TaskType =
-    TaskTypeData &&
-    (availableTaskTypes.find(getById(selectedTaskType)) || null);
+  const TaskType = false;
 
   return (
     <AppTaskTypeContext.Provider

@@ -3,7 +3,6 @@ import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getFormErrors } from "@saleor/utils/errors";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
-import getOrderErrorMessage from "@saleor/utils/errors/order";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
@@ -33,15 +32,12 @@ interface AddressEditProps {
   onCountryChange(event: React.ChangeEvent<any>);
 }
 
-function getErrorMessage(
-  err: any | any,
-  intl: IntlShape,
-): string {
+function getErrorMessage(err: any | any, intl: IntlShape): string {
   if (err?.__typename === "AccountError") {
     return getAccountErrorMessage(err, intl);
   }
 
-  return getOrderErrorMessage(err, intl);
+  return "";
 }
 
 const AddressEdit: React.FC<AddressEditProps> = props => {
@@ -58,21 +54,21 @@ const AddressEdit: React.FC<AddressEditProps> = props => {
   const classes = useStyles(props);
   const intl = useIntl();
 
-  const formFields: Array<keyof any> = [
-    "city",
-    "cityArea",
-    "country",
-    "countryArea",
-    "firstName",
-    "lastName",
-    "companyName",
-    "phone",
-    "postalCode",
-    "streetAddress1",
-    "streetAddress2",
-  ];
+  // const formFields: Array<keyof any> = [
+  //   "city",
+  //   "cityArea",
+  //   "country",
+  //   "countryArea",
+  //   "firstName",
+  //   "lastName",
+  //   "companyName",
+  //   "phone",
+  //   "postalCode",
+  //   "streetAddress1",
+  //   "streetAddress2",
+  // ];
 
-  const formErrors = getFormErrors(formFields, errors);
+  const formErrors = getFormErrors([], errors);
 
   return (
     <>

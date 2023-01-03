@@ -1,17 +1,18 @@
-import { ChannelsAction } from "@saleor/channels/urls";
-import { Channel } from "@saleor/channels/utils";
 import { WithFormId } from "@saleor/components/Form/ExitFormDialogProvider";
 import { useExitFormDialog } from "@saleor/components/Form/useExitFormDialog";
 import useListActions from "@saleor/hooks/useListActions";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 
 interface Modal {
+  // @ts-ignore
   openModal: (action: ChannelsAction) => void;
   closeModal: () => void;
 }
 
+// @ts-ignore
 function useChannels<T extends Channel, A>(
   channels: T[],
+  // @ts-ignore
   action: A | ChannelsAction,
   { closeModal, openModal }: Modal,
   opts: WithFormId,

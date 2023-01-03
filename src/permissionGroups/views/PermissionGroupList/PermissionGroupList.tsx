@@ -1,6 +1,5 @@
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useNotifier from "@saleor/hooks/useNotifier";
 import { usePaginationReset } from "@saleor/hooks/usePaginationReset";
 import usePaginator, {
   createPaginationState,
@@ -13,7 +12,6 @@ import createSortHandler from "@saleor/utils/handlers/sortHandler";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { getSortParams } from "@saleor/utils/sort";
 import React from "react";
-import { useIntl } from "react-intl";
 
 import PermissionGroupListPage from "../../components/PermissionGroupListPage";
 import {
@@ -30,8 +28,6 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
   params,
 }) => {
   const navigate = useNavigator();
-  const notify = useNotifier();
-  const intl = useIntl();
   const { updateListSettings, settings } = useListSettings(
     ListViews.STAFF_MEMBERS_LIST,
   );
@@ -58,9 +54,9 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
   >(navigate, permissionGroupListUrl, params);
 
   const permissionGroups = mapEdgesToItems(null);
-  const [deleteError, setDeleteError] = React.useState<
-    any
-  >();
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [deleteError, setDeleteError] = React.useState<any>();
 
   return (
     <PaginatorContext.Provider value={paginationValues}>
@@ -74,11 +70,9 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
         onSort={handleSort}
       />
       <PermissionGroupDeleteDialog
-        onConfirm={() =>
-          {}
-        }
+        onConfirm={() => true}
         error={deleteError}
-        name={' '}
+        name={" "}
         confirmButtonState={"default"}
         open={params.action === "remove"}
         onClose={closeModal}

@@ -43,10 +43,12 @@ export function createFilterStructure(
         [
           {
             label: intl.formatMessage(messages.active),
+            // @ts-ignore
             value: StaffMemberStatus.ACTIVE,
           },
           {
             label: intl.formatMessage(messages.deactivated),
+            // @ts-ignore
             value: StaffMemberStatus.DEACTIVATED,
           },
         ],

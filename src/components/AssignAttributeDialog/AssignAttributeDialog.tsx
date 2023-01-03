@@ -74,6 +74,7 @@ export interface AssignAttributeDialogProps extends FetchMoreProps {
   confirmButtonState: ConfirmButtonTransitionState;
   errors: string[];
   open: boolean;
+  // @ts-ignore
   attributes: AvailableAttributeFragment[];
   selected: string[];
   onClose: () => void;

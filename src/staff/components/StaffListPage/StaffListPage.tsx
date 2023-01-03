@@ -11,7 +11,6 @@ import { StaffListUrlSortField } from "@saleor/staff/urls";
 import {
   FilterPageProps,
   ListProps,
-  RelayToFlat,
   SortPage,
   TabPageProps,
 } from "@saleor/types";

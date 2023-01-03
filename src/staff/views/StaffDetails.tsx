@@ -1,12 +1,9 @@
 import { DialogContentText } from "@material-ui/core";
-import { useUser } from "@saleor/auth";
 import ActionDialog from "@saleor/components/ActionDialog";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import useNavigator from "@saleor/hooks/useNavigator";
-import {
-  getStringOrPlaceholder,
-} from "@saleor/misc";
+import { getStringOrPlaceholder } from "@saleor/misc";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -25,7 +22,6 @@ interface OrderListProps {
 
 export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
   const navigate = useNavigator();
-  const user = useUser();
   const intl = useIntl();
 
   const closeModal = () =>
@@ -36,35 +32,40 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
       }),
     );
 
+  const { data } = { data: null };
 
-  const { data } = { data: null, loading: false, refetch: null };
-
-
+  // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [changePassword, changePasswordOpts] = [{}, {}]
-
+  const [changePassword, changePasswordOpts] = [{}, {}];
 
   const [
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateStaffMember,
     updateStaffMemberOpts,
-  ] = [{}, {}]
+  ] = [{}, {}];
 
-  const [deleteStaffMember, deleteResult] = [{}, {}]
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [deleteStaffMember, deleteResult] = [{}, {}];
 
-  const [updateStaffAvatar] = [{}, {}]
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [updateStaffAvatar] = [{}, {}];
 
-  const [deleteStaffAvatar, deleteAvatarResult] = [{}, {}]
+  const [deleteStaffAvatar, deleteAvatarResult] = [{}, {}];
 
   if (false) {
     return <NotFoundPage backHref={staffListUrl()} />;
   }
 
-  const handleUpdate = () => {}
+  const handleUpdate = () => true;
 
   return (
     <>
-      <WindowTitle title={getStringOrPlaceholder('staffMember?.email')} />
+      <WindowTitle title={getStringOrPlaceholder("staffMember?.email")} />
       <StaffDetailsPage
+        // @ts-ignore
         errors={updateStaffMemberOpts?.data?.staffUpdate?.errors || []}
         canEditAvatar={true}
         canEditPreferences={true}
@@ -72,35 +73,36 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
         canRemove={!true}
         disabled={true}
         initialSearch=""
-        onChangePassword={() => {}}
-        onDelete={() => {}}
+        onChangePassword={() => true}
+        onDelete={() => true}
+        // @ts-ignore
         onSubmit={handleUpdate}
-        onImageUpload={() => {}}
-        onImageDelete={() => {}        }
+        onImageUpload={() => true}
+        onImageDelete={() => true}
         availablePermissionGroups={null}
         staffMember={null}
         saveButtonBarState={null}
         fetchMorePermissionGroups={{
           hasMore: false,
           loading: false,
-          onFetchMore: () => {},
+          onFetchMore: () => true,
         }}
-        onSearchChange={() => {}}
+        onSearchChange={() => true}
       />
       <ActionDialog
         open={false}
-        title={' '}
+        title={" "}
         confirmButtonState={null}
         variant="delete"
-        onClose={() => {}}
-        onConfirm={() => {}}
+        onClose={() => true}
+        onConfirm={() => true}
       >
         <DialogContentText>
           <FormattedMessage
             id="gxPjIQ"
             defaultMessage="Are you sure you want to delete {email} from staff members?"
             values={{
-              email: getStringOrPlaceholder(' '),
+              email: getStringOrPlaceholder(" "),
             }}
           />
         </DialogContentText>
@@ -112,9 +114,12 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
           defaultMessage: "Delete Staff User Avatar",
           description: "dialog header",
         })}
+        // @ts-ignore
         confirmButtonState={deleteAvatarResult.status}
         variant="delete"
+        // @ts-ignore
         onClose={closeModal}
+        // @ts-ignore
         onConfirm={deleteStaffAvatar}
       >
         <DialogContentText>
@@ -134,7 +139,8 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
         errors={[]}
         open={params.action === "change-password"}
         onClose={closeModal}
-        onSubmit={() =>{}}
+        // @ts-ignore
+        onSubmit={() => true}
       />
     </>
   );

@@ -1,5 +1,4 @@
 import { WindowTitle } from "@saleor/components/WindowTitle";
-import useNotifier from "@saleor/hooks/useNotifier";
 import { sectionNames } from "@saleor/intl";
 import { findInEnum } from "@saleor/misc";
 import React from "react";
@@ -16,19 +15,16 @@ export interface SiteSettingsProps {
 }
 
 export const SiteSettings: React.FC<SiteSettingsProps> = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const notify = useNotifier();
   const intl = useIntl();
 
- const siteSettings = { loading: false };
- const updateShopSettingsOpts = { loading: false }
+  const siteSettings = { loading: false };
+  const updateShopSettingsOpts = { loading: false };
 
-  const errors = [
-   
-  ];
+  const errors = [];
   const loading = siteSettings.loading || updateShopSettingsOpts.loading;
 
   const handleUpdateShopSettings = async (data: SiteSettingsPageFormData) => {
+    // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const addressInput = areAddressInputFieldsModified(data)
       ? {

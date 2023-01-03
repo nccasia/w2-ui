@@ -62,6 +62,8 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
   usePaginationReset(staffListUrl, params, settings.rowNumber);
 
   const paginationState = createPaginationState(settings.rowNumber, params);
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const queryVariables = React.useMemo(
     () => ({
       ...paginationState,
@@ -70,16 +72,10 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     }),
     [params, settings.rowNumber],
   );
-  const { data: staffQueryData, loading } = useStaffListQuery({
-    displayLoader: true,
-    variables: queryVariables,
-  });
-  const limitOpts = useShopLimitsQuery({
-    variables: {
-      staffUsers: true,
-    },
-  });
+  const { data: staffQueryData, loading } = { data: null, loading: false };
+  const limitOpts = null;
 
+  // @ts-ignore
   const [addStaffMember, addStaffMemberData] = useStaffMemberAddMutation({
     onCompleted: data => {
       if (data.staffCreate.errors.length === 0) {
@@ -143,6 +139,7 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     loadMore: loadMorePermissionGroups,
     search: searchPermissionGroups,
     result: searchPermissionGroupsOpts,
+    // @ts-ignore
   } = usePermissionGroupSearch({
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });

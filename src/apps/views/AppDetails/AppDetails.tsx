@@ -1,11 +1,7 @@
-import { appMessages } from "@saleor/apps/messages";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import useNavigator from "@saleor/hooks/useNavigator";
-import useNotifier from "@saleor/hooks/useNotifier";
-import getAppErrorMessage from "@saleor/utils/errors/app";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
-import { useIntl } from "react-intl";
 
 import AppActivateDialog from "../../components/AppActivateDialog";
 import AppDeactivateDialog from "../../components/AppDeactivateDialog";
@@ -24,73 +20,19 @@ interface AppDetailsProps {
 }
 
 export const AppDetails: React.FC<AppDetailsProps> = ({ id, params }) => {
-  const { data, loading, refetch } = useAppQuery({
-    displayLoader: true,
-    variables: { id },
-  });
+  const { data, loading } = { data: null, loading: false };
 
   const appExists = data?.app !== null;
 
   const navigate = useNavigator();
-  const notify = useNotifier();
-  const intl = useIntl();
-  const mutationOpts = { variables: { id } };
-  const [activateApp, activateAppResult] = useAppActivateMutation({
-    onCompleted: data => {
-      const errors = data?.appActivate?.errors;
-      if (errors?.length === 0) {
-        notify({
-          status: "success",
-          text: intl.formatMessage(appMessages.appActivated),
-        });
-        refetch();
-        closeModal();
-      } else {
-        if (appExists) {
-          errors.forEach(error =>
-            notify({
-              status: "error",
-              text: getAppErrorMessage(error, intl),
-            }),
-          );
-        }
-      }
-    },
-  });
-  const [deactivateApp, deactivateAppResult] = useAppDeactivateMutation({
-    onCompleted: data => {
-      const errors = data?.appDeactivate?.errors;
-      if (errors.length === 0) {
-        notify({
-          status: "success",
-          text: intl.formatMessage(appMessages.appDeactivated),
-        });
-        refetch();
-        closeModal();
-      } else {
-        if (appExists) {
-          errors.forEach(error =>
-            notify({
-              status: "error",
-              text: getAppErrorMessage(error, intl),
-            }),
-          );
-        }
-      }
-    },
-  });
 
   const [openModal, closeModal] = createDialogActionHandlers<
     AppDetailsUrlDialog,
     AppDetailsUrlQueryParams
   >(navigate, params => appDetailsUrl(id, params), params);
 
-  const handleActivateConfirm = () => {
-    activateApp(mutationOpts);
-  };
-  const handleDeactivateConfirm = () => {
-    deactivateApp(mutationOpts);
-  };
+  const handleActivateConfirm = () => true;
+  const handleDeactivateConfirm = () => true;
 
   if (!appExists) {
     return <NotFoundPage backHref={appsListPath} />;
@@ -99,14 +41,14 @@ export const AppDetails: React.FC<AppDetailsProps> = ({ id, params }) => {
   return (
     <>
       <AppActivateDialog
-        confirmButtonState={activateAppResult.status}
+        confirmButtonState={null}
         name={data?.app.name}
         onClose={closeModal}
         onConfirm={handleActivateConfirm}
         open={params.action === "app-activate"}
       />
       <AppDeactivateDialog
-        confirmButtonState={deactivateAppResult.status}
+        confirmButtonState={null}
         name={data?.app.name}
         onClose={closeModal}
         onConfirm={handleDeactivateConfirm}

@@ -144,14 +144,12 @@ export function useAuthProvider({
       handleLoginError(error);
     }
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleRequestExternalLogin = async (pluginId: string, input: any) => {
+  const handleRequestExternalLogin = async (_pluginId: string, _input: any) => {
     const result = await getExternalAuthUrl();
 
     return result?.data?.externalAuthenticationUrl;
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleExternalLogin = async (pluginId: string, input: any) => {
+  const handleExternalLogin = async (_pluginId: string, _input: any) => {
     try {
       const result = null;
 

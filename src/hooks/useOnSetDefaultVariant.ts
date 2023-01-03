@@ -1,7 +1,4 @@
-import useNotifier from "@saleor/hooks/useNotifier";
-
-function useOnSetDefaultVariant(productId: string, variant: Node) {
-
+function useOnSetDefaultVariant(_productId: string, _variant: Node) {
   return [];
 }
 export default useOnSetDefaultVariant;

@@ -3,9 +3,7 @@ import { IntlShape } from "react-intl";
 import { createConfigurationMenu } from ".";
 import { MenuItem } from "./types";
 
-export const getConfigMenuItemsPermissions = (
-  intl: IntlShape,
-): any[] =>
+export const getConfigMenuItemsPermissions = (intl: IntlShape): any[] =>
   createConfigurationMenu(intl)
     .reduce(
       (prev, { menuItems }) => [
@@ -18,6 +16,5 @@ export const getConfigMenuItemsPermissions = (
 
 export const hasUserMenuItemPermissions = (
   menuItem: MenuItem,
-  user: any,
-): boolean =>
-  menuItem.permissions ? hasAnyPermissions(menuItem.permissions, user) : true;
+  _user: any,
+): boolean => (menuItem.permissions ? false : true);

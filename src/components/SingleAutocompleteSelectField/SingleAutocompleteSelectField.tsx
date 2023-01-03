@@ -6,7 +6,6 @@ import {
   TextField,
 } from "@material-ui/core";
 import { InputProps } from "@material-ui/core/Input";
-import { ExtendedFormHelperTextProps } from "@saleor/channels/components/ChannelForm/types";
 import { ChevronIcon } from "@saleor/macaw-ui";
 import { FetchMoreProps } from "@saleor/types";
 import clsx from "clsx";
@@ -40,7 +39,7 @@ export interface SingleAutocompleteSelectFieldProps
   fetchChoices?: (value: string) => void;
   onChange: (event: React.ChangeEvent<any>) => void;
   fetchOnFocus?: boolean;
-  FormHelperTextProps?: ExtendedFormHelperTextProps;
+  FormHelperTextProps?: any;
   nakedInput?: boolean;
   onBlur?: () => void;
   popperPlacement?: PopperPlacementType;

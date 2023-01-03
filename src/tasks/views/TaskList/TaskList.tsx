@@ -20,8 +20,12 @@ interface TaskListProps {
 
 export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   const navigate = useNavigator();
-
-  const { channel, availableChannels } = { channel: undefined, availableChannels: [] };
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { channel, availableChannels } = {
+    channel: undefined,
+    availableChannels: [],
+  };
 
   const paginationValues = usePaginator({
     pageInfo: {
