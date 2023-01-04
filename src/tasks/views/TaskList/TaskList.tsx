@@ -20,7 +20,6 @@ interface TaskListProps {
 
 export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   const navigate = useNavigator();
-
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { channel, availableChannels } = {
@@ -46,7 +45,6 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
 
   // mock api type
   // eslint-disable-next-line no-console
-  console.log(availableChannels.length);
   const channelOpts = typeTaskMock ? mapNodeToChoice(typeTaskMock) : null;
   // --------------
 
