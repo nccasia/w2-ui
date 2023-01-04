@@ -1,7 +1,8 @@
 import homeIcon from "@assets/images/menu-home-icon.svg";
+import tasksIcon from "@assets/images/tasks-icon.svg";
 import { useExtensions } from "@saleor/apps/useExtensions";
 import { sectionNames } from "@saleor/intl";
-import { SidebarMenuItem, TasksIcon } from "@saleor/macaw-ui";
+import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
 
 import { getMenuItemExtension } from "./utils";
@@ -35,7 +36,7 @@ function useMenuStructure(
     },
     {
       ariaLabel: "tasks",
-      iconSrc: TasksIcon,
+      iconSrc: tasksIcon,
       label: intl.formatMessage(sectionNames.tasks),
       id: "tasks",
       url: "/tasks",
