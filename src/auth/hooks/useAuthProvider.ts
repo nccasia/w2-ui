@@ -50,7 +50,7 @@ export function useAuthProvider({
     if (authenticating && errors.length) {
       setErrors([]);
     }
-  }, [authenticating]);
+  }, [authenticating, errors.length]);
 
   useEffect(() => {
     if (authenticated) {
@@ -68,6 +68,7 @@ export function useAuthProvider({
       permitCredentialsAPI.current = false;
       loginWithCredentialsManagementAPI(handleLogin);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authenticated, authenticating]);
 
   const handleLoginError = (error: ApolloError) => {

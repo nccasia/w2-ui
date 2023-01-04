@@ -19,7 +19,7 @@ export { useLazyQuery } from "@apollo/client";
 
 export const allPermissions: Record<any, boolean> = {};
 
-const getUserPermissions = (): Record<any, boolean> =>({});
+const getUserPermissions = (): Record<any, boolean> => ({});
 
 export interface LoadMore<TData, TVariables> {
   loadMore: (

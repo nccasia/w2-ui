@@ -1,11 +1,8 @@
-
 import { MenuDetailsSubmitData } from "../../components/MenuDetailsPage";
 import { MenuItemDialogFormData } from "../../components/MenuItemDialog";
 import { unknownTypeError } from "../../components/MenuItems";
 
-export function getMenuItemInputData(
-  data: MenuItemDialogFormData,
-): any {
+export function getMenuItemInputData(data: MenuItemDialogFormData): any {
   const variables: any = {
     name: data.name,
   };

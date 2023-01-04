@@ -15,9 +15,7 @@ export interface CustomAppsProps {
   onRemove: (id: string) => void;
 }
 
-const CustomApps: React.FC<CustomAppsProps> = ({
-
-}) => {
+const CustomApps: React.FC<CustomAppsProps> = ({}) => {
   const intl = useIntl();
   const classes = useStyles({});
 
@@ -40,8 +38,7 @@ const CustomApps: React.FC<CustomAppsProps> = ({
         title={intl.formatMessage(commonMessages.customApps)}
       />
       <ResponsiveTable>
-        <TableBody>
-        </TableBody>
+        <TableBody></TableBody>
       </ResponsiveTable>
     </Card>
   );

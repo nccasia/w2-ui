@@ -175,7 +175,7 @@ const AppsListPage: React.FC<AppsListPageProps> = ({
               <Button
                 variant="primary"
                 onClick={() => {
-                  navigate('/');
+                  navigate("/");
                 }}
               >
                 <FormattedMessage

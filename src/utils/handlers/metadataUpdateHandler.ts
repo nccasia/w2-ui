@@ -13,9 +13,7 @@ function createMetadataUpdateHandler<TData extends MetadataFormData, TError>(
   initial: ObjectWithMetadata,
   update: (data: TData) => SubmitPromise<TError[]>,
 ) {
-  return async (
-    data: TData,
-  ): Promise<Array<any | TError>> => {
+  return async (data: TData): Promise<Array<any | TError>> => {
     const errors = await update(data);
 
     const hasMetadataChanged = !areMetadataArraysEqual(
@@ -33,11 +31,7 @@ function createMetadataUpdateHandler<TData extends MetadataFormData, TError>(
 
     if (errors.length === 0) {
       if (data.metadata && hasMetadataChanged) {
-
-        const updateMetaErrors = [
-          ...([]),
-          ...([]),
-        ];
+        const updateMetaErrors = [...[], ...[]];
 
         if (updateMetaErrors.length > 0) {
           return updateMetaErrors;
@@ -45,11 +39,7 @@ function createMetadataUpdateHandler<TData extends MetadataFormData, TError>(
       }
 
       if (data.privateMetadata && hasPrivateMetadataChanged) {
-
-        const updatePrivateMetaErrors = [
-          ...([]),
-          ...([]),
-        ];
+        const updatePrivateMetaErrors = [...[], ...[]];
 
         if (updatePrivateMetaErrors.length > 0) {
           return updatePrivateMetaErrors;

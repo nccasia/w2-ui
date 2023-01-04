@@ -1,8 +1,6 @@
 import React from "react";
 
-import {
-  CustomAppUrlQueryParams,
-} from "../../urls";
+import { CustomAppUrlQueryParams } from "../../urls";
 
 interface OrderListProps {
   id: string;
@@ -14,15 +12,9 @@ interface OrderListProps {
 export const CustomAppDetails: React.FC<OrderListProps> = ({
   onTokenClose,
 }) => {
+  React.useEffect(() => onTokenClose, [onTokenClose]);
 
-
-  React.useEffect(() => onTokenClose, []);
-
-  return (
-    <>
-     
-    </>
-  );
+  return <></>;
 };
 
 export default CustomAppDetails;

@@ -63,8 +63,7 @@ const CustomAppTokens: React.FC<CustomAppTokensProps> = props => {
             </TableCell>
           </TableRowLink>
         </TableHead>
-        <TableBody>
-        </TableBody>
+        <TableBody></TableBody>
       </ResponsiveTable>
     </Card>
   );

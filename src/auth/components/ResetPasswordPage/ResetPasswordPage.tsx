@@ -18,9 +18,7 @@ export interface ResetPasswordPageFormData {
 export interface ResetPasswordPageProps {
   disabled: boolean;
   error: string;
-  onSubmit: (
-    data: ResetPasswordPageFormData,
-  ) => SubmitPromise<any[]>;
+  onSubmit: (data: ResetPasswordPageFormData) => SubmitPromise<any[]>;
 }
 
 const ResetPasswordPage: React.FC<ResetPasswordPageProps> = props => {

@@ -5,9 +5,7 @@ import moment from "moment-timezone";
 import { IntlShape } from "react-intl";
 
 import { MultiAutocompleteChoiceType } from "./components/MultiAutocompleteSelectField";
-import {
-  errorMessages,
-} from "./intl";
+import { errorMessages } from "./intl";
 import {
   MutationResultAdditionalProps,
   PartialMutationProviderOutput,
@@ -66,17 +64,17 @@ export const transformPaymentStatus = (
   status: string,
   _intl: IntlShape,
 ): { localized: string; status: StatusType } => ({
-    localized: status,
-    status: StatusType.ERROR,
-  });
+  localized: status,
+  status: StatusType.ERROR,
+});
 
 export const transformOrderStatus = (
   status: string,
   _intl: IntlShape,
 ): { localized: string; status: StatusType } => ({
-    localized: status,
-    status: StatusType.ERROR,
-  });
+  localized: status,
+  status: StatusType.ERROR,
+});
 
 export const transformAddressToForm = (data?: any) => ({
   city: data?.city || "",
@@ -344,12 +342,10 @@ export function capitalize(s: string) {
   return s.charAt(0).toLocaleUpperCase() + s.slice(1);
 }
 
-export function transformFormToAddressInput<T>(
-  address: T & any,
-): T & any {
+export function transformFormToAddressInput<T>(address: T & any): T & any {
   return {
     ...address,
-    country: findInEnum(address.country, 'CountryCode'),
+    country: findInEnum(address.country, "CountryCode"),
   };
 }
 
@@ -381,7 +377,7 @@ export const transformAddressToAddressInput = (data?: any) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
   companyName: data?.companyName || "",
-  country: findInEnum(data?.country?.code || "", 'CountryCode'),
+  country: findInEnum(data?.country?.code || "", "CountryCode"),
   countryArea: data?.countryArea || "",
   firstName: data?.firstName || "",
   lastName: data?.lastName || "",

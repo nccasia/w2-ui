@@ -134,9 +134,7 @@ function handleStaffMemberAssign(
   member: RelayToFlat<any>[0],
   isSelected: boolean,
   selectedMembers: RelayToFlat<any>,
-  setSelectedMembers: (
-    data: RelayToFlat<any>,
-  ) => void,
+  setSelectedMembers: (data: RelayToFlat<any>) => void,
 ) {
   if (isSelected) {
     setSelectedMembers(

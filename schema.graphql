@@ -14,6 +14,289 @@ directive @cached(
 ) on QUERY
 
 """
+Updates a draft order. 
+
+Requires one of the following permissions: MANAGE_ORDERS.
+"""
+type DraftOrderUpdate {
+  orderErrors: [OrderError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
+  errors: [OrderError!]!
+  order: Order
+}
+
+"""
+Event sent when draft order is updated.
+
+Added in Saleor 3.2.
+
+Note: this API is currently in Feature Preview and can be subject to changes at later point.
+"""
+type DraftOrderUpdated implements Event {
+  """Time of the event."""
+  issuedAt: DateTime
+
+  """Saleor version that triggered the event."""
+  version: String
+
+  """The user or application that triggered the event."""
+  issuingPrincipal: IssuingPrincipal
+
+  """The application receiving the webhook."""
+  recipient: App
+
+  """The order the event relates to."""
+  order: Order
+}
+
+interface Event {
+  """Time of the event."""
+  issuedAt: DateTime
+
+  """Saleor version that triggered the event."""
+  version: String
+
+  """The user or application that triggered the event."""
+  issuingPrincipal: IssuingPrincipal
+
+  """The application receiving the webhook."""
+  recipient: App
+}
+
+"""Event delivery."""
+type EventDelivery implements Node {
+  id: ID!
+  createdAt: DateTime!
+
+  """Event delivery status."""
+  status: EventDeliveryStatusEnum!
+
+  """Webhook event type."""
+  eventType: WebhookEventTypeEnum!
+
+  """Event delivery attempts."""
+  attempts(
+    """Event delivery sorter"""
+    sortBy: EventDeliveryAttemptSortingInput
+
+    """Return the elements in the list that come before the specified cursor."""
+    before: String
+
+    """Return the elements in the list that come after the specified cursor."""
+    after: String
+
+    """Return the first n elements from the list."""
+    first: Int
+
+    """Return the last n elements from the list."""
+    last: Int
+  ): EventDeliveryAttemptCountableConnection
+
+  """Event payload."""
+  payload: String
+}
+
+"""Event delivery attempts."""
+type EventDeliveryAttempt implements Node {
+  id: ID!
+
+  """Event delivery creation date and time."""
+  createdAt: DateTime!
+
+  """Task id for delivery attempt."""
+  taskId: String
+
+  """Delivery attempt duration."""
+  duration: Float
+
+  """Delivery attempt response content."""
+  response: String
+
+  """Response headers for delivery attempt."""
+  responseHeaders: String
+
+  """Delivery attempt response status code."""
+  responseStatusCode: Int
+
+  """Request headers for delivery attempt."""
+  requestHeaders: String
+
+  """Event delivery status."""
+  status: EventDeliveryStatusEnum!
+}
+
+type EventDeliveryAttemptCountableConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+  edges: [EventDeliveryAttemptCountableEdge!]!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type EventDeliveryAttemptCountableEdge {
+  """The item at the end of the edge."""
+  node: EventDeliveryAttempt!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EventDeliveryAttemptSortField {
+  """Sort event delivery attempts by created at."""
+  CREATED_AT
+}
+
+input EventDeliveryAttemptSortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort attempts by the selected field."""
+  field: EventDeliveryAttemptSortField!
+}
+
+type EventDeliveryCountableConnection {
+  """Pagination data for this connection."""
+  pageInfo: PageInfo!
+  edges: [EventDeliveryCountableEdge!]!
+
+  """A total count of items in the collection."""
+  totalCount: Int
+}
+
+type EventDeliveryCountableEdge {
+  """The item at the end of the edge."""
+  node: EventDelivery!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+input EventDeliveryFilterInput {
+  status: EventDeliveryStatusEnum
+  eventType: WebhookEventTypeEnum
+}
+
+"""
+Retries event delivery. 
+
+Requires one of the following permissions: MANAGE_APPS.
+"""
+type EventDeliveryRetry {
+  """Event delivery."""
+  delivery: EventDelivery
+  errors: [WebhookError!]!
+}
+
+enum EventDeliverySortField {
+  """Sort event deliveries by created at."""
+  CREATED_AT
+}
+
+input EventDeliverySortingInput {
+  """Specifies the direction in which to sort products."""
+  direction: OrderDirection!
+
+  """Sort deliveries by the selected field."""
+  field: EventDeliverySortField!
+}
+
+enum EventDeliveryStatusEnum {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+type ExportError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: ExportErrorCode!
+}
+
+"""An enumeration."""
+enum ExportErrorCode {
+  GRAPHQL_ERROR
+  INVALID
+  NOT_FOUND
+  REQUIRED
+}
+
+"""History log of export file."""
+type ExportEvent implements Node {
+  """The ID of the object."""
+  id: ID!
+
+  """Date when event happened at in ISO 8601 format."""
+  date: DateTime!
+
+  """Export event type."""
+  type: ExportEventsEnum!
+
+  """
+  User who performed the action. Requires one of the following permissions: OWNER, MANAGE_STAFF.
+  """
+  user: User
+
+  """
+  App which performed the action. Requires one of the following permissions: OWNER, MANAGE_APPS.
+  """
+  app: App
+
+  """Content of the event."""
+  message: String!
+}
+
+"""An enumeration."""
+enum ExportEventsEnum {
+  EXPORT_PENDING
+  EXPORT_SUCCESS
+  EXPORT_FAILED
+  EXPORT_DELETED
+  EXPORTED_FILE_SENT
+  EXPORT_FAILED_INFO_SENT
+}
+
+"""Represents a job data of exported file."""
+type ExportFile implements Node & Job {
+  id: ID!
+
+  """Job status."""
+  status: JobStatusEnum!
+
+  """Created date time of job in ISO 8601 format."""
+  createdAt: DateTime!
+
+  """Date time of job last update in ISO 8601 format."""
+  updatedAt: DateTime!
+
+  """Job message."""
+  message: String
+
+  """The URL of field to download."""
+  url: String
+
+  """List of events associated with the export."""
+  events: [ExportEvent!]
+  user: User
+  app: App
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
 columns and relationships of "Action"
 """
 type Action {

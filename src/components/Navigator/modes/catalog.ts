@@ -20,13 +20,13 @@ export function searchInCatalog(
   )
     .map<QuickSearchActionInput>(() => ({
       caption: intl.formatMessage(messages.category),
-      label: 'category.name',
+      label: "category.name",
       onClick: () => {
         navigate("/");
         return false;
       },
-      score: score('category.name', search),
-      text: 'category.name',
+      score: score("category.name", search),
+      text: "category.name",
       type: "catalog",
     }))
     .sort(sortScores);
@@ -36,13 +36,13 @@ export function searchInCatalog(
   )
     .map<QuickSearchActionInput>(() => ({
       caption: intl.formatMessage(messages.collection),
-      label: 'collection.name',
+      label: "collection.name",
       onClick: () => {
         navigate("/");
         return false;
       },
-      score: score('collection.name', search),
-      text: 'collection.name',
+      score: score("collection.name", search),
+      text: "collection.name",
       type: "catalog",
     }))
     .sort(sortScores);
@@ -52,14 +52,14 @@ export function searchInCatalog(
   )
     .map<QuickSearchActionInput>(() => ({
       caption: intl.formatMessage(messages.product),
-      extraInfo: 'product.category.name',
-      label: 'product.name',
+      extraInfo: "product.category.name",
+      label: "product.name",
       onClick: () => {
         navigate("/");
         return false;
       },
-      score: score('product.name', search),
-      text: 'product.name',
+      score: score("product.name", search),
+      text: "product.name",
       type: "catalog",
     }))
     .sort(sortScores);

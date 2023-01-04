@@ -9,7 +9,7 @@ type ShopContext = any;
 export const ShopContext = React.createContext<ShopContext>(undefined);
 
 export const ShopProvider: React.FC = ({ children }) => {
-  const { data } =  { data: null }
+  const { data } = { data: null };
 
   return (
     <>

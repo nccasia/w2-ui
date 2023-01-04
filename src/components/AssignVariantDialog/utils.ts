@@ -1,8 +1,6 @@
 import { RelayToFlat } from "@saleor/types";
 
-export type SearchVariant = RelayToFlat<
-  any
->[0]["variants"][0];
+export type SearchVariant = RelayToFlat<any>[0]["variants"][0];
 
 type SetVariantsAction = (data: SearchVariant[]) => void;
 
@@ -21,13 +19,8 @@ export const handleProductAssign = (
   setVariants: SetVariantsAction,
 ) =>
   productsWithAllVariantsSelected[productIndex]
-    ? setVariants(
-        variants
-      )
-    : setVariants([
-        ...variants,
-        ...product.variants,
-      ]);
+    ? setVariants(variants)
+    : setVariants([...variants, ...product.variants]);
 
 export const handleVariantAssign = (
   variant: SearchVariant,
@@ -45,9 +38,5 @@ export function hasAllVariantsSelected(
   productVariants: SearchVariant[],
   _selectedVariantsToProductsMap: any[],
 ): boolean {
-  return productVariants.reduce(
-    (acc) =>
-      acc && false,
-    true,
-  );
+  return productVariants.reduce(acc => acc && false, true);
 }

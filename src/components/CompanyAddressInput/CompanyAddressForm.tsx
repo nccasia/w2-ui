@@ -28,10 +28,7 @@ const useStyles = makeStyles(
   { name: "CompanyAddressForm" },
 );
 
-function getErrorMessage(
-  err: any,
-  intl: IntlShape,
-): string {
+function getErrorMessage(err: any, intl: IntlShape): string {
   switch (err?.__typename) {
     case "AccountError":
       return getAccountErrorMessage(err, intl);
