@@ -1,4 +1,5 @@
 import { MenuItem, TextField } from "@material-ui/core";
+import { useStyles } from "@saleor/apps/styles";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { Choice } from "@saleor/components/SingleSelectField";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
@@ -7,8 +8,6 @@ import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { Autocomplete, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Task, TaskState, TaskStatus } from "@saleor/tasks/interface/Task";
 import React, { useState } from "react";
-
-import { useStyles } from "../styles";
 
 export interface ChannelPickerDialogProps {
   channelsChoices: Array<Choice<string, string>>;
