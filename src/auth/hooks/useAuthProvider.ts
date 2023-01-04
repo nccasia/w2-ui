@@ -68,7 +68,8 @@ export function useAuthProvider({
       permitCredentialsAPI.current = false;
       loginWithCredentialsManagementAPI(handleLogin);
     }
-  }, [authenticated, authenticating, handleLogin, requestedExternalPluginId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authenticated, authenticating]);
 
   const handleLoginError = (error: ApolloError) => {
     const parsedErrors = parseAuthError(error);

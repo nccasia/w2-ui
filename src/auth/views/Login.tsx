@@ -62,6 +62,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleExternalAuthentication = async (code: string, state: string) => {
     const result = await loginByExternalPlugin(requestedExternalPluginId, {
       code,
@@ -84,7 +85,13 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     if (externalAuthParamsExist && externalAuthNotPerformed) {
       handleExternalAuthentication(code, state);
     }
-  }, []);
+  }, [
+    authenticating,
+    errors.length,
+    handleExternalAuthentication,
+    location.pathname,
+    params,
+  ]);
 
   return (
     <LoginPage

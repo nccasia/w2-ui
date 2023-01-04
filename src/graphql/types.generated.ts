@@ -1,3 +1,5 @@
+import { MetadataFilter } from "@saleor/sdk/dist/apollo/types";
+
 /* eslint-disable */
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -3436,7 +3438,7 @@ export type Workflow_Append_Input = {
 
 /** input type for inserting array relation for remote table "Workflow" */
 export type Workflow_Arr_Rel_Insert_Input = {
-  data: Array<Workflow_Insert_Input>;
+  data: Array<Workflow_Set_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Workflow_On_Conflict>;
 };
@@ -3497,18 +3499,21 @@ export type GiftCardUpdateInput = {
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
+  // @ts-ignore
   expiryDate?: InputMaybe<Scalars['Date']>;
   /**
    * Start date of the gift card in ISO 8601 format.
    *
    * DEPRECATED: this field will be removed in Saleor 4.0.
    */
+  // @ts-ignore
   startDate?: InputMaybe<Scalars['Date']>;
   /**
    * End date of the gift card in ISO 8601 format.
    *
    * DEPRECATED: this field will be removed in Saleor 4.0. Use `expiryDate` from `expirySettings` instead.
    */
+  // @ts-ignore
   endDate?: InputMaybe<Scalars['Date']>;
   /**
    * The gift card tags to remove.
@@ -3525,6 +3530,7 @@ export type GiftCardUpdateInput = {
    *
    * Note: this API is currently in Feature Preview and can be subject to changes at later point.
    */
+  // @ts-ignore
   balanceAmount?: InputMaybe<Scalars['PositiveDecimal']>;
 };
 
@@ -4386,7 +4392,7 @@ export enum MediaChoicesSortField {
 
 export type MediaSortingInput = {
   /** Specifies the direction in which to sort products. */
-  direction: OrderDirection;
+  direction: OrderDirectionbe;
   /** Sort media by the selected field. */
   field: MediaChoicesSortField;
 };
@@ -4397,7 +4403,7 @@ export type MenuCreateInput = {
   /** Slug of the menu. Will be generated if not provided. */
   slug?: InputMaybe<Scalars['String']>;
   /** List of menu items. */
-  items?: InputMaybe<Array<MenuItemInput>>;
+  items?: InputMaybe<Array<MenuFilterInput>>;
 };
 
 /** An enumeration. */
@@ -4449,7 +4455,7 @@ export type Workflow_Min_Order_By = {
 
 /** input type for inserting object relation for remote table "Workflow" */
 export type Workflow_Obj_Rel_Insert_Input = {
-  data: Workflow_Insert_Input;
+  data: Workflow_Set_Input;
   /** upsert condition */
   on_conflict?: InputMaybe<Workflow_On_Conflict>;
 };
@@ -4796,3 +4802,4 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeQuery = { __typename: 'query_root', hello: string };
+//
