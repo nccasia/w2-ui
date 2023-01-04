@@ -1,14 +1,8 @@
-import {
-  AttributeEntityTypeEnum,
-  AttributeInputTypeEnum,
-  MeasurementUnitsEnum,
-} from "@saleor/graphql";
-
 import { AttributeInput } from "./Attributes";
 
 const DROPDOWN_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.DROPDOWN,
+    inputType: "DROPDOWN",
     isRequired: true,
     values: [
       {
@@ -48,7 +42,7 @@ const DROPDOWN_ATTRIBUTE: AttributeInput = {
 
 const MULTISELECT_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.MULTISELECT,
+    inputType: "MULTISELECT",
     isRequired: true,
     values: [
       {
@@ -102,7 +96,7 @@ const MULTISELECT_ATTRIBUTE: AttributeInput = {
 
 const FILE_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.FILE,
+    inputType: "FILE",
     isRequired: true,
     values: [
       {
@@ -132,8 +126,8 @@ const FILE_ATTRIBUTE: AttributeInput = {
 
 const REFERENCE_ATTRIBUTE: AttributeInput = {
   data: {
-    entityType: AttributeEntityTypeEnum.PAGE,
-    inputType: AttributeInputTypeEnum.REFERENCE,
+    entityType: "PAGE",
+    inputType: "REFERENCE",
     isRequired: true,
     references: [
       {
@@ -201,6 +195,7 @@ const REFERENCE_ATTRIBUTE: AttributeInput = {
 
 const PLAIN_TEXT_ATTRIBUTE: AttributeInput = {
   data: {
+    // @ts-ignore
     inputType: AttributeInputTypeEnum.PLAIN_TEXT,
     isRequired: true,
     values: [
@@ -228,7 +223,7 @@ const PLAIN_TEXT_ATTRIBUTE: AttributeInput = {
 
 const RICH_TEXT_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.RICH_TEXT,
+    inputType: "RICH_TEXT",
     isRequired: true,
     values: [
       {
@@ -259,9 +254,9 @@ const RICH_TEXT_ATTRIBUTE: AttributeInput = {
 
 const NUMERIC_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.NUMERIC,
+    inputType: "NUMERIC",
     isRequired: true,
-    unit: MeasurementUnitsEnum.CM,
+    unit: "CM",
     values: [
       {
         __typename: "AttributeValue",
@@ -286,7 +281,7 @@ const NUMERIC_ATTRIBUTE: AttributeInput = {
 
 const BOOLEAN_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.BOOLEAN,
+    inputType: "BOOLEAN",
     isRequired: true,
     values: [
       {
@@ -312,7 +307,7 @@ const BOOLEAN_ATTRIBUTE: AttributeInput = {
 
 const DATE_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.DATE,
+    inputType: "DATE",
     isRequired: true,
     values: [
       {
@@ -338,7 +333,7 @@ const DATE_ATTRIBUTE: AttributeInput = {
 
 const DATE_TIME_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.DATE_TIME,
+    inputType: "DATE_TIME",
     isRequired: true,
     values: [
       {
@@ -364,7 +359,7 @@ const DATE_TIME_ATTRIBUTE: AttributeInput = {
 
 const SWATCH_ATTRIBUTE: AttributeInput = {
   data: {
-    inputType: AttributeInputTypeEnum.SWATCH,
+    inputType: "SWATCH",
     isRequired: true,
     values: [
       {

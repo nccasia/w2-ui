@@ -14,7 +14,6 @@ import Checkbox from "@saleor/components/Checkbox";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { AvailableAttributeFragment } from "@saleor/graphql";
 import useElementScroll, {
   isScrolledToBottom,
 } from "@saleor/hooks/useElementScroll";
@@ -75,6 +74,7 @@ export interface AssignAttributeDialogProps extends FetchMoreProps {
   confirmButtonState: ConfirmButtonTransitionState;
   errors: string[];
   open: boolean;
+  // @ts-ignore
   attributes: AvailableAttributeFragment[];
   selected: string[];
   onClose: () => void;

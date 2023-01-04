@@ -1,12 +1,6 @@
-import {
-  BulkStockErrorFragment,
-  StockErrorCode,
-  StockErrorFragment,
-} from "@saleor/graphql";
 import { defineMessages, IntlShape } from "react-intl";
 
 import { getCommonFormFieldErrorMessage } from "./common";
-import getProductErrorMessage from "./product";
 
 const messages = defineMessages({
   slugUnique: {
@@ -17,13 +11,10 @@ const messages = defineMessages({
   },
 });
 
-function getStockErrorMessage(
-  err: Omit<StockErrorFragment, "__typename"> | undefined,
-  intl: IntlShape,
-): string {
+function getStockErrorMessage(err: any, intl: IntlShape): string {
   if (err) {
     switch (err.code) {
-      case StockErrorCode.UNIQUE:
+      case "UNIQUE":
         return intl.formatMessage(messages.slugUnique);
     }
   }
@@ -31,11 +22,8 @@ function getStockErrorMessage(
   return getCommonFormFieldErrorMessage(err, intl);
 }
 
-export function getBulkStockErrorMessage(
-  err: Omit<BulkStockErrorFragment, "__typename"> | undefined,
-  intl: IntlShape,
-): string {
-  return getProductErrorMessage(err, intl);
+export function getBulkStockErrorMessage(_err: any, _intl: IntlShape): string {
+  return "";
 }
 
 export default getStockErrorMessage;

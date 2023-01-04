@@ -1,4 +1,3 @@
-import { useAvailableExternalAuthenticationsQuery } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { getAppMountUriForRedirect } from "@saleor/utils/urls";
@@ -28,7 +27,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   const {
     data: externalAuthentications,
     loading: externalAuthenticationsLoading,
-  } = useAvailableExternalAuthenticationsQuery();
+  } = { data: null, loading: false };
   const [
     requestedExternalPluginId,
     setRequestedExternalPluginId,

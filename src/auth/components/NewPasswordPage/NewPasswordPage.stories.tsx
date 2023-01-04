@@ -1,4 +1,3 @@
-import { AccountErrorCode } from "@saleor/graphql";
 import CardDecorator from "@saleor/storybook//CardDecorator";
 import Decorator from "@saleor/storybook//Decorator";
 import { storiesOf } from "@storybook/react";
@@ -19,7 +18,7 @@ storiesOf("Views / Authentication / Set up a new password", module)
     <NewPasswordPage
       errors={["password"].map(field => ({
         __typename: "AccountError",
-        code: AccountErrorCode.PASSWORD_TOO_SHORT,
+        code: "PASSWORD_TOO_SHORT",
         field,
         addressType: null,
         message: null,

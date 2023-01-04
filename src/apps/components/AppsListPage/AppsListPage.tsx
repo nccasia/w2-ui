@@ -4,11 +4,9 @@ import { useSaleorApps } from "@saleor/apps/hooks/useSaleorApps";
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
-import { AppsInstallationsQuery, AppsListQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import { Button, makeStyles } from "@saleor/macaw-ui";
-import { marketplaceUrlResolver } from "@saleor/marketplace/marketplace-url-resolver";
 import { ListProps } from "@saleor/types";
 import React, { useEffect, useMemo } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -18,9 +16,9 @@ import CustomApps from "../CustomApps/CustomApps";
 import InstalledApps from "../InstalledApps/InstalledApps";
 
 export interface AppsListPageProps extends ListProps {
-  installedAppsList: AppsListQuery["apps"]["edges"];
-  customAppsList: AppsListQuery["apps"]["edges"];
-  appsInProgressList?: AppsInstallationsQuery;
+  installedAppsList: any;
+  customAppsList: any;
+  appsInProgressList?: any;
   getCustomAppHref: (id: string) => string;
   onInstalledAppRemove: (id: string) => void;
   onCustomAppRemove: (id: string) => void;
@@ -177,7 +175,7 @@ const AppsListPage: React.FC<AppsListPageProps> = ({
               <Button
                 variant="primary"
                 onClick={() => {
-                  navigate(marketplaceUrlResolver.getSaleorAppsDashboardPath());
+                  navigate("/");
                 }}
               >
                 <FormattedMessage

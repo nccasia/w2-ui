@@ -1,7 +1,6 @@
 // DON'T TOUCH THIS
 // These are separate clients and do not share configs between themselves
 import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client";
-import { createFetch, createSaleorClient } from "@saleor/sdk";
 import { createUploadLink } from "apollo-upload-client";
 
 import { getApiUrl } from "../config";
@@ -22,7 +21,6 @@ export const link = attachVariablesLink.concat(
   createUploadLink({
     credentials: "include",
     uri: getApiUrl(),
-    fetch: createFetch(),
   }),
 );
 
@@ -67,9 +65,4 @@ export const apolloClient = new ApolloClient({
     } as TypedTypePolicies,
   }),
   link,
-});
-
-export const saleorClient = createSaleorClient({
-  apiUrl: getApiUrl(),
-  channel: "",
 });

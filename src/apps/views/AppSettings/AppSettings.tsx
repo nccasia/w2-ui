@@ -1,6 +1,5 @@
 import { appMessages } from "@saleor/apps/messages";
 import NotFoundPage from "@saleor/components/NotFoundPage";
-import { useAppQuery } from "@saleor/graphql";
 import useNotifier from "@saleor/hooks/useNotifier";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -13,10 +12,8 @@ interface AppSettingsProps {
 }
 
 export const AppSettings: React.FC<AppSettingsProps> = ({ id }) => {
-  const { data, refetch } = useAppQuery({
-    displayLoader: true,
-    variables: { id },
-  });
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const { data, refetch } = { data: null, refetch: () => {} };
 
   const appExists = data?.app !== null;
 

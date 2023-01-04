@@ -1,5 +1,6 @@
 import { RecursiveMenuItem } from "@saleor/navigation/types";
 
+// @ts-ignore
 import { menu } from "../../fixtures";
 import { TreeOperation } from "../MenuItems";
 import { computeRelativeTree } from "./tree";

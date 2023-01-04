@@ -1,4 +1,2 @@
-import { MetadataInput } from "@saleor/graphql";
-
-export const filterMetadataArray = (metadataInputs: MetadataInput[]) =>
+export const filterMetadataArray = (metadataInputs: any[]) =>
   metadataInputs.filter(input => !!input.key);

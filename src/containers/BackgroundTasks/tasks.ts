@@ -1,10 +1,5 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { IMessageContext } from "@saleor/components/messages";
-import {
-  CheckExportFileStatusQuery,
-  CheckOrderInvoicesStatusQuery,
-  JobStatusEnum,
-} from "@saleor/graphql";
 import { commonMessages } from "@saleor/intl";
 import { IntlShape } from "react-intl";
 
@@ -16,11 +11,11 @@ import {
   TaskStatus,
 } from "./types";
 
-function getTaskStatus(jobStatus: JobStatusEnum): TaskStatus {
+function getTaskStatus(jobStatus: any): TaskStatus {
   switch (jobStatus) {
-    case JobStatusEnum.SUCCESS:
+    case "SUCCESS":
       return TaskStatus.SUCCESS;
-    case JobStatusEnum.PENDING:
+    case "PENDING":
       return TaskStatus.PENDING;
     default:
       return TaskStatus.FAILURE;
@@ -73,7 +68,7 @@ export function queueInvoiceGenerate(
   id: number,
   generateInvoice: InvoiceGenerateParams,
   tasks: React.MutableRefObject<QueuedTask[]>,
-  fetch: () => Promise<ApolloQueryResult<CheckOrderInvoicesStatusQuery>>,
+  fetch: () => Promise<ApolloQueryResult<any>>,
   notify: IMessageContext,
   intl: IntlShape,
 ) {
@@ -113,7 +108,7 @@ export function queueInvoiceGenerate(
 export function queueExport(
   id: number,
   tasks: React.MutableRefObject<QueuedTask[]>,
-  fetch: () => Promise<ApolloQueryResult<CheckExportFileStatusQuery>>,
+  fetch: () => Promise<ApolloQueryResult<any>>,
   notify: IMessageContext,
   intl: IntlShape,
 ) {

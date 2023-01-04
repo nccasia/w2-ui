@@ -14,7 +14,6 @@ import Money from "@saleor/components/Money";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { SearchProductsQuery } from "@saleor/graphql";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
@@ -37,12 +36,12 @@ import {
 } from "./utils";
 
 export interface AssignVariantDialogFormData {
-  products: RelayToFlat<SearchProductsQuery["search"]>;
+  products: RelayToFlat<any>;
   query: string;
 }
 export interface AssignVariantDialogProps extends FetchMoreProps, DialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
-  products: RelayToFlat<SearchProductsQuery["search"]>;
+  products: RelayToFlat<any>;
   loading: boolean;
   onFetch: (value: string) => void;
   onSubmit: (data: string[]) => void;

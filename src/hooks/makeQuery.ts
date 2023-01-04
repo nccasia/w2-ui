@@ -8,11 +8,6 @@ import {
   useQuery as useBaseQuery,
 } from "@apollo/client";
 import { handleQueryAuthError, useUser } from "@saleor/auth";
-import { PrefixedPermissions } from "@saleor/graphql/extendedTypes";
-import {
-  PermissionEnum,
-  UserPermissionFragment,
-} from "@saleor/graphql/types.generated";
 import { RequireAtLeastOne } from "@saleor/misc";
 import { DocumentNode } from "graphql";
 import { useEffect } from "react";
@@ -22,29 +17,9 @@ import useAppState from "./useAppState";
 import useNotifier from "./useNotifier";
 export { useLazyQuery } from "@apollo/client";
 
-const getPermissionKey = (permission: string) =>
-  `PERMISSION_${permission}` as PrefixedPermissions;
+export const allPermissions: Record<any, boolean> = {};
 
-export const allPermissions: Record<PrefixedPermissions, boolean> = Object.keys(
-  PermissionEnum,
-).reduce(
-  (prev, code) => ({
-    ...prev,
-    [getPermissionKey(code)]: false,
-  }),
-  {} as Record<PrefixedPermissions, boolean>,
-);
-
-const getUserPermissions = (
-  userPermissions: UserPermissionFragment[],
-): Record<PrefixedPermissions, boolean> =>
-  userPermissions.reduce(
-    (prev, permission) => ({
-      ...prev,
-      [getPermissionKey(permission.code)]: true,
-    }),
-    {} as Record<PrefixedPermissions, boolean>,
-  );
+const getUserPermissions = (): Record<any, boolean> => ({});
 
 export interface LoadMore<TData, TVariables> {
   loadMore: (
@@ -64,12 +39,12 @@ export type QueryHookOptions<TData, TVariables> = Partial<
   Omit<BaseQueryHookOptions<TData, TVariables>, "variables"> & {
     displayLoader: boolean;
     handleError?: (error: ApolloError) => void | undefined;
-    variables?: Omit<TVariables, PrefixedPermissions>;
+    variables?: Omit<TVariables, any>;
   }
 >;
 
 type UseQueryHook<TData, TVariables> = (
-  opts?: QueryHookOptions<TData, Omit<TVariables, PrefixedPermissions>>,
+  opts?: QueryHookOptions<TData, Omit<TVariables, any>>,
 ) => UseQueryResult<TData, TVariables>;
 
 export function useQuery<TData, TVariables>(
@@ -87,13 +62,13 @@ export function useQuery<TData, TVariables>(
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
   const user = useUser();
-  const userPermissions = getUserPermissions(user.user?.userPermissions || []);
+  const userPermissions = getUserPermissions();
 
   const variablesWithPermissions = {
     ...variables,
     ...allPermissions,
     ...userPermissions,
-  } as TVariables & Record<PrefixedPermissions, boolean>;
+  } as TVariables & Record<any, boolean>;
 
   const queryData = useBaseQuery(query, {
     ...opts,

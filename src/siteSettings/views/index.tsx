@@ -1,15 +1,9 @@
 import { WindowTitle } from "@saleor/components/WindowTitle";
-import {
-  CountryCode,
-  useShopSettingsUpdateMutation,
-  useSiteSettingsQuery,
-} from "@saleor/graphql";
-import useNotifier from "@saleor/hooks/useNotifier";
-import { commonMessages, sectionNames } from "@saleor/intl";
+import { sectionNames } from "@saleor/intl";
+import { findInEnum } from "@saleor/misc";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { extractMutationErrors, findInEnum } from "../../misc";
 import SiteSettingsPage, {
   areAddressInputFieldsModified,
   SiteSettingsPageFormData,
@@ -21,42 +15,22 @@ export interface SiteSettingsProps {
 }
 
 export const SiteSettings: React.FC<SiteSettingsProps> = () => {
-  const notify = useNotifier();
   const intl = useIntl();
 
-  const siteSettings = useSiteSettingsQuery({
-    displayLoader: true,
-  });
+  const siteSettings = { loading: false };
+  const updateShopSettingsOpts = { loading: false };
 
-  const [
-    updateShopSettings,
-    updateShopSettingsOpts,
-  ] = useShopSettingsUpdateMutation({
-    onCompleted: data => {
-      if (
-        [...data.shopAddressUpdate.errors, ...data.shopSettingsUpdate.errors]
-          .length === 0
-      ) {
-        notify({
-          status: "success",
-          text: intl.formatMessage(commonMessages.savedChanges),
-        });
-      }
-    },
-  });
-
-  const errors = [
-    ...(updateShopSettingsOpts.data?.shopSettingsUpdate.errors || []),
-    ...(updateShopSettingsOpts.data?.shopAddressUpdate.errors || []),
-  ];
+  const errors = [];
   const loading = siteSettings.loading || updateShopSettingsOpts.loading;
 
   const handleUpdateShopSettings = async (data: SiteSettingsPageFormData) => {
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const addressInput = areAddressInputFieldsModified(data)
       ? {
           city: data.city,
           companyName: data.companyName,
-          country: findInEnum(data.country, CountryCode),
+          country: findInEnum(data.country, null),
           countryArea: data.countryArea,
           phone: data.phone,
           postalCode: data.postalCode,
@@ -67,20 +41,7 @@ export const SiteSettings: React.FC<SiteSettingsProps> = () => {
           companyName: data.companyName,
         };
 
-    return extractMutationErrors(
-      updateShopSettings({
-        variables: {
-          addressInput,
-          shopSettingsInput: {
-            description: data.description,
-            reserveStockDurationAnonymousUser:
-              data.reserveStockDurationAnonymousUser || null,
-            reserveStockDurationAuthenticatedUser:
-              data.reserveStockDurationAuthenticatedUser || null,
-          },
-        },
-      }),
-    );
+    return null;
   };
 
   return (
@@ -89,9 +50,9 @@ export const SiteSettings: React.FC<SiteSettingsProps> = () => {
       <SiteSettingsPage
         disabled={loading}
         errors={errors}
-        shop={siteSettings.data?.shop}
+        shop={null}
         onSubmit={handleUpdateShopSettings}
-        saveButtonBarState={updateShopSettingsOpts.status}
+        saveButtonBarState={null}
       />
     </>
   );

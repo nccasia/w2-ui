@@ -8,7 +8,6 @@ import {
 import BackButton from "@saleor/components/BackButton";
 import ConfirmButton from "@saleor/components/ConfirmButton";
 import Form from "@saleor/components/Form";
-import { MenuErrorFragment } from "@saleor/graphql";
 import { buttonMessages } from "@saleor/intl";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { getFormErrors } from "@saleor/utils/errors";
@@ -23,7 +22,7 @@ export interface MenuCreateDialogFormData {
 export interface MenuCreateDialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
   disabled: boolean;
-  errors: MenuErrorFragment[];
+  errors: any[];
   open: boolean;
   onClose: () => void;
   onConfirm: (data: MenuCreateDialogFormData) => void;

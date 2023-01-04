@@ -1,12 +1,5 @@
-import { MutationFunction } from "@apollo/client";
-import { categoryAddUrl } from "@saleor/categories/urls";
-import { collectionAddUrl } from "@saleor/collections/urls";
-import { customerAddUrl } from "@saleor/customers/urls";
-import { voucherAddUrl } from "@saleor/discounts/urls";
-import { OrderDraftCreateMutation } from "@saleor/graphql";
 import { UseNavigatorResult } from "@saleor/hooks/useNavigator";
 import { permissionGroupAddUrl } from "@saleor/permissionGroups/urls";
-import { productAddUrl } from "@saleor/products/urls";
 import { score } from "fuzzaldrin";
 import { IntlShape } from "react-intl";
 
@@ -25,28 +18,28 @@ export function searchInCommands(
   search: string,
   intl: IntlShape,
   navigate: UseNavigatorResult,
-  createOrder: MutationFunction<OrderDraftCreateMutation, {}>,
+  createOrder: any,
   setMode: (mode: QuickSearchMode) => void,
 ): QuickSearchActionInput[] {
   const actions: Command[] = [
     {
       label: intl.formatMessage(messages.createCategory),
       onClick: () => {
-        navigate(categoryAddUrl());
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createCollection),
       onClick: () => {
-        navigate(collectionAddUrl());
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createProduct),
       onClick: () => {
-        navigate(productAddUrl());
+        navigate("/");
         return false;
       },
     },
@@ -60,14 +53,14 @@ export function searchInCommands(
     {
       label: intl.formatMessage(messages.createCustomer),
       onClick: () => {
-        navigate(customerAddUrl);
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createVoucher),
       onClick: () => {
-        navigate(voucherAddUrl());
+        navigate("/");
         return false;
       },
     },
@@ -100,7 +93,7 @@ function getCommandModeActions(
   query: string,
   intl: IntlShape,
   navigate: UseNavigatorResult,
-  createOrder: MutationFunction<OrderDraftCreateMutation, {}>,
+  createOrder: any,
   setMode: (mode: QuickSearchMode) => void,
 ): QuickSearchActionInput[] {
   return [...searchInCommands(query, intl, navigate, createOrder, setMode)]

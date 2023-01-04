@@ -1,5 +1,3 @@
-import { LoginData } from "@saleor/sdk";
-
 export const isSupported = !!(
   navigator?.credentials?.preventSilentAccess && window.PasswordCredential
 );
@@ -17,12 +15,11 @@ export async function login<T>(
   } catch {
     result = null;
   }
-
   return result;
 }
 
 export function saveCredentials(
-  user: LoginData["user"],
+  user: any,
   password: string,
 ): Promise<CredentialType | null> {
   let result: Promise<CredentialType | null>;

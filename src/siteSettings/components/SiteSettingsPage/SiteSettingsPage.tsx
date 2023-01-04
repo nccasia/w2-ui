@@ -8,7 +8,6 @@ import PageHeader from "@saleor/components/PageHeader";
 import PageSectionHeader from "@saleor/components/PageSectionHeader";
 import Savebar from "@saleor/components/Savebar";
 import { configurationMenuUrl } from "@saleor/configuration";
-import { ShopErrorFragment, SiteSettingsQuery } from "@saleor/graphql";
 import useAddressValidation from "@saleor/hooks/useAddressValidation";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -44,8 +43,8 @@ export interface SiteSettingsPageFormData
 
 export interface SiteSettingsPageProps {
   disabled: boolean;
-  errors: ShopErrorFragment[];
-  shop: SiteSettingsQuery["shop"];
+  errors: any;
+  shop: any;
   saveButtonBarState: ConfirmButtonTransitionState;
   onSubmit: (data: SiteSettingsPageFormData) => SubmitPromise;
 }

@@ -1,4 +1,3 @@
-import { StaffMemberStatus } from "@saleor/graphql";
 import { createFilterStructure } from "@saleor/staff/components/StaffListPage";
 import { StaffListUrlFilters } from "@saleor/staff/urls";
 import { getFilterQueryParams } from "@saleor/utils/filters";
@@ -19,7 +18,7 @@ describe("Filtering query params", () => {
 
   it("should not be empty object if params given", () => {
     const params: StaffListUrlFilters = {
-      status: StaffMemberStatus.ACTIVE,
+      status: "ACTIVE",
     };
     const filterVariables = getFilterVariables(params);
 
@@ -33,7 +32,7 @@ describe("Filtering URL params", () => {
   const filters = createFilterStructure(intl, {
     status: {
       active: false,
-      value: StaffMemberStatus.ACTIVE,
+      value: "ACTIVE",
     },
   });
 

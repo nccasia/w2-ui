@@ -1,25 +1,21 @@
-import { ApolloClient, useApolloClient } from "@apollo/client";
-import { IMessageContext } from "@saleor/components/messages";
+import { useApolloClient } from "@apollo/client";
 import useNotifier from "@saleor/hooks/useNotifier";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 import BackgroundTasksContext from "./context";
-import { checkExportFileStatus, checkOrderInvoicesStatus } from "./queries";
-import {
-  handleTask,
-  queueCustom,
-  queueExport,
-  queueInvoiceGenerate,
-} from "./tasks";
+import { handleTask, queueCustom } from "./tasks";
 import { QueuedTask, Task, TaskData, TaskStatus } from "./types";
 
 export const backgroundTasksRefreshTime = 15 * 1000;
 
 export function useBackgroundTasks(
-  apolloClient: Pick<ApolloClient<any>, "query">,
-  notify: IMessageContext,
-  intl: IntlShape,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _apolloClient: any,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _notify: any,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _intl: IntlShape,
 ) {
   const idCounter = React.useRef(0);
   const tasks = React.useRef<QueuedTask[]>([]);
@@ -67,39 +63,6 @@ export function useBackgroundTasks(
     switch (type) {
       case Task.CUSTOM:
         queueCustom(idCounter.current, tasks, data);
-        break;
-      case Task.INVOICE_GENERATE:
-        queueInvoiceGenerate(
-          idCounter.current,
-          data.generateInvoice,
-          tasks,
-          () =>
-            apolloClient.query({
-              fetchPolicy: "network-only",
-              query: checkOrderInvoicesStatus,
-              variables: {
-                id: data.generateInvoice.orderId,
-              },
-            }),
-          notify,
-          intl,
-        );
-        break;
-      case Task.EXPORT:
-        queueExport(
-          idCounter.current,
-          tasks,
-          () =>
-            apolloClient.query({
-              fetchPolicy: "network-only",
-              query: checkExportFileStatus,
-              variables: {
-                id: data.id,
-              },
-            }),
-          notify,
-          intl,
-        );
         break;
     }
 

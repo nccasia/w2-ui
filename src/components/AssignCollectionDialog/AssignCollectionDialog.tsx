@@ -1,4 +1,3 @@
-import { SearchCollectionsQuery } from "@saleor/graphql";
 import { RelayToFlat } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -10,7 +9,7 @@ import { messages } from "./messages";
 
 interface AssignCollectionDialogProps
   extends Omit<AssignContainerDialogProps, "containers" | "labels"> {
-  collections: RelayToFlat<SearchCollectionsQuery["search"]>;
+  collections: RelayToFlat<any>;
 }
 
 const AssignCollectionDialog: React.FC<AssignCollectionDialogProps> = ({

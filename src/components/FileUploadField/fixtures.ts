@@ -1,6 +1,4 @@
-import { FileFragment } from "@saleor/graphql";
-
-export const UPLOADED_FILE: FileFragment = {
+export const UPLOADED_FILE: any = {
   __typename: "File",
   contentType: "image/png",
   url: "some_url_to_image.png",

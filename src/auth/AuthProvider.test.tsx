@@ -1,5 +1,3 @@
-import { getApiUrl } from "@saleor/config";
-import { createSaleorClient, SaleorProvider } from "@saleor/sdk";
 import setupApi from "@test/api";
 import { act, renderHook } from "@testing-library/react-hooks";
 import React from "react";
@@ -15,15 +13,9 @@ function renderAuthProvider() {
     formatMessage: ({ defaultMessage }) => defaultMessage,
   };
   const notify = jest.fn();
-  const saleorClient = createSaleorClient({
-    apiUrl: getApiUrl(),
-    channel: "",
-  });
   const wrapper = ({ children }) => (
     <IntlProvider defaultLocale="en" locale="en">
-      <Router>
-        <SaleorProvider client={saleorClient}>{children}</SaleorProvider>
-      </Router>
+      <Router>{children}</Router>
     </IntlProvider>
   );
 

@@ -1,9 +1,5 @@
 import { DialogContentText, Typography } from "@material-ui/core";
 import ActionDialog from "@saleor/components/ActionDialog";
-import {
-  PermissionGroupErrorCode,
-  PermissionGroupErrorFragment,
-} from "@saleor/graphql";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import getPermissionGroupErrorMessage from "@saleor/utils/errors/permissionGroups";
 import React from "react";
@@ -11,7 +7,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 export interface PermissionDeleteDialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
-  error?: PermissionGroupErrorFragment;
+  error?: any;
   name: string;
   onClose: () => void;
   onConfirm: () => void;
@@ -29,7 +25,7 @@ const PermissionGroupDeleteDialog: React.FC<PermissionDeleteDialogProps> = ({
   const intl = useIntl();
 
   let errorMessage;
-  if (error?.code === PermissionGroupErrorCode.OUT_OF_SCOPE_PERMISSION) {
+  if (error?.code === "OUT_OF_SCOPE_PERMISSION") {
     errorMessage = intl.formatMessage({
       id: "O22NIZ",
       defaultMessage:

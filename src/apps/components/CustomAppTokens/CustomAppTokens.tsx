@@ -2,26 +2,20 @@ import { Card, TableBody, TableCell, TableHead } from "@material-ui/core";
 import { Button } from "@saleor/components/Button";
 import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
-import Skeleton from "@saleor/components/Skeleton";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { AppUpdateMutation } from "@saleor/graphql";
-import { DeleteIcon, IconButton } from "@saleor/macaw-ui";
-import { renderCollection } from "@saleor/misc";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { useStyles } from "./styles";
 
 export interface CustomAppTokensProps {
-  tokens: AppUpdateMutation["appUpdate"]["app"]["tokens"] | null;
+  tokens: any;
   onCreate: () => void;
   onDelete: (id: string) => void;
 }
 
-const numberOfColumns = 3;
-
 const CustomAppTokens: React.FC<CustomAppTokensProps> = props => {
-  const { tokens, onCreate, onDelete } = props;
+  const { onCreate } = props;
   const classes = useStyles(props);
   const intl = useIntl();
 
@@ -69,40 +63,7 @@ const CustomAppTokens: React.FC<CustomAppTokensProps> = props => {
             </TableCell>
           </TableRowLink>
         </TableHead>
-        <TableBody>
-          {renderCollection(
-            tokens,
-            token => (
-              <TableRowLink key={token ? token.id : "skeleton"}>
-                <TableCell className={classes.colNote}>
-                  {token?.name || <Skeleton />}
-                </TableCell>
-                <TableCell className={classes.colKey}>
-                  {token?.authToken ? `**** ${token.authToken}` : <Skeleton />}
-                </TableCell>
-                <TableCell className={classes.colActions}>
-                  <IconButton
-                    variant="secondary"
-                    color="primary"
-                    onClick={() => onDelete(token.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRowLink>
-            ),
-            () => (
-              <TableRowLink>
-                <TableCell colSpan={numberOfColumns}>
-                  <FormattedMessage
-                    id="bsP4f3"
-                    defaultMessage="No tokens found"
-                  />
-                </TableCell>
-              </TableRowLink>
-            ),
-          )}
-        </TableBody>
+        <TableBody></TableBody>
       </ResponsiveTable>
     </Card>
   );
