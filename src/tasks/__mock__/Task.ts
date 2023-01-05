@@ -1,4 +1,6 @@
 import {
+  History,
+  HistoryType,
   Task,
   TaskDetail,
   TaskPriority,
@@ -281,5 +283,57 @@ const taskDetail: TaskDetail = {
   type: TaskType.DEVICE_REQ,
   state: TaskState.WAIT_PM_APPROVE,
 };
+const histories: History[] = [
+  {
+    amount: null,
+    app: null,
+    date: "2022-12-20T19:54:36.454776+00:00",
+    discount: null,
+    email: null,
+    emailType: null,
+    id: "T3JkZXJFdmVudDozNjEy",
+    invoiceNumber: 2,
+    lines: null,
+    message: "Approve request device 89",
+    type: HistoryType.CONFIRM,
+    user: null,
+  },
+  {
+    amount: null,
+    app: null,
+    date: "2022-12-20T19:54:36.454776+00:00",
+    discount: null,
+    email: null,
+    emailType: null,
+    id: "T3JkZXJFdmVudDssNjEy",
+    invoiceNumber: 2,
+    lines: null,
+    message: "Reject request meeting",
+    type: HistoryType.CONFIRM,
+    user: null,
+  },
+];
 
-export { tasks, taskDetail };
+const choices = [
+  {
+    label: "Vu Thanh Tuan",
+    value: "Vu Thanh Tuan",
+  },
+  {
+    label: "Minh Luc",
+    value: "Minh Luc",
+  },
+  {
+    label: "Ho Trong Son",
+    value: "Ho Trong Son",
+  },
+  {
+    label: "Nguyen Ngoc Tuyen",
+    value: "Nguyen Ngoc Tuyen",
+  },
+  {
+    label: "Nguyen Van Manh",
+    value: "Nguyen Van Manh",
+  },
+];
+export { tasks, taskDetail, histories, choices };

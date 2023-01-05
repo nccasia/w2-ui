@@ -12,7 +12,7 @@ const useStyles = makeStyles(
       width: "100%",
     },
   }),
-  { name: "C:Workspacew2-uisrc\taskscomponentsFormConfirmFormConfirm" },
+  { name: "FormConfirm" },
 );
 
 const FormConfirm = () => {
