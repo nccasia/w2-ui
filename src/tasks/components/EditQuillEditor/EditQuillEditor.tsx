@@ -28,7 +28,6 @@ const useStyles = makeStyles(
       display: "flex",
       justifyContent: "flex-start",
       gap: "24px",
-      marginTop: 50,
     },
   }),
   { name: "EditQuillEditor" },
