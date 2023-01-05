@@ -1,4 +1,3 @@
-import { useAvailableExternalAuthenticationsQuery } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { getAppMountUriForRedirect } from "@saleor/utils/urls";
@@ -28,7 +27,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   const {
     data: externalAuthentications,
     loading: externalAuthenticationsLoading,
-  } = useAvailableExternalAuthenticationsQuery();
+  } = { data: null, loading: false };
   const [
     requestedExternalPluginId,
     setRequestedExternalPluginId,
@@ -63,6 +62,7 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleExternalAuthentication = async (code: string, state: string) => {
     const result = await loginByExternalPlugin(requestedExternalPluginId, {
       code,
@@ -85,7 +85,13 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
     if (externalAuthParamsExist && externalAuthNotPerformed) {
       handleExternalAuthentication(code, state);
     }
-  }, []);
+  }, [
+    authenticating,
+    errors.length,
+    handleExternalAuthentication,
+    location.pathname,
+    params,
+  ]);
 
   return (
     <LoginPage

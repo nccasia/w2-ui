@@ -1,6 +1,5 @@
 import { appMessages } from "@saleor/apps/messages";
 import NotFoundPage from "@saleor/components/NotFoundPage";
-import { useAppQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import React from "react";
@@ -20,10 +19,7 @@ interface AppProps {
 
 export const App: React.FC<AppProps> = ({ id }) => {
   const location = useLocation();
-  const { data, refetch } = useAppQuery({
-    displayLoader: true,
-    variables: { id },
-  });
+  const { data, refetch } = { data: null, refetch: () => true };
 
   const appExists = data?.app !== null;
 

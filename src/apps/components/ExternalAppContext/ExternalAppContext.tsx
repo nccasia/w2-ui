@@ -1,5 +1,4 @@
 import { appDeepUrl, AppDetailsUrlMountQueryParams } from "@saleor/apps/urls";
-import { AppExtensionTargetEnum } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import React from "react";
 
@@ -11,7 +10,7 @@ export interface AppData {
   appToken: string;
   src: string;
   label: string;
-  target: AppExtensionTargetEnum;
+  target: any;
   params?: AppDetailsUrlMountQueryParams;
 }
 
@@ -48,12 +47,13 @@ export const ExternalAppProvider: React.FC = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useExternalApp = () => {
   const { open, setOpen, setAppData } = React.useContext(ExternalAppContext);
   const navigate = useNavigator();
 
   const openApp = (appData: AppData) => {
-    if (appData.target === AppExtensionTargetEnum.POPUP) {
+    if (appData.target === "POPUP") {
       setOpen(true);
       setAppData(appData);
     } else {

@@ -1,5 +1,4 @@
 import { MutationFunction } from "@apollo/client";
-import { OrderDraftCreateMutation } from "@saleor/graphql";
 import { UseNavigatorResult } from "@saleor/hooks/useNavigator";
 import { IntlShape } from "react-intl";
 
@@ -15,7 +14,7 @@ function getDefaultModeActions(
   query: string,
   intl: IntlShape,
   navigate: UseNavigatorResult,
-  createOrder: MutationFunction<OrderDraftCreateMutation, {}>,
+  createOrder: MutationFunction<any, {}>,
   setMode: (mode: QuickSearchMode) => void,
 ): QuickSearchAction[] {
   return [

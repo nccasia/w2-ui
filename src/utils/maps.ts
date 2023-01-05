@@ -3,13 +3,6 @@ import {
   ChoiceValue,
   SingleAutocompleteChoiceType,
 } from "@saleor/components/SingleAutocompleteSelectField";
-import {
-  CountryFragment,
-  CountryWithCodeFragment,
-  MetadataInput,
-  MetadataItemFragment,
-  SearchPagesQuery,
-} from "@saleor/graphql";
 import { getFullName } from "@saleor/misc";
 import { Node, RelayToFlat, SlugNode, TagNode } from "@saleor/types";
 
@@ -26,22 +19,18 @@ export function mapEdgesToItems<T>(
   return data?.edges?.map(({ node }) => node);
 }
 
-export function mapCountriesToCountriesCodes(
-  countries?: Array<Pick<CountryFragment, "code">>,
-) {
+export function mapCountriesToCountriesCodes(countries?: any) {
   return countries?.map(country => country.code);
 }
 
-export function mapCountriesToChoices(countries: CountryWithCodeFragment[]) {
+export function mapCountriesToChoices(countries: any[]) {
   return countries.map(country => ({
     label: country.country,
     value: country.code,
   }));
 }
 
-export function mapPagesToChoices(
-  pages: RelayToFlat<SearchPagesQuery["search"]>,
-) {
+export function mapPagesToChoices(pages: RelayToFlat<any>) {
   return pages.map(page => ({
     label: page.title,
     value: page.id,
@@ -84,9 +73,7 @@ export function mapTagNodeToChoice(
   return mapNodeToChoice(nodes, node => node.tag);
 }
 
-export function mapMetadataItemToInput(
-  item: MetadataItemFragment,
-): MetadataInput {
+export function mapMetadataItemToInput(item: any): any {
   return {
     key: item.key,
     value: item.value,

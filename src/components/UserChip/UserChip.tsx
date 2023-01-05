@@ -1,5 +1,4 @@
 import { FormControlLabel, Switch } from "@material-ui/core";
-import { UserFragment } from "@saleor/graphql";
 import { UserChipMenu, UserChipMenuItem } from "@saleor/macaw-ui";
 import { getUserInitials, getUserName } from "@saleor/misc";
 import { staffMemberDetailsUrl } from "@saleor/staff/urls";
@@ -9,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export interface UserChipProps {
   isDarkThemeEnabled: boolean;
-  user: UserFragment;
+  user: any;
   onLogout: () => void;
   onThemeToggle: () => void;
 }

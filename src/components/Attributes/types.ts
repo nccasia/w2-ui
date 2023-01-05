@@ -1,8 +1,3 @@
-import {
-  AttributeValueFragment,
-  PageErrorWithAttributesFragment,
-  ProductErrorWithAttributesFragment,
-} from "@saleor/graphql";
 import { FormsetChange } from "@saleor/hooks/useFormset";
 import { FetchMoreProps, ReorderEvent } from "@saleor/types";
 import { RichTextGetters } from "@saleor/utils/richText/useMultipleRichText";
@@ -28,9 +23,9 @@ export interface AttributeRowHandlers {
 
 export interface AttributeRowProps extends AttributeRowHandlers {
   attribute: AttributeInput;
-  attributeValues: AttributeValueFragment[];
+  attributeValues: any[];
   disabled: boolean;
-  error: ProductErrorWithAttributesFragment | PageErrorWithAttributesFragment;
+  error: any;
   loading: boolean;
   onAttributeSelectBlur?: () => void;
   richTextGetters: RichTextGetters<string>;

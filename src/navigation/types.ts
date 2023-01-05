@@ -1,5 +1,3 @@
-import { MenuItemFragment } from "@saleor/graphql";
-
-export type RecursiveMenuItem = MenuItemFragment & {
+export type RecursiveMenuItem = any & {
   children?: RecursiveMenuItem[];
 };

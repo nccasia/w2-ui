@@ -356,6 +356,11 @@ export const sectionNames = defineMessages({
     defaultMessage: "Categories",
     description: "categories section name",
   },
+  tasks: {
+    id: "Bw1oDm",
+    defaultMessage: "Tasks",
+    description: "tasks section name",
+  },
   channels: {
     id: "NlSJMM",
     defaultMessage: "Channels",
@@ -395,11 +400,6 @@ export const sectionNames = defineMessages({
     id: "4JW9iJ",
     defaultMessage: "Home",
     description: "home section name",
-  },
-  tasks: {
-    id: "A+ysQp",
-    defaultMessage: "Tasks",
-    description: "task section name",
   },
   marketplace: {
     id: "ti4Hqw",

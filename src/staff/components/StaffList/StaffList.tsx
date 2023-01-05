@@ -10,7 +10,6 @@ import Skeleton from "@saleor/components/Skeleton";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { StaffListQuery } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import {
   getUserInitials,
@@ -72,7 +71,7 @@ const useStyles = makeStyles(
 );
 
 interface StaffListProps extends ListProps, SortPage<StaffListUrlSortField> {
-  staffMembers: RelayToFlat<StaffListQuery["staffUsers"]>;
+  staffMembers: RelayToFlat<any>;
 }
 
 const numberOfColumns = 2;

@@ -1,4 +1,3 @@
-import { SearchCategoriesQuery } from "@saleor/graphql";
 import { RelayToFlat } from "@saleor/types";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -10,7 +9,7 @@ import { messages } from "./messages";
 
 interface AssignCategoryDialogProps
   extends Omit<AssignContainerDialogProps, "containers" | "labels"> {
-  categories: RelayToFlat<SearchCategoriesQuery["search"]>;
+  categories: RelayToFlat<any>;
 }
 
 const AssignCategoryDialog: React.FC<AssignCategoryDialogProps> = ({

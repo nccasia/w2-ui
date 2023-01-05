@@ -1,5 +1,4 @@
 import { FetchResult, MutationResult } from "@apollo/client";
-import { UserPermissionFragment } from "@saleor/graphql";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 
 import { FilterElement, IFilter } from "./components/Filter";
@@ -199,7 +198,7 @@ export interface FetchMoreProps {
 export type TabActionDialog = "save-search" | "delete-search";
 
 export interface UserPermissionProps {
-  userPermissions: UserPermissionFragment[];
+  userPermissions: any[];
 }
 
 export interface MutationResultAdditionalProps {

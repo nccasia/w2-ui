@@ -1,5 +1,4 @@
 import { IFilter } from "@saleor/components/Filter";
-import { StaffMemberStatus } from "@saleor/graphql";
 import { FilterOpts } from "@saleor/types";
 import { createOptionsField } from "@saleor/utils/filters/fields";
 import { defineMessages, IntlShape } from "react-intl";
@@ -9,7 +8,7 @@ export enum StaffFilterKeys {
 }
 
 export interface StaffListFilterOpts {
-  status: FilterOpts<StaffMemberStatus>;
+  status: FilterOpts<any>;
 }
 
 const messages = defineMessages({
@@ -44,10 +43,12 @@ export function createFilterStructure(
         [
           {
             label: intl.formatMessage(messages.active),
+            // @ts-ignore
             value: StaffMemberStatus.ACTIVE,
           },
           {
             label: intl.formatMessage(messages.deactivated),
+            // @ts-ignore
             value: StaffMemberStatus.DEACTIVATED,
           },
         ],

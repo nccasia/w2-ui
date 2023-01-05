@@ -1,43 +1,26 @@
-import { SearchProductsQuery } from "@saleor/graphql";
-import {
-  getById,
-  getByUnmatchingId,
-} from "@saleor/orders/components/OrderReturnPage/utils";
 import { RelayToFlat } from "@saleor/types";
 
-export type SearchVariant = RelayToFlat<
-  SearchProductsQuery["search"]
->[0]["variants"][0];
+export type SearchVariant = RelayToFlat<any>[0]["variants"][0];
 
 type SetVariantsAction = (data: SearchVariant[]) => void;
 
 export function isVariantSelected(
-  variant: SearchVariant,
-  selectedVariantsToProductsMap: SearchVariant[],
+  _variant: any,
+  _selectedVariantsToProductsMap: any,
 ): boolean {
-  return !!selectedVariantsToProductsMap.find(getById(variant.id));
+  return false;
 }
 
 export const handleProductAssign = (
-  product: RelayToFlat<SearchProductsQuery["search"]>[0],
+  product: RelayToFlat<any>[0],
   productIndex: number,
   productsWithAllVariantsSelected: boolean[],
   variants: SearchVariant[],
   setVariants: SetVariantsAction,
 ) =>
   productsWithAllVariantsSelected[productIndex]
-    ? setVariants(
-        variants.filter(
-          selectedVariant =>
-            !product.variants.find(getById(selectedVariant.id)),
-        ),
-      )
-    : setVariants([
-        ...variants,
-        ...product.variants.filter(
-          productVariant => !variants.find(getById(productVariant.id)),
-        ),
-      ]);
+    ? setVariants(variants)
+    : setVariants([...variants, ...product.variants]);
 
 export const handleVariantAssign = (
   variant: SearchVariant,
@@ -48,16 +31,12 @@ export const handleVariantAssign = (
   setVariants: SetVariantsAction,
 ) =>
   selectedVariantsToProductsMap[productIndex][variantIndex]
-    ? setVariants(variants.filter(getByUnmatchingId(variant.id)))
+    ? setVariants(variants)
     : setVariants([...variants, variant]);
 
 export function hasAllVariantsSelected(
   productVariants: SearchVariant[],
-  selectedVariantsToProductsMap: SearchVariant[],
+  _selectedVariantsToProductsMap: any[],
 ): boolean {
-  return productVariants.reduce(
-    (acc, productVariant) =>
-      acc && !!selectedVariantsToProductsMap.find(getById(productVariant.id)),
-    true,
-  );
+  return productVariants.reduce(acc => acc && false, true);
 }

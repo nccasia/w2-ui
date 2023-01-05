@@ -1,13 +1,10 @@
-import { PermissionGroupSortField } from "@saleor/graphql";
 import { PermissionGroupListUrlSortField } from "@saleor/permissionGroups/urls";
 import { createGetSortQueryVariables } from "@saleor/utils/sort";
 
-export function getSortQueryField(
-  sort: PermissionGroupListUrlSortField,
-): PermissionGroupSortField {
+export function getSortQueryField(sort: PermissionGroupListUrlSortField): any {
   switch (sort) {
     case PermissionGroupListUrlSortField.name:
-      return PermissionGroupSortField.NAME;
+      return "NAME";
     default:
       return undefined;
   }

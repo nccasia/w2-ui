@@ -12,7 +12,6 @@ import ConfirmButton from "@saleor/components/ConfirmButton";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellAvatar from "@saleor/components/TableCellAvatar";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { SearchProductsQuery } from "@saleor/graphql";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useSearchQuery from "@saleor/hooks/useSearchQuery";
 import { ConfirmButtonTransitionState } from "@saleor/macaw-ui";
@@ -29,13 +28,13 @@ import { messages } from "./messages";
 import { useStyles } from "./styles";
 
 export interface AssignProductDialogFormData {
-  products: RelayToFlat<SearchProductsQuery["search"]>;
+  products: RelayToFlat<any>;
   query: string;
 }
 
 export interface AssignProductDialogProps extends FetchMoreProps, DialogProps {
   confirmButtonState: ConfirmButtonTransitionState;
-  products: RelayToFlat<SearchProductsQuery["search"]>;
+  products: RelayToFlat<any>;
   selectedIds?: Record<string, boolean>;
   loading: boolean;
   onFetch: (value: string) => void;

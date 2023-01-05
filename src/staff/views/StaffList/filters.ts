@@ -1,5 +1,4 @@
 import { FilterElement, FilterElementRegular } from "@saleor/components/Filter";
-import { StaffMemberStatus, StaffUserInput } from "@saleor/graphql";
 import { findValueInEnum, maybe } from "@saleor/misc";
 import {
   StaffFilterKeys,
@@ -25,18 +24,16 @@ export function getFilterOpts(
   return {
     status: {
       active: maybe(() => params.status !== undefined, false),
-      value: maybe(() => findValueInEnum(params.status, StaffMemberStatus)),
+      value: maybe(() => findValueInEnum(params.status, "StaffMemberStatus")),
     },
   };
 }
 
-export function getFilterVariables(
-  params: StaffListUrlFilters,
-): StaffUserInput {
+export function getFilterVariables(params: StaffListUrlFilters): any {
   return {
     search: params.query,
     status: params.status
-      ? findValueInEnum(params.status, StaffMemberStatus)
+      ? findValueInEnum(params.status, "StaffMemberStatus")
       : null,
   };
 }
@@ -51,7 +48,7 @@ export function getFilterQueryParam(
       return getSingleEnumValueQueryParam(
         filter as FilterElementRegular<StaffFilterKeys.status>,
         StaffListUrlFiltersEnum.status,
-        StaffMemberStatus,
+        "StaffMemberStatus",
       );
   }
 }

@@ -1,3 +1,4 @@
+
 schema: https://demo.saleor.io/graphql/
 # schema: http://localhost:8080/v1/graphq
 generates:

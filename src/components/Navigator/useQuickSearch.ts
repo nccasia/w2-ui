@@ -1,11 +1,7 @@
-import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
-import { useOrderDraftCreateMutation } from "@saleor/graphql";
 import { ChangeEvent, FormChange } from "@saleor/hooks/useForm";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { maybe } from "@saleor/misc";
-import { orderUrl } from "@saleor/orders/urls";
-import useCustomerSearch from "@saleor/searches/useCustomerSearch";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { RefObject, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
@@ -32,21 +28,9 @@ function useQuickSearch(
   const intl = useIntl();
   const navigate = useNavigator();
   const [{ data: orderData }, getOrderData] = useCheckIfOrderExists();
-  const { result: customers, search: searchCustomers } = useCustomerSearch({
-    variables: {
-      ...DEFAULT_INITIAL_SEARCH_DATA,
-      first: 5,
-    },
-    skip: !query,
-  });
   const [{ data: catalog }, searchCatalog] = useSearchCatalog(5);
-  const [createOrder] = useOrderDraftCreateMutation({
-    onCompleted: result => {
-      if (result.draftOrderCreate.errors.length === 0) {
-        navigate(orderUrl(result.draftOrderCreate.order.id));
-      }
-    },
-  });
+  // @ts-ignore
+  const [createOrder] = "/"; // TODO
 
   useModalDialogOpen(open, {
     onClose: () => {
@@ -95,9 +79,6 @@ function useQuickSearch(
     if (mode === "catalog") {
       searchCatalog(value);
     }
-    if (mode === "customers") {
-      searchCustomers(value);
-    }
 
     setQuery(value);
   };
@@ -112,7 +93,7 @@ function useQuickSearch(
       intl,
       {
         catalog,
-        customers: mapEdgesToItems(customers?.data?.search) || [],
+        customers: mapEdgesToItems({ edges: [] }),
         order: maybe(() => orderData.order),
       },
       {

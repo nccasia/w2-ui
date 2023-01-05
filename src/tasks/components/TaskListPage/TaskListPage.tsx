@@ -1,9 +1,4 @@
 import Card from "@material-ui/core/Card/Card";
-import {
-  extensionMountPoints,
-  mapToMenuItems,
-  useExtensions,
-} from "@saleor/apps/useExtensions";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
 import { FilterElement } from "@saleor/components/Filter";
@@ -23,16 +18,12 @@ export interface TaskListPageProps {
 
 const TaskListPage: React.FC<TaskListPageProps> = ({ tasks, onAdd }) => {
   const intl = useIntl();
-  const { ORDER_OVERVIEW_CREATE } = useExtensions(
-    extensionMountPoints.ORDER_LIST,
-  );
-  const extensionCreateButtonItems = mapToMenuItems(ORDER_OVERVIEW_CREATE);
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
         <ButtonWithSelect
-          options={extensionCreateButtonItems}
-          data-test-id="create-order-button"
+          options={[]}
+          data-test-id="create-task-button"
           onClick={onAdd}
         >
           <FormattedMessage

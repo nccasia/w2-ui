@@ -1,6 +1,5 @@
 import { Card, CardContent, TextField } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
-import { AppErrorFragment } from "@saleor/graphql";
 import { FormChange } from "@saleor/hooks/useForm";
 import { getFormErrors } from "@saleor/utils/errors";
 import getAppErrorMessage from "@saleor/utils/errors/app";
@@ -12,7 +11,7 @@ export interface CustomAppInfoProps {
     name: string;
   };
   disabled: boolean;
-  errors: AppErrorFragment[];
+  errors: any[];
   onChange: FormChange;
 }
 

@@ -1,5 +1,5 @@
-import { OrderDirection } from "@saleor/graphql";
 import { findValueInEnum, parseBoolean } from "@saleor/misc";
+import { OrderDirection } from "@saleor/sdk/dist/apollo/types";
 
 import { TableCellHeaderArrowDirection } from "../components/TableCellHeader";
 import { Sort } from "../types";
@@ -21,8 +21,8 @@ export function getSortUrlVariables<TSortKey extends string>(
   };
 }
 
-export function getOrderDirection(asc: boolean): OrderDirection {
-  return asc ? OrderDirection.ASC : OrderDirection.DESC;
+export function getOrderDirection(asc: boolean): any {
+  return asc ? "ASC" : "DESC";
 }
 
 export function getArrowDirection(asc: boolean): TableCellHeaderArrowDirection {

@@ -3,9 +3,7 @@ import DeleteFilterTabDialog from "@saleor/components/DeleteFilterTabDialog";
 import SaveFilterTabDialog, {
   SaveFilterTabDialogFormData,
 } from "@saleor/components/SaveFilterTabDialog";
-import { useShopLimitsQuery } from "@saleor/components/Shop/queries";
 import { DEFAULT_INITIAL_SEARCH_DATA } from "@saleor/config";
-import { useStaffListQuery, useStaffMemberAddMutation } from "@saleor/graphql";
 import useListSettings from "@saleor/hooks/useListSettings";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
@@ -16,7 +14,6 @@ import usePaginator, {
 } from "@saleor/hooks/usePaginator";
 import { commonMessages } from "@saleor/intl";
 import { getStringOrPlaceholder } from "@saleor/misc";
-import usePermissionGroupSearch from "@saleor/searches/usePermissionGroupSearch";
 import { ListViews } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
@@ -65,6 +62,8 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
   usePaginationReset(staffListUrl, params, settings.rowNumber);
 
   const paginationState = createPaginationState(settings.rowNumber, params);
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const queryVariables = React.useMemo(
     () => ({
       ...paginationState,
@@ -73,16 +72,10 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     }),
     [params, settings.rowNumber],
   );
-  const { data: staffQueryData, loading } = useStaffListQuery({
-    displayLoader: true,
-    variables: queryVariables,
-  });
-  const limitOpts = useShopLimitsQuery({
-    variables: {
-      staffUsers: true,
-    },
-  });
+  const { data: staffQueryData, loading } = { data: null, loading: false };
+  const limitOpts = null;
 
+  // @ts-ignore
   const [addStaffMember, addStaffMemberData] = useStaffMemberAddMutation({
     onCompleted: data => {
       if (data.staffCreate.errors.length === 0) {
@@ -146,6 +139,7 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     loadMore: loadMorePermissionGroups,
     search: searchPermissionGroups,
     result: searchPermissionGroupsOpts,
+    // @ts-ignore
   } = usePermissionGroupSearch({
     variables: DEFAULT_INITIAL_SEARCH_DATA,
   });

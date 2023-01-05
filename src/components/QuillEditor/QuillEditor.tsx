@@ -8,6 +8,7 @@ const useStyles = makeStyles(
   () => ({
     container: {
       width: "100%",
+      height: "250px",
     },
     quillEditor: {
       height: "200px",

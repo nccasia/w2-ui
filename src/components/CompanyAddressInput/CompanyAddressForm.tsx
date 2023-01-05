@@ -4,28 +4,18 @@ import Grid from "@saleor/components/Grid";
 import SingleAutocompleteSelectField, {
   SingleAutocompleteChoiceType,
 } from "@saleor/components/SingleAutocompleteSelectField";
-import { AddressTypeInput } from "@saleor/customers/types";
-import {
-  AccountErrorFragment,
-  ShopErrorFragment,
-  WarehouseErrorFragment,
-} from "@saleor/graphql";
 import { ChangeEvent } from "@saleor/hooks/useForm";
 import { makeStyles } from "@saleor/macaw-ui";
 import { getFormErrors } from "@saleor/utils/errors";
 import getAccountErrorMessage from "@saleor/utils/errors/account";
-import getShopErrorMessage from "@saleor/utils/errors/shop";
-import getWarehouseErrorMessage from "@saleor/utils/errors/warehouse";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
 export interface CompanyAddressFormProps {
   countries: SingleAutocompleteChoiceType[];
-  data: AddressTypeInput;
+  data: any;
   displayCountry: string;
-  errors: Array<
-    AccountErrorFragment | ShopErrorFragment | WarehouseErrorFragment
-  >;
+  errors: any[];
   disabled: boolean;
   onChange: (event: ChangeEvent) => void;
   onCountryChange: (event: ChangeEvent) => void;
@@ -38,17 +28,10 @@ const useStyles = makeStyles(
   { name: "CompanyAddressForm" },
 );
 
-function getErrorMessage(
-  err: AccountErrorFragment | ShopErrorFragment | WarehouseErrorFragment,
-  intl: IntlShape,
-): string {
+function getErrorMessage(err: any, intl: IntlShape): string {
   switch (err?.__typename) {
     case "AccountError":
       return getAccountErrorMessage(err, intl);
-    case "WarehouseError":
-      return getWarehouseErrorMessage(err, intl);
-    default:
-      return getShopErrorMessage(err, intl);
   }
 }
 
@@ -89,7 +72,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
           id: "9YazHG",
           defaultMessage: "Company",
         })}
-        name={"companyName" as keyof AddressTypeInput}
+        name={"companyName" as any}
         onChange={onChange}
         value={data.companyName}
         fullWidth
@@ -107,7 +90,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
           id: "B52Em/",
           defaultMessage: "Address line 1",
         })}
-        name={"streetAddress1" as keyof AddressTypeInput}
+        name={"streetAddress1" as any}
         onChange={onChange}
         value={data.streetAddress1}
         fullWidth
@@ -125,7 +108,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
           id: "oQY0a2",
           defaultMessage: "Address line 2",
         })}
-        name={"streetAddress2" as keyof AddressTypeInput}
+        name={"streetAddress2" as any}
         onChange={onChange}
         value={data.streetAddress2}
         fullWidth
@@ -144,7 +127,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
             id: "TE4fIS",
             defaultMessage: "City",
           })}
-          name={"city" as keyof AddressTypeInput}
+          name={"city" as any}
           onChange={onChange}
           value={data.city}
           fullWidth
@@ -161,7 +144,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
             id: "oYGfnY",
             defaultMessage: "ZIP / Postal code",
           })}
-          name={"postalCode" as keyof AddressTypeInput}
+          name={"postalCode" as any}
           onChange={onChange}
           value={data.postalCode}
           fullWidth
@@ -183,7 +166,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
             id: "vONi+O",
             defaultMessage: "Country",
           })}
-          name={"country" as keyof AddressTypeInput}
+          name={"country" as any}
           onChange={onCountryChange}
           value={data.country}
           choices={countries}
@@ -199,7 +182,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
             id: "AuwpCm",
             defaultMessage: "Country area",
           })}
-          name={"countryArea" as keyof AddressTypeInput}
+          name={"countryArea" as any}
           onChange={onChange}
           value={data.countryArea}
           fullWidth
@@ -219,7 +202,7 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
           id: "O95R3Z",
           defaultMessage: "Phone",
         })}
-        name={"phone" as keyof AddressTypeInput}
+        name={"phone" as any}
         value={data.phone}
         onChange={onChange}
         InputProps={{

@@ -1,8 +1,3 @@
-import {
-  AccountErrorCode,
-  SearchPermissionGroupsQuery,
-  StaffErrorFragment,
-} from "@saleor/graphql";
 import Decorator from "@saleor/storybook/Decorator";
 import { RelayToFlat } from "@saleor/types";
 import { storiesOf } from "@storybook/react";
@@ -11,7 +6,7 @@ import React from "react";
 import { MultiAutocompleteChoiceType } from "../MultiAutocompleteSelectField";
 import AccountPermissionGroups, { AccountPermissionGroupsProps } from ".";
 
-const availablePermissionGroups: RelayToFlat<SearchPermissionGroupsQuery["search"]> = [
+const availablePermissionGroups: RelayToFlat<any> = [
   {
     __typename: "Group",
     id: "R3JvdXA6MQ==",
@@ -47,14 +42,7 @@ const formData = {
   permissionGroups: ["R3JvdXA6MQ==", "R3JvdXA6Mg=="],
 };
 
-const errors: StaffErrorFragment[] = [
-  {
-    __typename: "StaffError",
-    code: AccountErrorCode.OUT_OF_SCOPE_GROUP,
-    field: "addGroups",
-    message: "Group out of scope",
-  },
-];
+const errors: any[] = [];
 
 const props: AccountPermissionGroupsProps = {
   availablePermissionGroups,

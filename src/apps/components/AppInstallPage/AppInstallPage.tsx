@@ -7,7 +7,6 @@ import CardTitle from "@saleor/components/CardTitle";
 import Container from "@saleor/components/Container";
 import Hr from "@saleor/components/Hr";
 import Skeleton from "@saleor/components/Skeleton";
-import { AppFetchMutation, AppInstallMutation } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { buttonMessages } from "@saleor/intl";
 import clsx from "clsx";
@@ -17,10 +16,10 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { useStyles } from "../../styles";
 
 export interface AppInstallPageProps {
-  data: AppFetchMutation["appFetchManifest"]["manifest"];
+  data: any;
   loading: boolean;
   navigateToAppsList: () => void;
-  onSubmit: () => SubmitPromise<AppInstallMutation["appInstall"]["errors"]>;
+  onSubmit: () => SubmitPromise<any>;
 }
 
 export const AppInstallPage: React.FC<AppInstallPageProps> = ({

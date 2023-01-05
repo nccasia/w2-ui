@@ -1,4 +1,5 @@
 import { MenuItem, TextField } from "@material-ui/core";
+import { useStyles } from "@saleor/apps/styles";
 import ActionDialog from "@saleor/components/ActionDialog";
 import { Choice } from "@saleor/components/SingleSelectField";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
@@ -7,10 +8,6 @@ import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { Autocomplete, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
 import { Task, TaskState, TaskStatus } from "@saleor/tasks/interface/Task";
 import React, { useState } from "react";
-import { useIntl } from "react-intl";
-
-import { useStyles } from "../styles";
-import { messages } from "./messages";
 
 export interface ChannelPickerDialogProps {
   channelsChoices: Array<Choice<string, string>>;
@@ -30,7 +27,6 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
   onConfirm,
 }) => {
   const classes = useStyles();
-  const intl = useIntl();
   const [choice, setChoice] = useStateFromProps("");
   const idRandom = new Date().getTime();
   const [fieldNewTask, setFieldNewTodo] = useState<Task>({
@@ -63,12 +59,10 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
       open={open}
       onClose={onClose}
       onConfirm={() => onConfirm(fieldNewTask)}
-      title={intl.formatMessage(messages.selectChannel)}
     >
       <Autocomplete
         choices={result}
         fullWidth
-        label={intl.formatMessage(messages.channelName)}
         data-test-id="channel-autocomplete"
         value={choice}
         onChange={e => setChoice(e.target.value)}

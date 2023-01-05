@@ -1,9 +1,4 @@
-import {
-  SearchAttributeValuesQuery,
-  SearchAttributeValuesQueryVariables,
-} from "@saleor/graphql";
 import { UseSearchResult } from "@saleor/hooks/makeSearch";
-import useAttributeValueSearch from "@saleor/searches/useAttributeValueSearch";
 import { useEffect, useState } from "react";
 
 interface AttributeValueSearchHandlerState {
@@ -12,26 +7,20 @@ interface AttributeValueSearchHandlerState {
 }
 
 export interface UseAttributeValueSearchHandler
-  extends Omit<
-    UseSearchResult<
-      SearchAttributeValuesQuery,
-      SearchAttributeValuesQueryVariables
-    >,
-    "search"
-  > {
+  extends Omit<UseSearchResult<any, any>, "search"> {
   reset: () => void;
   search: (query: string, id: string | null) => void;
 }
 
 function useAttributeValueSearchHandler(
-  variables: SearchAttributeValuesQueryVariables,
+  variables: any,
 ): UseAttributeValueSearchHandler {
   const [state, setState] = useState<AttributeValueSearchHandlerState>({
     id: null,
     query: variables.query,
   });
 
-  const { loadMore, search, result } = useAttributeValueSearch({
+  const { loadMore, result } = useAttributeValueSearchHandler({
     variables: {
       ...variables,
       ...state,
@@ -41,7 +30,7 @@ function useAttributeValueSearchHandler(
 
   const handleSearch = (query: string, id: string | null) => {
     if (query !== state.query) {
-      search(query);
+      // ;
     }
     if (id !== state.id || query !== state.query) {
       setState({
@@ -55,7 +44,7 @@ function useAttributeValueSearchHandler(
 
   useEffect(() => {
     if (state.id) {
-      search("");
+      // search("");
     }
   }, [state.id]);
 

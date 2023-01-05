@@ -5,7 +5,6 @@ import CardTitle from "@saleor/components/CardTitle";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { CountryFragment } from "@saleor/graphql";
 import { DeleteIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import clsx from "clsx";
 import React from "react";
@@ -14,7 +13,7 @@ import { FormattedMessage } from "react-intl";
 import { getStringOrPlaceholder, maybe, renderCollection } from "../../misc";
 
 export interface CountryListProps {
-  countries: CountryFragment[];
+  countries: any[];
   disabled: boolean;
   emptyText: React.ReactNode;
   title: React.ReactNode;
@@ -85,7 +84,7 @@ const CountryList: React.FC<CountryListProps> = props => {
   const [isCollapsed, setCollapseStatus] = React.useState(true);
   const toggleCollapse = () => setCollapseStatus(!isCollapsed);
 
-  function sortCountries(countries: CountryFragment[]): CountryFragment[] {
+  function sortCountries(countries: any[]): any[] {
     return [...countries].sort((a, b) => a.country.localeCompare(b.country));
   }
 

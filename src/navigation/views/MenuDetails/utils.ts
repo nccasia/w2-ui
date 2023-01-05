@@ -1,18 +1,9 @@
-import {
-  MenuItemCreateInput,
-  MenuItemFragment,
-  MenuItemInput,
-  MenuItemMoveInput,
-} from "@saleor/graphql";
-
 import { MenuDetailsSubmitData } from "../../components/MenuDetailsPage";
 import { MenuItemDialogFormData } from "../../components/MenuItemDialog";
 import { unknownTypeError } from "../../components/MenuItems";
 
-export function getMenuItemInputData(
-  data: MenuItemDialogFormData,
-): MenuItemInput {
-  const variables: MenuItemInput = {
+export function getMenuItemInputData(data: MenuItemDialogFormData): any {
+  const variables: any = {
     name: data.name,
   };
   switch (data.type) {
@@ -42,8 +33,8 @@ export function getMenuItemInputData(
 export function getMenuItemCreateInputData(
   menu: string,
   data: MenuItemDialogFormData,
-): MenuItemCreateInput {
-  const variables: MenuItemCreateInput = {
+): any {
+  const variables: any = {
     menu,
     name: data.name,
   };
@@ -71,7 +62,7 @@ export function getMenuItemCreateInputData(
   return variables;
 }
 
-export function getInitialDisplayValue(item: MenuItemFragment): string {
+export function getInitialDisplayValue(item: any): string {
   if (!item) {
     return "...";
   }
@@ -88,7 +79,7 @@ export function getInitialDisplayValue(item: MenuItemFragment): string {
   }
 }
 
-export function getMoves(data: MenuDetailsSubmitData): MenuItemMoveInput[] {
+export function getMoves(data: MenuDetailsSubmitData): any[] {
   return data.operations
     .filter(operation => operation.type === "move")
     .map(move => ({

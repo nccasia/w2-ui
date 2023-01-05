@@ -1,5 +1,3 @@
-import { MetadataInput } from "@saleor/graphql";
-
 export enum EventDataAction {
   add = "add",
   delete = "delete",
@@ -16,6 +14,6 @@ export interface EventData {
   value: string;
 }
 export interface MetadataFormData {
-  metadata: MetadataInput[];
-  privateMetadata: MetadataInput[];
+  metadata: any[];
+  privateMetadata: any[];
 }

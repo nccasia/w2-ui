@@ -1,16 +1,6 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
-import { AttributeReference } from "@saleor/attributes/utils/data";
 import CardTitle from "@saleor/components/CardTitle";
 import Hr from "@saleor/components/Hr";
-import {
-  AttributeEntityTypeEnum,
-  AttributeInputTypeEnum,
-  AttributeValueDetailsFragment,
-  AttributeValueFragment,
-  MeasurementUnitsEnum,
-  PageErrorWithAttributesFragment,
-  ProductErrorWithAttributesFragment,
-} from "@saleor/graphql";
 import { FormsetAtomicData } from "@saleor/hooks/useFormset";
 import { ChevronIcon, IconButton, makeStyles } from "@saleor/macaw-ui";
 import { FetchMoreProps } from "@saleor/types";
@@ -23,28 +13,26 @@ import AttributeRow from "./AttributeRow";
 import { AttributeRowHandlers, VariantAttributeScope } from "./types";
 
 export interface AttributeInputData {
-  inputType: AttributeInputTypeEnum;
-  entityType?: AttributeEntityTypeEnum;
-  unit?: MeasurementUnitsEnum | null;
+  inputType: any;
+  entityType?: any;
+  unit?: any;
   variantAttributeScope?: VariantAttributeScope;
   isRequired: boolean;
-  values: AttributeValueDetailsFragment[];
-  selectedValues?: AttributeValueDetailsFragment[];
-  references?: AttributeReference[];
+  values: any[];
+  selectedValues?: any[];
+  references?: any[];
 }
 export type AttributeInput = FormsetAtomicData<AttributeInputData, string[]>;
 export type AttributeFileInput = FormsetAtomicData<AttributeInputData, File[]>;
 export interface AttributesProps extends AttributeRowHandlers {
   attributes: AttributeInput[];
-  attributeValues: AttributeValueFragment[];
+  attributeValues: any[];
   fetchAttributeValues: (query: string, attributeId: string) => void;
   fetchMoreAttributeValues: FetchMoreProps;
   onAttributeSelectBlur: () => void;
   disabled: boolean;
   loading: boolean;
-  errors: Array<
-    ProductErrorWithAttributesFragment | PageErrorWithAttributesFragment
-  >;
+  errors: any[];
   title?: React.ReactNode;
   richTextGetters: RichTextGetters<string>;
 }

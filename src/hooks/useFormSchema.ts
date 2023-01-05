@@ -1,75 +1,7 @@
+import { schemaDevice, schemaOffice, schemaWFH } from "@saleor/utils/schema";
 import Ajv from "ajv";
 import { useEffect, useMemo, useState } from "react";
 import { JSONSchemaBridge } from "uniforms-bridge-json-schema";
-
-const schemaOffice = {
-  title: "NewRequestCOR",
-  type: "object",
-  properties: {
-    currentOffice: {
-      type: "string",
-      nullable: true,
-      default: "HN1",
-      uniforms: { uiComponent: "SelectOffice" },
-    },
-    destinationOffice: {
-      type: "string",
-      nullable: true,
-      default: "HN1",
-      uniforms: { uiComponent: "SelectOffice" },
-    },
-    createDate: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
-    },
-  },
-  required: ["currentOffice", "destinationOffice", "createDate"] as never[],
-};
-
-const schemaDevice = {
-  title: "NewRequestDR",
-  type: "object",
-  properties: {
-    createDate: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
-    },
-  },
-  required: ["createDate"] as never[],
-};
-
-const schemaWFH = {
-  title: "NewRequestWFH",
-  type: "object",
-  properties: {
-    createDate: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
-    },
-  },
-  required: ["createDate"] as never[],
-};
 
 export const handleSchema = (formId: string) => {
   switch (formId) {

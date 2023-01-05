@@ -4,7 +4,6 @@ import RequirePermissions from "@saleor/components/RequirePermissions";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import Skeleton from "@saleor/components/Skeleton";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { PermissionEnum } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { useIntl } from "react-intl";
@@ -28,25 +27,25 @@ const useStyles = makeStyles(
 );
 
 interface HomeNotificationTableProps {
-  ordersToCapture: number;
-  ordersToFulfill: number;
-  productsOutOfStock: number;
+  tasksToCapture: number;
+  tasksToFulfill: number;
+  tasksOutOfStock: number;
   createNewChannelHref: string;
-  ordersToFulfillHref: string;
-  ordersToCaptureHref: string;
-  productsOutOfStockHref: string;
+  tasksToFulfillHref: string;
+  tasksToCaptureHref: string;
+  tasksOutOfStockHref: string;
   noChannel: boolean;
 }
 
 const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
   const {
     createNewChannelHref,
-    ordersToFulfillHref,
-    ordersToCaptureHref,
-    productsOutOfStockHref,
-    ordersToCapture,
-    ordersToFulfill,
-    productsOutOfStock,
+    tasksToFulfillHref,
+    tasksToCaptureHref,
+    tasksOutOfStockHref,
+    tasksToCapture,
+    tasksToFulfill,
+    tasksOutOfStock,
     noChannel,
   } = props;
 
@@ -59,9 +58,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
       <ResponsiveTable>
         <TableBody className={classes.tableRow}>
           {noChannel && (
-            <RequirePermissions
-              requiredPermissions={[PermissionEnum.MANAGE_CHANNELS]}
-            >
+            <RequirePermissions requiredPermissions={["MANAGE_CHANNELS"]}>
               <TableRowLink hover={true} href={createNewChannelHref}>
                 <TableCell>
                   <Typography>
@@ -74,21 +71,19 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
               </TableRowLink>
             </RequirePermissions>
           )}
-          <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_ORDERS]}
-          >
-            <TableRowLink hover={true} href={ordersToFulfillHref}>
-              <TableCell data-test-id="orders-to-fulfill">
-                {ordersToFulfill === undefined ? (
+          <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
+            <TableRowLink hover={true} href={tasksToFulfillHref}>
+              <TableCell data-test-id="tasks-to-fulfill">
+                {tasksToFulfill === undefined ? (
                   <Skeleton />
-                ) : ordersToFulfill === 0 ? (
+                ) : tasksToFulfill === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noOrders)}
+                    {intl.formatMessage(messages.noTasks)}
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.orderReady, {
-                      amount: <strong>{ordersToFulfill}</strong>,
+                    {intl.formatMessage(messages.pendingTasks, {
+                      amount: <strong>{tasksToFulfill}</strong>,
                     })}
                   </Typography>
                 )}
@@ -97,18 +92,18 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                 <KeyboardArrowRight />
               </TableCell>
             </TableRowLink>
-            <TableRowLink hover={true} href={ordersToCaptureHref}>
-              <TableCell data-test-id="orders-to-capture">
-                {ordersToCapture === undefined ? (
+            <TableRowLink hover={true} href={tasksToCaptureHref}>
+              <TableCell data-test-id="tasks-to-capture">
+                {tasksToCapture === undefined ? (
                   <Skeleton />
-                ) : ordersToCapture === 0 ? (
+                ) : tasksToCapture === 0 ? (
                   <Typography>
                     {intl.formatMessage(messages.noPaymentWaiting)}
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.paymentCapture, {
-                      amount: <strong>{ordersToCapture}</strong>,
+                    {intl.formatMessage(messages.doneTasks, {
+                      amount: <strong>{tasksToCapture}</strong>,
                     })}
                   </Typography>
                 )}
@@ -118,21 +113,19 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
               </TableCell>
             </TableRowLink>
           </RequirePermissions>
-          <RequirePermissions
-            requiredPermissions={[PermissionEnum.MANAGE_PRODUCTS]}
-          >
-            <TableRowLink hover={true} href={productsOutOfStockHref}>
-              <TableCell data-test-id="products-out-of-stock">
-                {productsOutOfStock === undefined ? (
+          <RequirePermissions requiredPermissions={["MANAGE_PRODUCTS"]}>
+            <TableRowLink hover={true} href={tasksOutOfStockHref}>
+              <TableCell data-test-id="tasks-out-of-stock">
+                {tasksOutOfStock === undefined ? (
                   <Skeleton />
-                ) : productsOutOfStock === 0 ? (
+                ) : tasksOutOfStock === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noProductsOut)}
+                    {intl.formatMessage(messages.noTasksOut)}
                   </Typography>
                 ) : (
                   <Typography>
-                    {intl.formatMessage(messages.productOut, {
-                      amount: <strong>{productsOutOfStock}</strong>,
+                    {intl.formatMessage(messages.TasksOut, {
+                      amount: <strong>{tasksOutOfStock}</strong>,
                     })}
                   </Typography>
                 )}

@@ -9,12 +9,6 @@ import Grid from "@saleor/components/Grid";
 import { MultiAutocompleteChoiceType } from "@saleor/components/MultiAutocompleteSelectField";
 import PageHeader from "@saleor/components/PageHeader";
 import Savebar from "@saleor/components/Savebar";
-import {
-  SearchPermissionGroupsQuery,
-  StaffErrorFragment,
-  StaffMemberDetailsFragment,
-  UserFragment,
-} from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import useLocale from "@saleor/hooks/useLocale";
 import useNavigator from "@saleor/hooks/useNavigator";
@@ -45,7 +39,7 @@ export interface StaffDetailsFormData {
 }
 
 export interface StaffDetailsPageProps extends SearchPageProps {
-  availablePermissionGroups: RelayToFlat<SearchPermissionGroupsQuery["search"]>;
+  availablePermissionGroups: RelayToFlat<any>;
   canEditAvatar: boolean;
   canEditPreferences: boolean;
   canEditStatus: boolean;
@@ -53,8 +47,8 @@ export interface StaffDetailsPageProps extends SearchPageProps {
   disabled: boolean;
   fetchMorePermissionGroups: FetchMoreProps;
   saveButtonBarState: ConfirmButtonTransitionState;
-  staffMember: StaffMemberDetailsFragment | UserFragment;
-  errors: StaffErrorFragment[];
+  staffMember: any;
+  errors: any[];
   onChangePassword: () => void;
   onDelete: () => void;
   onImageDelete: () => void;

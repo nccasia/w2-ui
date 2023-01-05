@@ -4,7 +4,6 @@ import Form from "@saleor/components/Form";
 import FormSpacer from "@saleor/components/FormSpacer";
 import { IconButton } from "@saleor/components/IconButton";
 import { getAppMountUri } from "@saleor/config";
-import { RequestPasswordResetMutation } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { ArrowRightIcon } from "@saleor/macaw-ui";
@@ -19,11 +18,7 @@ export interface ResetPasswordPageFormData {
 export interface ResetPasswordPageProps {
   disabled: boolean;
   error: string;
-  onSubmit: (
-    data: ResetPasswordPageFormData,
-  ) => SubmitPromise<
-    RequestPasswordResetMutation["requestPasswordReset"]["errors"]
-  >;
+  onSubmit: (data: ResetPasswordPageFormData) => SubmitPromise<any[]>;
 }
 
 const ResetPasswordPage: React.FC<ResetPasswordPageProps> = props => {

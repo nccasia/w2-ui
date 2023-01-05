@@ -1,11 +1,10 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 
-import { AddressType } from "../../customers/types";
 import Skeleton from "../Skeleton";
 
 interface AddressFormatterProps {
-  address?: AddressType;
+  address?: any;
 }
 
 const AddressFormatter: React.FC<AddressFormatterProps> = ({ address }) => {

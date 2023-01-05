@@ -1,8 +1,5 @@
-import { getDashboardUrFromAppCompleteUrl } from "@saleor/apps/urls";
 import { Extension } from "@saleor/apps/useExtensions";
-import { AppExtensionMountEnum } from "@saleor/graphql";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
-import { orderDraftListUrl, orderListUrl } from "@saleor/orders/urls";
 import { matchPath } from "react-router";
 
 import { FilterableMenuItem } from "./menuStructure";
@@ -26,13 +23,6 @@ export function isMenuActive(location: string, menuItem: SidebarMenuItem) {
     return false;
   }
 
-  if (
-    activeUrl === orderDraftListUrl().split("?")[0] &&
-    menuItemUrl === orderListUrl().split("?")[0]
-  ) {
-    return false;
-  }
-
   return !!matchPath(activeUrl, {
     exact: menuItemUrl === "/",
     path: menuItemUrl,
@@ -44,11 +34,11 @@ export const mapToExtensionsItems = (
   header: FilterableMenuItem,
 ) => {
   const items: FilterableMenuItem[] = extensions.map(
-    ({ label, id, app, url, permissions, open }) => ({
+    ({ label, id, permissions, open }) => ({
       ariaLabel: `app-${label}`,
       id: `extension-${id}`,
       label,
-      url: getDashboardUrFromAppCompleteUrl(url, app.appUrl, app.id),
+      url: "",
       onClick: open,
       permissions,
     }),
@@ -63,7 +53,7 @@ const isMenuItemExtension = (menuItem: SidebarMenuItem) =>
   menuItem.id.startsWith("extension-");
 
 export const getMenuItemExtension = (
-  extensions: Record<AppExtensionMountEnum, Extension[]>,
+  extensions: Record<any, Extension[]>,
   menuItem: SidebarMenuItem,
 ) => {
   const extensionsList = Object.values(extensions).reduce(
