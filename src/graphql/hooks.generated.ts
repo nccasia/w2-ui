@@ -45,6 +45,9 @@ export const LoginDocument = gql`
       email
       firstname
       role
+      permissions {
+        code
+      }
     }
     accessToken
   }

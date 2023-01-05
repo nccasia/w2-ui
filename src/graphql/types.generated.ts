@@ -4111,6 +4111,7 @@ export type UserPermission_Arr_Rel_Insert_Input = {
 
 /** order by avg() on columns of table "UserPermission" */
 export type UserPermission_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
@@ -4123,7 +4124,7 @@ export type UserPermission_Bool_Exp = {
   _not?: InputMaybe<UserPermission_Bool_Exp>;
   _or?: InputMaybe<Array<UserPermission_Bool_Exp>>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  id?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
   permissionId?: InputMaybe<Int_Comparison_Exp>;
   userId?: InputMaybe<Int_Comparison_Exp>;
 };
@@ -4136,6 +4137,7 @@ export enum UserPermission_Constraint {
 
 /** input type for incrementing numeric columns in table "UserPermission" */
 export type UserPermission_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
   permissionId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
@@ -4145,7 +4147,7 @@ export type UserPermission_Insert_Input = {
   Permission?: InputMaybe<Permission_Obj_Rel_Insert_Input>;
   User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
-  id?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
   permissionId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
@@ -4185,7 +4187,7 @@ export type UserPermission_Order_By = {
 
 /** primary key columns input for table: UserPermission */
 export type UserPermission_Pk_Columns_Input = {
-  id: Scalars['String'];
+  id: Scalars['Int'];
 };
 
 /** select columns of table "UserPermission" */
@@ -4203,25 +4205,28 @@ export enum UserPermission_Select_Column {
 /** input type for updating data in table "UserPermission" */
 export type UserPermission_Set_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
-  id?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
   permissionId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
 
 /** order by stddev() on columns of table "UserPermission" */
 export type UserPermission_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "UserPermission" */
 export type UserPermission_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "UserPermission" */
 export type UserPermission_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
@@ -4237,13 +4242,14 @@ export type UserPermission_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type UserPermission_Stream_Cursor_Value_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
-  id?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
   permissionId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "UserPermission" */
 export type UserPermission_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
@@ -4270,18 +4276,21 @@ export type UserPermission_Updates = {
 
 /** order by var_pop() on columns of table "UserPermission" */
 export type UserPermission_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "UserPermission" */
 export type UserPermission_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "UserPermission" */
 export type UserPermission_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
   permissionId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
 };
@@ -5104,7 +5113,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename: 'mutation_root', login: { __typename: 'Authbe', accessToken: any, user: { __typename: 'Userbe', email: string, firstname: string | null, role: Rolebe } } };
+export type LoginMutation = { __typename: 'mutation_root', login: { __typename: 'Authbe', accessToken: any, user: { __typename: 'Userbe', email: string, firstname: string | null, role: Rolebe, permissions: Array<{ __typename: 'Permissionbe', code: string }> | null } } };
 
 export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 

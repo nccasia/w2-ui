@@ -13,6 +13,9 @@ export const login = gql`
         email
         firstname
         role
+        permissions {
+          code
+        }
       }
       accessToken
     }

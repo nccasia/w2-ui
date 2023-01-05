@@ -9,15 +9,6 @@ export const useAuth = () => {
         password,
       },
     });
-    // @ts-ignore
-    result.data.login.user.userPermissions = [
-      { code: "MANAGE_SETTINGS" },
-      { code: "MANAGE_STAFF" },
-      { code: "MANAGE_TRANSLATIONS" },
-      { code: "MANAGE_TASKS" },
-      { code: "MANAGE_CHANNELS" },
-      { code: "MANAGE_PRODUCTS" },
-    ];
     return result;
   };
 

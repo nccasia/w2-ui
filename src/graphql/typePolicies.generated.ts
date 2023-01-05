@@ -1623,8 +1623,9 @@ export type UserPermission_aggregate_fieldsFieldPolicy = {
 	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
 	variance?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_avg_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_avg_fieldsKeySpecifier)[];
+export type UserPermission_avg_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_avg_fieldsKeySpecifier)[];
 export type UserPermission_avg_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -1647,38 +1648,45 @@ export type UserPermission_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_stddev_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_stddev_fieldsKeySpecifier)[];
+export type UserPermission_stddev_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_stddev_fieldsKeySpecifier)[];
 export type UserPermission_stddev_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_stddev_pop_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_stddev_pop_fieldsKeySpecifier)[];
+export type UserPermission_stddev_pop_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_stddev_pop_fieldsKeySpecifier)[];
 export type UserPermission_stddev_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_stddev_samp_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_stddev_samp_fieldsKeySpecifier)[];
+export type UserPermission_stddev_samp_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_stddev_samp_fieldsKeySpecifier)[];
 export type UserPermission_stddev_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_sum_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_sum_fieldsKeySpecifier)[];
+export type UserPermission_sum_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_sum_fieldsKeySpecifier)[];
 export type UserPermission_sum_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_var_pop_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_var_pop_fieldsKeySpecifier)[];
+export type UserPermission_var_pop_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_var_pop_fieldsKeySpecifier)[];
 export type UserPermission_var_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_var_samp_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_var_samp_fieldsKeySpecifier)[];
+export type UserPermission_var_samp_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_var_samp_fieldsKeySpecifier)[];
 export type UserPermission_var_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserPermission_variance_fieldsKeySpecifier = ('permissionId' | 'userId' | UserPermission_variance_fieldsKeySpecifier)[];
+export type UserPermission_variance_fieldsKeySpecifier = ('id' | 'permissionId' | 'userId' | UserPermission_variance_fieldsKeySpecifier)[];
 export type UserPermission_variance_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	permissionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
