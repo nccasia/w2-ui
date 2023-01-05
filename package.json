@@ -71,7 +71,6 @@
     "react-dropzone": "^11.2.4",
     "react-editor-js": "^2.0.6",
     "react-error-boundary": "^3.1.4",
-    "react-file-viewer": "^1.2.1",
     "react-google-login": "^5.2.2",
     "react-gtm-module": "^2.0.11",
     "react-helmet": "^6.1.0",
@@ -89,10 +88,9 @@
     "react-sortable-tree": "^2.6.2",
     "semver-compare": "^1.0.0",
     "slugify": "^1.4.6",
-    "uniforms": "^4.0.0-alpha.0",
-    "uniforms-bridge-json-schema": "^4.0.0-alpha.0",
-    "uniforms-material": "^4.0.0-alpha.0",
-
+    "svg-inline-react": "^3.2.1",
+    "uniforms-bridge-json-schema": "^3.10.2",
+    "uniforms-material": "^3.10.2",
     "url-join": "^4.0.1",
     "use-react-router": "^1.0.7"
   },

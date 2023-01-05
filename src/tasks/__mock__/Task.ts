@@ -283,7 +283,6 @@ const taskDetail: TaskDetail = {
   type: TaskType.DEVICE_REQ,
   state: TaskState.WAIT_PM_APPROVE,
 };
-
 const histories: History[] = [
   {
     amount: null,
@@ -337,5 +336,4 @@ const choices = [
     value: "Nguyen Van Manh",
   },
 ];
-
 export { tasks, taskDetail, histories, choices };
