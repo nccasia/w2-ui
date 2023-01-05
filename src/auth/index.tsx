@@ -24,6 +24,7 @@ const LoginView: React.FC<RouteComponentProps<any>> = () => {
 
 export const UserContext = React.createContext<Context>({
   login: undefined,
+  loginWithGoogle: undefined,
   loginByExternalPlugin: undefined,
   logout: undefined,
   requestLoginByExternalPlugin: undefined,
