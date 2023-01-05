@@ -7,13 +7,7 @@ interface AttributeValueSearchHandlerState {
 }
 
 export interface UseAttributeValueSearchHandler
-  extends Omit<
-    UseSearchResult<
-      any,
-      any
-    >,
-    "search"
-  > {
+  extends Omit<UseSearchResult<any, any>, "search"> {
   reset: () => void;
   search: (query: string, id: string | null) => void;
 }

@@ -25,21 +25,21 @@ export function searchInCommands(
     {
       label: intl.formatMessage(messages.createCategory),
       onClick: () => {
-        navigate('/');
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createCollection),
       onClick: () => {
-        navigate('/');
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createProduct),
       onClick: () => {
-        navigate('/');
+        navigate("/");
         return false;
       },
     },
@@ -53,14 +53,14 @@ export function searchInCommands(
     {
       label: intl.formatMessage(messages.createCustomer),
       onClick: () => {
-        navigate('/');
+        navigate("/");
         return false;
       },
     },
     {
       label: intl.formatMessage(messages.createVoucher),
       onClick: () => {
-        navigate('/');
+        navigate("/");
         return false;
       },
     },

@@ -19,20 +19,17 @@ const messages = defineMessages({
   },
 });
 
-export const getActivityMessage = (
-  activity: any,
-  intl: IntlShape,
-) => {
+export const getActivityMessage = (activity: any, intl: IntlShape) => {
   switch (activity.type) {
-    case 'ORDER_FULLY_PAID':
+    case "ORDER_FULLY_PAID":
       return intl.formatMessage(messages.paid, {
         orderId: activity.orderNumber,
       });
-    case 'PLACED':
+    case "PLACED":
       return intl.formatMessage(messages.placed, {
         orderId: activity.orderNumber,
       });
-    case 'PLACED_FROM_DRAFT':
+    case "PLACED_FROM_DRAFT":
       if (!!activity.user?.email) {
         return intl.formatMessage(messages.draft, {
           orderId: activity.orderNumber,

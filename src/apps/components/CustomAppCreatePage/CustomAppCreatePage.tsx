@@ -27,9 +27,7 @@ export interface CustomAppCreatePageProps {
   errors: any[];
   permissions: any[];
   saveButtonBarState: ConfirmButtonTransitionState;
-  onSubmit: (
-    data: CustomAppCreatePageFormData,
-  ) => SubmitPromise<any[]>;
+  onSubmit: (data: CustomAppCreatePageFormData) => SubmitPromise<any[]>;
 }
 
 const CustomAppCreatePage: React.FC<CustomAppCreatePageProps> = props => {

@@ -1,8 +1,6 @@
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import tasksIcon from "@assets/images/tasks-icon.svg";
-import {
-  useExtensions,
-} from "@saleor/apps/useExtensions";
+import { useExtensions } from "@saleor/apps/useExtensions";
 import { sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";

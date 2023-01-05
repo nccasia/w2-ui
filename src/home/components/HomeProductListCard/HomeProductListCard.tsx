@@ -81,26 +81,22 @@ export const HomeProductList: React.FC<HomeProductListProps> = props => {
               >
                 <TableCellAvatar
                   className={classes.colAvatar}
-                  thumbnail={maybe(() => ' ')}
+                  thumbnail={maybe(() => " ")}
                   avatarProps={classes.avatarProps}
                 />
 
                 <TableCell className={classes.label}>
                   {variant ? (
                     <>
-                      <Typography color={"primary"}>
-                        {' '}
-                      </Typography>
-                      <Typography color={"textSecondary"}>
-                        {' '}
-                      </Typography>
+                      <Typography color={"primary"}> </Typography>
+                      <Typography color={"textSecondary"}> </Typography>
                       <Typography color={"textSecondary"}>
                         <FormattedMessage
                           id="0opVvi"
                           defaultMessage="{amount, plural,one {One ordered}other {{amount} Ordered}}"
                           description="number of ordered products"
                           values={{
-                            amount: '0',
+                            amount: "0",
                           }}
                         />
                       </Typography>

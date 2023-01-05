@@ -26,23 +26,23 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.attributes),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.categories),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.collections),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.customers),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.draftOrders),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.home),
@@ -54,11 +54,11 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.orders),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.pages),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.permissionGroups),
@@ -66,23 +66,23 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.plugins),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.productTypes),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.products),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.sales),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.shipping),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.siteSettings),
@@ -94,15 +94,15 @@ function searchInViews(
     },
     {
       label: intl.formatMessage(sectionNames.taxes),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.vouchers),
-      url: '/',
+      url: "/",
     },
     {
       label: intl.formatMessage(sectionNames.warehouses),
-      url: '/',
+      url: "/",
     },
   ];
 

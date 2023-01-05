@@ -19,9 +19,7 @@ export function mapEdgesToItems<T>(
   return data?.edges?.map(({ node }) => node);
 }
 
-export function mapCountriesToCountriesCodes(
-  countries?: any,
-) {
+export function mapCountriesToCountriesCodes(countries?: any) {
   return countries?.map(country => country.code);
 }
 
@@ -32,9 +30,7 @@ export function mapCountriesToChoices(countries: any[]) {
   }));
 }
 
-export function mapPagesToChoices(
-  pages: RelayToFlat<any>,
-) {
+export function mapPagesToChoices(pages: RelayToFlat<any>) {
   return pages.map(page => ({
     label: page.title,
     value: page.id,
@@ -77,9 +73,7 @@ export function mapTagNodeToChoice(
   return mapNodeToChoice(nodes, node => node.tag);
 }
 
-export function mapMetadataItemToInput(
-  item: any,
-): any {
+export function mapMetadataItemToInput(item: any): any {
   return {
     key: item.key,
     value: item.value,

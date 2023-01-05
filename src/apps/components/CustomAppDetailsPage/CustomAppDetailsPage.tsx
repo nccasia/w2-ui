@@ -39,9 +39,7 @@ export interface CustomAppDetailsPageProps {
   onTokenDelete: (id: string) => void;
   onTokenClose: () => void;
   onTokenCreate: () => void;
-  onSubmit: (
-    data: CustomAppDetailsPageFormData,
-  ) => SubmitPromise<any[]>;
+  onSubmit: (data: CustomAppDetailsPageFormData) => SubmitPromise<any[]>;
   webhookCreateHref: string;
   onWebhookRemove: (id: string) => void;
   onAppActivateOpen: () => void;
@@ -65,7 +63,6 @@ const CustomAppDetailsPage: React.FC<CustomAppDetailsPageProps> = props => {
   const intl = useIntl();
   const classes = useStyles({});
   const navigate = useNavigator();
-
 
   const formErrors = getFormErrors(["permissions"], errors || []);
   const permissionsError = getAppErrorMessage(formErrors.permissions, intl);

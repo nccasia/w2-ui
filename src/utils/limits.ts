@@ -1,8 +1,4 @@
-
-export function hasLimits(
-  limits: any,
-  key: any,
-): boolean {
+export function hasLimits(limits: any, key: any): boolean {
   if (limits === undefined) {
     return false;
   }
@@ -10,10 +6,7 @@ export function hasLimits(
   return limits.allowedUsage[key] !== null;
 }
 
-export function isLimitReached(
-  limits: any,
-  key:  any
-): boolean {
+export function isLimitReached(limits: any, key: any): boolean {
   if (!hasLimits(limits, key)) {
     return false;
   }

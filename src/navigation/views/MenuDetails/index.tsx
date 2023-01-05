@@ -6,12 +6,8 @@ import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { maybe } from "../../../misc";
-import {
-  MenuItemType,
-} from "../../components/MenuItemDialog";
-import {
-  unknownTypeError,
-} from "../../components/MenuItems";
+import { MenuItemType } from "../../components/MenuItemDialog";
+import { unknownTypeError } from "../../components/MenuItems";
 import { menuUrl, MenuUrlQueryParams } from "../../urls";
 
 interface MenuDetailsProps {
@@ -57,9 +53,6 @@ const MenuDetails: React.FC<MenuDetailsProps> = ({ id, params }) => {
     }
   };
 
-
-
-
   // This is a workaround to let know <MenuDetailsPage />
   // that it should clean operation stack if mutations
   // were successful
@@ -77,12 +70,8 @@ const MenuDetails: React.FC<MenuDetailsProps> = ({ id, params }) => {
     <>
       <MenuDetailsPage
         disabled={false}
-        errors={[
-          ...([]),
-          ...([]),
-          ...([]),
-        ]}
-        menu={maybe(() => '')}
+        errors={[...[], ...[], ...[]]}
+        menu={maybe(() => "")}
         onDelete={() =>
           navigate(
             menuUrl(id, {
@@ -127,7 +116,7 @@ const MenuDetails: React.FC<MenuDetailsProps> = ({ id, params }) => {
             id="G/SYtU"
             defaultMessage="Are you sure you want to delete menu {menuName}?"
             values={{
-              menuName: <strong>{maybe(() => ' ', "...")}</strong>,
+              menuName: <strong>{maybe(() => " ", "...")}</strong>,
             }}
           />
         </DialogContentText>

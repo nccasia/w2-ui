@@ -4,22 +4,18 @@ import { useState } from "react";
 
 interface UseAddressValidation<TInput, TOutput> {
   errors: any[];
-  submit: (
-    data: TInput & any,
-  ) => TOutput | Promise<any[]>;
+  submit: (data: TInput & any) => TOutput | Promise<any[]>;
 }
 
 function useAddressValidation<TInput, TOutput>(
   onSubmit: (address: TInput & any) => TOutput,
   addressType?: any,
 ): UseAddressValidation<TInput, TOutput> {
-  const [validationErrors, setValidationErrors] = useState<
-    any[]
-  >([]);
+  const [validationErrors, setValidationErrors] = useState<any[]>([]);
 
   const countryRequiredError: any = {
     __typename: "AccountError",
-    code: 'REQUIRED',
+    code: "REQUIRED",
     field: "country",
     addressType,
     message: "Country required",

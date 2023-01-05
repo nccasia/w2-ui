@@ -335,7 +335,6 @@ export const sortPageProps: SortPage<string> = {
   },
 };
 
-
 export const date = {
   from: "2019-12-09",
   to: "2019-12-38",

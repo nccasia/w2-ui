@@ -8,6 +8,7 @@ const useStyles = makeStyles(
   () => ({
     container: {
       width: "100%",
+      height: "250px",
     },
     quillEditor: {
       height: "200px",
@@ -16,7 +17,7 @@ const useStyles = makeStyles(
   { name: "QuillEditor" },
 );
 
-interface QuillEditorProps {
+export interface QuillEditorProps {
   value: string | null;
   key?: number;
   modules?: { toolbar: boolean };

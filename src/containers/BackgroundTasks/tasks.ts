@@ -13,9 +13,9 @@ import {
 
 function getTaskStatus(jobStatus: any): TaskStatus {
   switch (jobStatus) {
-    case 'SUCCESS':
+    case "SUCCESS":
       return TaskStatus.SUCCESS;
-    case 'PENDING':
+    case "PENDING":
       return TaskStatus.PENDING;
     default:
       return TaskStatus.FAILURE;

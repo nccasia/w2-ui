@@ -23,12 +23,9 @@ export const InstallAppCreate: React.FC<InstallAppCreateProps> = ({
     } else {
       navigate(appsListUrl());
     }
-  }, []);
+  }, [manifestUrl, navigate]);
 
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 
 export default InstallAppCreate;

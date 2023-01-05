@@ -55,7 +55,7 @@ const AppsInProgress: React.FC<AppsInProgressProps> = ({
               <TableCell className={classes.colName}>
                 <span data-tc="name">{appName}</span>
               </TableCell>
-              {status === 'PENDING' && (
+              {status === "PENDING" && (
                 <TableCell
                   className={clsx(classes.colAction, classes.colInstallAction)}
                 >
@@ -71,7 +71,7 @@ const AppsInProgress: React.FC<AppsInProgressProps> = ({
                   </div>
                 </TableCell>
               )}
-              {status === 'FAILED' && (
+              {status === "FAILED" && (
                 <TableCell
                   className={clsx(classes.colAction, classes.colInstallAction)}
                 >

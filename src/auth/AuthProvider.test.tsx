@@ -15,9 +15,7 @@ function renderAuthProvider() {
   const notify = jest.fn();
   const wrapper = ({ children }) => (
     <IntlProvider defaultLocale="en" locale="en">
-      <Router>
-        {children}
-      </Router>
+      <Router>{children}</Router>
     </IntlProvider>
   );
 

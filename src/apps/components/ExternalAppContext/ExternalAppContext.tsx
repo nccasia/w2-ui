@@ -47,12 +47,13 @@ export const ExternalAppProvider: React.FC = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useExternalApp = () => {
   const { open, setOpen, setAppData } = React.useContext(ExternalAppContext);
   const navigate = useNavigator();
 
   const openApp = (appData: AppData) => {
-    if (appData.target === 'POPUP') {
+    if (appData.target === "POPUP") {
       setOpen(true);
       setAppData(appData);
     } else {

@@ -38,7 +38,7 @@ export const mapToExtensionsItems = (
       ariaLabel: `app-${label}`,
       id: `extension-${id}`,
       label,
-      url: '',
+      url: "",
       onClick: open,
       permissions,
     }),

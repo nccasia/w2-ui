@@ -18,7 +18,7 @@ describe("Filtering query params", () => {
 
   it("should not be empty object if params given", () => {
     const params: StaffListUrlFilters = {
-      status: 'ACTIVE',
+      status: "ACTIVE",
     };
     const filterVariables = getFilterVariables(params);
 
@@ -32,7 +32,7 @@ describe("Filtering URL params", () => {
   const filters = createFilterStructure(intl, {
     status: {
       active: false,
-      value: 'ACTIVE',
+      value: "ACTIVE",
     },
   });
 

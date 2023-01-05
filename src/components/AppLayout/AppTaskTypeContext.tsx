@@ -49,11 +49,11 @@ export const AppTaskTypeProvider: React.FC = ({ children }) => {
     ) {
       setSelectedTaskType(TaskTypeData.channels[0].id);
     }
-  }, [TaskTypeData]);
+  }, [TaskTypeData, selectedTaskType, setSelectedTaskType]);
 
   React.useEffect(() => {
     setChannel(selectedTaskType);
-  }, [selectedTaskType]);
+  }, [selectedTaskType, setChannel]);
 
   const availableTaskTypes = TaskTypeData?.channels || [];
 
@@ -90,4 +90,5 @@ function useAppTaskType(enablePicker = true): UseAppTaskType {
   return data;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export default useAppTaskType;

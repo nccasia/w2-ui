@@ -13,7 +13,7 @@ interface AppSettingsProps {
 
 export const AppSettings: React.FC<AppSettingsProps> = ({ id }) => {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const { data, refetch } = { data: null, refetch: () => {} }
+  const { data, refetch } = { data: null, refetch: () => {} };
 
   const appExists = data?.app !== null;
 

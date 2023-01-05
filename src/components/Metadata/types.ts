@@ -1,4 +1,3 @@
-
 export enum EventDataAction {
   add = "add",
   delete = "delete",

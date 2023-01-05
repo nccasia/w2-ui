@@ -1,12 +1,10 @@
 import { PermissionGroupListUrlSortField } from "@saleor/permissionGroups/urls";
 import { createGetSortQueryVariables } from "@saleor/utils/sort";
 
-export function getSortQueryField(
-  sort: PermissionGroupListUrlSortField,
-): any {
+export function getSortQueryField(sort: PermissionGroupListUrlSortField): any {
   switch (sort) {
     case PermissionGroupListUrlSortField.name:
-      return 'NAME';
+      return "NAME";
     default:
       return undefined;
   }

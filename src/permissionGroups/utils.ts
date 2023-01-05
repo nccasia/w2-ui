@@ -26,9 +26,7 @@ export const isGroupFullAccess = (
 /**
  * Return list of codes which are assigned to the permission group.
  */
-export const extractPermissionCodes = (
-  permissionGroup: any,
-) =>
+export const extractPermissionCodes = (permissionGroup: any) =>
   permissionGroup?.permissions
     ? permissionGroup.permissions.map(perm => perm.code)
     : [];
@@ -68,10 +66,7 @@ export const usersDiff = (
 /**
  * Permissions are exceeded when group has permission which is not handled by user
  */
-export const arePermissionsExceeded = (
-  permissionGroup: any,
-  user: any,
-) => {
+export const arePermissionsExceeded = (permissionGroup: any, user: any) => {
   const groupPermissions = extractPermissionCodes(permissionGroup);
   const userPermissions = user.userPermissions.map(p => p.code);
   return difference(groupPermissions, userPermissions).length > 0;
