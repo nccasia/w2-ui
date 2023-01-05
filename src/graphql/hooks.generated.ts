@@ -38,6 +38,45 @@ export function useMyQueryLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type MyQueryQueryHookResult = ReturnType<typeof useMyQueryQuery>;
 export type MyQueryLazyQueryHookResult = ReturnType<typeof useMyQueryLazyQuery>;
 export type MyQueryQueryResult = Apollo.QueryResult<Types.MyQueryQuery, Types.MyQueryQueryVariables>;
+export const LoginDocument = gql`
+    mutation Login($email: String = "", $password: String = "") {
+  login(data: {email: $email, password: $password}) {
+    user {
+      email
+      firstname
+      role
+    }
+    accessToken
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<Types.LoginMutation, Types.LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<Types.LoginMutation, Types.LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<Types.LoginMutation, Types.LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<Types.LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<Types.LoginMutation, Types.LoginMutationVariables>;
 export const HomeDocument = gql`
     query Home {
   hello(name: "world")

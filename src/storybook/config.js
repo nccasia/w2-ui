@@ -3,8 +3,8 @@ import requireContext from "require-context.macro";
 import { configure } from "@storybook/react";
 import { getAppDefaultUri } from "@saleor/config";
 
-window.__SALEOR_CONFIG__ = {
-  APP_MOUNT_URI: window.__SALEOR_CONFIG__?.APP_MOUNT_URI || getAppDefaultUri(),
+window.__APP_CONFIG__ = {
+  APP_MOUNT_URI: window.__APP_CONFIG__?.APP_MOUNT_URI || getAppDefaultUri(),
 };
 
 const req = requireContext("../", true, /.stories.tsx$/);

@@ -2,7 +2,7 @@ import { configure } from "@testing-library/react";
 
 document.getElementById = () => document.createElement("div");
 
-window.__SALEOR_CONFIG__ = {
+window.__APP_CONFIG__ = {
   API_URL: "http://localhost:8000/graphql/",
   APP_MOUNT_URI: "/",
   MARKETPLACE_URL: "http//localhost:3000",
