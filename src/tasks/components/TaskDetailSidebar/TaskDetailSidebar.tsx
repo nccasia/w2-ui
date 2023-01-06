@@ -39,6 +39,11 @@ const TaskDetailSidebar = () => {
           <CardContentItemMultipleChoice
             results={results}
             search={search}
+            title={"Requester"}
+          />
+          <CardContentItemMultipleChoice
+            results={results}
+            search={search}
             title={"Assignee"}
           />
           <CardContentItemMultipleChoice

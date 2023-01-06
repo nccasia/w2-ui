@@ -9,7 +9,7 @@ const useStyles = makeStyles(
     containerQuillEditor: {
       width: "98%",
       margin: "0 auto",
-      marginBottom: theme.spacing(8),
+      marginBottom: theme.spacing(2),
     },
     title: {
       display: "flex",
