@@ -14,6 +14,11 @@ export const handleSchema = (formId: string) => {
     default:
       break;
   }
+  // eslint-disable-next-line no-console
+  console.log(
+    "🚀 ~ file: useFormSchema.ts:17 ~ handleSchema ~ schemaOffice",
+    JSON.stringify(schemaOffice),
+  );
 };
 
 const ajv = new Ajv({

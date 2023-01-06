@@ -42,6 +42,7 @@ export const LoginDocument = gql`
     mutation Login($email: String = "", $password: String = "") {
   login(data: {email: $email, password: $password}) {
     user {
+      id
       email
       firstname
       role

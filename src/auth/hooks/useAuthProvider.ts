@@ -139,6 +139,14 @@ export function useAuthProvider({
 
       await logoutNonStaffUser(result.data.login.accessToken);
 
+      const date = new Date();
+      date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
+      const expires = "expires=" + date.toUTCString();
+      const setCookie = (document.cookie = `accessToken=${result.data.login.accessToken}; ${expires}`);
+
+      // eslint-disable-next-line no-console
+      console.log(decodeURIComponent(setCookie));
+
       setUser(result.data.login.user);
 
       return result.data.login.user;
@@ -192,5 +200,6 @@ export function useAuthProvider({
     authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
+    setUser,
   };
 }

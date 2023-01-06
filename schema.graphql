@@ -960,7 +960,7 @@ type Comment {
   createdAt: timestamp!
   creatorId: Int!
   id: Int!
-  taskId: String!
+  taskId: Int!
   updatedAt: timestamp!
 }
 
@@ -1031,6 +1031,7 @@ input Comment_arr_rel_insert_input {
 type Comment_avg_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1039,6 +1040,7 @@ order by avg() on columns of table "Comment"
 input Comment_avg_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -1054,7 +1056,7 @@ input Comment_bool_exp {
   createdAt: timestamp_comparison_exp
   creatorId: Int_comparison_exp
   id: Int_comparison_exp
-  taskId: String_comparison_exp
+  taskId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
 
@@ -1074,6 +1076,7 @@ input type for incrementing numeric columns in table "Comment"
 input Comment_inc_input {
   creatorId: Int
   id: Int
+  taskId: Int
 }
 
 """
@@ -1086,7 +1089,7 @@ input Comment_insert_input {
   createdAt: timestamp
   creatorId: Int
   id: Int
-  taskId: String
+  taskId: Int
   updatedAt: timestamp
 }
 
@@ -1096,7 +1099,7 @@ type Comment_max_fields {
   createdAt: timestamp
   creatorId: Int
   id: Int
-  taskId: String
+  taskId: Int
   updatedAt: timestamp
 }
 
@@ -1118,7 +1121,7 @@ type Comment_min_fields {
   createdAt: timestamp
   creatorId: Int
   id: Int
-  taskId: String
+  taskId: Int
   updatedAt: timestamp
 }
 
@@ -1202,7 +1205,7 @@ input Comment_set_input {
   createdAt: timestamp
   creatorId: Int
   id: Int
-  taskId: String
+  taskId: Int
   updatedAt: timestamp
 }
 
@@ -1210,6 +1213,7 @@ input Comment_set_input {
 type Comment_stddev_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1218,12 +1222,14 @@ order by stddev() on columns of table "Comment"
 input Comment_stddev_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Comment_stddev_pop_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1232,12 +1238,14 @@ order by stddev_pop() on columns of table "Comment"
 input Comment_stddev_pop_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Comment_stddev_samp_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1246,6 +1254,7 @@ order by stddev_samp() on columns of table "Comment"
 input Comment_stddev_samp_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -1265,7 +1274,7 @@ input Comment_stream_cursor_value_input {
   createdAt: timestamp
   creatorId: Int
   id: Int
-  taskId: String
+  taskId: Int
   updatedAt: timestamp
 }
 
@@ -1273,6 +1282,7 @@ input Comment_stream_cursor_value_input {
 type Comment_sum_fields {
   creatorId: Int
   id: Int
+  taskId: Int
 }
 
 """
@@ -1281,6 +1291,7 @@ order by sum() on columns of table "Comment"
 input Comment_sum_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -1319,6 +1330,7 @@ input Comment_updates {
 type Comment_var_pop_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1327,12 +1339,14 @@ order by var_pop() on columns of table "Comment"
 input Comment_var_pop_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate var_samp on columns"""
 type Comment_var_samp_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1341,12 +1355,14 @@ order by var_samp() on columns of table "Comment"
 input Comment_var_samp_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate variance on columns"""
 type Comment_variance_fields {
   creatorId: Float
   id: Float
+  taskId: Float
 }
 
 """
@@ -1355,6 +1371,7 @@ order by variance() on columns of table "Comment"
 input Comment_variance_order_by {
   creatorId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -1381,7 +1398,7 @@ type EventLog {
   createdAt: timestamp!
   id: Int!
   organizationId: Int!
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1453,6 +1470,7 @@ type EventLog_avg_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1463,6 +1481,7 @@ input EventLog_avg_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1481,7 +1500,7 @@ input EventLog_bool_exp {
   createdAt: timestamp_comparison_exp
   id: Int_comparison_exp
   organizationId: Int_comparison_exp
-  taskId: String_comparison_exp
+  taskId: Int_comparison_exp
   userId: Int_comparison_exp
 }
 
@@ -1502,6 +1521,7 @@ input EventLog_inc_input {
   actionId: Int
   id: Int
   organizationId: Int
+  taskId: Int
   userId: Int
 }
 
@@ -1517,7 +1537,7 @@ input EventLog_insert_input {
   createdAt: timestamp
   id: Int
   organizationId: Int
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1527,7 +1547,7 @@ type EventLog_max_fields {
   createdAt: timestamp
   id: Int
   organizationId: Int
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1549,7 +1569,7 @@ type EventLog_min_fields {
   createdAt: timestamp
   id: Int
   organizationId: Int
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1635,7 +1655,7 @@ input EventLog_set_input {
   createdAt: timestamp
   id: Int
   organizationId: Int
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1644,6 +1664,7 @@ type EventLog_stddev_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1654,6 +1675,7 @@ input EventLog_stddev_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1662,6 +1684,7 @@ type EventLog_stddev_pop_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1672,6 +1695,7 @@ input EventLog_stddev_pop_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1680,6 +1704,7 @@ type EventLog_stddev_samp_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1690,6 +1715,7 @@ input EventLog_stddev_samp_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1710,7 +1736,7 @@ input EventLog_stream_cursor_value_input {
   createdAt: timestamp
   id: Int
   organizationId: Int
-  taskId: String
+  taskId: Int
   userId: Int
 }
 
@@ -1719,6 +1745,7 @@ type EventLog_sum_fields {
   actionId: Int
   id: Int
   organizationId: Int
+  taskId: Int
   userId: Int
 }
 
@@ -1729,6 +1756,7 @@ input EventLog_sum_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1769,6 +1797,7 @@ type EventLog_var_pop_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1779,6 +1808,7 @@ input EventLog_var_pop_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1787,6 +1817,7 @@ type EventLog_var_samp_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1797,6 +1828,7 @@ input EventLog_var_samp_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -1805,6 +1837,7 @@ type EventLog_variance_fields {
   actionId: Float
   id: Float
   organizationId: Float
+  taskId: Float
   userId: Float
 }
 
@@ -1815,6 +1848,7 @@ input EventLog_variance_order_by {
   actionId: order_by
   id: order_by
   organizationId: order_by
+  taskId: order_by
   userId: order_by
 }
 
@@ -2441,6 +2475,500 @@ input File_variance_order_by {
 }
 
 """
+columns and relationships of "Form"
+"""
+type Form {
+  """An array relationship"""
+  TaskDefinitions(
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): [TaskDefinition!]!
+
+  """An aggregate relationship"""
+  TaskDefinitions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinition_aggregate!
+  code: String!
+  config(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  createdAt: timestamp!
+  description: String!
+  displayConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  displayTemplate: String!
+  id: Int!
+  name: String!
+  schema(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  serializerConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  triggerConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  updatedAt: timestamp!
+  validationConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+aggregated selection of "Form"
+"""
+type Form_aggregate {
+  aggregate: Form_aggregate_fields
+  nodes: [Form!]!
+}
+
+"""
+aggregate fields of "Form"
+"""
+type Form_aggregate_fields {
+  avg: Form_avg_fields
+  count(columns: [Form_select_column!], distinct: Boolean): Int!
+  max: Form_max_fields
+  min: Form_min_fields
+  stddev: Form_stddev_fields
+  stddev_pop: Form_stddev_pop_fields
+  stddev_samp: Form_stddev_samp_fields
+  sum: Form_sum_fields
+  var_pop: Form_var_pop_fields
+  var_samp: Form_var_samp_fields
+  variance: Form_variance_fields
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input Form_append_input {
+  config: jsonb
+  displayConfig: jsonb
+  schema: jsonb
+  serializerConfig: jsonb
+  triggerConfig: jsonb
+  validationConfig: jsonb
+}
+
+"""aggregate avg on columns"""
+type Form_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "Form". All fields are combined with a logical 'AND'.
+"""
+input Form_bool_exp {
+  TaskDefinitions: TaskDefinition_bool_exp
+  TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
+  _and: [Form_bool_exp!]
+  _not: Form_bool_exp
+  _or: [Form_bool_exp!]
+  code: String_comparison_exp
+  config: jsonb_comparison_exp
+  createdAt: timestamp_comparison_exp
+  description: String_comparison_exp
+  displayConfig: jsonb_comparison_exp
+  displayTemplate: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  schema: jsonb_comparison_exp
+  serializerConfig: jsonb_comparison_exp
+  triggerConfig: jsonb_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  validationConfig: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Form"
+"""
+enum Form_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Form_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input Form_delete_at_path_input {
+  config: [String!]
+  displayConfig: [String!]
+  schema: [String!]
+  serializerConfig: [String!]
+  triggerConfig: [String!]
+  validationConfig: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input Form_delete_elem_input {
+  config: Int
+  displayConfig: Int
+  schema: Int
+  serializerConfig: Int
+  triggerConfig: Int
+  validationConfig: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input Form_delete_key_input {
+  config: String
+  displayConfig: String
+  schema: String
+  serializerConfig: String
+  triggerConfig: String
+  validationConfig: String
+}
+
+"""
+input type for incrementing numeric columns in table "Form"
+"""
+input Form_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "Form"
+"""
+input Form_insert_input {
+  TaskDefinitions: TaskDefinition_arr_rel_insert_input
+  code: String
+  config: jsonb
+  createdAt: timestamp
+  description: String
+  displayConfig: jsonb
+  displayTemplate: String
+  id: Int
+  name: String
+  schema: jsonb
+  serializerConfig: jsonb
+  triggerConfig: jsonb
+  updatedAt: timestamp
+  validationConfig: jsonb
+}
+
+"""aggregate max on columns"""
+type Form_max_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  displayTemplate: String
+  id: Int
+  name: String
+  updatedAt: timestamp
+}
+
+"""aggregate min on columns"""
+type Form_min_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  displayTemplate: String
+  id: Int
+  name: String
+  updatedAt: timestamp
+}
+
+"""
+response of any mutation on the table "Form"
+"""
+type Form_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Form!]!
+}
+
+"""
+input type for inserting object relation for remote table "Form"
+"""
+input Form_obj_rel_insert_input {
+  data: Form_insert_input!
+
+  """upsert condition"""
+  on_conflict: Form_on_conflict
+}
+
+"""
+on_conflict condition type for table "Form"
+"""
+input Form_on_conflict {
+  constraint: Form_constraint!
+  update_columns: [Form_update_column!]! = []
+  where: Form_bool_exp
+}
+
+"""Ordering options when selecting data from "Form"."""
+input Form_order_by {
+  TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
+  code: order_by
+  config: order_by
+  createdAt: order_by
+  description: order_by
+  displayConfig: order_by
+  displayTemplate: order_by
+  id: order_by
+  name: order_by
+  schema: order_by
+  serializerConfig: order_by
+  triggerConfig: order_by
+  updatedAt: order_by
+  validationConfig: order_by
+}
+
+"""primary key columns input for table: Form"""
+input Form_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input Form_prepend_input {
+  config: jsonb
+  displayConfig: jsonb
+  schema: jsonb
+  serializerConfig: jsonb
+  triggerConfig: jsonb
+  validationConfig: jsonb
+}
+
+"""
+select columns of table "Form"
+"""
+enum Form_select_column {
+  """column name"""
+  code
+
+  """column name"""
+  config
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  displayConfig
+
+  """column name"""
+  displayTemplate
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  schema
+
+  """column name"""
+  serializerConfig
+
+  """column name"""
+  triggerConfig
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  validationConfig
+}
+
+"""
+input type for updating data in table "Form"
+"""
+input Form_set_input {
+  code: String
+  config: jsonb
+  createdAt: timestamp
+  description: String
+  displayConfig: jsonb
+  displayTemplate: String
+  id: Int
+  name: String
+  schema: jsonb
+  serializerConfig: jsonb
+  triggerConfig: jsonb
+  updatedAt: timestamp
+  validationConfig: jsonb
+}
+
+"""aggregate stddev on columns"""
+type Form_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type Form_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type Form_stddev_samp_fields {
+  id: Float
+}
+
+"""
+Streaming cursor of the table "Form"
+"""
+input Form_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: Form_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input Form_stream_cursor_value_input {
+  code: String
+  config: jsonb
+  createdAt: timestamp
+  description: String
+  displayConfig: jsonb
+  displayTemplate: String
+  id: Int
+  name: String
+  schema: jsonb
+  serializerConfig: jsonb
+  triggerConfig: jsonb
+  updatedAt: timestamp
+  validationConfig: jsonb
+}
+
+"""aggregate sum on columns"""
+type Form_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "Form"
+"""
+enum Form_update_column {
+  """column name"""
+  code
+
+  """column name"""
+  config
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  displayConfig
+
+  """column name"""
+  displayTemplate
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  schema
+
+  """column name"""
+  serializerConfig
+
+  """column name"""
+  triggerConfig
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  validationConfig
+}
+
+input Form_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: Form_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: Form_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: Form_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: Form_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Form_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: Form_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: Form_set_input
+  where: Form_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Form_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type Form_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type Form_variance_fields {
+  id: Float
+}
+
+"""
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
 input Int_comparison_exp {
@@ -2476,7 +3004,7 @@ type MemberOnTeams {
   User: User!
   assignedAt: timestamp!
   assignedBy: String!
-  teamId: String!
+  teamId: Int!
   userId: Int!
 }
 
@@ -2545,6 +3073,7 @@ input MemberOnTeams_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type MemberOnTeams_avg_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2552,6 +3081,7 @@ type MemberOnTeams_avg_fields {
 order by avg() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_avg_order_by {
+  teamId: order_by
   userId: order_by
 }
 
@@ -2566,7 +3096,7 @@ input MemberOnTeams_bool_exp {
   _or: [MemberOnTeams_bool_exp!]
   assignedAt: timestamp_comparison_exp
   assignedBy: String_comparison_exp
-  teamId: String_comparison_exp
+  teamId: Int_comparison_exp
   userId: Int_comparison_exp
 }
 
@@ -2584,6 +3114,7 @@ enum MemberOnTeams_constraint {
 input type for incrementing numeric columns in table "MemberOnTeams"
 """
 input MemberOnTeams_inc_input {
+  teamId: Int
   userId: Int
 }
 
@@ -2595,7 +3126,7 @@ input MemberOnTeams_insert_input {
   User: User_obj_rel_insert_input
   assignedAt: timestamp
   assignedBy: String
-  teamId: String
+  teamId: Int
   userId: Int
 }
 
@@ -2603,7 +3134,7 @@ input MemberOnTeams_insert_input {
 type MemberOnTeams_max_fields {
   assignedAt: timestamp
   assignedBy: String
-  teamId: String
+  teamId: Int
   userId: Int
 }
 
@@ -2621,7 +3152,7 @@ input MemberOnTeams_max_order_by {
 type MemberOnTeams_min_fields {
   assignedAt: timestamp
   assignedBy: String
-  teamId: String
+  teamId: Int
   userId: Int
 }
 
@@ -2667,7 +3198,7 @@ input MemberOnTeams_order_by {
 
 """primary key columns input for table: MemberOnTeams"""
 input MemberOnTeams_pk_columns_input {
-  teamId: String!
+  teamId: Int!
   userId: Int!
 }
 
@@ -2694,12 +3225,13 @@ input type for updating data in table "MemberOnTeams"
 input MemberOnTeams_set_input {
   assignedAt: timestamp
   assignedBy: String
-  teamId: String
+  teamId: Int
   userId: Int
 }
 
 """aggregate stddev on columns"""
 type MemberOnTeams_stddev_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2707,11 +3239,13 @@ type MemberOnTeams_stddev_fields {
 order by stddev() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_stddev_order_by {
+  teamId: order_by
   userId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type MemberOnTeams_stddev_pop_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2719,11 +3253,13 @@ type MemberOnTeams_stddev_pop_fields {
 order by stddev_pop() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_stddev_pop_order_by {
+  teamId: order_by
   userId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type MemberOnTeams_stddev_samp_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2731,6 +3267,7 @@ type MemberOnTeams_stddev_samp_fields {
 order by stddev_samp() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_stddev_samp_order_by {
+  teamId: order_by
   userId: order_by
 }
 
@@ -2749,12 +3286,13 @@ input MemberOnTeams_stream_cursor_input {
 input MemberOnTeams_stream_cursor_value_input {
   assignedAt: timestamp
   assignedBy: String
-  teamId: String
+  teamId: Int
   userId: Int
 }
 
 """aggregate sum on columns"""
 type MemberOnTeams_sum_fields {
+  teamId: Int
   userId: Int
 }
 
@@ -2762,6 +3300,7 @@ type MemberOnTeams_sum_fields {
 order by sum() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_sum_order_by {
+  teamId: order_by
   userId: order_by
 }
 
@@ -2793,6 +3332,7 @@ input MemberOnTeams_updates {
 
 """aggregate var_pop on columns"""
 type MemberOnTeams_var_pop_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2800,11 +3340,13 @@ type MemberOnTeams_var_pop_fields {
 order by var_pop() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_var_pop_order_by {
+  teamId: order_by
   userId: order_by
 }
 
 """aggregate var_samp on columns"""
 type MemberOnTeams_var_samp_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2812,11 +3354,13 @@ type MemberOnTeams_var_samp_fields {
 order by var_samp() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_var_samp_order_by {
+  teamId: order_by
   userId: order_by
 }
 
 """aggregate variance on columns"""
 type MemberOnTeams_variance_fields {
+  teamId: Float
   userId: Float
 }
 
@@ -2824,6 +3368,7 @@ type MemberOnTeams_variance_fields {
 order by variance() on columns of table "MemberOnTeams"
 """
 input MemberOnTeams_variance_order_by {
+  teamId: order_by
   userId: order_by
 }
 
@@ -5479,6 +6024,9 @@ type Task {
   """An object relationship"""
   Task: Task
 
+  """An object relationship"""
+  TaskDefinition: TaskDefinition!
+
   """An array relationship"""
   Tasks(
     """distinct select on columns"""
@@ -5517,20 +6065,33 @@ type Task {
 
   """An object relationship"""
   Team: Team!
-  assigneeId: String!
+
+  """An object relationship"""
+  User: User!
+  assigneeId: Int!
   createdAt: timestamp!
-  creatorId: String!
+  creatorId: Int!
+  ctaName: String!
+  definitionId: Int!
   description: String!
   dueDate: timestamp!
-  id: String!
+  id: Int!
   organizationId: Int!
-  parentId: String
+  parentId: Int
   priority: TaskPriority!
-  projectId: String!
+  stateName: String!
   status: TaskStatus!
-  teamId: String!
+  statusName: String!
+  teamId: Int!
   title: String!
   updatedAt: timestamp!
+
+  """An object relationship"""
+  userByCreatorid: User!
+  values(
+    """JSON select path"""
+    path: String
+  ): jsonb
 }
 
 """
@@ -5539,6 +6100,9 @@ columns and relationships of "TaskDefinition"
 type TaskDefinition {
   """An object relationship"""
   Activity: Activity!
+
+  """An object relationship"""
+  Form: Form
 
   """An object relationship"""
   Organization: Organization!
@@ -5582,18 +6146,88 @@ type TaskDefinition {
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
 
+  """An array relationship"""
+  Tasks(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  Tasks_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
+
   """An object relationship"""
   Workflow: Workflow!
   actvityId: Int!
-  config: String!
+  config(
+    """JSON select path"""
+    path: String
+  ): jsonb
   createdAt: timestamp!
+  ctaConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  ctaTemplate: String
   description: String!
+  descriptionTemplate: String
+  formId: Int
   icon: String!
   id: Int!
+  notificationConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  notificationTemplate: String
   organizationId: Int!
   parentId: Int
+  processConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  stageConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  stateTemplate: String
+  statusConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  statusTemplate: String
   thumbnail: String!
   title: String!
+  titleTemplate: String
+  triggerConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   updatedAt: timestamp!
   workflowId: Int!
 }
@@ -5651,6 +6285,17 @@ input TaskDefinition_aggregate_order_by {
   variance: TaskDefinition_variance_order_by
 }
 
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input TaskDefinition_append_input {
+  config: jsonb
+  ctaConfig: jsonb
+  notificationConfig: jsonb
+  processConfig: jsonb
+  stageConfig: jsonb
+  statusConfig: jsonb
+  triggerConfig: jsonb
+}
+
 """
 input type for inserting array relation for remote table "TaskDefinition"
 """
@@ -5664,6 +6309,7 @@ input TaskDefinition_arr_rel_insert_input {
 """aggregate avg on columns"""
 type TaskDefinition_avg_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -5675,6 +6321,7 @@ order by avg() on columns of table "TaskDefinition"
 """
 input TaskDefinition_avg_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -5686,24 +6333,40 @@ Boolean expression to filter rows from the table "TaskDefinition". All fields ar
 """
 input TaskDefinition_bool_exp {
   Activity: Activity_bool_exp
+  Form: Form_bool_exp
   Organization: Organization_bool_exp
   TaskDefinition: TaskDefinition_bool_exp
   TaskDefinitions: TaskDefinition_bool_exp
   TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
+  Tasks: Task_bool_exp
+  Tasks_aggregate: Task_aggregate_bool_exp
   Workflow: Workflow_bool_exp
   _and: [TaskDefinition_bool_exp!]
   _not: TaskDefinition_bool_exp
   _or: [TaskDefinition_bool_exp!]
   actvityId: Int_comparison_exp
-  config: String_comparison_exp
+  config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
+  ctaConfig: jsonb_comparison_exp
+  ctaTemplate: String_comparison_exp
   description: String_comparison_exp
+  descriptionTemplate: String_comparison_exp
+  formId: Int_comparison_exp
   icon: String_comparison_exp
   id: Int_comparison_exp
+  notificationConfig: jsonb_comparison_exp
+  notificationTemplate: String_comparison_exp
   organizationId: Int_comparison_exp
   parentId: Int_comparison_exp
+  processConfig: jsonb_comparison_exp
+  stageConfig: jsonb_comparison_exp
+  stateTemplate: String_comparison_exp
+  statusConfig: jsonb_comparison_exp
+  statusTemplate: String_comparison_exp
   thumbnail: String_comparison_exp
   title: String_comparison_exp
+  titleTemplate: String_comparison_exp
+  triggerConfig: jsonb_comparison_exp
   updatedAt: timestamp_comparison_exp
   workflowId: Int_comparison_exp
 }
@@ -5719,10 +6382,50 @@ enum TaskDefinition_constraint {
 }
 
 """
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input TaskDefinition_delete_at_path_input {
+  config: [String!]
+  ctaConfig: [String!]
+  notificationConfig: [String!]
+  processConfig: [String!]
+  stageConfig: [String!]
+  statusConfig: [String!]
+  triggerConfig: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input TaskDefinition_delete_elem_input {
+  config: Int
+  ctaConfig: Int
+  notificationConfig: Int
+  processConfig: Int
+  stageConfig: Int
+  statusConfig: Int
+  triggerConfig: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input TaskDefinition_delete_key_input {
+  config: String
+  ctaConfig: String
+  notificationConfig: String
+  processConfig: String
+  stageConfig: String
+  statusConfig: String
+  triggerConfig: String
+}
+
+"""
 input type for incrementing numeric columns in table "TaskDefinition"
 """
 input TaskDefinition_inc_input {
   actvityId: Int
+  formId: Int
   id: Int
   organizationId: Int
   parentId: Int
@@ -5734,20 +6437,35 @@ input type for inserting data into table "TaskDefinition"
 """
 input TaskDefinition_insert_input {
   Activity: Activity_obj_rel_insert_input
+  Form: Form_obj_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   TaskDefinition: TaskDefinition_obj_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
+  Tasks: Task_arr_rel_insert_input
   Workflow: Workflow_obj_rel_insert_input
   actvityId: Int
-  config: String
+  config: jsonb
   createdAt: timestamp
+  ctaConfig: jsonb
+  ctaTemplate: String
   description: String
+  descriptionTemplate: String
+  formId: Int
   icon: String
   id: Int
+  notificationConfig: jsonb
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
+  processConfig: jsonb
+  stageConfig: jsonb
+  stateTemplate: String
+  statusConfig: jsonb
+  statusTemplate: String
   thumbnail: String
   title: String
+  titleTemplate: String
+  triggerConfig: jsonb
   updatedAt: timestamp
   workflowId: Int
 }
@@ -5755,15 +6473,21 @@ input TaskDefinition_insert_input {
 """aggregate max on columns"""
 type TaskDefinition_max_fields {
   actvityId: Int
-  config: String
   createdAt: timestamp
+  ctaTemplate: String
   description: String
+  descriptionTemplate: String
+  formId: Int
   icon: String
   id: Int
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
+  stateTemplate: String
+  statusTemplate: String
   thumbnail: String
   title: String
+  titleTemplate: String
   updatedAt: timestamp
   workflowId: Int
 }
@@ -5773,15 +6497,21 @@ order by max() on columns of table "TaskDefinition"
 """
 input TaskDefinition_max_order_by {
   actvityId: order_by
-  config: order_by
   createdAt: order_by
+  ctaTemplate: order_by
   description: order_by
+  descriptionTemplate: order_by
+  formId: order_by
   icon: order_by
   id: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
+  stateTemplate: order_by
+  statusTemplate: order_by
   thumbnail: order_by
   title: order_by
+  titleTemplate: order_by
   updatedAt: order_by
   workflowId: order_by
 }
@@ -5789,15 +6519,21 @@ input TaskDefinition_max_order_by {
 """aggregate min on columns"""
 type TaskDefinition_min_fields {
   actvityId: Int
-  config: String
   createdAt: timestamp
+  ctaTemplate: String
   description: String
+  descriptionTemplate: String
+  formId: Int
   icon: String
   id: Int
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
+  stateTemplate: String
+  statusTemplate: String
   thumbnail: String
   title: String
+  titleTemplate: String
   updatedAt: timestamp
   workflowId: Int
 }
@@ -5807,15 +6543,21 @@ order by min() on columns of table "TaskDefinition"
 """
 input TaskDefinition_min_order_by {
   actvityId: order_by
-  config: order_by
   createdAt: order_by
+  ctaTemplate: order_by
   description: order_by
+  descriptionTemplate: order_by
+  formId: order_by
   icon: order_by
   id: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
+  stateTemplate: order_by
+  statusTemplate: order_by
   thumbnail: order_by
   title: order_by
+  titleTemplate: order_by
   updatedAt: order_by
   workflowId: order_by
 }
@@ -5853,20 +6595,35 @@ input TaskDefinition_on_conflict {
 """Ordering options when selecting data from "TaskDefinition"."""
 input TaskDefinition_order_by {
   Activity: Activity_order_by
+  Form: Form_order_by
   Organization: Organization_order_by
   TaskDefinition: TaskDefinition_order_by
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
+  Tasks_aggregate: Task_aggregate_order_by
   Workflow: Workflow_order_by
   actvityId: order_by
   config: order_by
   createdAt: order_by
+  ctaConfig: order_by
+  ctaTemplate: order_by
   description: order_by
+  descriptionTemplate: order_by
+  formId: order_by
   icon: order_by
   id: order_by
+  notificationConfig: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
+  processConfig: order_by
+  stageConfig: order_by
+  stateTemplate: order_by
+  statusConfig: order_by
+  statusTemplate: order_by
   thumbnail: order_by
   title: order_by
+  titleTemplate: order_by
+  triggerConfig: order_by
   updatedAt: order_by
   workflowId: order_by
 }
@@ -5874,6 +6631,17 @@ input TaskDefinition_order_by {
 """primary key columns input for table: TaskDefinition"""
 input TaskDefinition_pk_columns_input {
   id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input TaskDefinition_prepend_input {
+  config: jsonb
+  ctaConfig: jsonb
+  notificationConfig: jsonb
+  processConfig: jsonb
+  stageConfig: jsonb
+  statusConfig: jsonb
+  triggerConfig: jsonb
 }
 
 """
@@ -5890,7 +6658,19 @@ enum TaskDefinition_select_column {
   createdAt
 
   """column name"""
+  ctaConfig
+
+  """column name"""
+  ctaTemplate
+
+  """column name"""
   description
+
+  """column name"""
+  descriptionTemplate
+
+  """column name"""
+  formId
 
   """column name"""
   icon
@@ -5899,16 +6679,43 @@ enum TaskDefinition_select_column {
   id
 
   """column name"""
+  notificationConfig
+
+  """column name"""
+  notificationTemplate
+
+  """column name"""
   organizationId
 
   """column name"""
   parentId
 
   """column name"""
+  processConfig
+
+  """column name"""
+  stageConfig
+
+  """column name"""
+  stateTemplate
+
+  """column name"""
+  statusConfig
+
+  """column name"""
+  statusTemplate
+
+  """column name"""
   thumbnail
 
   """column name"""
   title
+
+  """column name"""
+  titleTemplate
+
+  """column name"""
+  triggerConfig
 
   """column name"""
   updatedAt
@@ -5922,15 +6729,28 @@ input type for updating data in table "TaskDefinition"
 """
 input TaskDefinition_set_input {
   actvityId: Int
-  config: String
+  config: jsonb
   createdAt: timestamp
+  ctaConfig: jsonb
+  ctaTemplate: String
   description: String
+  descriptionTemplate: String
+  formId: Int
   icon: String
   id: Int
+  notificationConfig: jsonb
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
+  processConfig: jsonb
+  stageConfig: jsonb
+  stateTemplate: String
+  statusConfig: jsonb
+  statusTemplate: String
   thumbnail: String
   title: String
+  titleTemplate: String
+  triggerConfig: jsonb
   updatedAt: timestamp
   workflowId: Int
 }
@@ -5938,6 +6758,7 @@ input TaskDefinition_set_input {
 """aggregate stddev on columns"""
 type TaskDefinition_stddev_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -5949,6 +6770,7 @@ order by stddev() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -5958,6 +6780,7 @@ input TaskDefinition_stddev_order_by {
 """aggregate stddev_pop on columns"""
 type TaskDefinition_stddev_pop_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -5969,6 +6792,7 @@ order by stddev_pop() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_pop_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -5978,6 +6802,7 @@ input TaskDefinition_stddev_pop_order_by {
 """aggregate stddev_samp on columns"""
 type TaskDefinition_stddev_samp_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -5989,6 +6814,7 @@ order by stddev_samp() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_samp_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -6009,15 +6835,28 @@ input TaskDefinition_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input TaskDefinition_stream_cursor_value_input {
   actvityId: Int
-  config: String
+  config: jsonb
   createdAt: timestamp
+  ctaConfig: jsonb
+  ctaTemplate: String
   description: String
+  descriptionTemplate: String
+  formId: Int
   icon: String
   id: Int
+  notificationConfig: jsonb
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
+  processConfig: jsonb
+  stageConfig: jsonb
+  stateTemplate: String
+  statusConfig: jsonb
+  statusTemplate: String
   thumbnail: String
   title: String
+  titleTemplate: String
+  triggerConfig: jsonb
   updatedAt: timestamp
   workflowId: Int
 }
@@ -6025,6 +6864,7 @@ input TaskDefinition_stream_cursor_value_input {
 """aggregate sum on columns"""
 type TaskDefinition_sum_fields {
   actvityId: Int
+  formId: Int
   id: Int
   organizationId: Int
   parentId: Int
@@ -6036,6 +6876,7 @@ order by sum() on columns of table "TaskDefinition"
 """
 input TaskDefinition_sum_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -6056,7 +6897,19 @@ enum TaskDefinition_update_column {
   createdAt
 
   """column name"""
+  ctaConfig
+
+  """column name"""
+  ctaTemplate
+
+  """column name"""
   description
+
+  """column name"""
+  descriptionTemplate
+
+  """column name"""
+  formId
 
   """column name"""
   icon
@@ -6065,16 +6918,43 @@ enum TaskDefinition_update_column {
   id
 
   """column name"""
+  notificationConfig
+
+  """column name"""
+  notificationTemplate
+
+  """column name"""
   organizationId
 
   """column name"""
   parentId
 
   """column name"""
+  processConfig
+
+  """column name"""
+  stageConfig
+
+  """column name"""
+  stateTemplate
+
+  """column name"""
+  statusConfig
+
+  """column name"""
+  statusTemplate
+
+  """column name"""
   thumbnail
 
   """column name"""
   title
+
+  """column name"""
+  titleTemplate
+
+  """column name"""
+  triggerConfig
 
   """column name"""
   updatedAt
@@ -6084,8 +6964,29 @@ enum TaskDefinition_update_column {
 }
 
 input TaskDefinition_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: TaskDefinition_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: TaskDefinition_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: TaskDefinition_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: TaskDefinition_delete_key_input
+
   """increments the numeric columns with given value of the filtered values"""
   _inc: TaskDefinition_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: TaskDefinition_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinition_set_input
@@ -6095,6 +6996,7 @@ input TaskDefinition_updates {
 """aggregate var_pop on columns"""
 type TaskDefinition_var_pop_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -6106,6 +7008,7 @@ order by var_pop() on columns of table "TaskDefinition"
 """
 input TaskDefinition_var_pop_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -6115,6 +7018,7 @@ input TaskDefinition_var_pop_order_by {
 """aggregate var_samp on columns"""
 type TaskDefinition_var_samp_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -6126,6 +7030,7 @@ order by var_samp() on columns of table "TaskDefinition"
 """
 input TaskDefinition_var_samp_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -6135,6 +7040,7 @@ input TaskDefinition_var_samp_order_by {
 """aggregate variance on columns"""
 type TaskDefinition_variance_fields {
   actvityId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
@@ -6146,6 +7052,7 @@ order by variance() on columns of table "TaskDefinition"
 """
 input TaskDefinition_variance_order_by {
   actvityId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
@@ -6239,6 +7146,11 @@ input Task_aggregate_order_by {
   variance: Task_variance_order_by
 }
 
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input Task_append_input {
+  values: jsonb
+}
+
 """
 input type for inserting array relation for remote table "Task"
 """
@@ -6251,14 +7163,26 @@ input Task_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type Task_avg_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by avg() on columns of table "Task"
 """
 input Task_avg_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """
@@ -6271,26 +7195,33 @@ input Task_bool_exp {
   EventLogs_aggregate: EventLog_aggregate_bool_exp
   Organization: Organization_bool_exp
   Task: Task_bool_exp
+  TaskDefinition: TaskDefinition_bool_exp
   Tasks: Task_bool_exp
   Tasks_aggregate: Task_aggregate_bool_exp
   Team: Team_bool_exp
+  User: User_bool_exp
   _and: [Task_bool_exp!]
   _not: Task_bool_exp
   _or: [Task_bool_exp!]
-  assigneeId: String_comparison_exp
+  assigneeId: Int_comparison_exp
   createdAt: timestamp_comparison_exp
-  creatorId: String_comparison_exp
+  creatorId: Int_comparison_exp
+  ctaName: String_comparison_exp
+  definitionId: Int_comparison_exp
   description: String_comparison_exp
   dueDate: timestamp_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   organizationId: Int_comparison_exp
-  parentId: String_comparison_exp
+  parentId: Int_comparison_exp
   priority: TaskPriority_comparison_exp
-  projectId: String_comparison_exp
+  stateName: String_comparison_exp
   status: TaskStatus_comparison_exp
-  teamId: String_comparison_exp
+  statusName: String_comparison_exp
+  teamId: Int_comparison_exp
   title: String_comparison_exp
   updatedAt: timestamp_comparison_exp
+  userByCreatorid: User_bool_exp
+  values: jsonb_comparison_exp
 }
 
 """
@@ -6304,10 +7235,37 @@ enum Task_constraint {
 }
 
 """
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input Task_delete_at_path_input {
+  values: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input Task_delete_elem_input {
+  values: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input Task_delete_key_input {
+  values: String
+}
+
+"""
 input type for incrementing numeric columns in table "Task"
 """
 input Task_inc_input {
+  assigneeId: Int
+  creatorId: Int
+  definitionId: Int
+  id: Int
   organizationId: Int
+  parentId: Int
+  teamId: Int
 }
 
 """
@@ -6318,38 +7276,48 @@ input Task_insert_input {
   EventLogs: EventLog_arr_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   Task: Task_obj_rel_insert_input
+  TaskDefinition: TaskDefinition_obj_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Team: Team_obj_rel_insert_input
-  assigneeId: String
+  User: User_obj_rel_insert_input
+  assigneeId: Int
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
+  ctaName: String
+  definitionId: Int
   description: String
   dueDate: timestamp
-  id: String
+  id: Int
   organizationId: Int
-  parentId: String
+  parentId: Int
   priority: TaskPriority
-  projectId: String
+  stateName: String
   status: TaskStatus
-  teamId: String
+  statusName: String
+  teamId: Int
   title: String
   updatedAt: timestamp
+  userByCreatorid: User_obj_rel_insert_input
+  values: jsonb
 }
 
 """aggregate max on columns"""
 type Task_max_fields {
-  assigneeId: String
+  assigneeId: Int
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
+  ctaName: String
+  definitionId: Int
   description: String
   dueDate: timestamp
-  id: String
+  id: Int
   organizationId: Int
-  parentId: String
+  parentId: Int
   priority: TaskPriority
-  projectId: String
+  stateName: String
   status: TaskStatus
-  teamId: String
+  statusName: String
+  teamId: Int
   title: String
   updatedAt: timestamp
 }
@@ -6361,14 +7329,17 @@ input Task_max_order_by {
   assigneeId: order_by
   createdAt: order_by
   creatorId: order_by
+  ctaName: order_by
+  definitionId: order_by
   description: order_by
   dueDate: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
-  projectId: order_by
+  stateName: order_by
   status: order_by
+  statusName: order_by
   teamId: order_by
   title: order_by
   updatedAt: order_by
@@ -6376,18 +7347,21 @@ input Task_max_order_by {
 
 """aggregate min on columns"""
 type Task_min_fields {
-  assigneeId: String
+  assigneeId: Int
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
+  ctaName: String
+  definitionId: Int
   description: String
   dueDate: timestamp
-  id: String
+  id: Int
   organizationId: Int
-  parentId: String
+  parentId: Int
   priority: TaskPriority
-  projectId: String
+  stateName: String
   status: TaskStatus
-  teamId: String
+  statusName: String
+  teamId: Int
   title: String
   updatedAt: timestamp
 }
@@ -6399,14 +7373,17 @@ input Task_min_order_by {
   assigneeId: order_by
   createdAt: order_by
   creatorId: order_by
+  ctaName: order_by
+  definitionId: order_by
   description: order_by
   dueDate: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
-  projectId: order_by
+  stateName: order_by
   status: order_by
+  statusName: order_by
   teamId: order_by
   title: order_by
   updatedAt: order_by
@@ -6448,27 +7425,39 @@ input Task_order_by {
   EventLogs_aggregate: EventLog_aggregate_order_by
   Organization: Organization_order_by
   Task: Task_order_by
+  TaskDefinition: TaskDefinition_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Team: Team_order_by
+  User: User_order_by
   assigneeId: order_by
   createdAt: order_by
   creatorId: order_by
+  ctaName: order_by
+  definitionId: order_by
   description: order_by
   dueDate: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
-  projectId: order_by
+  stateName: order_by
   status: order_by
+  statusName: order_by
   teamId: order_by
   title: order_by
   updatedAt: order_by
+  userByCreatorid: User_order_by
+  values: order_by
 }
 
 """primary key columns input for table: Task"""
 input Task_pk_columns_input {
-  id: String!
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input Task_prepend_input {
+  values: jsonb
 }
 
 """
@@ -6485,6 +7474,12 @@ enum Task_select_column {
   creatorId
 
   """column name"""
+  ctaName
+
+  """column name"""
+  definitionId
+
+  """column name"""
   description
 
   """column name"""
@@ -6503,10 +7498,13 @@ enum Task_select_column {
   priority
 
   """column name"""
-  projectId
+  stateName
 
   """column name"""
   status
+
+  """column name"""
+  statusName
 
   """column name"""
   teamId
@@ -6516,62 +7514,105 @@ enum Task_select_column {
 
   """column name"""
   updatedAt
+
+  """column name"""
+  values
 }
 
 """
 input type for updating data in table "Task"
 """
 input Task_set_input {
-  assigneeId: String
+  assigneeId: Int
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
+  ctaName: String
+  definitionId: Int
   description: String
   dueDate: timestamp
-  id: String
+  id: Int
   organizationId: Int
-  parentId: String
+  parentId: Int
   priority: TaskPriority
-  projectId: String
+  stateName: String
   status: TaskStatus
-  teamId: String
+  statusName: String
+  teamId: Int
   title: String
   updatedAt: timestamp
+  values: jsonb
 }
 
 """aggregate stddev on columns"""
 type Task_stddev_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by stddev() on columns of table "Task"
 """
 input Task_stddev_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Task_stddev_pop_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by stddev_pop() on columns of table "Task"
 """
 input Task_stddev_pop_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Task_stddev_samp_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by stddev_samp() on columns of table "Task"
 """
 input Task_stddev_samp_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """
@@ -6587,32 +7628,48 @@ input Task_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Task_stream_cursor_value_input {
-  assigneeId: String
+  assigneeId: Int
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
+  ctaName: String
+  definitionId: Int
   description: String
   dueDate: timestamp
-  id: String
+  id: Int
   organizationId: Int
-  parentId: String
+  parentId: Int
   priority: TaskPriority
-  projectId: String
+  stateName: String
   status: TaskStatus
-  teamId: String
+  statusName: String
+  teamId: Int
   title: String
   updatedAt: timestamp
+  values: jsonb
 }
 
 """aggregate sum on columns"""
 type Task_sum_fields {
+  assigneeId: Int
+  creatorId: Int
+  definitionId: Int
+  id: Int
   organizationId: Int
+  parentId: Int
+  teamId: Int
 }
 
 """
 order by sum() on columns of table "Task"
 """
 input Task_sum_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """
@@ -6629,6 +7686,12 @@ enum Task_update_column {
   creatorId
 
   """column name"""
+  ctaName
+
+  """column name"""
+  definitionId
+
+  """column name"""
   description
 
   """column name"""
@@ -6647,10 +7710,13 @@ enum Task_update_column {
   priority
 
   """column name"""
-  projectId
+  stateName
 
   """column name"""
   status
+
+  """column name"""
+  statusName
 
   """column name"""
   teamId
@@ -6660,11 +7726,35 @@ enum Task_update_column {
 
   """column name"""
   updatedAt
+
+  """column name"""
+  values
 }
 
 input Task_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: Task_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: Task_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: Task_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: Task_delete_key_input
+
   """increments the numeric columns with given value of the filtered values"""
   _inc: Task_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: Task_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Task_set_input
@@ -6673,38 +7763,74 @@ input Task_updates {
 
 """aggregate var_pop on columns"""
 type Task_var_pop_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by var_pop() on columns of table "Task"
 """
 input Task_var_pop_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """aggregate var_samp on columns"""
 type Task_var_samp_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by var_samp() on columns of table "Task"
 """
 input Task_var_samp_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """aggregate variance on columns"""
 type Task_variance_fields {
+  assigneeId: Float
+  creatorId: Float
+  definitionId: Float
+  id: Float
   organizationId: Float
+  parentId: Float
+  teamId: Float
 }
 
 """
 order by variance() on columns of table "Task"
 """
 input Task_variance_order_by {
+  assigneeId: order_by
+  creatorId: order_by
+  definitionId: order_by
+  id: order_by
   organizationId: order_by
+  parentId: order_by
+  teamId: order_by
 }
 
 """
@@ -6792,7 +7918,7 @@ type Team {
   createdAt: timestamp!
   creatorId: Int!
   description: String!
-  id: String!
+  id: Int!
   managerId: Int!
   name: String!
   organizationId: Int!
@@ -6868,6 +7994,7 @@ input Team_arr_rel_insert_input {
 """aggregate avg on columns"""
 type Team_avg_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -6877,6 +8004,7 @@ order by avg() on columns of table "Team"
 """
 input Team_avg_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -6898,7 +8026,7 @@ input Team_bool_exp {
   createdAt: timestamp_comparison_exp
   creatorId: Int_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   managerId: Int_comparison_exp
   name: String_comparison_exp
   organizationId: Int_comparison_exp
@@ -6921,6 +8049,7 @@ input type for incrementing numeric columns in table "Team"
 """
 input Team_inc_input {
   creatorId: Int
+  id: Int
   managerId: Int
   organizationId: Int
 }
@@ -6937,7 +8066,7 @@ input Team_insert_input {
   createdAt: timestamp
   creatorId: Int
   description: String
-  id: String
+  id: Int
   managerId: Int
   name: String
   organizationId: Int
@@ -6951,7 +8080,7 @@ type Team_max_fields {
   createdAt: timestamp
   creatorId: Int
   description: String
-  id: String
+  id: Int
   managerId: Int
   name: String
   organizationId: Int
@@ -6979,7 +8108,7 @@ type Team_min_fields {
   createdAt: timestamp
   creatorId: Int
   description: String
-  id: String
+  id: Int
   managerId: Int
   name: String
   organizationId: Int
@@ -7051,7 +8180,7 @@ input Team_order_by {
 
 """primary key columns input for table: Team"""
 input Team_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -7094,7 +8223,7 @@ input Team_set_input {
   createdAt: timestamp
   creatorId: Int
   description: String
-  id: String
+  id: Int
   managerId: Int
   name: String
   organizationId: Int
@@ -7104,6 +8233,7 @@ input Team_set_input {
 """aggregate stddev on columns"""
 type Team_stddev_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7113,6 +8243,7 @@ order by stddev() on columns of table "Team"
 """
 input Team_stddev_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7120,6 +8251,7 @@ input Team_stddev_order_by {
 """aggregate stddev_pop on columns"""
 type Team_stddev_pop_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7129,6 +8261,7 @@ order by stddev_pop() on columns of table "Team"
 """
 input Team_stddev_pop_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7136,6 +8269,7 @@ input Team_stddev_pop_order_by {
 """aggregate stddev_samp on columns"""
 type Team_stddev_samp_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7145,6 +8279,7 @@ order by stddev_samp() on columns of table "Team"
 """
 input Team_stddev_samp_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7166,7 +8301,7 @@ input Team_stream_cursor_value_input {
   createdAt: timestamp
   creatorId: Int
   description: String
-  id: String
+  id: Int
   managerId: Int
   name: String
   organizationId: Int
@@ -7176,6 +8311,7 @@ input Team_stream_cursor_value_input {
 """aggregate sum on columns"""
 type Team_sum_fields {
   creatorId: Int
+  id: Int
   managerId: Int
   organizationId: Int
 }
@@ -7185,6 +8321,7 @@ order by sum() on columns of table "Team"
 """
 input Team_sum_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7233,6 +8370,7 @@ input Team_updates {
 """aggregate var_pop on columns"""
 type Team_var_pop_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7242,6 +8380,7 @@ order by var_pop() on columns of table "Team"
 """
 input Team_var_pop_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7249,6 +8388,7 @@ input Team_var_pop_order_by {
 """aggregate var_samp on columns"""
 type Team_var_samp_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7258,6 +8398,7 @@ order by var_samp() on columns of table "Team"
 """
 input Team_var_samp_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7265,6 +8406,7 @@ input Team_var_samp_order_by {
 """aggregate variance on columns"""
 type Team_variance_fields {
   creatorId: Float
+  id: Float
   managerId: Float
   organizationId: Float
 }
@@ -7274,6 +8416,7 @@ order by variance() on columns of table "Team"
 """
 input Team_variance_order_by {
   creatorId: order_by
+  id: order_by
   managerId: order_by
   organizationId: order_by
 }
@@ -7947,6 +9090,42 @@ type User {
   ): Post_aggregate!
 
   """An array relationship"""
+  Tasks(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  Tasks_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
+
+  """An array relationship"""
   Teams(
     """distinct select on columns"""
     distinct_on: [Team_select_column!]
@@ -8025,6 +9204,42 @@ type User {
   organizationId: Int!
   password: String!
   role: Role!
+
+  """An array relationship"""
+  tasksByCreatorid(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  tasksByCreatorid_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
 
   """An array relationship"""
   teamsByManagerid(
@@ -8549,6 +9764,8 @@ input User_bool_exp {
   Organization: Organization_bool_exp
   Posts: Post_bool_exp
   Posts_aggregate: Post_aggregate_bool_exp
+  Tasks: Task_bool_exp
+  Tasks_aggregate: Task_aggregate_bool_exp
   Teams: Team_bool_exp
   Teams_aggregate: Team_aggregate_bool_exp
   UserPermissions: UserPermission_bool_exp
@@ -8564,6 +9781,8 @@ input User_bool_exp {
   organizationId: Int_comparison_exp
   password: String_comparison_exp
   role: Role_comparison_exp
+  tasksByCreatorid: Task_bool_exp
+  tasksByCreatorid_aggregate: Task_aggregate_bool_exp
   teamsByManagerid: Team_bool_exp
   teamsByManagerid_aggregate: Team_aggregate_bool_exp
   updatedAt: timestamp_comparison_exp
@@ -8601,6 +9820,7 @@ input User_insert_input {
   MemberOnTeams: MemberOnTeams_arr_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   Posts: Post_arr_rel_insert_input
+  Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
   UserPermissions: UserPermission_arr_rel_insert_input
   createdAt: timestamp
@@ -8611,6 +9831,7 @@ input User_insert_input {
   organizationId: Int
   password: String
   role: Role
+  tasksByCreatorid: Task_arr_rel_insert_input
   teamsByManagerid: Team_arr_rel_insert_input
   updatedAt: timestamp
 }
@@ -8708,6 +9929,7 @@ input User_order_by {
   MemberOnTeams_aggregate: MemberOnTeams_aggregate_order_by
   Organization: Organization_order_by
   Posts_aggregate: Post_aggregate_order_by
+  Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
   UserPermissions_aggregate: UserPermission_aggregate_order_by
   createdAt: order_by
@@ -8718,6 +9940,7 @@ input User_order_by {
   organizationId: order_by
   password: order_by
   role: order_by
+  tasksByCreatorid_aggregate: Task_aggregate_order_by
   teamsByManagerid_aggregate: Team_aggregate_order_by
   updatedAt: order_by
 }
@@ -9920,6 +11143,19 @@ type mutation_root {
   delete_File_by_pk(id: Int!): File
 
   """
+  delete data from the table: "Form"
+  """
+  delete_Form(
+    """filter the rows which have to be deleted"""
+    where: Form_bool_exp!
+  ): Form_mutation_response
+
+  """
+  delete single row from the table: "Form"
+  """
+  delete_Form_by_pk(id: Int!): Form
+
+  """
   delete data from the table: "MemberOnTeams"
   """
   delete_MemberOnTeams(
@@ -9930,7 +11166,7 @@ type mutation_root {
   """
   delete single row from the table: "MemberOnTeams"
   """
-  delete_MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
+  delete_MemberOnTeams_by_pk(teamId: Int!, userId: Int!): MemberOnTeams
 
   """
   delete data from the table: "Organization"
@@ -10021,7 +11257,7 @@ type mutation_root {
   """
   delete single row from the table: "Task"
   """
-  delete_Task_by_pk(id: String!): Task
+  delete_Task_by_pk(id: Int!): Task
 
   """
   delete data from the table: "Team"
@@ -10034,7 +11270,7 @@ type mutation_root {
   """
   delete single row from the table: "Team"
   """
-  delete_Team_by_pk(id: String!): Team
+  delete_Team_by_pk(id: Int!): Team
 
   """
   delete data from the table: "Trigger"
@@ -10210,6 +11446,28 @@ type mutation_root {
     """upsert condition"""
     on_conflict: File_on_conflict
   ): File
+
+  """
+  insert data into the table: "Form"
+  """
+  insert_Form(
+    """the rows to be inserted"""
+    objects: [Form_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: Form_on_conflict
+  ): Form_mutation_response
+
+  """
+  insert a single row into the table: "Form"
+  """
+  insert_Form_one(
+    """the row to be inserted"""
+    object: Form_insert_input!
+
+    """upsert condition"""
+    on_conflict: Form_on_conflict
+  ): Form
 
   """
   insert data into the table: "MemberOnTeams"
@@ -10736,6 +11994,82 @@ type mutation_root {
   ): [File_mutation_response]
 
   """
+  update data of the table: "Form"
+  """
+  update_Form(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Form_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Form_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Form_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Form_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Form_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Form_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Form_set_input
+
+    """filter the rows which have to be updated"""
+    where: Form_bool_exp!
+  ): Form_mutation_response
+
+  """
+  update single row of the table: "Form"
+  """
+  update_Form_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Form_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Form_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Form_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Form_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Form_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Form_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Form_set_input
+    pk_columns: Form_pk_columns_input!
+  ): Form
+
+  """
+  update multiples rows of table: "Form"
+  """
+  update_Form_many(
+    """updates to execute, in order"""
+    updates: [Form_updates!]!
+  ): [Form_mutation_response]
+
+  """
   update data of the table: "MemberOnTeams"
   """
   update_MemberOnTeams(
@@ -10943,8 +12277,29 @@ type mutation_root {
   update data of the table: "Task"
   """
   update_Task(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Task_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Task_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Task_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Task_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Task_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Task_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Task_set_input
@@ -10957,8 +12312,29 @@ type mutation_root {
   update data of the table: "TaskDefinition"
   """
   update_TaskDefinition(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskDefinition_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskDefinition_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskDefinition_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskDefinition_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: TaskDefinition_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskDefinition_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: TaskDefinition_set_input
@@ -10971,8 +12347,29 @@ type mutation_root {
   update single row of the table: "TaskDefinition"
   """
   update_TaskDefinition_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskDefinition_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskDefinition_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskDefinition_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskDefinition_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: TaskDefinition_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskDefinition_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: TaskDefinition_set_input
@@ -10991,8 +12388,29 @@ type mutation_root {
   update single row of the table: "Task"
   """
   update_Task_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Task_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Task_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Task_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Task_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Task_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Task_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Task_set_input
@@ -11533,6 +12951,49 @@ type query_root {
   """fetch data from the table: "File" using primary key columns"""
   File_by_pk(id: Int!): File
 
+  """
+  fetch data from the table: "Form"
+  """
+  Form(
+    """distinct select on columns"""
+    distinct_on: [Form_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Form_order_by!]
+
+    """filter the rows returned"""
+    where: Form_bool_exp
+  ): [Form!]!
+
+  """
+  fetch aggregated fields from the table: "Form"
+  """
+  Form_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Form_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Form_order_by!]
+
+    """filter the rows returned"""
+    where: Form_bool_exp
+  ): Form_aggregate!
+
+  """fetch data from the table: "Form" using primary key columns"""
+  Form_by_pk(id: Int!): Form
+
   """An array relationship"""
   MemberOnTeams(
     """distinct select on columns"""
@@ -11570,7 +13031,7 @@ type query_root {
   ): MemberOnTeams_aggregate!
 
   """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
+  MemberOnTeams_by_pk(teamId: Int!, userId: Int!): MemberOnTeams
 
   """
   fetch data from the table: "Organization"
@@ -11867,7 +13328,7 @@ type query_root {
   ): Task_aggregate!
 
   """fetch data from the table: "Task" using primary key columns"""
-  Task_by_pk(id: String!): Task
+  Task_by_pk(id: Int!): Task
 
   """
   fetch data from the table: "Team"
@@ -11910,7 +13371,7 @@ type query_root {
   ): Team_aggregate!
 
   """fetch data from the table: "Team" using primary key columns"""
-  Team_by_pk(id: String!): Team
+  Team_by_pk(id: Int!): Team
 
   """
   fetch data from the table: "Trigger"
@@ -12419,6 +13880,63 @@ type subscription_root {
     where: File_bool_exp
   ): [File!]!
 
+  """
+  fetch data from the table: "Form"
+  """
+  Form(
+    """distinct select on columns"""
+    distinct_on: [Form_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Form_order_by!]
+
+    """filter the rows returned"""
+    where: Form_bool_exp
+  ): [Form!]!
+
+  """
+  fetch aggregated fields from the table: "Form"
+  """
+  Form_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Form_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Form_order_by!]
+
+    """filter the rows returned"""
+    where: Form_bool_exp
+  ): Form_aggregate!
+
+  """fetch data from the table: "Form" using primary key columns"""
+  Form_by_pk(id: Int!): Form
+
+  """
+  fetch data from the table in a streaming manner: "Form"
+  """
+  Form_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [Form_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: Form_bool_exp
+  ): [Form!]!
+
   """An array relationship"""
   MemberOnTeams(
     """distinct select on columns"""
@@ -12456,7 +13974,7 @@ type subscription_root {
   ): MemberOnTeams_aggregate!
 
   """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
+  MemberOnTeams_by_pk(teamId: Int!, userId: Int!): MemberOnTeams
 
   """
   fetch data from the table in a streaming manner: "MemberOnTeams"
@@ -12851,7 +14369,7 @@ type subscription_root {
   ): Task_aggregate!
 
   """fetch data from the table: "Task" using primary key columns"""
-  Task_by_pk(id: String!): Task
+  Task_by_pk(id: Int!): Task
 
   """
   fetch data from the table in a streaming manner: "Task"
@@ -12908,7 +14426,7 @@ type subscription_root {
   ): Team_aggregate!
 
   """fetch data from the table: "Team" using primary key columns"""
-  Team_by_pk(id: String!): Team
+  Team_by_pk(id: Int!): Team
 
   """
   fetch data from the table in a streaming manner: "Team"

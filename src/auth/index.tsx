@@ -29,6 +29,8 @@ export const UserContext = React.createContext<Context>({
   requestLoginByExternalPlugin: undefined,
   authenticating: false,
   authenticated: false,
+  user: undefined,
+  setUser: undefined,
   errors: [],
 });
 
