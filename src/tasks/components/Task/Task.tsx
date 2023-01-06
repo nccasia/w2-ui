@@ -1,8 +1,8 @@
 import { Card } from "@material-ui/core";
-import QuillEditor from "@saleor/components/QuillEditor";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
+import React, { useState } from "react";
 
+import EditQuillEditor from "../EditQuillEditor";
 import TaskTitle from "../TaskTitle";
 
 const useStyles = makeStyles(
@@ -11,18 +11,45 @@ const useStyles = makeStyles(
       marginTop: "27px",
     },
   }),
-  { name: "C:Workspacew2-uisrc\taskscomponentsTaskTask" },
+  { name: "Task" },
 );
 
 const Task = () => {
   const classes = useStyles();
+  const [modules, setModules] = useState({ toolbar: false });
+  const [edit, setEdit] = useState<boolean>(true);
+  const [key, setKey] = useState(1);
+
+  const handleEdit = () => {
+    setModules({ toolbar: true });
+    setEdit(false);
+    setKey(key => key + 1);
+  };
+
+  const handleCancel = () => {
+    setModules({ toolbar: false });
+    setEdit(true);
+    setKey(key => key + 1);
+  };
+
+  const handleSave = () => {
+    setModules({ toolbar: false });
+    setEdit(true);
+    setKey(key => key + 1);
+  };
   return (
     <Card className={classes.container}>
       <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" />
-      <QuillEditor
-        value="<h1>Hello</h1>"
-        // title="Description"
-        onChange={() => ""}
+      <EditQuillEditor
+        key={key}
+        edit={edit}
+        modules={modules}
+        onChange={() => true}
+        handleCancel={handleCancel}
+        handleEdit={handleEdit}
+        handleSave={handleSave}
+        title={"Description"}
+        value={"<h2>Hello world!</h2>"}
       />
     </Card>
   );

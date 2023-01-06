@@ -14,7 +14,7 @@ const PermissionGroupCreateView: React.FC = () => {
 
   const errors = [];
 
-  const userPermissions = user?.user.userPermissions.map(p => p.code) || [];
+  const userPermissions = user?.user.permissions.map(p => p.code) || [];
 
   const permissions: PermissionData[] =
     shop?.permissions.map(

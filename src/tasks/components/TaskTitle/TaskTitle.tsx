@@ -45,7 +45,7 @@ const useStyles = makeStyles(
       marginRight: "24px",
     },
   }),
-  { name: "OrderCardTitle" },
+  { name: "TaskTitle" },
 );
 
 interface TaskTitleProps {

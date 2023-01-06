@@ -1,4 +1,5 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import AccountPermissionGroups from "@saleor/components/AccountPermissionGroups";
 import { Backlink } from "@saleor/components/Backlink";
 import CardSpacer from "@saleor/components/CardSpacer";
@@ -94,12 +95,12 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
       value: group.id,
     })) || [],
   );
-
+  const { user } = useUser();
   const initialForm: StaffDetailsFormData = {
-    email: staffMember?.email || "",
-    firstName: staffMember?.firstName || "",
+    email: user?.email || "",
+    firstName: user?.firstname || "",
     isActive,
-    lastName: staffMember?.lastName || "",
+    lastName: user?.lastname || "",
     permissionGroups: permissionGroups.map(pg => pg.id),
   };
 
@@ -110,7 +111,7 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
       onSubmit={onSubmit}
       disabled={disabled}
     >
-      {({ data: formData, change, isSaveDisabled, submit, toggleValue }) => {
+      {({ data: formData, change, submit, toggleValue }) => {
         const permissionGroupsChange = createMultiAutocompleteSelectHandler(
           toggleValue,
           setPermissionGroupsDisplayValues,
@@ -132,13 +133,14 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
                 <StaffProperties
                   errors={errors}
                   data={formData}
-                  disabled={disabled}
                   canEditAvatar={canEditAvatar}
                   staffMember={staffMember}
                   onChange={change}
                   onImageUpload={onImageUpload}
                   onImageDelete={onImageDelete}
+                  disabled={false}
                 />
+
                 {canEditPreferences && (
                   <>
                     <CardSpacer />
@@ -197,7 +199,7 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
               </div>
             </Grid>
             <Savebar
-              disabled={isSaveDisabled}
+              disabled={false}
               state={saveButtonBarState}
               onCancel={() => navigate(staffListUrl())}
               onSubmit={submit}

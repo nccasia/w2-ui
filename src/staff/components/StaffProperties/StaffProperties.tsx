@@ -94,11 +94,7 @@ const useStyles = makeStyles(
 interface StaffPropertiesProps {
   canEditAvatar: boolean;
   className?: string;
-  data: {
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
+  data: any;
   errors: any[];
   disabled: boolean;
   staffMember: any;
@@ -139,6 +135,8 @@ const StaffProperties: React.FC<StaffPropertiesProps> = props => {
     name,
     value: data[name],
   });
+  // eslint-disable-next-line no-console
+  console.log("a", data);
 
   return (
     <Card className={className}>

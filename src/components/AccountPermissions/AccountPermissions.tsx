@@ -118,7 +118,7 @@ const AccountPermissions: React.FC<AccountPermissionsProps> = props => {
               })}
             </Typography>
             <List dense={true}>
-              {user.userPermissions.map(perm => (
+              {user.permissions.map(perm => (
                 <ListItem key={perm.code}>
                   <ListItemText primary={`- ${perm.name}`} />
                 </ListItem>

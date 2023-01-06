@@ -2,6 +2,7 @@ import { ApolloClient, ApolloError } from "@apollo/client";
 import { useAuth } from "@saleor/auth/hooks/useAuth";
 import { IMessageContext } from "@saleor/components/messages";
 import { DEMO_MODE } from "@saleor/config";
+import { Rolebe } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { commonMessages } from "@saleor/intl";
@@ -126,34 +127,29 @@ export function useAuthProvider({
       const result = await login({
         email,
         password,
-        includeDetails: false,
       });
 
-      if (result && !result.data.tokenCreate.errors.length) {
+      if (result && !result.errors) {
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
         }
-        saveCredentials(result.data.tokenCreate.user, password);
+        saveCredentials(result.data.login.user, password);
       } else {
         setErrors(["loginError"]);
       }
 
-      await logoutNonStaffUser(result.data.tokenCreate);
+      await logoutNonStaffUser(result.data.login.accessToken);
 
-      setUser(result.data.tokenCreate.user);
+      setUser(result.data.login.user);
 
-      return result.data.tokenCreate.user;
+      return result.data.login.user;
     } catch (error) {
       handleLoginError(error);
     }
   };
   const handleLoginWithGoogle = async (googleId: string) => {
     try {
-      // eslint-disable-next-line no-console
-      console.log(1);
       const result = await loginWithGoogle(googleId);
-      // eslint-disable-next-line no-console
-      console.log("ressult--->>>", result);
       if (result && !result.data.tokenCreate.errors.length) {
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
@@ -199,7 +195,7 @@ export function useAuthProvider({
   };
 
   const logoutNonStaffUser = async (data: any) => {
-    if (data.user && !data.user.isStaff) {
+    if (data.user && data.user.role === Rolebe.USER) {
       notify({
         status: "error",
         text: intl.formatMessage(commonMessages.unauthorizedDashboardAccess),
@@ -217,8 +213,9 @@ export function useAuthProvider({
     loginByExternalPlugin: handleExternalLogin,
     logout: handleLogout,
     authenticating: authenticating && !errors.length,
-    authenticated: authenticated && user?.isStaff,
+    authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
+    setUser,
   };
 }

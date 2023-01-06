@@ -10,6 +10,7 @@ export const UserDecorator = (user: any) => storyFn => (
       loginByExternalPlugin: undefined,
       logout: undefined,
       user,
+      setUser: undefined,
       authenticated: false,
       authenticating: false,
       errors: [],
