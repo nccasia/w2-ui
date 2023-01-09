@@ -5,6 +5,7 @@ import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
 import { useUpdateInformationUserMutation } from "@saleor/graphql/hooks.generated";
 import useNavigator from "@saleor/hooks/useNavigator";
+import useNotifier from "@saleor/hooks/useNotifier";
 import { getStringOrPlaceholder } from "@saleor/misc";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -27,6 +28,7 @@ interface OrderListProps {
 export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
   const navigate = useNavigator();
   const intl = useIntl();
+  const notify = useNotifier();
 
   const closeModal = () =>
     navigate(
@@ -61,27 +63,38 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
 
   const [
     updateInformationUserMutation,
-    { data, error },
+    { error },
   ] = useUpdateInformationUserMutation();
 
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
-  const handleUpdate = (data2: StaffDetailsFormData) => {
-    // eslint-disable-next-line no-console
-    console.log(1111, data2);
+  const handleUpdate = (formData: StaffDetailsFormData) => {
     updateInformationUserMutation({
       variables: {
         id: user.id,
-        firstname: data2.firstName,
-        lastname: data2.lastName,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
       },
     });
     if (error) {
       // eslint-disable-next-line no-console
-      console.log("error updating", error);
+      console.log("Error: ", error);
+      notify({
+        status: "error",
+        text: error,
+      });
+    } else {
+      setUser({
+        ...user,
+        id: user.id,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+      });
+      notify({
+        status: "success",
+        text: "Change profile successfully",
+      });
     }
-    // eslint-disable-next-line no-console
-    console.log("data updated", data);
   };
   if (false) {
     return <NotFoundPage backHref={staffListUrl()} />;

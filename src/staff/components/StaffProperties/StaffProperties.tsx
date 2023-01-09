@@ -135,8 +135,6 @@ const StaffProperties: React.FC<StaffPropertiesProps> = props => {
     name,
     value: data[name],
   });
-  // eslint-disable-next-line no-console
-  console.log("a", data);
 
   return (
     <Card className={className}>
