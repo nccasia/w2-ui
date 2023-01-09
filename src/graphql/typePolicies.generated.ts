@@ -719,7 +719,7 @@ export type MemberOnTeams_variance_fieldsFieldPolicy = {
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OrganizationKeySpecifier = ('EventLogs' | 'EventLogs_aggregate' | 'Files' | 'Files_aggregate' | 'PermissionGroups' | 'PermissionGroups_aggregate' | 'Permissions' | 'Permissions_aggregate' | 'Settings' | 'Settings_aggregate' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'Tasks' | 'Tasks_aggregate' | 'Teams' | 'Teams_aggregate' | 'Users' | 'Users_aggregate' | 'Workflows' | 'Workflows_aggregate' | 'createdAt' | 'description' | 'id' | 'name' | 'updatedAt' | OrganizationKeySpecifier)[];
+export type OrganizationKeySpecifier = ('EventLogs' | 'EventLogs_aggregate' | 'Files' | 'Files_aggregate' | 'PermissionGroups' | 'PermissionGroups_aggregate' | 'Permissions' | 'Permissions_aggregate' | 'Resources' | 'Resources_aggregate' | 'Settings' | 'Settings_aggregate' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'Tasks' | 'Tasks_aggregate' | 'Teams' | 'Teams_aggregate' | 'Users' | 'Users_aggregate' | 'Workflows' | 'Workflows_aggregate' | 'createdAt' | 'description' | 'id' | 'name' | 'updatedAt' | OrganizationKeySpecifier)[];
 export type OrganizationFieldPolicy = {
 	EventLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	EventLogs_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -729,6 +729,8 @@ export type OrganizationFieldPolicy = {
 	PermissionGroups_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Permissions?: FieldPolicy<any> | FieldReadFunction<any>,
 	Permissions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resources?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resources_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1122,6 +1124,204 @@ export type Post_variance_fieldsKeySpecifier = ('authorId' | 'id' | Post_varianc
 export type Post_variance_fieldsFieldPolicy = {
 	authorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceKeySpecifier = ('Organization' | 'ResourceItems' | 'ResourceItems_aggregate' | 'code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'organizationId' | 'updatedAt' | ResourceKeySpecifier)[];
+export type ResourceFieldPolicy = {
+	Organization?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItems?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItems_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItemKeySpecifier = ('Resource' | 'code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'resourceId' | 'updatedAt' | ResourceItemKeySpecifier)[];
+export type ResourceItemFieldPolicy = {
+	Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_aggregateKeySpecifier = ('aggregate' | 'nodes' | ResourceItem_aggregateKeySpecifier)[];
+export type ResourceItem_aggregateFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodes?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_aggregate_fieldsKeySpecifier = ('avg' | 'count' | 'max' | 'min' | 'stddev' | 'stddev_pop' | 'stddev_samp' | 'sum' | 'var_pop' | 'var_samp' | 'variance' | ResourceItem_aggregate_fieldsKeySpecifier)[];
+export type ResourceItem_aggregate_fieldsFieldPolicy = {
+	avg?: FieldPolicy<any> | FieldReadFunction<any>,
+	count?: FieldPolicy<any> | FieldReadFunction<any>,
+	max?: FieldPolicy<any> | FieldReadFunction<any>,
+	min?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev_pop?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev_samp?: FieldPolicy<any> | FieldReadFunction<any>,
+	sum?: FieldPolicy<any> | FieldReadFunction<any>,
+	var_pop?: FieldPolicy<any> | FieldReadFunction<any>,
+	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
+	variance?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_avg_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_avg_fieldsKeySpecifier)[];
+export type ResourceItem_avg_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_max_fieldsKeySpecifier = ('code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'resourceId' | 'updatedAt' | ResourceItem_max_fieldsKeySpecifier)[];
+export type ResourceItem_max_fieldsFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_min_fieldsKeySpecifier = ('code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'resourceId' | 'updatedAt' | ResourceItem_min_fieldsKeySpecifier)[];
+export type ResourceItem_min_fieldsFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | ResourceItem_mutation_responseKeySpecifier)[];
+export type ResourceItem_mutation_responseFieldPolicy = {
+	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
+	returning?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_stddev_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_stddev_fieldsKeySpecifier)[];
+export type ResourceItem_stddev_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_stddev_pop_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_stddev_pop_fieldsKeySpecifier)[];
+export type ResourceItem_stddev_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_stddev_samp_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_stddev_samp_fieldsKeySpecifier)[];
+export type ResourceItem_stddev_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_sum_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_sum_fieldsKeySpecifier)[];
+export type ResourceItem_sum_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_var_pop_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_var_pop_fieldsKeySpecifier)[];
+export type ResourceItem_var_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_var_samp_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_var_samp_fieldsKeySpecifier)[];
+export type ResourceItem_var_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type ResourceItem_variance_fieldsKeySpecifier = ('id' | 'resourceId' | ResourceItem_variance_fieldsKeySpecifier)[];
+export type ResourceItem_variance_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	resourceId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_aggregateKeySpecifier = ('aggregate' | 'nodes' | Resource_aggregateKeySpecifier)[];
+export type Resource_aggregateFieldPolicy = {
+	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	nodes?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_aggregate_fieldsKeySpecifier = ('avg' | 'count' | 'max' | 'min' | 'stddev' | 'stddev_pop' | 'stddev_samp' | 'sum' | 'var_pop' | 'var_samp' | 'variance' | Resource_aggregate_fieldsKeySpecifier)[];
+export type Resource_aggregate_fieldsFieldPolicy = {
+	avg?: FieldPolicy<any> | FieldReadFunction<any>,
+	count?: FieldPolicy<any> | FieldReadFunction<any>,
+	max?: FieldPolicy<any> | FieldReadFunction<any>,
+	min?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev_pop?: FieldPolicy<any> | FieldReadFunction<any>,
+	stddev_samp?: FieldPolicy<any> | FieldReadFunction<any>,
+	sum?: FieldPolicy<any> | FieldReadFunction<any>,
+	var_pop?: FieldPolicy<any> | FieldReadFunction<any>,
+	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
+	variance?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_avg_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_avg_fieldsKeySpecifier)[];
+export type Resource_avg_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_max_fieldsKeySpecifier = ('code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'organizationId' | 'updatedAt' | Resource_max_fieldsKeySpecifier)[];
+export type Resource_max_fieldsFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_min_fieldsKeySpecifier = ('code' | 'createdAt' | 'description' | 'icon' | 'id' | 'name' | 'organizationId' | 'updatedAt' | Resource_min_fieldsKeySpecifier)[];
+export type Resource_min_fieldsFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	icon?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | Resource_mutation_responseKeySpecifier)[];
+export type Resource_mutation_responseFieldPolicy = {
+	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
+	returning?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_stddev_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_stddev_fieldsKeySpecifier)[];
+export type Resource_stddev_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_stddev_pop_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_stddev_pop_fieldsKeySpecifier)[];
+export type Resource_stddev_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_stddev_samp_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_stddev_samp_fieldsKeySpecifier)[];
+export type Resource_stddev_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_sum_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_sum_fieldsKeySpecifier)[];
+export type Resource_sum_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_var_pop_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_var_pop_fieldsKeySpecifier)[];
+export type Resource_var_pop_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_var_samp_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_var_samp_fieldsKeySpecifier)[];
+export type Resource_var_samp_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type Resource_variance_fieldsKeySpecifier = ('id' | 'organizationId' | Resource_variance_fieldsKeySpecifier)[];
+export type Resource_variance_fieldsFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type SettingsKeySpecifier = ('Organization' | 'createdAt' | 'id' | 'key' | 'organizationId' | 'updatedAt' | 'value' | SettingsKeySpecifier)[];
 export type SettingsFieldPolicy = {
@@ -2202,7 +2402,7 @@ export type _prisma_migrations_variance_fieldsKeySpecifier = ('applied_steps_cou
 export type _prisma_migrations_variance_fieldsFieldPolicy = {
 	applied_steps_count?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type mutation_rootKeySpecifier = ('changePassword' | 'delete_Action' | 'delete_Action_by_pk' | 'delete_Activity' | 'delete_Activity_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskDefinition' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_User_by_pk' | 'delete_Workflow' | 'delete_Workflow_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'insert_Action' | 'insert_Action_one' | 'insert_Activity' | 'insert_Activity_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskDefinition' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_User_one' | 'insert_Workflow' | 'insert_Workflow_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'login' | 'refreshToken' | 'signup' | 'updateUser' | 'update_Action' | 'update_Action_by_pk' | 'update_Action_many' | 'update_Activity' | 'update_Activity_by_pk' | 'update_Activity_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskDefinition' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_User_by_pk' | 'update_User_many' | 'update_Workflow' | 'update_Workflow_by_pk' | 'update_Workflow_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
+export type mutation_rootKeySpecifier = ('changePassword' | 'delete_Action' | 'delete_Action_by_pk' | 'delete_Activity' | 'delete_Activity_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Resource' | 'delete_ResourceItem' | 'delete_ResourceItem_by_pk' | 'delete_Resource_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskDefinition' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_User_by_pk' | 'delete_Workflow' | 'delete_Workflow_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'insert_Action' | 'insert_Action_one' | 'insert_Activity' | 'insert_Activity_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Resource' | 'insert_ResourceItem' | 'insert_ResourceItem_one' | 'insert_Resource_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskDefinition' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_User_one' | 'insert_Workflow' | 'insert_Workflow_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'login' | 'refreshToken' | 'signup' | 'updateUser' | 'update_Action' | 'update_Action_by_pk' | 'update_Action_many' | 'update_Activity' | 'update_Activity_by_pk' | 'update_Activity_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Resource' | 'update_ResourceItem' | 'update_ResourceItem_by_pk' | 'update_ResourceItem_many' | 'update_Resource_by_pk' | 'update_Resource_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskDefinition' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_User_by_pk' | 'update_User_many' | 'update_Workflow' | 'update_Workflow_by_pk' | 'update_Workflow_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
 export type mutation_rootFieldPolicy = {
 	changePassword?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Action?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2227,6 +2427,10 @@ export type mutation_rootFieldPolicy = {
 	delete_Permission_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Post?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Post_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	delete_Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	delete_ResourceItem?: FieldPolicy<any> | FieldReadFunction<any>,
+	delete_ResourceItem_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	delete_Resource_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Settings_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Task?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2267,6 +2471,10 @@ export type mutation_rootFieldPolicy = {
 	insert_Permission_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Post?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Post_one?: FieldPolicy<any> | FieldReadFunction<any>,
+	insert_Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	insert_ResourceItem?: FieldPolicy<any> | FieldReadFunction<any>,
+	insert_ResourceItem_one?: FieldPolicy<any> | FieldReadFunction<any>,
+	insert_Resource_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Settings_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Task?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2322,6 +2530,12 @@ export type mutation_rootFieldPolicy = {
 	update_Post?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Post_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Post_many?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_ResourceItem?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_ResourceItem_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_ResourceItem_many?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_Resource_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	update_Resource_many?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Settings_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Settings_many?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2350,7 +2564,7 @@ export type mutation_rootFieldPolicy = {
 	update__prisma_migrations_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update__prisma_migrations_many?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type query_rootKeySpecifier = ('Action' | 'Action_aggregate' | 'Action_by_pk' | 'Activity' | 'Activity_aggregate' | 'Activity_by_pk' | 'Comment' | 'Comment_aggregate' | 'Comment_by_pk' | 'EventLog' | 'EventLog_aggregate' | 'EventLog_by_pk' | 'File' | 'File_aggregate' | 'File_by_pk' | 'Form' | 'Form_aggregate' | 'Form_by_pk' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_by_pk' | 'Organization' | 'Organization_aggregate' | 'Organization_by_pk' | 'Permission' | 'PermissionGroup' | 'PermissionGroup_aggregate' | 'PermissionGroup_by_pk' | 'Permission_aggregate' | 'Permission_by_pk' | 'Post' | 'Post_aggregate' | 'Post_by_pk' | 'Settings' | 'Settings_aggregate' | 'Settings_by_pk' | 'Task' | 'TaskDefinition' | 'TaskDefinition_aggregate' | 'TaskDefinition_by_pk' | 'Task_aggregate' | 'Task_by_pk' | 'Team' | 'Team_aggregate' | 'Team_by_pk' | 'Trigger' | 'Trigger_aggregate' | 'Trigger_by_pk' | 'User' | 'UserPermission' | 'UserPermission_aggregate' | 'UserPermission_by_pk' | 'User_aggregate' | 'User_by_pk' | 'Workflow' | 'Workflow_aggregate' | 'Workflow_by_pk' | '_prisma_migrations' | '_prisma_migrations_aggregate' | '_prisma_migrations_by_pk' | 'hello' | 'helloWorld' | 'me' | query_rootKeySpecifier)[];
+export type query_rootKeySpecifier = ('Action' | 'Action_aggregate' | 'Action_by_pk' | 'Activity' | 'Activity_aggregate' | 'Activity_by_pk' | 'Comment' | 'Comment_aggregate' | 'Comment_by_pk' | 'EventLog' | 'EventLog_aggregate' | 'EventLog_by_pk' | 'File' | 'File_aggregate' | 'File_by_pk' | 'Form' | 'Form_aggregate' | 'Form_by_pk' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_by_pk' | 'Organization' | 'Organization_aggregate' | 'Organization_by_pk' | 'Permission' | 'PermissionGroup' | 'PermissionGroup_aggregate' | 'PermissionGroup_by_pk' | 'Permission_aggregate' | 'Permission_by_pk' | 'Post' | 'Post_aggregate' | 'Post_by_pk' | 'Resource' | 'ResourceItem' | 'ResourceItem_aggregate' | 'ResourceItem_by_pk' | 'Resource_aggregate' | 'Resource_by_pk' | 'Settings' | 'Settings_aggregate' | 'Settings_by_pk' | 'Task' | 'TaskDefinition' | 'TaskDefinition_aggregate' | 'TaskDefinition_by_pk' | 'Task_aggregate' | 'Task_by_pk' | 'Team' | 'Team_aggregate' | 'Team_by_pk' | 'Trigger' | 'Trigger_aggregate' | 'Trigger_by_pk' | 'User' | 'UserPermission' | 'UserPermission_aggregate' | 'UserPermission_by_pk' | 'User_aggregate' | 'User_by_pk' | 'Workflow' | 'Workflow_aggregate' | 'Workflow_by_pk' | '_prisma_migrations' | '_prisma_migrations_aggregate' | '_prisma_migrations_by_pk' | 'hello' | 'helloWorld' | 'me' | query_rootKeySpecifier)[];
 export type query_rootFieldPolicy = {
 	Action?: FieldPolicy<any> | FieldReadFunction<any>,
 	Action_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2385,6 +2599,12 @@ export type query_rootFieldPolicy = {
 	Post?: FieldPolicy<any> | FieldReadFunction<any>,
 	Post_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Post_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2416,7 +2636,7 @@ export type query_rootFieldPolicy = {
 	helloWorld?: FieldPolicy<any> | FieldReadFunction<any>,
 	me?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type subscription_rootKeySpecifier = ('Action' | 'Action_aggregate' | 'Action_by_pk' | 'Action_stream' | 'Activity' | 'Activity_aggregate' | 'Activity_by_pk' | 'Activity_stream' | 'Comment' | 'Comment_aggregate' | 'Comment_by_pk' | 'Comment_stream' | 'EventLog' | 'EventLog_aggregate' | 'EventLog_by_pk' | 'EventLog_stream' | 'File' | 'File_aggregate' | 'File_by_pk' | 'File_stream' | 'Form' | 'Form_aggregate' | 'Form_by_pk' | 'Form_stream' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_by_pk' | 'MemberOnTeams_stream' | 'Organization' | 'Organization_aggregate' | 'Organization_by_pk' | 'Organization_stream' | 'Permission' | 'PermissionGroup' | 'PermissionGroup_aggregate' | 'PermissionGroup_by_pk' | 'PermissionGroup_stream' | 'Permission_aggregate' | 'Permission_by_pk' | 'Permission_stream' | 'Post' | 'Post_aggregate' | 'Post_by_pk' | 'Post_stream' | 'Settings' | 'Settings_aggregate' | 'Settings_by_pk' | 'Settings_stream' | 'Task' | 'TaskDefinition' | 'TaskDefinition_aggregate' | 'TaskDefinition_by_pk' | 'TaskDefinition_stream' | 'Task_aggregate' | 'Task_by_pk' | 'Task_stream' | 'Team' | 'Team_aggregate' | 'Team_by_pk' | 'Team_stream' | 'Trigger' | 'Trigger_aggregate' | 'Trigger_by_pk' | 'Trigger_stream' | 'User' | 'UserPermission' | 'UserPermission_aggregate' | 'UserPermission_by_pk' | 'UserPermission_stream' | 'User_aggregate' | 'User_by_pk' | 'User_stream' | 'Workflow' | 'Workflow_aggregate' | 'Workflow_by_pk' | 'Workflow_stream' | '_prisma_migrations' | '_prisma_migrations_aggregate' | '_prisma_migrations_by_pk' | '_prisma_migrations_stream' | subscription_rootKeySpecifier)[];
+export type subscription_rootKeySpecifier = ('Action' | 'Action_aggregate' | 'Action_by_pk' | 'Action_stream' | 'Activity' | 'Activity_aggregate' | 'Activity_by_pk' | 'Activity_stream' | 'Comment' | 'Comment_aggregate' | 'Comment_by_pk' | 'Comment_stream' | 'EventLog' | 'EventLog_aggregate' | 'EventLog_by_pk' | 'EventLog_stream' | 'File' | 'File_aggregate' | 'File_by_pk' | 'File_stream' | 'Form' | 'Form_aggregate' | 'Form_by_pk' | 'Form_stream' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_by_pk' | 'MemberOnTeams_stream' | 'Organization' | 'Organization_aggregate' | 'Organization_by_pk' | 'Organization_stream' | 'Permission' | 'PermissionGroup' | 'PermissionGroup_aggregate' | 'PermissionGroup_by_pk' | 'PermissionGroup_stream' | 'Permission_aggregate' | 'Permission_by_pk' | 'Permission_stream' | 'Post' | 'Post_aggregate' | 'Post_by_pk' | 'Post_stream' | 'Resource' | 'ResourceItem' | 'ResourceItem_aggregate' | 'ResourceItem_by_pk' | 'ResourceItem_stream' | 'Resource_aggregate' | 'Resource_by_pk' | 'Resource_stream' | 'Settings' | 'Settings_aggregate' | 'Settings_by_pk' | 'Settings_stream' | 'Task' | 'TaskDefinition' | 'TaskDefinition_aggregate' | 'TaskDefinition_by_pk' | 'TaskDefinition_stream' | 'Task_aggregate' | 'Task_by_pk' | 'Task_stream' | 'Team' | 'Team_aggregate' | 'Team_by_pk' | 'Team_stream' | 'Trigger' | 'Trigger_aggregate' | 'Trigger_by_pk' | 'Trigger_stream' | 'User' | 'UserPermission' | 'UserPermission_aggregate' | 'UserPermission_by_pk' | 'UserPermission_stream' | 'User_aggregate' | 'User_by_pk' | 'User_stream' | 'Workflow' | 'Workflow_aggregate' | 'Workflow_by_pk' | 'Workflow_stream' | '_prisma_migrations' | '_prisma_migrations_aggregate' | '_prisma_migrations_by_pk' | '_prisma_migrations_stream' | subscription_rootKeySpecifier)[];
 export type subscription_rootFieldPolicy = {
 	Action?: FieldPolicy<any> | FieldReadFunction<any>,
 	Action_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2462,6 +2682,14 @@ export type subscription_rootFieldPolicy = {
 	Post_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Post_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	Post_stream?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	ResourceItem_stream?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	Resource_stream?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Settings_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3123,6 +3351,118 @@ export type StrictTypedTypePolicies = {
 	Post_variance_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | Post_variance_fieldsKeySpecifier | (() => undefined | Post_variance_fieldsKeySpecifier),
 		fields?: Post_variance_fieldsFieldPolicy,
+	},
+	Resource?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceKeySpecifier | (() => undefined | ResourceKeySpecifier),
+		fields?: ResourceFieldPolicy,
+	},
+	ResourceItem?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItemKeySpecifier | (() => undefined | ResourceItemKeySpecifier),
+		fields?: ResourceItemFieldPolicy,
+	},
+	ResourceItem_aggregate?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_aggregateKeySpecifier | (() => undefined | ResourceItem_aggregateKeySpecifier),
+		fields?: ResourceItem_aggregateFieldPolicy,
+	},
+	ResourceItem_aggregate_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_aggregate_fieldsKeySpecifier | (() => undefined | ResourceItem_aggregate_fieldsKeySpecifier),
+		fields?: ResourceItem_aggregate_fieldsFieldPolicy,
+	},
+	ResourceItem_avg_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_avg_fieldsKeySpecifier | (() => undefined | ResourceItem_avg_fieldsKeySpecifier),
+		fields?: ResourceItem_avg_fieldsFieldPolicy,
+	},
+	ResourceItem_max_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_max_fieldsKeySpecifier | (() => undefined | ResourceItem_max_fieldsKeySpecifier),
+		fields?: ResourceItem_max_fieldsFieldPolicy,
+	},
+	ResourceItem_min_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_min_fieldsKeySpecifier | (() => undefined | ResourceItem_min_fieldsKeySpecifier),
+		fields?: ResourceItem_min_fieldsFieldPolicy,
+	},
+	ResourceItem_mutation_response?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_mutation_responseKeySpecifier | (() => undefined | ResourceItem_mutation_responseKeySpecifier),
+		fields?: ResourceItem_mutation_responseFieldPolicy,
+	},
+	ResourceItem_stddev_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_stddev_fieldsKeySpecifier | (() => undefined | ResourceItem_stddev_fieldsKeySpecifier),
+		fields?: ResourceItem_stddev_fieldsFieldPolicy,
+	},
+	ResourceItem_stddev_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_stddev_pop_fieldsKeySpecifier | (() => undefined | ResourceItem_stddev_pop_fieldsKeySpecifier),
+		fields?: ResourceItem_stddev_pop_fieldsFieldPolicy,
+	},
+	ResourceItem_stddev_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_stddev_samp_fieldsKeySpecifier | (() => undefined | ResourceItem_stddev_samp_fieldsKeySpecifier),
+		fields?: ResourceItem_stddev_samp_fieldsFieldPolicy,
+	},
+	ResourceItem_sum_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_sum_fieldsKeySpecifier | (() => undefined | ResourceItem_sum_fieldsKeySpecifier),
+		fields?: ResourceItem_sum_fieldsFieldPolicy,
+	},
+	ResourceItem_var_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_var_pop_fieldsKeySpecifier | (() => undefined | ResourceItem_var_pop_fieldsKeySpecifier),
+		fields?: ResourceItem_var_pop_fieldsFieldPolicy,
+	},
+	ResourceItem_var_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_var_samp_fieldsKeySpecifier | (() => undefined | ResourceItem_var_samp_fieldsKeySpecifier),
+		fields?: ResourceItem_var_samp_fieldsFieldPolicy,
+	},
+	ResourceItem_variance_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ResourceItem_variance_fieldsKeySpecifier | (() => undefined | ResourceItem_variance_fieldsKeySpecifier),
+		fields?: ResourceItem_variance_fieldsFieldPolicy,
+	},
+	Resource_aggregate?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_aggregateKeySpecifier | (() => undefined | Resource_aggregateKeySpecifier),
+		fields?: Resource_aggregateFieldPolicy,
+	},
+	Resource_aggregate_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_aggregate_fieldsKeySpecifier | (() => undefined | Resource_aggregate_fieldsKeySpecifier),
+		fields?: Resource_aggregate_fieldsFieldPolicy,
+	},
+	Resource_avg_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_avg_fieldsKeySpecifier | (() => undefined | Resource_avg_fieldsKeySpecifier),
+		fields?: Resource_avg_fieldsFieldPolicy,
+	},
+	Resource_max_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_max_fieldsKeySpecifier | (() => undefined | Resource_max_fieldsKeySpecifier),
+		fields?: Resource_max_fieldsFieldPolicy,
+	},
+	Resource_min_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_min_fieldsKeySpecifier | (() => undefined | Resource_min_fieldsKeySpecifier),
+		fields?: Resource_min_fieldsFieldPolicy,
+	},
+	Resource_mutation_response?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_mutation_responseKeySpecifier | (() => undefined | Resource_mutation_responseKeySpecifier),
+		fields?: Resource_mutation_responseFieldPolicy,
+	},
+	Resource_stddev_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_stddev_fieldsKeySpecifier | (() => undefined | Resource_stddev_fieldsKeySpecifier),
+		fields?: Resource_stddev_fieldsFieldPolicy,
+	},
+	Resource_stddev_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_stddev_pop_fieldsKeySpecifier | (() => undefined | Resource_stddev_pop_fieldsKeySpecifier),
+		fields?: Resource_stddev_pop_fieldsFieldPolicy,
+	},
+	Resource_stddev_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_stddev_samp_fieldsKeySpecifier | (() => undefined | Resource_stddev_samp_fieldsKeySpecifier),
+		fields?: Resource_stddev_samp_fieldsFieldPolicy,
+	},
+	Resource_sum_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_sum_fieldsKeySpecifier | (() => undefined | Resource_sum_fieldsKeySpecifier),
+		fields?: Resource_sum_fieldsFieldPolicy,
+	},
+	Resource_var_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_var_pop_fieldsKeySpecifier | (() => undefined | Resource_var_pop_fieldsKeySpecifier),
+		fields?: Resource_var_pop_fieldsFieldPolicy,
+	},
+	Resource_var_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_var_samp_fieldsKeySpecifier | (() => undefined | Resource_var_samp_fieldsKeySpecifier),
+		fields?: Resource_var_samp_fieldsFieldPolicy,
+	},
+	Resource_variance_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | Resource_variance_fieldsKeySpecifier | (() => undefined | Resource_variance_fieldsKeySpecifier),
+		fields?: Resource_variance_fieldsFieldPolicy,
 	},
 	Settings?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | SettingsKeySpecifier | (() => undefined | SettingsKeySpecifier),

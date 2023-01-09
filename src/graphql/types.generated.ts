@@ -1845,6 +1845,8 @@ export type Organization_Bool_Exp = {
   PermissionGroups_aggregate?: InputMaybe<PermissionGroup_Aggregate_Bool_Exp>;
   Permissions?: InputMaybe<Permission_Bool_Exp>;
   Permissions_aggregate?: InputMaybe<Permission_Aggregate_Bool_Exp>;
+  Resources?: InputMaybe<Resource_Bool_Exp>;
+  Resources_aggregate?: InputMaybe<Resource_Aggregate_Bool_Exp>;
   Settings?: InputMaybe<Settings_Bool_Exp>;
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Bool_Exp>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
@@ -1884,6 +1886,7 @@ export type Organization_Insert_Input = {
   Files?: InputMaybe<File_Arr_Rel_Insert_Input>;
   PermissionGroups?: InputMaybe<PermissionGroup_Arr_Rel_Insert_Input>;
   Permissions?: InputMaybe<Permission_Arr_Rel_Insert_Input>;
+  Resources?: InputMaybe<Resource_Arr_Rel_Insert_Input>;
   Settings?: InputMaybe<Settings_Arr_Rel_Insert_Input>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
@@ -1917,6 +1920,7 @@ export type Organization_Order_By = {
   Files_aggregate?: InputMaybe<File_Aggregate_Order_By>;
   PermissionGroups_aggregate?: InputMaybe<PermissionGroup_Aggregate_Order_By>;
   Permissions_aggregate?: InputMaybe<Permission_Aggregate_Order_By>;
+  Resources_aggregate?: InputMaybe<Resource_Aggregate_Order_By>;
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Order_By>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
@@ -2775,6 +2779,519 @@ export type Post_Var_Samp_Order_By = {
 export type Post_Variance_Order_By = {
   authorId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+};
+
+export type ResourceItem_Aggregate_Bool_Exp = {
+  count?: InputMaybe<ResourceItem_Aggregate_Bool_Exp_Count>;
+};
+
+export type ResourceItem_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<ResourceItem_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<ResourceItem_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "ResourceItem" */
+export type ResourceItem_Aggregate_Order_By = {
+  avg?: InputMaybe<ResourceItem_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<ResourceItem_Max_Order_By>;
+  min?: InputMaybe<ResourceItem_Min_Order_By>;
+  stddev?: InputMaybe<ResourceItem_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<ResourceItem_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<ResourceItem_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<ResourceItem_Sum_Order_By>;
+  var_pop?: InputMaybe<ResourceItem_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<ResourceItem_Var_Samp_Order_By>;
+  variance?: InputMaybe<ResourceItem_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "ResourceItem" */
+export type ResourceItem_Arr_Rel_Insert_Input = {
+  data: Array<ResourceItem_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<ResourceItem_On_Conflict>;
+};
+
+/** order by avg() on columns of table "ResourceItem" */
+export type ResourceItem_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "ResourceItem". All fields are combined with a logical 'AND'. */
+export type ResourceItem_Bool_Exp = {
+  Resource?: InputMaybe<Resource_Bool_Exp>;
+  _and?: InputMaybe<Array<ResourceItem_Bool_Exp>>;
+  _not?: InputMaybe<ResourceItem_Bool_Exp>;
+  _or?: InputMaybe<Array<ResourceItem_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  icon?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  resourceId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "ResourceItem" */
+export enum ResourceItem_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  RESOURCEITEM_PKEY = 'ResourceItem_pkey'
+}
+
+/** input type for incrementing numeric columns in table "ResourceItem" */
+export type ResourceItem_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  resourceId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "ResourceItem" */
+export type ResourceItem_Insert_Input = {
+  Resource?: InputMaybe<Resource_Obj_Rel_Insert_Input>;
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  resourceId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by max() on columns of table "ResourceItem" */
+export type ResourceItem_Max_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "ResourceItem" */
+export type ResourceItem_Min_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "ResourceItem" */
+export type ResourceItem_On_Conflict = {
+  constraint: ResourceItem_Constraint;
+  update_columns?: Array<ResourceItem_Update_Column>;
+  where?: InputMaybe<ResourceItem_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "ResourceItem". */
+export type ResourceItem_Order_By = {
+  Resource?: InputMaybe<Resource_Order_By>;
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: ResourceItem */
+export type ResourceItem_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "ResourceItem" */
+export enum ResourceItem_Select_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  RESOURCEID = 'resourceId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+/** input type for updating data in table "ResourceItem" */
+export type ResourceItem_Set_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  resourceId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by stddev() on columns of table "ResourceItem" */
+export type ResourceItem_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "ResourceItem" */
+export type ResourceItem_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "ResourceItem" */
+export type ResourceItem_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "ResourceItem" */
+export type ResourceItem_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: ResourceItem_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ResourceItem_Stream_Cursor_Value_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  resourceId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by sum() on columns of table "ResourceItem" */
+export type ResourceItem_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "ResourceItem" */
+export enum ResourceItem_Update_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  RESOURCEID = 'resourceId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+export type ResourceItem_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<ResourceItem_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ResourceItem_Set_Input>;
+  where: ResourceItem_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "ResourceItem" */
+export type ResourceItem_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "ResourceItem" */
+export type ResourceItem_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "ResourceItem" */
+export type ResourceItem_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  resourceId?: InputMaybe<Order_By>;
+};
+
+export type Resource_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Resource_Aggregate_Bool_Exp_Count>;
+};
+
+export type Resource_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Resource_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Resource_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "Resource" */
+export type Resource_Aggregate_Order_By = {
+  avg?: InputMaybe<Resource_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Resource_Max_Order_By>;
+  min?: InputMaybe<Resource_Min_Order_By>;
+  stddev?: InputMaybe<Resource_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Resource_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Resource_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Resource_Sum_Order_By>;
+  var_pop?: InputMaybe<Resource_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Resource_Var_Samp_Order_By>;
+  variance?: InputMaybe<Resource_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "Resource" */
+export type Resource_Arr_Rel_Insert_Input = {
+  data: Array<Resource_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Resource_On_Conflict>;
+};
+
+/** order by avg() on columns of table "Resource" */
+export type Resource_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "Resource". All fields are combined with a logical 'AND'. */
+export type Resource_Bool_Exp = {
+  Organization?: InputMaybe<Organization_Bool_Exp>;
+  ResourceItems?: InputMaybe<ResourceItem_Bool_Exp>;
+  ResourceItems_aggregate?: InputMaybe<ResourceItem_Aggregate_Bool_Exp>;
+  _and?: InputMaybe<Array<Resource_Bool_Exp>>;
+  _not?: InputMaybe<Resource_Bool_Exp>;
+  _or?: InputMaybe<Array<Resource_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  icon?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  organizationId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "Resource" */
+export enum Resource_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  RESOURCE_PKEY = 'Resource_pkey'
+}
+
+/** input type for incrementing numeric columns in table "Resource" */
+export type Resource_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "Resource" */
+export type Resource_Insert_Input = {
+  Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  ResourceItems?: InputMaybe<ResourceItem_Arr_Rel_Insert_Input>;
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by max() on columns of table "Resource" */
+export type Resource_Max_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "Resource" */
+export type Resource_Min_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** input type for inserting object relation for remote table "Resource" */
+export type Resource_Obj_Rel_Insert_Input = {
+  data: Resource_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Resource_On_Conflict>;
+};
+
+/** on_conflict condition type for table "Resource" */
+export type Resource_On_Conflict = {
+  constraint: Resource_Constraint;
+  update_columns?: Array<Resource_Update_Column>;
+  where?: InputMaybe<Resource_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "Resource". */
+export type Resource_Order_By = {
+  Organization?: InputMaybe<Organization_Order_By>;
+  ResourceItems_aggregate?: InputMaybe<ResourceItem_Aggregate_Order_By>;
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: Resource */
+export type Resource_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "Resource" */
+export enum Resource_Select_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+/** input type for updating data in table "Resource" */
+export type Resource_Set_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by stddev() on columns of table "Resource" */
+export type Resource_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "Resource" */
+export type Resource_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "Resource" */
+export type Resource_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "Resource" */
+export type Resource_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Resource_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Resource_Stream_Cursor_Value_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by sum() on columns of table "Resource" */
+export type Resource_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "Resource" */
+export enum Resource_Update_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+export type Resource_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Resource_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Resource_Set_Input>;
+  where: Resource_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "Resource" */
+export type Resource_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "Resource" */
+export type Resource_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "Resource" */
+export type Resource_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "Role". All fields are combined with logical 'AND'. */
@@ -5787,3 +6304,8 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeQuery = { __typename: 'query_root', hello: string };
+
+export type GeteventLogQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GeteventLogQuery = { __typename: 'query_root', EventLog: Array<{ __typename: 'EventLog', actionId: number, createdAt: any, id: number, organizationId: number, userId: number | null, taskId: number | null, Action: { __typename: 'Action', content: string }, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null }> };
