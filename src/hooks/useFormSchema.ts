@@ -1,25 +1,8 @@
-import { schemaDevice, schemaOffice, schemaWFH } from "@saleor/utils/schema";
+import { useGetFormSchemaQuery } from "@saleor/graphql";
 import Ajv from "ajv";
-import { useEffect, useMemo, useState } from "react";
-import { JSONSchemaBridge } from "uniforms-bridge-json-schema";
+import { useMemo } from "react";
 
-export const handleSchema = (formId: string) => {
-  switch (formId) {
-    case "Q2hhbm5lbDoxMg==":
-      return schemaOffice;
-    case "Q2hhbm5lbDoxMQ==":
-      return schemaDevice;
-    case "Q2hhbm5lbDoxMU==":
-      return schemaWFH;
-    default:
-      break;
-  }
-  // eslint-disable-next-line no-console
-  console.log(
-    "🚀 ~ file: useFormSchema.ts:17 ~ handleSchema ~ schemaOffice",
-    JSON.stringify(schemaOffice),
-  );
-};
+import { CustomSchemaBridge } from "./customSchemaBridge";
 
 const ajv = new Ajv({
   allErrors: true,
@@ -38,19 +21,21 @@ function createValidator(schema: object) {
 
 ajv.addVocabulary(["uniforms"]);
 
-export function useFormSchema(typeSelect: string) {
-  const [schema, setSchema] = useState<any>();
+export function useFormSchema(formId: number) {
+  const { data } = useGetFormSchemaQuery({
+    variables: {
+      id: formId,
+    },
+  });
 
-  useEffect(() => {
-    return setSchema(handleSchema(typeSelect));
-  }, [typeSelect]);
+  const schema = data?.Form_by_pk?.schema;
 
   const bridge = useMemo(() => {
     if (!schema) {
       return null;
     }
     const schemaValidator = createValidator(schema);
-    return new JSONSchemaBridge(schema, schemaValidator);
+    return new CustomSchemaBridge(schema, schemaValidator);
   }, [schema]);
 
   return { bridge };

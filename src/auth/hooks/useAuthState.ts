@@ -1,13 +1,28 @@
-import { useEffect, useState } from "react";
+import { useUserByPkLazyQuery } from "@saleor/graphql";
+import { useEffect, useMemo, useState } from "react";
 
 export const useAuthState = () => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [authenticating] = useState(false);
-  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [getUser, { data, loading }] = useUserByPkLazyQuery();
+
+  const user = useMemo(() => {
+    return data.User_by_pk;
+  }, [data]);
+
+  const authenticated = useMemo(() => {
+    return !!user;
+  }, [user]);
+  const authenticating = useMemo(() => {
+    return loading;
+  }, [loading]);
 
   useEffect(() => {
-    setAuthenticated(user ? true : false);
-  }, [user]);
+    getUser({
+      variables: {
+        id: userId.id,
+      },
+    });
+  }, [getUser, userId]);
 
-  return { authenticated, authenticating, user, setUser };
+  return { authenticated, authenticating, user, setUserId };
 };

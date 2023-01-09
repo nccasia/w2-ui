@@ -3521,6 +3521,42 @@ type Organization {
   ): Permission_aggregate!
 
   """An array relationship"""
+  Resources(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): [Resource!]!
+
+  """An aggregate relationship"""
+  Resources_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): Resource_aggregate!
+
+  """An array relationship"""
   Settings(
     """distinct select on columns"""
     distinct_on: [Settings_select_column!]
@@ -3784,6 +3820,8 @@ input Organization_bool_exp {
   PermissionGroups_aggregate: PermissionGroup_aggregate_bool_exp
   Permissions: Permission_bool_exp
   Permissions_aggregate: Permission_aggregate_bool_exp
+  Resources: Resource_bool_exp
+  Resources_aggregate: Resource_aggregate_bool_exp
   Settings: Settings_bool_exp
   Settings_aggregate: Settings_aggregate_bool_exp
   TaskDefinitions: TaskDefinition_bool_exp
@@ -3831,6 +3869,7 @@ input Organization_insert_input {
   Files: File_arr_rel_insert_input
   PermissionGroups: PermissionGroup_arr_rel_insert_input
   Permissions: Permission_arr_rel_insert_input
+  Resources: Resource_arr_rel_insert_input
   Settings: Settings_arr_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
@@ -3898,6 +3937,7 @@ input Organization_order_by {
   Files_aggregate: File_aggregate_order_by
   PermissionGroups_aggregate: PermissionGroup_aggregate_order_by
   Permissions_aggregate: Permission_aggregate_order_by
+  Resources_aggregate: Resource_aggregate_order_by
   Settings_aggregate: Settings_aggregate_order_by
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
@@ -5454,6 +5494,928 @@ input Post_variance_order_by {
   id: order_by
 }
 
+"""
+columns and relationships of "Resource"
+"""
+type Resource {
+  """An object relationship"""
+  Organization: Organization!
+
+  """An array relationship"""
+  ResourceItems(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): [ResourceItem!]!
+
+  """An aggregate relationship"""
+  ResourceItems_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): ResourceItem_aggregate!
+  code: String!
+  createdAt: timestamp!
+  description: String!
+  icon: String!
+  id: Int!
+  name: String!
+  organizationId: Int!
+  updatedAt: timestamp!
+}
+
+"""
+columns and relationships of "ResourceItem"
+"""
+type ResourceItem {
+  """An object relationship"""
+  Resource: Resource!
+  code: String!
+  createdAt: timestamp!
+  description: String!
+  icon: String!
+  id: Int!
+  name: String!
+  resourceId: Int!
+  updatedAt: timestamp!
+}
+
+"""
+aggregated selection of "ResourceItem"
+"""
+type ResourceItem_aggregate {
+  aggregate: ResourceItem_aggregate_fields
+  nodes: [ResourceItem!]!
+}
+
+input ResourceItem_aggregate_bool_exp {
+  count: ResourceItem_aggregate_bool_exp_count
+}
+
+input ResourceItem_aggregate_bool_exp_count {
+  arguments: [ResourceItem_select_column!]
+  distinct: Boolean
+  filter: ResourceItem_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "ResourceItem"
+"""
+type ResourceItem_aggregate_fields {
+  avg: ResourceItem_avg_fields
+  count(columns: [ResourceItem_select_column!], distinct: Boolean): Int!
+  max: ResourceItem_max_fields
+  min: ResourceItem_min_fields
+  stddev: ResourceItem_stddev_fields
+  stddev_pop: ResourceItem_stddev_pop_fields
+  stddev_samp: ResourceItem_stddev_samp_fields
+  sum: ResourceItem_sum_fields
+  var_pop: ResourceItem_var_pop_fields
+  var_samp: ResourceItem_var_samp_fields
+  variance: ResourceItem_variance_fields
+}
+
+"""
+order by aggregate values of table "ResourceItem"
+"""
+input ResourceItem_aggregate_order_by {
+  avg: ResourceItem_avg_order_by
+  count: order_by
+  max: ResourceItem_max_order_by
+  min: ResourceItem_min_order_by
+  stddev: ResourceItem_stddev_order_by
+  stddev_pop: ResourceItem_stddev_pop_order_by
+  stddev_samp: ResourceItem_stddev_samp_order_by
+  sum: ResourceItem_sum_order_by
+  var_pop: ResourceItem_var_pop_order_by
+  var_samp: ResourceItem_var_samp_order_by
+  variance: ResourceItem_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "ResourceItem"
+"""
+input ResourceItem_arr_rel_insert_input {
+  data: [ResourceItem_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: ResourceItem_on_conflict
+}
+
+"""aggregate avg on columns"""
+type ResourceItem_avg_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by avg() on columns of table "ResourceItem"
+"""
+input ResourceItem_avg_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "ResourceItem". All fields are combined with a logical 'AND'.
+"""
+input ResourceItem_bool_exp {
+  Resource: Resource_bool_exp
+  _and: [ResourceItem_bool_exp!]
+  _not: ResourceItem_bool_exp
+  _or: [ResourceItem_bool_exp!]
+  code: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  description: String_comparison_exp
+  icon: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  resourceId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "ResourceItem"
+"""
+enum ResourceItem_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  ResourceItem_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "ResourceItem"
+"""
+input ResourceItem_inc_input {
+  id: Int
+  resourceId: Int
+}
+
+"""
+input type for inserting data into table "ResourceItem"
+"""
+input ResourceItem_insert_input {
+  Resource: Resource_obj_rel_insert_input
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  resourceId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate max on columns"""
+type ResourceItem_max_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  resourceId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "ResourceItem"
+"""
+input ResourceItem_max_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  resourceId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type ResourceItem_min_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  resourceId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "ResourceItem"
+"""
+input ResourceItem_min_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  resourceId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "ResourceItem"
+"""
+type ResourceItem_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ResourceItem!]!
+}
+
+"""
+on_conflict condition type for table "ResourceItem"
+"""
+input ResourceItem_on_conflict {
+  constraint: ResourceItem_constraint!
+  update_columns: [ResourceItem_update_column!]! = []
+  where: ResourceItem_bool_exp
+}
+
+"""Ordering options when selecting data from "ResourceItem"."""
+input ResourceItem_order_by {
+  Resource: Resource_order_by
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  resourceId: order_by
+  updatedAt: order_by
+}
+
+"""primary key columns input for table: ResourceItem"""
+input ResourceItem_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "ResourceItem"
+"""
+enum ResourceItem_select_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  resourceId
+
+  """column name"""
+  updatedAt
+}
+
+"""
+input type for updating data in table "ResourceItem"
+"""
+input ResourceItem_set_input {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  resourceId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type ResourceItem_stddev_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by stddev() on columns of table "ResourceItem"
+"""
+input ResourceItem_stddev_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type ResourceItem_stddev_pop_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "ResourceItem"
+"""
+input ResourceItem_stddev_pop_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type ResourceItem_stddev_samp_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "ResourceItem"
+"""
+input ResourceItem_stddev_samp_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""
+Streaming cursor of the table "ResourceItem"
+"""
+input ResourceItem_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: ResourceItem_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input ResourceItem_stream_cursor_value_input {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  resourceId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type ResourceItem_sum_fields {
+  id: Int
+  resourceId: Int
+}
+
+"""
+order by sum() on columns of table "ResourceItem"
+"""
+input ResourceItem_sum_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""
+update columns of table "ResourceItem"
+"""
+enum ResourceItem_update_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  resourceId
+
+  """column name"""
+  updatedAt
+}
+
+input ResourceItem_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: ResourceItem_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: ResourceItem_set_input
+  where: ResourceItem_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type ResourceItem_var_pop_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by var_pop() on columns of table "ResourceItem"
+"""
+input ResourceItem_var_pop_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type ResourceItem_var_samp_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by var_samp() on columns of table "ResourceItem"
+"""
+input ResourceItem_var_samp_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""aggregate variance on columns"""
+type ResourceItem_variance_fields {
+  id: Float
+  resourceId: Float
+}
+
+"""
+order by variance() on columns of table "ResourceItem"
+"""
+input ResourceItem_variance_order_by {
+  id: order_by
+  resourceId: order_by
+}
+
+"""
+aggregated selection of "Resource"
+"""
+type Resource_aggregate {
+  aggregate: Resource_aggregate_fields
+  nodes: [Resource!]!
+}
+
+input Resource_aggregate_bool_exp {
+  count: Resource_aggregate_bool_exp_count
+}
+
+input Resource_aggregate_bool_exp_count {
+  arguments: [Resource_select_column!]
+  distinct: Boolean
+  filter: Resource_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "Resource"
+"""
+type Resource_aggregate_fields {
+  avg: Resource_avg_fields
+  count(columns: [Resource_select_column!], distinct: Boolean): Int!
+  max: Resource_max_fields
+  min: Resource_min_fields
+  stddev: Resource_stddev_fields
+  stddev_pop: Resource_stddev_pop_fields
+  stddev_samp: Resource_stddev_samp_fields
+  sum: Resource_sum_fields
+  var_pop: Resource_var_pop_fields
+  var_samp: Resource_var_samp_fields
+  variance: Resource_variance_fields
+}
+
+"""
+order by aggregate values of table "Resource"
+"""
+input Resource_aggregate_order_by {
+  avg: Resource_avg_order_by
+  count: order_by
+  max: Resource_max_order_by
+  min: Resource_min_order_by
+  stddev: Resource_stddev_order_by
+  stddev_pop: Resource_stddev_pop_order_by
+  stddev_samp: Resource_stddev_samp_order_by
+  sum: Resource_sum_order_by
+  var_pop: Resource_var_pop_order_by
+  var_samp: Resource_var_samp_order_by
+  variance: Resource_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "Resource"
+"""
+input Resource_arr_rel_insert_input {
+  data: [Resource_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: Resource_on_conflict
+}
+
+"""aggregate avg on columns"""
+type Resource_avg_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "Resource"
+"""
+input Resource_avg_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "Resource". All fields are combined with a logical 'AND'.
+"""
+input Resource_bool_exp {
+  Organization: Organization_bool_exp
+  ResourceItems: ResourceItem_bool_exp
+  ResourceItems_aggregate: ResourceItem_aggregate_bool_exp
+  _and: [Resource_bool_exp!]
+  _not: Resource_bool_exp
+  _or: [Resource_bool_exp!]
+  code: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  description: String_comparison_exp
+  icon: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  organizationId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "Resource"
+"""
+enum Resource_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Resource_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Resource"
+"""
+input Resource_inc_input {
+  id: Int
+  organizationId: Int
+}
+
+"""
+input type for inserting data into table "Resource"
+"""
+input Resource_insert_input {
+  Organization: Organization_obj_rel_insert_input
+  ResourceItems: ResourceItem_arr_rel_insert_input
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate max on columns"""
+type Resource_max_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "Resource"
+"""
+input Resource_max_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type Resource_min_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "Resource"
+"""
+input Resource_min_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "Resource"
+"""
+type Resource_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Resource!]!
+}
+
+"""
+input type for inserting object relation for remote table "Resource"
+"""
+input Resource_obj_rel_insert_input {
+  data: Resource_insert_input!
+
+  """upsert condition"""
+  on_conflict: Resource_on_conflict
+}
+
+"""
+on_conflict condition type for table "Resource"
+"""
+input Resource_on_conflict {
+  constraint: Resource_constraint!
+  update_columns: [Resource_update_column!]! = []
+  where: Resource_bool_exp
+}
+
+"""Ordering options when selecting data from "Resource"."""
+input Resource_order_by {
+  Organization: Organization_order_by
+  ResourceItems_aggregate: ResourceItem_aggregate_order_by
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  updatedAt: order_by
+}
+
+"""primary key columns input for table: Resource"""
+input Resource_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Resource"
+"""
+enum Resource_select_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  updatedAt
+}
+
+"""
+input type for updating data in table "Resource"
+"""
+input Resource_set_input {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Resource_stddev_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "Resource"
+"""
+input Resource_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Resource_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Resource"
+"""
+input Resource_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Resource_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Resource"
+"""
+input Resource_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""
+Streaming cursor of the table "Resource"
+"""
+input Resource_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: Resource_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input Resource_stream_cursor_value_input {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Resource_sum_fields {
+  id: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "Resource"
+"""
+input Resource_sum_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""
+update columns of table "Resource"
+"""
+enum Resource_update_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  updatedAt
+}
+
+input Resource_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Resource_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: Resource_set_input
+  where: Resource_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Resource_var_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "Resource"
+"""
+input Resource_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Resource_var_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "Resource"
+"""
+input Resource_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type Resource_variance_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "Resource"
+"""
+input Resource_variance_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
 scalar Role
 
 """
@@ -6099,7 +7061,7 @@ columns and relationships of "TaskDefinition"
 """
 type TaskDefinition {
   """An object relationship"""
-  Activity: Activity!
+  Activity: Activity
 
   """An object relationship"""
   Form: Form
@@ -6183,8 +7145,8 @@ type TaskDefinition {
   ): Task_aggregate!
 
   """An object relationship"""
-  Workflow: Workflow!
-  actvityId: Int!
+  Workflow: Workflow
+  actvityId: Int
   config(
     """JSON select path"""
     path: String
@@ -6229,7 +7191,7 @@ type TaskDefinition {
     path: String
   ): jsonb
   updatedAt: timestamp!
-  workflowId: Int!
+  workflowId: Int
 }
 
 """
@@ -11221,6 +12183,32 @@ type mutation_root {
   delete_Post_by_pk(id: Int!): Post
 
   """
+  delete data from the table: "Resource"
+  """
+  delete_Resource(
+    """filter the rows which have to be deleted"""
+    where: Resource_bool_exp!
+  ): Resource_mutation_response
+
+  """
+  delete data from the table: "ResourceItem"
+  """
+  delete_ResourceItem(
+    """filter the rows which have to be deleted"""
+    where: ResourceItem_bool_exp!
+  ): ResourceItem_mutation_response
+
+  """
+  delete single row from the table: "ResourceItem"
+  """
+  delete_ResourceItem_by_pk(id: Int!): ResourceItem
+
+  """
+  delete single row from the table: "Resource"
+  """
+  delete_Resource_by_pk(id: Int!): Resource
+
+  """
   delete data from the table: "Settings"
   """
   delete_Settings(
@@ -11578,6 +12566,50 @@ type mutation_root {
     """upsert condition"""
     on_conflict: Post_on_conflict
   ): Post
+
+  """
+  insert data into the table: "Resource"
+  """
+  insert_Resource(
+    """the rows to be inserted"""
+    objects: [Resource_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: Resource_on_conflict
+  ): Resource_mutation_response
+
+  """
+  insert data into the table: "ResourceItem"
+  """
+  insert_ResourceItem(
+    """the rows to be inserted"""
+    objects: [ResourceItem_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: ResourceItem_on_conflict
+  ): ResourceItem_mutation_response
+
+  """
+  insert a single row into the table: "ResourceItem"
+  """
+  insert_ResourceItem_one(
+    """the row to be inserted"""
+    object: ResourceItem_insert_input!
+
+    """upsert condition"""
+    on_conflict: ResourceItem_on_conflict
+  ): ResourceItem
+
+  """
+  insert a single row into the table: "Resource"
+  """
+  insert_Resource_one(
+    """the row to be inserted"""
+    object: Resource_insert_input!
+
+    """upsert condition"""
+    on_conflict: Resource_on_conflict
+  ): Resource
 
   """
   insert data into the table: "Settings"
@@ -12238,6 +13270,74 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [Post_updates!]!
   ): [Post_mutation_response]
+
+  """
+  update data of the table: "Resource"
+  """
+  update_Resource(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Resource_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Resource_set_input
+
+    """filter the rows which have to be updated"""
+    where: Resource_bool_exp!
+  ): Resource_mutation_response
+
+  """
+  update data of the table: "ResourceItem"
+  """
+  update_ResourceItem(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ResourceItem_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ResourceItem_set_input
+
+    """filter the rows which have to be updated"""
+    where: ResourceItem_bool_exp!
+  ): ResourceItem_mutation_response
+
+  """
+  update single row of the table: "ResourceItem"
+  """
+  update_ResourceItem_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ResourceItem_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ResourceItem_set_input
+    pk_columns: ResourceItem_pk_columns_input!
+  ): ResourceItem
+
+  """
+  update multiples rows of table: "ResourceItem"
+  """
+  update_ResourceItem_many(
+    """updates to execute, in order"""
+    updates: [ResourceItem_updates!]!
+  ): [ResourceItem_mutation_response]
+
+  """
+  update single row of the table: "Resource"
+  """
+  update_Resource_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Resource_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Resource_set_input
+    pk_columns: Resource_pk_columns_input!
+  ): Resource
+
+  """
+  update multiples rows of table: "Resource"
+  """
+  update_Resource_many(
+    """updates to execute, in order"""
+    updates: [Resource_updates!]!
+  ): [Resource_mutation_response]
 
   """
   update data of the table: "Settings"
@@ -13204,6 +14304,92 @@ type query_root {
 
   """fetch data from the table: "Post" using primary key columns"""
   Post_by_pk(id: Int!): Post
+
+  """
+  fetch data from the table: "Resource"
+  """
+  Resource(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): [Resource!]!
+
+  """
+  fetch data from the table: "ResourceItem"
+  """
+  ResourceItem(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): [ResourceItem!]!
+
+  """
+  fetch aggregated fields from the table: "ResourceItem"
+  """
+  ResourceItem_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): ResourceItem_aggregate!
+
+  """fetch data from the table: "ResourceItem" using primary key columns"""
+  ResourceItem_by_pk(id: Int!): ResourceItem
+
+  """
+  fetch aggregated fields from the table: "Resource"
+  """
+  Resource_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): Resource_aggregate!
+
+  """fetch data from the table: "Resource" using primary key columns"""
+  Resource_by_pk(id: Int!): Resource
 
   """An array relationship"""
   Settings(
@@ -14217,6 +15403,120 @@ type subscription_root {
     """filter the rows returned"""
     where: Post_bool_exp
   ): [Post!]!
+
+  """
+  fetch data from the table: "Resource"
+  """
+  Resource(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): [Resource!]!
+
+  """
+  fetch data from the table: "ResourceItem"
+  """
+  ResourceItem(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): [ResourceItem!]!
+
+  """
+  fetch aggregated fields from the table: "ResourceItem"
+  """
+  ResourceItem_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): ResourceItem_aggregate!
+
+  """fetch data from the table: "ResourceItem" using primary key columns"""
+  ResourceItem_by_pk(id: Int!): ResourceItem
+
+  """
+  fetch data from the table in a streaming manner: "ResourceItem"
+  """
+  ResourceItem_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [ResourceItem_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): [ResourceItem!]!
+
+  """
+  fetch aggregated fields from the table: "Resource"
+  """
+  Resource_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): Resource_aggregate!
+
+  """fetch data from the table: "Resource" using primary key columns"""
+  Resource_by_pk(id: Int!): Resource
+
+  """
+  fetch data from the table in a streaming manner: "Resource"
+  """
+  Resource_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [Resource_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): [Resource!]!
 
   """An array relationship"""
   Settings(

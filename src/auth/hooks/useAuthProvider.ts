@@ -39,7 +39,7 @@ export function useAuthProvider({
     logout,
   } = useAuth();
   const navigate = useNavigator();
-  const { authenticated, authenticating, user, setUser } = useAuthState();
+  const { authenticated, authenticating, user, setUserId } = useAuthState();
   const [requestedExternalPluginId] = useLocalStorage(
     "requestedExternalPluginId",
     null,
@@ -116,7 +116,7 @@ export function useAuthProvider({
     }
 
     // TODO: fetch data logout
-    setUser(null);
+    setUserId(null);
 
     return;
   };
@@ -139,15 +139,7 @@ export function useAuthProvider({
 
       await logoutNonStaffUser(result.data.login.accessToken);
 
-      const date = new Date();
-      date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
-      const expires = "expires=" + date.toUTCString();
-      const setCookie = (document.cookie = `accessToken=${result.data.login.accessToken}; ${expires}`);
-
-      // eslint-disable-next-line no-console
-      console.log(decodeURIComponent(setCookie));
-
-      setUser(result.data.login.user);
+      setUserId(result.data.login.user);
 
       return result.data.login.user;
     } catch (error) {
@@ -200,6 +192,6 @@ export function useAuthProvider({
     authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
-    setUser,
+    setUserId,
   };
 }

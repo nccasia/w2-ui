@@ -3,7 +3,7 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
 interface Props {
-  formId: string;
+  formId: number;
   onNewRequest: (data: any) => void;
 }
 

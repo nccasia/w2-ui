@@ -1,6 +1,5 @@
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
-import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
 import TaskCreation from "@saleor/tasks/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
 import {
@@ -9,7 +8,6 @@ import {
   TaskListUrlQueryParams,
 } from "@saleor/tasks/urls";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
-import { mapNodeToChoice } from "@saleor/utils/maps";
 import React from "react";
 
 import { tasks } from "../../__mock__/Task";
@@ -40,10 +38,6 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
     },
   });
 
-  // mock api type
-  const channelOpts = typeTaskMock ? mapNodeToChoice(typeTaskMock) : null;
-  // --------------
-
   const noTaskType = !channel && typeof channel !== "undefined";
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
@@ -56,7 +50,6 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
         <TaskListPage onAdd={() => openModal("create-task")} tasks={tasks} />
         {!noTaskType && (
           <TaskCreation
-            TypeChoices={channelOpts}
             open={params.action === "create-task"}
             onClose={closeModal}
           />

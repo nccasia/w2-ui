@@ -22,3 +22,26 @@ export const login = gql`
     }
   }
 `;
+
+export const userByPk = gql`
+  query UserByPk($id: Int!) {
+    User_by_pk(id: $id) {
+      id
+      email
+      role
+      MemberOnTeams {
+        teamId
+        Team {
+          id
+          name
+          description
+        }
+      }
+      Organization {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
