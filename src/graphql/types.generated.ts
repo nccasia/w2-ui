@@ -6289,7 +6289,7 @@ export type UserByPkQueryVariables = Exact<{
 }>;
 
 
-export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, Team: { __typename: 'Team', id: number, name: string, description: string } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string } } | null };
+export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, firstname: string | null, lastname: string | null, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: number, name: string, description: string, organizationId: number } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: number, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: number, code: string, permissionGroupId: number } }> } | null };
 
 export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6304,17 +6304,18 @@ export type CreateTaskMutationVariables = Exact<{
   organizationId: Scalars['Int'];
   teamId: Scalars['Int'];
   dueDate: Scalars['timestamp'];
+  title: Scalars['String'];
 }>;
 
 
 export type CreateTaskMutation = { __typename: 'mutation_root', insert_Task: { __typename: 'Task_mutation_response', returning: Array<{ __typename: 'Task', id: number }> } | null };
 
-export type TaskDefinitionFragmentFragment = { __typename: 'TaskDefinition', id: number, formId: number | null, title: string };
+export type TaskDefinitionFragmentFragment = { __typename: 'TaskDefinition', id: number, formId: number | null, title: string, titleTemplate: string | null };
 
 export type GetTaskDefinitionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition: Array<{ __typename: 'TaskDefinition', id: number, formId: number | null, title: string }> };
+export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition: Array<{ __typename: 'TaskDefinition', id: number, formId: number | null, title: string, titleTemplate: string | null }> };
 
 export type GetFormSchemaQueryVariables = Exact<{
   id: Scalars['Int'];
@@ -6329,3 +6330,17 @@ export type GetResourceQueryVariables = Exact<{
 
 
 export type GetResourceQuery = { __typename: 'query_root', Resource_by_pk: { __typename: 'Resource', code: string, id: number, name: string, ResourceItems: Array<{ __typename: 'ResourceItem', code: string, id: number, name: string, resourceId: number }> } | null };
+
+export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTasksQuery = { __typename: 'query_root', Task: Array<{ __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: any, teamId: number, title: string, stateName: string, User: { __typename: 'User', id: number, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } }> };
+
+export type TaskByPkQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type TaskByPkQuery = { __typename: 'query_root', Task_by_pk: { __typename: 'Task', id: number, creatorId: number, definitionId: number, description: string, dueDate: any, organizationId: number, status: any, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: number, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string }> } | null };
+
+export type TaskFragmentFragment = { __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string };

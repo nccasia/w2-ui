@@ -10,8 +10,6 @@ import {
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
 
-import { tasks } from "../../__mock__/Task";
-
 interface TaskListProps {
   params: TaskListUrlQueryParams;
 }
@@ -47,7 +45,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   return (
     <>
       <PaginatorContext.Provider value={paginationValues}>
-        <TaskListPage onAdd={() => openModal("create-task")} tasks={tasks} />
+        <TaskListPage onAdd={() => openModal("create-task")} />
         {!noTaskType && (
           <TaskCreation
             open={params.action === "create-task"}

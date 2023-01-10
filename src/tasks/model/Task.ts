@@ -33,15 +33,30 @@ export enum TaskState {
   WAIT_CEO_APPROVE = "WAIT_CEO_APPROVE",
 }
 
+export interface User {
+  email: string;
+  firstname: string;
+  id: number;
+  lastname: string;
+  organizationId: number;
+  role: string;
+}
+
 export interface Task {
-  id: string;
-  name: string;
-  userName: string;
-  createdDate: string;
+  id: number;
+  creatorId: number;
+  definitionId: number;
+  description: string;
+  dueDate: string;
+  organizationId: number;
+  parentId?: number;
   priority: string;
-  type: TaskType | null;
-  status: TaskStatus | null;
-  state: TaskState | null;
+  status: string;
+  stateName: string;
+  teamId: number;
+  title: string;
+  User: User;
+  __typename?: string;
 }
 
 export interface TaskDetail {

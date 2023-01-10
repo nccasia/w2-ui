@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const createTask = gql`
+export const CreateTask = gql`
   mutation CreateTask(
     $values: jsonb = ""
     $definitionId: Int!
@@ -9,17 +9,18 @@ export const createTask = gql`
     $organizationId: Int!
     $teamId: Int!
     $dueDate: timestamp!
+    $title: String!
   ) {
     insert_Task(
       objects: {
         values: $values
-        organizationId: $organizationId
-        dueDate: $dueDate
-        description: ""
+        description: "default"
         creatorId: $creatorId
         assigneeId: $assigneeId
-        title: ""
+        title: $title
         definitionId: $definitionId
+        dueDate: $dueDate
+        organizationId: $organizationId
         teamId: $teamId
       }
     ) {
@@ -35,6 +36,7 @@ export const TaskDefinitionFragment = gql`
     id
     formId
     title
+    titleTemplate
   }
 `;
 
@@ -70,5 +72,77 @@ export const getResource = gql`
         resourceId
       }
     }
+  }
+`;
+
+export const getTasks = gql`
+  query GetTasks {
+    Task(limit: 10, offset: 0) {
+      id
+      dueDate
+      description
+      definitionId
+      creatorId
+      organizationId
+      parentId
+      priority
+      status
+      teamId
+      title
+      stateName
+      User {
+        id
+        firstname
+        lastname
+        email
+        organizationId
+        role
+      }
+    }
+  }
+`;
+
+export const getTaskDetail = gql`
+  query TaskByPk($id: Int!) {
+    Task_by_pk(id: $id) {
+      id
+      creatorId
+      definitionId
+      description
+      dueDate
+      organizationId
+      status
+      teamId
+      title
+      values
+      parentId
+      priority
+      userByCreatorid {
+        id
+        email
+        firstname
+        lastname
+        organizationId
+        role
+      }
+      Tasks {
+        ...TaskFragment
+      }
+      priority
+    }
+  }
+
+  fragment TaskFragment on Task {
+    id
+    dueDate
+    description
+    definitionId
+    creatorId
+    organizationId
+    stateName
+    status
+    priority
+    teamId
+    title
   }
 `;

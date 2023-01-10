@@ -35,13 +35,27 @@ export const userByPk = gql`
           id
           name
           description
+          organizationId
         }
+        userId
       }
       Organization {
         id
         name
         description
       }
+      UserPermissions {
+        id
+        permissionId
+        userId
+        Permission {
+          id
+          code
+          permissionGroupId
+        }
+      }
+      firstname
+      lastname
     }
   }
 `;

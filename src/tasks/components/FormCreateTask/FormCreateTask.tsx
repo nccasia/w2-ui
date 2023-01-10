@@ -7,8 +7,13 @@ import {
   useGetTaskDefinitionQuery,
 } from "@saleor/graphql";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
+import useNavigator from "@saleor/hooks/useNavigator";
+import useNotifier from "@saleor/hooks/useNotifier";
+import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal } from "@saleor/styles/modal";
+import { taskUrl } from "@saleor/tasks/urls";
 import React, { useMemo, useState } from "react";
+import { useIntl } from "react-intl";
 
 import { useTaskDefinitionChoiceType } from "../TaskCreation/useTasksDefinitionChoiceType";
 import FormCreatedTaskDetail from "./FormCreatedTaskDetail/FormCreatedTaskDetail";
@@ -19,20 +24,35 @@ interface Props {
 }
 
 const FormCreateTask: React.FC<Props> = ({ onClose }) => {
-  const [createTaskMutation] = useCreateTaskMutation();
+  const navigate = useNavigator();
+  const notify = useNotifier();
+  const [createTaskMutation] = useCreateTaskMutation({
+    onCompleted: data => {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges),
+      });
+      navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
+    },
+  });
   const { data } = useGetTaskDefinitionQuery();
   const { choiceType } = useTaskDefinitionChoiceType(data);
   const { result } = useChoiceSearch(choiceType);
 
+  const intl = useIntl();
+
   const [typeTask, setTypeTask] = useState<string>("");
 
   const { user } = useUser();
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: FormCreateTask.tsx:27 ~ user", user);
 
   const selectedType = useMemo(
     () => data?.TaskDefinition?.find?.(item => item.id === +typeTask),
     [data?.TaskDefinition, typeTask],
+  );
+
+  const selectTeam = useMemo(
+    () => user?.MemberOnTeams?.find?.(item => item.userId === user?.id),
+    [user?.MemberOnTeams, user?.id],
   );
 
   const handleNewRequest = data => {
@@ -41,16 +61,16 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
       1}/${current.getFullYear()}`;
     createTaskMutation({
       variables: {
-        values: { ...data },
+        values: JSON.stringify({ ...data }),
         creatorId: user.id,
         assigneeId: user.id,
-        organizationId: user,
+        organizationId: user.Organization.id,
         definitionId: selectedType.id,
-        teamId: user,
+        teamId: selectTeam.teamId,
         dueDate: date,
+        title: selectedType?.titleTemplate,
       },
     });
-    onClose();
   };
 
   return (

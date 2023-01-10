@@ -6,7 +6,7 @@ export const useAuthState = () => {
   const [getUser, { data, loading }] = useUserByPkLazyQuery();
 
   const user = useMemo(() => {
-    return data.User_by_pk;
+    return data?.User_by_pk;
   }, [data]);
 
   const authenticated = useMemo(() => {
@@ -19,7 +19,7 @@ export const useAuthState = () => {
   useEffect(() => {
     getUser({
       variables: {
-        id: userId.id,
+        id: userId?.id,
       },
     });
   }, [getUser, userId]);

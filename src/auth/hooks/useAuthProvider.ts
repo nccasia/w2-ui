@@ -172,7 +172,7 @@ export function useAuthProvider({
   };
 
   const logoutNonStaffUser = async (data: any) => {
-    if (data.user && data.user.role === Rolebe.USER) {
+    if (data && data.role === Rolebe.USER) {
       notify({
         status: "error",
         text: intl.formatMessage(commonMessages.unauthorizedDashboardAccess),

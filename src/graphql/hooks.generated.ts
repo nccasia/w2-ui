@@ -10,6 +10,22 @@ export const TaskDefinitionFragmentFragmentDoc = gql`
   id
   formId
   title
+  titleTemplate
+}
+    `;
+export const TaskFragmentFragmentDoc = gql`
+    fragment TaskFragment on Task {
+  id
+  dueDate
+  description
+  definitionId
+  creatorId
+  organizationId
+  stateName
+  status
+  priority
+  teamId
+  title
 }
     `;
 export const MyQueryDocument = gql`
@@ -99,13 +115,27 @@ export const UserByPkDocument = gql`
         id
         name
         description
+        organizationId
       }
+      userId
     }
     Organization {
       id
       name
       description
     }
+    UserPermissions {
+      id
+      permissionId
+      userId
+      Permission {
+        id
+        code
+        permissionGroupId
+      }
+    }
+    firstname
+    lastname
   }
 }
     `;
@@ -170,9 +200,9 @@ export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
 export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
 export type HomeQueryResult = Apollo.QueryResult<Types.HomeQuery, Types.HomeQueryVariables>;
 export const CreateTaskDocument = gql`
-    mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!) {
+    mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!, $title: String!) {
   insert_Task(
-    objects: {values: $values, organizationId: $organizationId, dueDate: $dueDate, description: "", creatorId: $creatorId, assigneeId: $assigneeId, title: "", definitionId: $definitionId, teamId: $teamId}
+    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
   ) {
     returning {
       id
@@ -202,6 +232,7 @@ export type CreateTaskMutationFn = Apollo.MutationFunction<Types.CreateTaskMutat
  *      organizationId: // value for 'organizationId'
  *      teamId: // value for 'teamId'
  *      dueDate: // value for 'dueDate'
+ *      title: // value for 'title'
  *   },
  * });
  */
@@ -327,3 +358,114 @@ export function useGetResourceLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetResourceQueryHookResult = ReturnType<typeof useGetResourceQuery>;
 export type GetResourceLazyQueryHookResult = ReturnType<typeof useGetResourceLazyQuery>;
 export type GetResourceQueryResult = Apollo.QueryResult<Types.GetResourceQuery, Types.GetResourceQueryVariables>;
+export const GetTasksDocument = gql`
+    query GetTasks {
+  Task(limit: 10, offset: 0) {
+    id
+    dueDate
+    description
+    definitionId
+    creatorId
+    organizationId
+    parentId
+    priority
+    status
+    teamId
+    title
+    stateName
+    User {
+      id
+      firstname
+      lastname
+      email
+      organizationId
+      role
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTasksQuery__
+ *
+ * To run a query within a React component, call `useGetTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTasksQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetTasksQuery, Types.GetTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetTasksQuery, Types.GetTasksQueryVariables>(GetTasksDocument, options);
+      }
+export function useGetTasksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetTasksQuery, Types.GetTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetTasksQuery, Types.GetTasksQueryVariables>(GetTasksDocument, options);
+        }
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = Apollo.QueryResult<Types.GetTasksQuery, Types.GetTasksQueryVariables>;
+export const TaskByPkDocument = gql`
+    query TaskByPk($id: Int!) {
+  Task_by_pk(id: $id) {
+    id
+    creatorId
+    definitionId
+    description
+    dueDate
+    organizationId
+    status
+    teamId
+    title
+    values
+    parentId
+    priority
+    userByCreatorid {
+      id
+      email
+      firstname
+      lastname
+      organizationId
+      role
+    }
+    Tasks {
+      ...TaskFragment
+    }
+    priority
+  }
+}
+    ${TaskFragmentFragmentDoc}`;
+
+/**
+ * __useTaskByPkQuery__
+ *
+ * To run a query within a React component, call `useTaskByPkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTaskByPkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTaskByPkQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useTaskByPkQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>(TaskByPkDocument, options);
+      }
+export function useTaskByPkLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>(TaskByPkDocument, options);
+        }
+export type TaskByPkQueryHookResult = ReturnType<typeof useTaskByPkQuery>;
+export type TaskByPkLazyQueryHookResult = ReturnType<typeof useTaskByPkLazyQuery>;
+export type TaskByPkQueryResult = Apollo.QueryResult<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>;
