@@ -23,8 +23,7 @@ const useStyles = makeStyles(
     },
   }),
   {
-    name:
-      "C:Workspacew2-uisrc\taskscomponentsTaskDetailSidebarcomponentsCardContentItemMultipleChoiceCardContentItemMultipleChoice",
+    name: "CardContentItemMultipleChoice",
   },
 );
 

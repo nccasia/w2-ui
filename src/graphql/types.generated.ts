@@ -6304,8 +6304,3 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeQuery = { __typename: 'query_root', hello: string };
-
-export type GeteventLogQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GeteventLogQuery = { __typename: 'query_root', EventLog: Array<{ __typename: 'EventLog', actionId: number, createdAt: any, id: number, organizationId: number, userId: number | null, taskId: number | null, Action: { __typename: 'Action', content: string }, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null }> };

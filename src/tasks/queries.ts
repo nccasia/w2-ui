@@ -21,6 +21,16 @@ export const getEventLog = gql`
       Task {
         title
       }
+      `;
+export const getTasks = gql`
+  query getTasks {
+    Task(limit: 10, offset: 0) {
+      id
+      priority
+      status
+      title
+      assigneeId
+      createdAt
     }
   }
 `;

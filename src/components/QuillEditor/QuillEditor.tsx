@@ -6,7 +6,7 @@ import ReactQuill from "react-quill";
 
 const useStyles = makeStyles(
   () => ({
-    container: {
+    root: {
       width: "100%",
       height: "250px",
     },
@@ -35,7 +35,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <div className={classes.root}>
       <ReactQuill
         readOnly={edit}
         key={key}

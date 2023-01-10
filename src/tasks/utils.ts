@@ -1,6 +1,7 @@
 import { score } from "fuzzaldrin";
 import sortBy from "lodash/sortBy";
 import { useEffect, useMemo, useState } from "react";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 
 const pageSize = 10;
 
@@ -34,4 +35,26 @@ export function useMockAutocomplete(
     results,
     more,
   };
+}
+
+/*
+ icon: "error" | "info" | "success" | "warning"
+*/
+export function alertConfirmSubTask(
+  icon: SweetAlertIcon,
+  title: string | HTMLElement | JQuery,
+) {
+  return Swal.fire({
+    icon,
+    title,
+    text: "Something went wrong!",
+    confirmButtonText: "Next task",
+    denyButtonText: `Cancle`,
+  }).then(result => {
+    if (result.isConfirmed) {
+      Swal.fire("Saved!", "", "success");
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
+  });
 }
