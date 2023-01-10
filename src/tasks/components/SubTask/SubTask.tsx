@@ -39,7 +39,6 @@ const SubTask: React.FC = () => {
     setLoading(true);
     localStorage.setItem("event", JSON.stringify(event.nativeEvent));
   };
-
   return (
     <Card>
       <Modal open={loading}>
