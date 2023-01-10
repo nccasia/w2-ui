@@ -6304,3 +6304,13 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeQuery = { __typename: 'query_root', hello: string };
+
+export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTasksQuery = { __typename: 'query_root', Task: Array<{ __typename: 'Task', id: number, priority: any, status: any, title: string, assigneeId: number, createdAt: any }> };
+
+export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetEventLogsQuery = { __typename: 'query_root', EventLog: Array<{ __typename: 'EventLog', actionId: number, createdAt: any, id: number, organizationId: number, userId: number | null, taskId: number | null, Action: { __typename: 'Action', content: string }, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null }> };

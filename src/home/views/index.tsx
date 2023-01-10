@@ -1,5 +1,5 @@
 import { useUser } from "@saleor/auth";
-import { useGeteventLogQuery } from "@saleor/graphql/hooks.generated";
+import { useGetEventLogsQuery } from "@saleor/graphql/hooks.generated";
 import { IQuantityTasks } from "@saleor/type/Task";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
@@ -18,7 +18,7 @@ const HomeSection = () => {
 
   const { dataHomePage } = { dataHomePage: undefined };
 
-  const { data } = useGeteventLogQuery({
+  const { data } = useGetEventLogsQuery({
     variables: {},
   });
   return (
