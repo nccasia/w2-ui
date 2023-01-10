@@ -28,6 +28,7 @@ export type UserContextError = typeof UserContextError[keyof typeof UserContextE
 
 export interface UserContext {
   login: (username: string, password: string) => Promise<any>;
+  loginWithGoogle?: (googleId: string) => Promise<any>;
   loginByExternalPlugin: (
     pluginId: string,
     input: ExternalLoginInput,
@@ -38,6 +39,7 @@ export interface UserContext {
     input: RequestExternalLoginInput,
   ) => Promise<GetExternalAuthUrlData>;
   user?: any;
+  setUser?: any;
   authenticating: boolean;
   authenticated: boolean;
   errors: UserContextError[];

@@ -34,6 +34,7 @@ export function useAuthProvider({
 }: UseAuthProviderOpts): UserContext {
   const {
     login,
+    loginWithGoogle,
     getExternalAuthUrl,
     // getExternalAccessToken,
     logout,
@@ -146,6 +147,28 @@ export function useAuthProvider({
       handleLoginError(error);
     }
   };
+  const handleLoginWithGoogle = async (googleId: string) => {
+    try {
+      const result = await loginWithGoogle(googleId);
+      if (result && !result.data.tokenCreate.errors.length) {
+        if (DEMO_MODE) {
+          displayDemoMessage(intl, notify);
+        }
+        // eslint-disable-next-line no-console
+        console.log("user--->>>", result.data.tokenCreate.user);
+        saveCredentials(result.data.tokenCreate.user, "111111");
+      } else {
+        setErrors(["loginError"]);
+      }
+      await logoutNonStaffUser(result.data.tokenCreate);
+
+      setUser(result.data.tokenCreate.user);
+
+      return result.data.tokenCreate.user;
+    } catch (error) {
+      handleLoginError(error);
+    }
+  };
   const handleRequestExternalLogin = async (_pluginId: string, _input: any) => {
     const result = await getExternalAuthUrl();
 
@@ -184,6 +207,7 @@ export function useAuthProvider({
 
   return {
     login: handleLogin,
+    loginWithGoogle: handleLoginWithGoogle,
     // @ts-ignore
     requestLoginByExternalPlugin: handleRequestExternalLogin,
     loginByExternalPlugin: handleExternalLogin,
@@ -192,5 +216,6 @@ export function useAuthProvider({
     authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
+    setUser,
   };
 }

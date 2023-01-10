@@ -5,7 +5,7 @@ import Grid from "@saleor/components/Grid";
 import RequirePermissions from "@saleor/components/RequirePermissions";
 import Tasks from "@saleor/icons/Tasks";
 import { makeStyles } from "@saleor/macaw-ui";
-import { IActivityAction, IQuantityTasks } from "@saleor/type/Task";
+import { IEventLog, IQuantityTasks } from "@saleor/type/Task";
 import React from "react";
 
 import Sales from "../../../icons/Sales";
@@ -38,7 +38,9 @@ const useStyles = makeStyles(
 );
 
 export interface HomePageProps {
-  activities: IActivityAction[];
+  eventLog?: {
+    EventLog: IEventLog[];
+  };
   quantityTasks: IQuantityTasks;
   tasksToCapture: number | null;
   tasksToFulfill: number | null;
@@ -57,7 +59,7 @@ const HomePage: React.FC<HomePageProps> = props => {
   const {
     userName,
     topTasks,
-    activities,
+    eventLog,
     quantityTasks,
     createNewChannelHref,
     tasksToFulfillHref,
@@ -127,10 +129,10 @@ const HomePage: React.FC<HomePageProps> = props => {
             </RequirePermissions>
           )}
         </div>
-        {activities && (
+        {eventLog && (
           <div>
             <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
-              <HomeActivityCard activities={activities} />
+              <HomeActivityCard eventLog={eventLog} />
             </RequirePermissions>
           </div>
         )}

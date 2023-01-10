@@ -1,5 +1,12 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  DialogContentText,
+  Typography,
+} from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import AccountPermissionGroups from "@saleor/components/AccountPermissionGroups";
+import ActionDialog from "@saleor/components/ActionDialog";
 import { Backlink } from "@saleor/components/Backlink";
 import CardSpacer from "@saleor/components/CardSpacer";
 import CardTitle from "@saleor/components/CardTitle";
@@ -21,7 +28,7 @@ import { staffListUrl } from "@saleor/staff/urls";
 import { getMemberPermissionGroups, isMemberActive } from "@saleor/staff/utils";
 import { FetchMoreProps, RelayToFlat, SearchPageProps } from "@saleor/types";
 import createMultiAutocompleteSelectHandler from "@saleor/utils/handlers/multiAutocompleteSelectChangeHandler";
-import React from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 
 import StaffPassword from "../StaffPassword/StaffPassword";
@@ -75,6 +82,8 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
   saveButtonBarState,
   staffMember,
 }: StaffDetailsPageProps) => {
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
   const intl = useIntl();
   const classes = useStyles();
   const navigate = useNavigator();
@@ -94,12 +103,12 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
       value: group.id,
     })) || [],
   );
-
+  const { user } = useUser();
   const initialForm: StaffDetailsFormData = {
-    email: staffMember?.email || "",
-    firstName: staffMember?.firstName || "",
+    email: user?.email || "",
+    firstName: user?.firstname || "",
     isActive,
-    lastName: staffMember?.lastName || "",
+    lastName: user?.lastname || "",
     permissionGroups: permissionGroups.map(pg => pg.id),
   };
 
@@ -110,7 +119,7 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
       onSubmit={onSubmit}
       disabled={disabled}
     >
-      {({ data: formData, change, isSaveDisabled, submit, toggleValue }) => {
+      {({ data: formData, change, submit, toggleValue }) => {
         const permissionGroupsChange = createMultiAutocompleteSelectHandler(
           toggleValue,
           setPermissionGroupsDisplayValues,
@@ -132,13 +141,14 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
                 <StaffProperties
                   errors={errors}
                   data={formData}
-                  disabled={disabled}
                   canEditAvatar={canEditAvatar}
                   staffMember={staffMember}
                   onChange={change}
                   onImageUpload={onImageUpload}
                   onImageDelete={onImageDelete}
+                  disabled={false}
                 />
+
                 {canEditPreferences && (
                   <>
                     <CardSpacer />
@@ -197,12 +207,37 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
               </div>
             </Grid>
             <Savebar
-              disabled={isSaveDisabled}
+              disabled={false}
               state={saveButtonBarState}
               onCancel={() => navigate(staffListUrl())}
-              onSubmit={submit}
+              onSubmit={() => {
+                setOpenDialog(true);
+              }}
               onDelete={canRemove ? onDelete : undefined}
             />
+            <ActionDialog
+              open={openDialog}
+              title="Confirm"
+              confirmButtonState="default"
+              confirmButtonLabel="Yes"
+              onConfirm={() => {
+                setOpenDialog(false);
+                submit();
+                // eslint-disable-next-line no-console
+                console.log("Yes");
+              }}
+              onClose={() => {
+                setOpenDialog(false);
+                // eslint-disable-next-line no-console
+                console.log("No", initialForm);
+              }}
+            >
+              <DialogContentText>
+                <Typography>
+                  Are you sure you want to change your profile?
+                </Typography>
+              </DialogContentText>
+            </ActionDialog>
           </Container>
         );
       }}

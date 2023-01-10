@@ -1,13 +1,18 @@
 import { DialogContentText } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import ActionDialog from "@saleor/components/ActionDialog";
 import NotFoundPage from "@saleor/components/NotFoundPage";
 import { WindowTitle } from "@saleor/components/WindowTitle";
+import { useUpdateInformationUserMutation } from "@saleor/graphql/hooks.generated";
 import useNavigator from "@saleor/hooks/useNavigator";
+import useNotifier from "@saleor/hooks/useNotifier";
 import { getStringOrPlaceholder } from "@saleor/misc";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import StaffDetailsPage from "../components/StaffDetailsPage/StaffDetailsPage";
+import StaffDetailsPage, {
+  StaffDetailsFormData,
+} from "../components/StaffDetailsPage/StaffDetailsPage";
 import StaffPasswordResetDialog from "../components/StaffPasswordResetDialog";
 import {
   staffListUrl,
@@ -23,6 +28,7 @@ interface OrderListProps {
 export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
   const navigate = useNavigator();
   const intl = useIntl();
+  const notify = useNotifier();
 
   const closeModal = () =>
     navigate(
@@ -32,7 +38,7 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
       }),
     );
 
-  const { data } = { data: null };
+  const { dataInfor } = { dataInfor: null };
 
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,18 +61,51 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
 
   const [deleteStaffAvatar, deleteAvatarResult] = [{}, {}];
 
+  const [
+    updateInformationUserMutation,
+    { error },
+  ] = useUpdateInformationUserMutation();
+
+  const { user, setUser } = useUser();
+
+  const handleUpdate = (formData: StaffDetailsFormData) => {
+    updateInformationUserMutation({
+      variables: {
+        id: user.id,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+      },
+    });
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.log("Error: ", error);
+      notify({
+        status: "error",
+        text: error,
+      });
+    } else {
+      setUser({
+        ...user,
+        id: user.id,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+      });
+      notify({
+        status: "success",
+        text: "Change profile successfully",
+      });
+    }
+  };
   if (false) {
     return <NotFoundPage backHref={staffListUrl()} />;
   }
-
-  const handleUpdate = () => true;
 
   return (
     <>
       <WindowTitle title={getStringOrPlaceholder("staffMember?.email")} />
       <StaffDetailsPage
         // @ts-ignore
-        errors={updateStaffMemberOpts?.data?.staffUpdate?.errors || []}
+        errors={updateStaffMemberOpts?.dataInfor?.staffUpdate?.errors || []}
         canEditAvatar={true}
         canEditPreferences={true}
         canEditStatus={!false}
@@ -128,7 +167,9 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
             defaultMessage="Are you sure you want to remove {email} avatar?"
             values={{
               email: (
-                <strong>{getStringOrPlaceholder(data?.user?.email)}</strong>
+                <strong>
+                  {getStringOrPlaceholder(dataInfor?.user?.email)}
+                </strong>
               ),
             }}
           />

@@ -4,6 +4,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import { UserContextError } from "@saleor/auth/types";
 import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
@@ -46,6 +47,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
       gapi.client.init({ clientId });
     });
   }, []);
+  const { loginWithGoogle } = useUser();
 
   const classes = useStyles(props);
   const intl = useIntl();
@@ -58,9 +60,12 @@ const LoginCard: React.FC<LoginCardProps> = props => {
       </div>
     );
   }
+
   const responseGoogle = response => {
     // eslint-disable-next-line no-console
     console.log("success->", response);
+
+    loginWithGoogle(response.googleId);
   };
   const responseGoogleFail = response => {
     // eslint-disable-next-line no-console
