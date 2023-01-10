@@ -18167,6 +18167,11 @@ swap-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
+sweetalert2@^11.6.16:
+  version "11.6.16"
+  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.6.16.tgz"
+  integrity sha512-T2FO8LptErsjE4r0WMfiSk4YbeUvPadNaUZ/cADMEOnws000znrf8zFX9S5e/spvzJDyRI5En73WQyDZhGypxQ==
+
 symbol-observable@^1.0.4, symbol-observable@^1.1.0, symbol-observable@^1.2.0, symbol-observable@1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz"

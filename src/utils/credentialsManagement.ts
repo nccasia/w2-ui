@@ -23,7 +23,8 @@ export function saveCredentials(
   password: string,
 ): Promise<CredentialType | null> {
   let result: Promise<CredentialType | null>;
-
+  // eslint-disable-next-line no-console
+  console.log(`saveCredentials`, user);
   if (isSupported) {
     const cred = new PasswordCredential({
       id: user.email,

@@ -1,10 +1,23 @@
-import { IUser } from "../User";
-
-export interface IActivityAction {
+export interface IEventLog {
+  actionId: number;
+  createdAt: string;
   id: number;
-  user: IUser;
-  typeAction: string;
-  date: string;
+  organizationId: number;
+  userId: number;
+  taskId: number;
+  Action: {
+    content: string;
+  };
+  User: {
+    email: string;
+    avatar?: string;
+  };
+  Organization: {
+    name: string;
+  };
+  Task: {
+    title: string;
+  };
 }
 
 export interface IQuantityTasks {

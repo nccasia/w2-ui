@@ -6282,14 +6282,30 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename: 'mutation_root', login: { __typename: 'Authbe', accessToken: any, user: { __typename: 'Userbe', id: string, email: string, firstname: string | null, role: Rolebe, permissions: Array<{ __typename: 'Permissionbe', code: string }> | null } } };
+export type LoginMutation = { __typename: 'mutation_root', login: { __typename: 'Authbe', accessToken: any, user: { __typename: 'Userbe', id: string, email: string, firstname: string | null, lastname: string | null, role: Rolebe, permissions: Array<{ __typename: 'Permissionbe', code: string }> | null } } };
 
 export type UserByPkQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, firstname: string | null, lastname: string | null, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: number, name: string, description: string, organizationId: number } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: number, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: number, code: string, permissionGroupId: number } }> } | null };
+export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: number, name: string, description: string, organizationId: number } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: number, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: number, code: string, permissionGroupId: number } }> } | null };
+
+export type GetInformationUserQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetInformationUserQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, firstname: string | null, lastname: string | null } | null };
+
+export type UpdateInformationUserMutationVariables = Exact<{
+  id: Scalars['Int'];
+  firstname?: InputMaybe<Scalars['String']>;
+  lastname?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateInformationUserMutation = { __typename: 'mutation_root', update_User_by_pk: { __typename: 'User', lastname: string | null, firstname: string | null } | null };
 
 export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6344,3 +6360,8 @@ export type TaskByPkQueryVariables = Exact<{
 export type TaskByPkQuery = { __typename: 'query_root', Task_by_pk: { __typename: 'Task', id: number, creatorId: number, definitionId: number, description: string, dueDate: any, organizationId: number, status: any, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: number, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string }> } | null };
 
 export type TaskFragmentFragment = { __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string };
+
+export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetEventLogsQuery = { __typename: 'query_root', EventLog: Array<{ __typename: 'EventLog', actionId: number, createdAt: any, id: number, organizationId: number, userId: number | null, taskId: number | null, Action: { __typename: 'Action', content: string }, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null }> };

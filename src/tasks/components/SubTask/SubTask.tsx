@@ -1,54 +1,20 @@
-import { Card } from "@material-ui/core";
-import { Button, makeStyles } from "@saleor/macaw-ui";
+import { Card, CardContent, Modal } from "@material-ui/core";
+import Hr from "@saleor/components/Hr";
+import Loading from "@saleor/components/Loading";
 import React, { useState } from "react";
 
 import EditQuillEditor from "../EditQuillEditor";
 import FormConfirm from "../FormConfirm";
 import TaskTitle from "../TaskTitle";
 
-const useStyles = makeStyles(
-  theme => ({
-    listButton: {
-      width: "98%",
-      margin: "24px auto",
-      display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "center",
-      gap: "24px",
-    },
-    containerQuillEditor: {
-      width: "98%",
-      margin: "0 auto",
-      marginBottom: theme.spacing(8),
-    },
-    title: {
-      display: "flex",
-      alignItems: "flex-end",
-      gap: 4,
-    },
-    quillTitle: {
-      fontWeight: "bold",
-      color: "gray",
-    },
-    editIcon: {
-      cursor: "pointer",
-      fontSize: 20,
-    },
-    listButtonQuillEditor: {
-      display: "flex",
-      justifyContent: "flex-start",
-      gap: "24px",
-      marginTop: 50,
-    },
-  }),
-  { name: "SubTask" },
-);
+const content =
+  "<p>Adipisicing ut sunt magna amet laboris est nulla ad sunt reprehenderit fugiat veniam ex. Nulla cupidatat amet laborum fugiat irure mollit. Aliquip labore anim velit ea. Cillum aute nulla sit excepteur et. Voluptate mollit fugiat ex voluptate ut ea mollit sint dolor quis laboris id qui. Eiusmod ipsum nisi eu culpa. Consequat commodo enim voluptate non nisi reprehenderit excepteur veniam duis.</p>";
 
 const SubTask: React.FC = () => {
   const [modules, setModules] = useState({ toolbar: false });
   const [edit, setEdit] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [key, setKey] = useState(1);
-  const classes = useStyles();
 
   const handleEdit = () => {
     setModules({ toolbar: true });
@@ -68,25 +34,32 @@ const SubTask: React.FC = () => {
     setKey(key => key + 1);
   };
 
+  const handleConfirm = async event => {
+    // TODO: call api confirm subtask
+    setLoading(true);
+    localStorage.setItem("event", JSON.stringify(event.nativeEvent));
+  };
   return (
     <Card>
+      <Modal open={loading}>
+        <Loading />
+      </Modal>
       <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" />
-      <EditQuillEditor
-        key={key}
-        edit={edit}
-        modules={modules}
-        onChange={() => true}
-        handleCancel={handleCancel}
-        handleEdit={handleEdit}
-        handleSave={handleSave}
-        title={"Description"}
-        value={"<h2>Hello world!</h2>"}
-      />
-      <FormConfirm />
-      <div className={classes.listButton}>
-        <Button variant="secondary">Reject</Button>
-        <Button variant="primary">Approve</Button>
-      </div>
+      <Hr />
+      <CardContent style={{ paddingBottom: "47px" }}>
+        <EditQuillEditor
+          key={key}
+          edit={edit}
+          modules={modules}
+          onChange={() => true}
+          handleCancel={handleCancel}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          title={"Description"}
+          value={content}
+        />
+        <FormConfirm onConfirm={handleConfirm} />
+      </CardContent>
     </Card>
   );
 };

@@ -89,6 +89,7 @@
     "semver-compare": "^1.0.0",
     "slugify": "^1.4.6",
     "svg-inline-react": "^3.2.1",
+    "sweetalert2": "^11.6.16",
     "uniforms-bridge-json-schema": "^3.10.2",
     "uniforms-material": "^3.10.2",
     "url-join": "^4.0.1",

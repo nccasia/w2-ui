@@ -14,6 +14,9 @@ const useStyles = makeStyles(
   { name: "Task" },
 );
 
+const content =
+  "<p>Adipisicing ut sunt magna amet laboris est nulla ad sunt reprehenderit fugiat veniam ex. Nulla cupidatat amet laborum fugiat irure mollit. Aliquip labore anim velit ea. Cillum aute nulla sit excepteur et. Voluptate mollit fugiat ex voluptate ut ea mollit sint dolor quis laboris id qui. Eiusmod ipsum nisi eu culpa. Consequat commodo enim voluptate non nisi reprehenderit excepteur veniam duis.</p>";
+
 const Task = () => {
   const classes = useStyles();
   const [modules, setModules] = useState({ toolbar: false });
@@ -49,7 +52,7 @@ const Task = () => {
         handleEdit={handleEdit}
         handleSave={handleSave}
         title={"Description"}
-        value={"<h2>Hello world!</h2>"}
+        value={content}
       />
     </Card>
   );

@@ -1,4 +1,4 @@
-import { TextField } from "@material-ui/core";
+import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -15,11 +15,16 @@ const useStyles = makeStyles(
   { name: "FormConfirm" },
 );
 
-const FormConfirm = () => {
+interface FormConfirmProps {
+  onConfirm: (event: any) => void;
+}
+
+const FormConfirm: React.FC<FormConfirmProps> = ({ onConfirm }) => {
   const classes = useStyles();
+  // fix sau
   return (
     <div className={classes.container}>
-      <TextField label={"Reason"} className={classes.input} />
+      <FormSchema formId={33} onSubmit={onConfirm} />
     </div>
   );
 };
