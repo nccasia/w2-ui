@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import DemoBanner from "@saleor/components/DemoBanner";
 import useAppState from "@saleor/hooks/useAppState";
 import { ThemeProvider } from "@saleor/macaw-ui";
-import React from "react";
+import React, { useMemo } from "react";
 import { render } from "react-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import TagManager from "react-gtm-module";
@@ -81,13 +81,12 @@ const Routes: React.FC = () => {
   const [, dispatchAppState] = useAppState();
   const { authenticated, authenticating } = useUser();
 
-  const { channel } = { channel: undefined };
+  const homePageLoaded = useMemo(() => authenticated, [authenticated]);
 
-  const channelLoaded = typeof channel !== undefined;
-
-  const homePageLoaded = channelLoaded && authenticated;
-
-  const homePageLoading = (authenticated && !channelLoaded) || authenticating;
+  const homePageLoading = useMemo(() => authenticated || authenticating, [
+    authenticated,
+    authenticating,
+  ]);
 
   const PermissionEnum = {
     MANAGE_MENUS: "MANAGE_MENUS",

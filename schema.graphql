@@ -339,7 +339,7 @@ type Action {
   content: String!
   createdAt: timestamp!
   domain: String!
-  id: String!
+  id: Int!
   intent: String!
   type: ActionType!
 }
@@ -373,9 +373,22 @@ type Action_aggregate {
 aggregate fields of "Action"
 """
 type Action_aggregate_fields {
+  avg: Action_avg_fields
   count(columns: [Action_select_column!], distinct: Boolean): Int!
   max: Action_max_fields
   min: Action_min_fields
+  stddev: Action_stddev_fields
+  stddev_pop: Action_stddev_pop_fields
+  stddev_samp: Action_stddev_samp_fields
+  sum: Action_sum_fields
+  var_pop: Action_var_pop_fields
+  var_samp: Action_var_samp_fields
+  variance: Action_variance_fields
+}
+
+"""aggregate avg on columns"""
+type Action_avg_fields {
+  id: Float
 }
 
 """
@@ -391,7 +404,7 @@ input Action_bool_exp {
   content: String_comparison_exp
   createdAt: timestamp_comparison_exp
   domain: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   intent: String_comparison_exp
   type: ActionType_comparison_exp
 }
@@ -407,6 +420,13 @@ enum Action_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Action"
+"""
+input Action_inc_input {
+  id: Int
+}
+
+"""
 input type for inserting data into table "Action"
 """
 input Action_insert_input {
@@ -415,7 +435,7 @@ input Action_insert_input {
   content: String
   createdAt: timestamp
   domain: String
-  id: String
+  id: Int
   intent: String
   type: ActionType
 }
@@ -426,7 +446,7 @@ type Action_max_fields {
   content: String
   createdAt: timestamp
   domain: String
-  id: String
+  id: Int
   intent: String
   type: ActionType
 }
@@ -437,7 +457,7 @@ type Action_min_fields {
   content: String
   createdAt: timestamp
   domain: String
-  id: String
+  id: Int
   intent: String
   type: ActionType
 }
@@ -486,7 +506,7 @@ input Action_order_by {
 
 """primary key columns input for table: Action"""
 input Action_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -523,9 +543,24 @@ input Action_set_input {
   content: String
   createdAt: timestamp
   domain: String
-  id: String
+  id: Int
   intent: String
   type: ActionType
+}
+
+"""aggregate stddev on columns"""
+type Action_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type Action_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type Action_stddev_samp_fields {
+  id: Float
 }
 
 """
@@ -545,9 +580,14 @@ input Action_stream_cursor_value_input {
   content: String
   createdAt: timestamp
   domain: String
-  id: String
+  id: Int
   intent: String
   type: ActionType
+}
+
+"""aggregate sum on columns"""
+type Action_sum_fields {
+  id: Int
 }
 
 """
@@ -577,9 +617,27 @@ enum Action_update_column {
 }
 
 input Action_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Action_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Action_set_input
   where: Action_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Action_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type Action_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type Action_variance_fields {
+  id: Float
 }
 
 """
@@ -666,10 +724,10 @@ type Activity {
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
   updatedAt: timestamp!
-  workflowId: String!
+  workflowId: Int!
 }
 
 """
@@ -695,18 +753,34 @@ input Activity_aggregate_bool_exp_count {
 aggregate fields of "Activity"
 """
 type Activity_aggregate_fields {
+  avg: Activity_avg_fields
   count(columns: [Activity_select_column!], distinct: Boolean): Int!
   max: Activity_max_fields
   min: Activity_min_fields
+  stddev: Activity_stddev_fields
+  stddev_pop: Activity_stddev_pop_fields
+  stddev_samp: Activity_stddev_samp_fields
+  sum: Activity_sum_fields
+  var_pop: Activity_var_pop_fields
+  var_samp: Activity_var_samp_fields
+  variance: Activity_variance_fields
 }
 
 """
 order by aggregate values of table "Activity"
 """
 input Activity_aggregate_order_by {
+  avg: Activity_avg_order_by
   count: order_by
   max: Activity_max_order_by
   min: Activity_min_order_by
+  stddev: Activity_stddev_order_by
+  stddev_pop: Activity_stddev_pop_order_by
+  stddev_samp: Activity_stddev_samp_order_by
+  sum: Activity_sum_order_by
+  var_pop: Activity_var_pop_order_by
+  var_samp: Activity_var_samp_order_by
+  variance: Activity_variance_order_by
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -724,6 +798,20 @@ input Activity_arr_rel_insert_input {
   on_conflict: Activity_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Activity_avg_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by avg() on columns of table "Activity"
+"""
+input Activity_avg_order_by {
+  id: order_by
+  workflowId: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Activity". All fields are combined with a logical 'AND'.
 """
@@ -739,10 +827,10 @@ input Activity_bool_exp {
   config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
   updatedAt: timestamp_comparison_exp
-  workflowId: String_comparison_exp
+  workflowId: Int_comparison_exp
 }
 
 """
@@ -777,6 +865,14 @@ input Activity_delete_key_input {
 }
 
 """
+input type for incrementing numeric columns in table "Activity"
+"""
+input Activity_inc_input {
+  id: Int
+  workflowId: Int
+}
+
+"""
 input type for inserting data into table "Activity"
 """
 input Activity_insert_input {
@@ -786,20 +882,20 @@ input Activity_insert_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """aggregate max on columns"""
 type Activity_max_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """
@@ -818,10 +914,10 @@ input Activity_max_order_by {
 type Activity_min_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """
@@ -882,7 +978,7 @@ input Activity_order_by {
 
 """primary key columns input for table: Activity"""
 input Activity_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
@@ -923,10 +1019,52 @@ input Activity_set_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
+}
+
+"""aggregate stddev on columns"""
+type Activity_stddev_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by stddev() on columns of table "Activity"
+"""
+input Activity_stddev_order_by {
+  id: order_by
+  workflowId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Activity_stddev_pop_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Activity"
+"""
+input Activity_stddev_pop_order_by {
+  id: order_by
+  workflowId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Activity_stddev_samp_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Activity"
+"""
+input Activity_stddev_samp_order_by {
+  id: order_by
+  workflowId: order_by
 }
 
 """
@@ -945,10 +1083,24 @@ input Activity_stream_cursor_value_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
+}
+
+"""aggregate sum on columns"""
+type Activity_sum_fields {
+  id: Int
+  workflowId: Int
+}
+
+"""
+order by sum() on columns of table "Activity"
+"""
+input Activity_sum_order_by {
+  id: order_by
+  workflowId: order_by
 }
 
 """
@@ -996,12 +1148,57 @@ input Activity_updates {
   """
   _delete_key: Activity_delete_key_input
 
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Activity_inc_input
+
   """prepend existing jsonb value of filtered columns with new jsonb value"""
   _prepend: Activity_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Activity_set_input
   where: Activity_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Activity_var_pop_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by var_pop() on columns of table "Activity"
+"""
+input Activity_var_pop_order_by {
+  id: order_by
+  workflowId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Activity_var_samp_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by var_samp() on columns of table "Activity"
+"""
+input Activity_var_samp_order_by {
+  id: order_by
+  workflowId: order_by
+}
+
+"""aggregate variance on columns"""
+type Activity_variance_fields {
+  id: Float
+  workflowId: Float
+}
+
+"""
+order by variance() on columns of table "Activity"
+"""
+input Activity_variance_order_by {
+  id: order_by
+  workflowId: order_by
 }
 
 type Authbe {
@@ -1044,8 +1241,8 @@ type Comment {
   User: User!
   content: String!
   createdAt: timestamp!
-  creatorId: String!
-  id: String!
+  creatorId: Int!
+  id: Int!
   taskId: String!
   updatedAt: timestamp!
 }
@@ -1073,18 +1270,34 @@ input Comment_aggregate_bool_exp_count {
 aggregate fields of "Comment"
 """
 type Comment_aggregate_fields {
+  avg: Comment_avg_fields
   count(columns: [Comment_select_column!], distinct: Boolean): Int!
   max: Comment_max_fields
   min: Comment_min_fields
+  stddev: Comment_stddev_fields
+  stddev_pop: Comment_stddev_pop_fields
+  stddev_samp: Comment_stddev_samp_fields
+  sum: Comment_sum_fields
+  var_pop: Comment_var_pop_fields
+  var_samp: Comment_var_samp_fields
+  variance: Comment_variance_fields
 }
 
 """
 order by aggregate values of table "Comment"
 """
 input Comment_aggregate_order_by {
+  avg: Comment_avg_order_by
   count: order_by
   max: Comment_max_order_by
   min: Comment_min_order_by
+  stddev: Comment_stddev_order_by
+  stddev_pop: Comment_stddev_pop_order_by
+  stddev_samp: Comment_stddev_samp_order_by
+  sum: Comment_sum_order_by
+  var_pop: Comment_var_pop_order_by
+  var_samp: Comment_var_samp_order_by
+  variance: Comment_variance_order_by
 }
 
 """
@@ -1095,6 +1308,20 @@ input Comment_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: Comment_on_conflict
+}
+
+"""aggregate avg on columns"""
+type Comment_avg_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "Comment"
+"""
+input Comment_avg_order_by {
+  creatorId: order_by
+  id: order_by
 }
 
 """
@@ -1108,8 +1335,8 @@ input Comment_bool_exp {
   _or: [Comment_bool_exp!]
   content: String_comparison_exp
   createdAt: timestamp_comparison_exp
-  creatorId: String_comparison_exp
-  id: String_comparison_exp
+  creatorId: Int_comparison_exp
+  id: Int_comparison_exp
   taskId: String_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
@@ -1125,6 +1352,14 @@ enum Comment_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Comment"
+"""
+input Comment_inc_input {
+  creatorId: Int
+  id: Int
+}
+
+"""
 input type for inserting data into table "Comment"
 """
 input Comment_insert_input {
@@ -1132,8 +1367,8 @@ input Comment_insert_input {
   User: User_obj_rel_insert_input
   content: String
   createdAt: timestamp
-  creatorId: String
-  id: String
+  creatorId: Int
+  id: Int
   taskId: String
   updatedAt: timestamp
 }
@@ -1142,8 +1377,8 @@ input Comment_insert_input {
 type Comment_max_fields {
   content: String
   createdAt: timestamp
-  creatorId: String
-  id: String
+  creatorId: Int
+  id: Int
   taskId: String
   updatedAt: timestamp
 }
@@ -1164,8 +1399,8 @@ input Comment_max_order_by {
 type Comment_min_fields {
   content: String
   createdAt: timestamp
-  creatorId: String
-  id: String
+  creatorId: Int
+  id: Int
   taskId: String
   updatedAt: timestamp
 }
@@ -1216,7 +1451,7 @@ input Comment_order_by {
 
 """primary key columns input for table: Comment"""
 input Comment_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -1248,10 +1483,52 @@ input type for updating data in table "Comment"
 input Comment_set_input {
   content: String
   createdAt: timestamp
-  creatorId: String
-  id: String
+  creatorId: Int
+  id: Int
   taskId: String
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Comment_stddev_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "Comment"
+"""
+input Comment_stddev_order_by {
+  creatorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Comment_stddev_pop_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Comment"
+"""
+input Comment_stddev_pop_order_by {
+  creatorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Comment_stddev_samp_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Comment"
+"""
+input Comment_stddev_samp_order_by {
+  creatorId: order_by
+  id: order_by
 }
 
 """
@@ -1269,10 +1546,24 @@ input Comment_stream_cursor_input {
 input Comment_stream_cursor_value_input {
   content: String
   createdAt: timestamp
-  creatorId: String
-  id: String
+  creatorId: Int
+  id: Int
   taskId: String
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Comment_sum_fields {
+  creatorId: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "Comment"
+"""
+input Comment_sum_order_by {
+  creatorId: order_by
+  id: order_by
 }
 
 """
@@ -1299,14 +1590,54 @@ enum Comment_update_column {
 }
 
 input Comment_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Comment_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Comment_set_input
   where: Comment_bool_exp!
 }
 
-input CreatePostInputbe {
-  content: String!
-  title: String!
+"""aggregate var_pop on columns"""
+type Comment_var_pop_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "Comment"
+"""
+input Comment_var_pop_order_by {
+  creatorId: order_by
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Comment_var_samp_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "Comment"
+"""
+input Comment_var_samp_order_by {
+  creatorId: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type Comment_variance_fields {
+  creatorId: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "Comment"
+"""
+input Comment_variance_order_by {
+  creatorId: order_by
+  id: order_by
 }
 
 """
@@ -1329,12 +1660,12 @@ type EventLog {
 
   """An object relationship"""
   User: User
-  actionId: String!
+  actionId: Int!
   createdAt: timestamp!
-  id: String!
-  organizationId: String!
+  id: Int!
+  organizationId: Int!
   taskId: String
-  userId: String
+  userId: Int
 }
 
 """
@@ -1360,18 +1691,34 @@ input EventLog_aggregate_bool_exp_count {
 aggregate fields of "EventLog"
 """
 type EventLog_aggregate_fields {
+  avg: EventLog_avg_fields
   count(columns: [EventLog_select_column!], distinct: Boolean): Int!
   max: EventLog_max_fields
   min: EventLog_min_fields
+  stddev: EventLog_stddev_fields
+  stddev_pop: EventLog_stddev_pop_fields
+  stddev_samp: EventLog_stddev_samp_fields
+  sum: EventLog_sum_fields
+  var_pop: EventLog_var_pop_fields
+  var_samp: EventLog_var_samp_fields
+  variance: EventLog_variance_fields
 }
 
 """
 order by aggregate values of table "EventLog"
 """
 input EventLog_aggregate_order_by {
+  avg: EventLog_avg_order_by
   count: order_by
   max: EventLog_max_order_by
   min: EventLog_min_order_by
+  stddev: EventLog_stddev_order_by
+  stddev_pop: EventLog_stddev_pop_order_by
+  stddev_samp: EventLog_stddev_samp_order_by
+  sum: EventLog_sum_order_by
+  var_pop: EventLog_var_pop_order_by
+  var_samp: EventLog_var_samp_order_by
+  variance: EventLog_variance_order_by
 }
 
 """
@@ -1382,6 +1729,24 @@ input EventLog_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: EventLog_on_conflict
+}
+
+"""aggregate avg on columns"""
+type EventLog_avg_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "EventLog"
+"""
+input EventLog_avg_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
 }
 
 """
@@ -1395,12 +1760,12 @@ input EventLog_bool_exp {
   _and: [EventLog_bool_exp!]
   _not: EventLog_bool_exp
   _or: [EventLog_bool_exp!]
-  actionId: String_comparison_exp
+  actionId: Int_comparison_exp
   createdAt: timestamp_comparison_exp
-  id: String_comparison_exp
-  organizationId: String_comparison_exp
+  id: Int_comparison_exp
+  organizationId: Int_comparison_exp
   taskId: String_comparison_exp
-  userId: String_comparison_exp
+  userId: Int_comparison_exp
 }
 
 """
@@ -1414,6 +1779,16 @@ enum EventLog_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "EventLog"
+"""
+input EventLog_inc_input {
+  actionId: Int
+  id: Int
+  organizationId: Int
+  userId: Int
+}
+
+"""
 input type for inserting data into table "EventLog"
 """
 input EventLog_insert_input {
@@ -1421,22 +1796,22 @@ input EventLog_insert_input {
   Organization: Organization_obj_rel_insert_input
   Task: Task_obj_rel_insert_input
   User: User_obj_rel_insert_input
-  actionId: String
+  actionId: Int
   createdAt: timestamp
-  id: String
-  organizationId: String
+  id: Int
+  organizationId: Int
   taskId: String
-  userId: String
+  userId: Int
 }
 
 """aggregate max on columns"""
 type EventLog_max_fields {
-  actionId: String
+  actionId: Int
   createdAt: timestamp
-  id: String
-  organizationId: String
+  id: Int
+  organizationId: Int
   taskId: String
-  userId: String
+  userId: Int
 }
 
 """
@@ -1453,12 +1828,12 @@ input EventLog_max_order_by {
 
 """aggregate min on columns"""
 type EventLog_min_fields {
-  actionId: String
+  actionId: Int
   createdAt: timestamp
-  id: String
-  organizationId: String
+  id: Int
+  organizationId: Int
   taskId: String
-  userId: String
+  userId: Int
 }
 
 """
@@ -1509,7 +1884,7 @@ input EventLog_order_by {
 
 """primary key columns input for table: EventLog"""
 input EventLog_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -1539,12 +1914,66 @@ enum EventLog_select_column {
 input type for updating data in table "EventLog"
 """
 input EventLog_set_input {
-  actionId: String
+  actionId: Int
   createdAt: timestamp
-  id: String
-  organizationId: String
+  id: Int
+  organizationId: Int
   taskId: String
-  userId: String
+  userId: Int
+}
+
+"""aggregate stddev on columns"""
+type EventLog_stddev_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "EventLog"
+"""
+input EventLog_stddev_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type EventLog_stddev_pop_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "EventLog"
+"""
+input EventLog_stddev_pop_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type EventLog_stddev_samp_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "EventLog"
+"""
+input EventLog_stddev_samp_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
 }
 
 """
@@ -1560,12 +1989,30 @@ input EventLog_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input EventLog_stream_cursor_value_input {
-  actionId: String
+  actionId: Int
   createdAt: timestamp
-  id: String
-  organizationId: String
+  id: Int
+  organizationId: Int
   taskId: String
-  userId: String
+  userId: Int
+}
+
+"""aggregate sum on columns"""
+type EventLog_sum_fields {
+  actionId: Int
+  id: Int
+  organizationId: Int
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "EventLog"
+"""
+input EventLog_sum_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
 }
 
 """
@@ -1592,9 +2039,66 @@ enum EventLog_update_column {
 }
 
 input EventLog_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: EventLog_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: EventLog_set_input
   where: EventLog_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type EventLog_var_pop_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by var_pop() on columns of table "EventLog"
+"""
+input EventLog_var_pop_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type EventLog_var_samp_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "EventLog"
+"""
+input EventLog_var_samp_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type EventLog_variance_fields {
+  actionId: Float
+  id: Float
+  organizationId: Float
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "EventLog"
+"""
+input EventLog_variance_order_by {
+  actionId: order_by
+  id: order_by
+  organizationId: order_by
+  userId: order_by
 }
 
 """
@@ -1648,13 +2152,13 @@ type File {
   encoding: String!
   fileType: FileType!
   filename: String!
-  id: String!
+  id: Int!
   mimetype: String!
-  organizationId: String!
+  organizationId: Int!
   updatedAt: timestamp!
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
 }
 
@@ -1698,18 +2202,34 @@ input File_aggregate_bool_exp_count {
 aggregate fields of "File"
 """
 type File_aggregate_fields {
+  avg: File_avg_fields
   count(columns: [File_select_column!], distinct: Boolean): Int!
   max: File_max_fields
   min: File_min_fields
+  stddev: File_stddev_fields
+  stddev_pop: File_stddev_pop_fields
+  stddev_samp: File_stddev_samp_fields
+  sum: File_sum_fields
+  var_pop: File_var_pop_fields
+  var_samp: File_var_samp_fields
+  variance: File_variance_fields
 }
 
 """
 order by aggregate values of table "File"
 """
 input File_aggregate_order_by {
+  avg: File_avg_order_by
   count: order_by
   max: File_max_order_by
   min: File_min_order_by
+  stddev: File_stddev_order_by
+  stddev_pop: File_stddev_pop_order_by
+  stddev_samp: File_stddev_samp_order_by
+  sum: File_sum_order_by
+  var_pop: File_var_pop_order_by
+  var_samp: File_var_samp_order_by
+  variance: File_variance_order_by
 }
 
 """
@@ -1720,6 +2240,22 @@ input File_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: File_on_conflict
+}
+
+"""aggregate avg on columns"""
+type File_avg_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by avg() on columns of table "File"
+"""
+input File_avg_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
 }
 
 """
@@ -1739,13 +2275,13 @@ input File_bool_exp {
   encoding: String_comparison_exp
   fileType: FileType_comparison_exp
   filename: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   mimetype: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
   varantName: String_comparison_exp
   variantKey: String_comparison_exp
-  variantOfId: String_comparison_exp
+  variantOfId: Int_comparison_exp
   variantValue: String_comparison_exp
 }
 
@@ -1757,6 +2293,15 @@ enum File_constraint {
   unique or primary key constraint on columns "id"
   """
   File_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "File"
+"""
+input File_inc_input {
+  id: Int
+  organizationId: Int
+  variantOfId: Int
 }
 
 """
@@ -1772,13 +2317,13 @@ input File_insert_input {
   encoding: String
   fileType: FileType
   filename: String
-  id: String
+  id: Int
   mimetype: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
 }
 
@@ -1790,13 +2335,13 @@ type File_max_fields {
   encoding: String
   fileType: FileType
   filename: String
-  id: String
+  id: Int
   mimetype: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
 }
 
@@ -1828,13 +2373,13 @@ type File_min_fields {
   encoding: String
   fileType: FileType
   filename: String
-  id: String
+  id: Int
   mimetype: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
 }
 
@@ -1911,7 +2456,7 @@ input File_order_by {
 
 """primary key columns input for table: File"""
 input File_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -1971,14 +2516,62 @@ input File_set_input {
   encoding: String
   fileType: FileType
   filename: String
-  id: String
+  id: Int
   mimetype: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
+}
+
+"""aggregate stddev on columns"""
+type File_stddev_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by stddev() on columns of table "File"
+"""
+input File_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type File_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "File"
+"""
+input File_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type File_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "File"
+"""
+input File_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
 }
 
 """
@@ -2000,14 +2593,30 @@ input File_stream_cursor_value_input {
   encoding: String
   fileType: FileType
   filename: String
-  id: String
+  id: Int
   mimetype: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   varantName: String
   variantKey: String
-  variantOfId: String
+  variantOfId: Int
   variantValue: String
+}
+
+"""aggregate sum on columns"""
+type File_sum_fields {
+  id: Int
+  organizationId: Int
+  variantOfId: Int
+}
+
+"""
+order by sum() on columns of table "File"
+"""
+input File_sum_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
 }
 
 """
@@ -2058,9 +2667,60 @@ enum File_update_column {
 }
 
 input File_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: File_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: File_set_input
   where: File_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type File_var_pop_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by var_pop() on columns of table "File"
+"""
+input File_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type File_var_samp_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by var_samp() on columns of table "File"
+"""
+input File_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
+}
+
+"""aggregate variance on columns"""
+type File_variance_fields {
+  id: Float
+  organizationId: Float
+  variantOfId: Float
+}
+
+"""
+order by variance() on columns of table "File"
+"""
+input File_variance_order_by {
+  id: order_by
+  organizationId: order_by
+  variantOfId: order_by
 }
 
 """
@@ -2100,7 +2760,7 @@ type MemberOnTeams {
   assignedAt: timestamp!
   assignedBy: String!
   teamId: String!
-  userId: String!
+  userId: Int!
 }
 
 """
@@ -2126,18 +2786,34 @@ input MemberOnTeams_aggregate_bool_exp_count {
 aggregate fields of "MemberOnTeams"
 """
 type MemberOnTeams_aggregate_fields {
+  avg: MemberOnTeams_avg_fields
   count(columns: [MemberOnTeams_select_column!], distinct: Boolean): Int!
   max: MemberOnTeams_max_fields
   min: MemberOnTeams_min_fields
+  stddev: MemberOnTeams_stddev_fields
+  stddev_pop: MemberOnTeams_stddev_pop_fields
+  stddev_samp: MemberOnTeams_stddev_samp_fields
+  sum: MemberOnTeams_sum_fields
+  var_pop: MemberOnTeams_var_pop_fields
+  var_samp: MemberOnTeams_var_samp_fields
+  variance: MemberOnTeams_variance_fields
 }
 
 """
 order by aggregate values of table "MemberOnTeams"
 """
 input MemberOnTeams_aggregate_order_by {
+  avg: MemberOnTeams_avg_order_by
   count: order_by
   max: MemberOnTeams_max_order_by
   min: MemberOnTeams_min_order_by
+  stddev: MemberOnTeams_stddev_order_by
+  stddev_pop: MemberOnTeams_stddev_pop_order_by
+  stddev_samp: MemberOnTeams_stddev_samp_order_by
+  sum: MemberOnTeams_sum_order_by
+  var_pop: MemberOnTeams_var_pop_order_by
+  var_samp: MemberOnTeams_var_samp_order_by
+  variance: MemberOnTeams_variance_order_by
 }
 
 """
@@ -2148,6 +2824,18 @@ input MemberOnTeams_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: MemberOnTeams_on_conflict
+}
+
+"""aggregate avg on columns"""
+type MemberOnTeams_avg_fields {
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_avg_order_by {
+  userId: order_by
 }
 
 """
@@ -2162,7 +2850,7 @@ input MemberOnTeams_bool_exp {
   assignedAt: timestamp_comparison_exp
   assignedBy: String_comparison_exp
   teamId: String_comparison_exp
-  userId: String_comparison_exp
+  userId: Int_comparison_exp
 }
 
 """
@@ -2176,6 +2864,13 @@ enum MemberOnTeams_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "MemberOnTeams"
+"""
+input MemberOnTeams_inc_input {
+  userId: Int
+}
+
+"""
 input type for inserting data into table "MemberOnTeams"
 """
 input MemberOnTeams_insert_input {
@@ -2184,7 +2879,7 @@ input MemberOnTeams_insert_input {
   assignedAt: timestamp
   assignedBy: String
   teamId: String
-  userId: String
+  userId: Int
 }
 
 """aggregate max on columns"""
@@ -2192,7 +2887,7 @@ type MemberOnTeams_max_fields {
   assignedAt: timestamp
   assignedBy: String
   teamId: String
-  userId: String
+  userId: Int
 }
 
 """
@@ -2210,7 +2905,7 @@ type MemberOnTeams_min_fields {
   assignedAt: timestamp
   assignedBy: String
   teamId: String
-  userId: String
+  userId: Int
 }
 
 """
@@ -2256,7 +2951,7 @@ input MemberOnTeams_order_by {
 """primary key columns input for table: MemberOnTeams"""
 input MemberOnTeams_pk_columns_input {
   teamId: String!
-  userId: String!
+  userId: Int!
 }
 
 """
@@ -2283,7 +2978,43 @@ input MemberOnTeams_set_input {
   assignedAt: timestamp
   assignedBy: String
   teamId: String
-  userId: String
+  userId: Int
+}
+
+"""aggregate stddev on columns"""
+type MemberOnTeams_stddev_fields {
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_stddev_order_by {
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type MemberOnTeams_stddev_pop_fields {
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_stddev_pop_order_by {
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type MemberOnTeams_stddev_samp_fields {
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_stddev_samp_order_by {
+  userId: order_by
 }
 
 """
@@ -2302,7 +3033,19 @@ input MemberOnTeams_stream_cursor_value_input {
   assignedAt: timestamp
   assignedBy: String
   teamId: String
-  userId: String
+  userId: Int
+}
+
+"""aggregate sum on columns"""
+type MemberOnTeams_sum_fields {
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_sum_order_by {
+  userId: order_by
 }
 
 """
@@ -2323,17 +3066,48 @@ enum MemberOnTeams_update_column {
 }
 
 input MemberOnTeams_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: MemberOnTeams_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: MemberOnTeams_set_input
   where: MemberOnTeams_bool_exp!
 }
 
+"""aggregate var_pop on columns"""
+type MemberOnTeams_var_pop_fields {
+  userId: Float
+}
+
 """
-Possible directions in which to order a list of items when provided an `orderBy` argument.
+order by var_pop() on columns of table "MemberOnTeams"
 """
-enum OrderDirectionbe {
-  asc
-  desc
+input MemberOnTeams_var_pop_order_by {
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type MemberOnTeams_var_samp_fields {
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_var_samp_order_by {
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type MemberOnTeams_variance_fields {
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "MemberOnTeams"
+"""
+input MemberOnTeams_variance_order_by {
+  userId: order_by
 }
 
 """
@@ -2701,7 +3475,7 @@ type Organization {
   ): Workflow_aggregate!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
   updatedAt: timestamp!
 }
@@ -2718,9 +3492,22 @@ type Organization_aggregate {
 aggregate fields of "Organization"
 """
 type Organization_aggregate_fields {
+  avg: Organization_avg_fields
   count(columns: [Organization_select_column!], distinct: Boolean): Int!
   max: Organization_max_fields
   min: Organization_min_fields
+  stddev: Organization_stddev_fields
+  stddev_pop: Organization_stddev_pop_fields
+  stddev_samp: Organization_stddev_samp_fields
+  sum: Organization_sum_fields
+  var_pop: Organization_var_pop_fields
+  var_samp: Organization_var_samp_fields
+  variance: Organization_variance_fields
+}
+
+"""aggregate avg on columns"""
+type Organization_avg_fields {
+  id: Float
 }
 
 """
@@ -2752,7 +3539,7 @@ input Organization_bool_exp {
   _or: [Organization_bool_exp!]
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
@@ -2765,6 +3552,13 @@ enum Organization_constraint {
   unique or primary key constraint on columns "id"
   """
   Organization_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Organization"
+"""
+input Organization_inc_input {
+  id: Int
 }
 
 """
@@ -2783,7 +3577,7 @@ input Organization_insert_input {
   Workflows: Workflow_arr_rel_insert_input
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
 }
@@ -2792,7 +3586,7 @@ input Organization_insert_input {
 type Organization_max_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
 }
@@ -2801,7 +3595,7 @@ type Organization_max_fields {
 type Organization_min_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
 }
@@ -2857,7 +3651,7 @@ input Organization_order_by {
 
 """primary key columns input for table: Organization"""
 input Organization_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -2886,9 +3680,24 @@ input type for updating data in table "Organization"
 input Organization_set_input {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Organization_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type Organization_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type Organization_stddev_samp_fields {
+  id: Float
 }
 
 """
@@ -2906,9 +3715,14 @@ input Organization_stream_cursor_input {
 input Organization_stream_cursor_value_input {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Organization_sum_fields {
+  id: Int
 }
 
 """
@@ -2932,16 +3746,27 @@ enum Organization_update_column {
 }
 
 input Organization_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Organization_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Organization_set_input
   where: Organization_bool_exp!
 }
 
-type PageInfobe {
-  endCursor: String
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
+"""aggregate var_pop on columns"""
+type Organization_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type Organization_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type Organization_variance_fields {
+  id: Float
 }
 
 """
@@ -2953,12 +3778,49 @@ type Permission {
 
   """An object relationship"""
   PermissionGroup: PermissionGroup!
+
+  """An array relationship"""
+  UserPermissions(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): [UserPermission!]!
+
+  """An aggregate relationship"""
+  UserPermissions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermission_aggregate!
+  code: String!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
-  organizationId: String!
-  permissionGroupId: String!
+  organizationId: Int!
+  permissionGroupId: Int!
   updatedAt: timestamp!
 }
 
@@ -3006,9 +3868,9 @@ type PermissionGroup {
   ): Permission_aggregate!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
-  organizationId: String!
+  organizationId: Int!
   updatedAt: timestamp!
 }
 
@@ -3035,18 +3897,34 @@ input PermissionGroup_aggregate_bool_exp_count {
 aggregate fields of "PermissionGroup"
 """
 type PermissionGroup_aggregate_fields {
+  avg: PermissionGroup_avg_fields
   count(columns: [PermissionGroup_select_column!], distinct: Boolean): Int!
   max: PermissionGroup_max_fields
   min: PermissionGroup_min_fields
+  stddev: PermissionGroup_stddev_fields
+  stddev_pop: PermissionGroup_stddev_pop_fields
+  stddev_samp: PermissionGroup_stddev_samp_fields
+  sum: PermissionGroup_sum_fields
+  var_pop: PermissionGroup_var_pop_fields
+  var_samp: PermissionGroup_var_samp_fields
+  variance: PermissionGroup_variance_fields
 }
 
 """
 order by aggregate values of table "PermissionGroup"
 """
 input PermissionGroup_aggregate_order_by {
+  avg: PermissionGroup_avg_order_by
   count: order_by
   max: PermissionGroup_max_order_by
   min: PermissionGroup_min_order_by
+  stddev: PermissionGroup_stddev_order_by
+  stddev_pop: PermissionGroup_stddev_pop_order_by
+  stddev_samp: PermissionGroup_stddev_samp_order_by
+  sum: PermissionGroup_sum_order_by
+  var_pop: PermissionGroup_var_pop_order_by
+  var_samp: PermissionGroup_var_samp_order_by
+  variance: PermissionGroup_variance_order_by
 }
 
 """
@@ -3057,6 +3935,20 @@ input PermissionGroup_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: PermissionGroup_on_conflict
+}
+
+"""aggregate avg on columns"""
+type PermissionGroup_avg_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_avg_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -3071,9 +3963,9 @@ input PermissionGroup_bool_exp {
   _or: [PermissionGroup_bool_exp!]
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
 
@@ -3088,6 +3980,14 @@ enum PermissionGroup_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "PermissionGroup"
+"""
+input PermissionGroup_inc_input {
+  id: Int
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "PermissionGroup"
 """
 input PermissionGroup_insert_input {
@@ -3095,9 +3995,9 @@ input PermissionGroup_insert_input {
   Permissions: Permission_arr_rel_insert_input
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -3105,9 +4005,9 @@ input PermissionGroup_insert_input {
 type PermissionGroup_max_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -3127,9 +4027,9 @@ input PermissionGroup_max_order_by {
 type PermissionGroup_min_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -3189,7 +4089,7 @@ input PermissionGroup_order_by {
 
 """primary key columns input for table: PermissionGroup"""
 input PermissionGroup_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -3221,10 +4121,52 @@ input type for updating data in table "PermissionGroup"
 input PermissionGroup_set_input {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type PermissionGroup_stddev_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type PermissionGroup_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type PermissionGroup_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -3242,10 +4184,24 @@ input PermissionGroup_stream_cursor_input {
 input PermissionGroup_stream_cursor_value_input {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type PermissionGroup_sum_fields {
+  id: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_sum_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -3272,9 +4228,54 @@ enum PermissionGroup_update_column {
 }
 
 input PermissionGroup_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: PermissionGroup_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: PermissionGroup_set_input
   where: PermissionGroup_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type PermissionGroup_var_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type PermissionGroup_var_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type PermissionGroup_variance_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "PermissionGroup"
+"""
+input PermissionGroup_variance_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -3300,18 +4301,34 @@ input Permission_aggregate_bool_exp_count {
 aggregate fields of "Permission"
 """
 type Permission_aggregate_fields {
+  avg: Permission_avg_fields
   count(columns: [Permission_select_column!], distinct: Boolean): Int!
   max: Permission_max_fields
   min: Permission_min_fields
+  stddev: Permission_stddev_fields
+  stddev_pop: Permission_stddev_pop_fields
+  stddev_samp: Permission_stddev_samp_fields
+  sum: Permission_sum_fields
+  var_pop: Permission_var_pop_fields
+  var_samp: Permission_var_samp_fields
+  variance: Permission_variance_fields
 }
 
 """
 order by aggregate values of table "Permission"
 """
 input Permission_aggregate_order_by {
+  avg: Permission_avg_order_by
   count: order_by
   max: Permission_max_order_by
   min: Permission_min_order_by
+  stddev: Permission_stddev_order_by
+  stddev_pop: Permission_stddev_pop_order_by
+  stddev_samp: Permission_stddev_samp_order_by
+  sum: Permission_sum_order_by
+  var_pop: Permission_var_pop_order_by
+  var_samp: Permission_var_samp_order_by
+  variance: Permission_variance_order_by
 }
 
 """
@@ -3324,21 +4341,40 @@ input Permission_arr_rel_insert_input {
   on_conflict: Permission_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Permission_avg_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by avg() on columns of table "Permission"
+"""
+input Permission_avg_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Permission". All fields are combined with a logical 'AND'.
 """
 input Permission_bool_exp {
   Organization: Organization_bool_exp
   PermissionGroup: PermissionGroup_bool_exp
+  UserPermissions: UserPermission_bool_exp
+  UserPermissions_aggregate: UserPermission_aggregate_bool_exp
   _and: [Permission_bool_exp!]
   _not: Permission_bool_exp
   _or: [Permission_bool_exp!]
+  code: String_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
-  organizationId: String_comparison_exp
-  permissionGroupId: String_comparison_exp
+  organizationId: Int_comparison_exp
+  permissionGroupId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
 
@@ -3353,28 +4389,40 @@ enum Permission_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Permission"
+"""
+input Permission_inc_input {
+  id: Int
+  organizationId: Int
+  permissionGroupId: Int
+}
+
+"""
 input type for inserting data into table "Permission"
 """
 input Permission_insert_input {
   Organization: Organization_obj_rel_insert_input
   PermissionGroup: PermissionGroup_obj_rel_insert_input
+  UserPermissions: UserPermission_arr_rel_insert_input
+  code: String
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
-  permissionGroupId: String
+  organizationId: Int
+  permissionGroupId: Int
   updatedAt: timestamp
 }
 
 """aggregate max on columns"""
 type Permission_max_fields {
+  code: String
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
-  permissionGroupId: String
+  organizationId: Int
+  permissionGroupId: Int
   updatedAt: timestamp
 }
 
@@ -3382,6 +4430,7 @@ type Permission_max_fields {
 order by max() on columns of table "Permission"
 """
 input Permission_max_order_by {
+  code: order_by
   createdAt: order_by
   description: order_by
   id: order_by
@@ -3393,12 +4442,13 @@ input Permission_max_order_by {
 
 """aggregate min on columns"""
 type Permission_min_fields {
+  code: String
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
-  permissionGroupId: String
+  organizationId: Int
+  permissionGroupId: Int
   updatedAt: timestamp
 }
 
@@ -3406,6 +4456,7 @@ type Permission_min_fields {
 order by min() on columns of table "Permission"
 """
 input Permission_min_order_by {
+  code: order_by
   createdAt: order_by
   description: order_by
   id: order_by
@@ -3427,6 +4478,16 @@ type Permission_mutation_response {
 }
 
 """
+input type for inserting object relation for remote table "Permission"
+"""
+input Permission_obj_rel_insert_input {
+  data: Permission_insert_input!
+
+  """upsert condition"""
+  on_conflict: Permission_on_conflict
+}
+
+"""
 on_conflict condition type for table "Permission"
 """
 input Permission_on_conflict {
@@ -3439,6 +4500,8 @@ input Permission_on_conflict {
 input Permission_order_by {
   Organization: Organization_order_by
   PermissionGroup: PermissionGroup_order_by
+  UserPermissions_aggregate: UserPermission_aggregate_order_by
+  code: order_by
   createdAt: order_by
   description: order_by
   id: order_by
@@ -3450,13 +4513,16 @@ input Permission_order_by {
 
 """primary key columns input for table: Permission"""
 input Permission_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
 select columns of table "Permission"
 """
 enum Permission_select_column {
+  """column name"""
+  code
+
   """column name"""
   createdAt
 
@@ -3483,13 +4549,62 @@ enum Permission_select_column {
 input type for updating data in table "Permission"
 """
 input Permission_set_input {
+  code: String
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
-  permissionGroupId: String
+  organizationId: Int
+  permissionGroupId: Int
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Permission_stddev_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by stddev() on columns of table "Permission"
+"""
+input Permission_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Permission_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Permission"
+"""
+input Permission_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Permission_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Permission"
+"""
+input Permission_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
 }
 
 """
@@ -3505,19 +4620,39 @@ input Permission_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Permission_stream_cursor_value_input {
+  code: String
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
-  permissionGroupId: String
+  organizationId: Int
+  permissionGroupId: Int
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Permission_sum_fields {
+  id: Int
+  organizationId: Int
+  permissionGroupId: Int
+}
+
+"""
+order by sum() on columns of table "Permission"
+"""
+input Permission_sum_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
 }
 
 """
 update columns of table "Permission"
 """
 enum Permission_update_column {
+  """column name"""
+  code
+
   """column name"""
   createdAt
 
@@ -3541,9 +4676,72 @@ enum Permission_update_column {
 }
 
 input Permission_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Permission_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Permission_set_input
   where: Permission_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Permission_var_pop_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by var_pop() on columns of table "Permission"
+"""
+input Permission_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Permission_var_samp_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by var_samp() on columns of table "Permission"
+"""
+input Permission_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
+"""aggregate variance on columns"""
+type Permission_variance_fields {
+  id: Float
+  organizationId: Float
+  permissionGroupId: Float
+}
+
+"""
+order by variance() on columns of table "Permission"
+"""
+input Permission_variance_order_by {
+  id: order_by
+  organizationId: order_by
+  permissionGroupId: order_by
+}
+
+type Permissionbe {
+  code: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTimebe!
+  id: Int!
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTimebe!
 }
 
 """
@@ -3552,39 +4750,13 @@ columns and relationships of "Post"
 type Post {
   """An object relationship"""
   User: User
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp!
-  id: String!
+  id: Int!
   published: Boolean!
   title: String!
   updatedAt: timestamp!
-}
-
-type PostConnectionbe {
-  edges: [PostEdgebe!]
-  pageInfo: PageInfobe!
-  totalCount: Int!
-}
-
-type PostEdgebe {
-  cursor: String!
-  node: Postbe!
-}
-
-"""Properties by which post connections can be ordered."""
-enum PostOrderFieldbe {
-  content
-  createdAt
-  id
-  published
-  title
-  updatedAt
-}
-
-input PostOrderbe {
-  direction: OrderDirectionbe!
-  field: PostOrderFieldbe!
 }
 
 """
@@ -3626,18 +4798,34 @@ input Post_aggregate_bool_exp_count {
 aggregate fields of "Post"
 """
 type Post_aggregate_fields {
+  avg: Post_avg_fields
   count(columns: [Post_select_column!], distinct: Boolean): Int!
   max: Post_max_fields
   min: Post_min_fields
+  stddev: Post_stddev_fields
+  stddev_pop: Post_stddev_pop_fields
+  stddev_samp: Post_stddev_samp_fields
+  sum: Post_sum_fields
+  var_pop: Post_var_pop_fields
+  var_samp: Post_var_samp_fields
+  variance: Post_variance_fields
 }
 
 """
 order by aggregate values of table "Post"
 """
 input Post_aggregate_order_by {
+  avg: Post_avg_order_by
   count: order_by
   max: Post_max_order_by
   min: Post_min_order_by
+  stddev: Post_stddev_order_by
+  stddev_pop: Post_stddev_pop_order_by
+  stddev_samp: Post_stddev_samp_order_by
+  sum: Post_sum_order_by
+  var_pop: Post_var_pop_order_by
+  var_samp: Post_var_samp_order_by
+  variance: Post_variance_order_by
 }
 
 """
@@ -3650,6 +4838,20 @@ input Post_arr_rel_insert_input {
   on_conflict: Post_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Post_avg_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "Post"
+"""
+input Post_avg_order_by {
+  authorId: order_by
+  id: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Post". All fields are combined with a logical 'AND'.
 """
@@ -3658,10 +4860,10 @@ input Post_bool_exp {
   _and: [Post_bool_exp!]
   _not: Post_bool_exp
   _or: [Post_bool_exp!]
-  authorId: String_comparison_exp
+  authorId: Int_comparison_exp
   content: String_comparison_exp
   createdAt: timestamp_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   published: Boolean_comparison_exp
   title: String_comparison_exp
   updatedAt: timestamp_comparison_exp
@@ -3678,14 +4880,22 @@ enum Post_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Post"
+"""
+input Post_inc_input {
+  authorId: Int
+  id: Int
+}
+
+"""
 input type for inserting data into table "Post"
 """
 input Post_insert_input {
   User: User_obj_rel_insert_input
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp
-  id: String
+  id: Int
   published: Boolean
   title: String
   updatedAt: timestamp
@@ -3693,10 +4903,10 @@ input Post_insert_input {
 
 """aggregate max on columns"""
 type Post_max_fields {
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp
-  id: String
+  id: Int
   title: String
   updatedAt: timestamp
 }
@@ -3715,10 +4925,10 @@ input Post_max_order_by {
 
 """aggregate min on columns"""
 type Post_min_fields {
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp
-  id: String
+  id: Int
   title: String
   updatedAt: timestamp
 }
@@ -3769,7 +4979,7 @@ input Post_order_by {
 
 """primary key columns input for table: Post"""
 input Post_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -3818,13 +5028,55 @@ enum Post_select_column_Post_aggregate_bool_exp_bool_or_arguments_columns {
 input type for updating data in table "Post"
 """
 input Post_set_input {
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp
-  id: String
+  id: Int
   published: Boolean
   title: String
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Post_stddev_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "Post"
+"""
+input Post_stddev_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Post_stddev_pop_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Post"
+"""
+input Post_stddev_pop_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Post_stddev_samp_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Post"
+"""
+input Post_stddev_samp_order_by {
+  authorId: order_by
+  id: order_by
 }
 
 """
@@ -3840,13 +5092,27 @@ input Post_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Post_stream_cursor_value_input {
-  authorId: String
+  authorId: Int
   content: String
   createdAt: timestamp
-  id: String
+  id: Int
   published: Boolean
   title: String
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Post_sum_fields {
+  authorId: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "Post"
+"""
+input Post_sum_order_by {
+  authorId: order_by
+  id: order_by
 }
 
 """
@@ -3876,23 +5142,54 @@ enum Post_update_column {
 }
 
 input Post_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Post_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Post_set_input
   where: Post_bool_exp!
 }
 
-type Postbe {
-  author: Userbe
-  content: String
+"""aggregate var_pop on columns"""
+type Post_var_pop_fields {
+  authorId: Float
+  id: Float
+}
 
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTimebe!
-  id: ID!
-  published: Boolean!
-  title: String!
+"""
+order by var_pop() on columns of table "Post"
+"""
+input Post_var_pop_order_by {
+  authorId: order_by
+  id: order_by
+}
 
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTimebe!
+"""aggregate var_samp on columns"""
+type Post_var_samp_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "Post"
+"""
+input Post_var_samp_order_by {
+  authorId: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type Post_variance_fields {
+  authorId: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "Post"
+"""
+input Post_variance_order_by {
+  authorId: order_by
+  id: order_by
 }
 
 scalar Role
@@ -3925,9 +5222,9 @@ type Settings {
   """An object relationship"""
   Organization: Organization!
   createdAt: timestamp!
-  id: String!
+  id: Int!
   key: String!
-  organizationId: String!
+  organizationId: Int!
   updatedAt: timestamp!
   value: String!
 }
@@ -3955,18 +5252,34 @@ input Settings_aggregate_bool_exp_count {
 aggregate fields of "Settings"
 """
 type Settings_aggregate_fields {
+  avg: Settings_avg_fields
   count(columns: [Settings_select_column!], distinct: Boolean): Int!
   max: Settings_max_fields
   min: Settings_min_fields
+  stddev: Settings_stddev_fields
+  stddev_pop: Settings_stddev_pop_fields
+  stddev_samp: Settings_stddev_samp_fields
+  sum: Settings_sum_fields
+  var_pop: Settings_var_pop_fields
+  var_samp: Settings_var_samp_fields
+  variance: Settings_variance_fields
 }
 
 """
 order by aggregate values of table "Settings"
 """
 input Settings_aggregate_order_by {
+  avg: Settings_avg_order_by
   count: order_by
   max: Settings_max_order_by
   min: Settings_min_order_by
+  stddev: Settings_stddev_order_by
+  stddev_pop: Settings_stddev_pop_order_by
+  stddev_samp: Settings_stddev_samp_order_by
+  sum: Settings_sum_order_by
+  var_pop: Settings_var_pop_order_by
+  var_samp: Settings_var_samp_order_by
+  variance: Settings_variance_order_by
 }
 
 """
@@ -3979,6 +5292,20 @@ input Settings_arr_rel_insert_input {
   on_conflict: Settings_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Settings_avg_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "Settings"
+"""
+input Settings_avg_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Settings". All fields are combined with a logical 'AND'.
 """
@@ -3988,9 +5315,9 @@ input Settings_bool_exp {
   _not: Settings_bool_exp
   _or: [Settings_bool_exp!]
   createdAt: timestamp_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   key: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
   value: String_comparison_exp
 }
@@ -4006,14 +5333,22 @@ enum Settings_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Settings"
+"""
+input Settings_inc_input {
+  id: Int
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "Settings"
 """
 input Settings_insert_input {
   Organization: Organization_obj_rel_insert_input
   createdAt: timestamp
-  id: String
+  id: Int
   key: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   value: String
 }
@@ -4021,9 +5356,9 @@ input Settings_insert_input {
 """aggregate max on columns"""
 type Settings_max_fields {
   createdAt: timestamp
-  id: String
+  id: Int
   key: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   value: String
 }
@@ -4043,9 +5378,9 @@ input Settings_max_order_by {
 """aggregate min on columns"""
 type Settings_min_fields {
   createdAt: timestamp
-  id: String
+  id: Int
   key: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   value: String
 }
@@ -4095,7 +5430,7 @@ input Settings_order_by {
 
 """primary key columns input for table: Settings"""
 input Settings_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -4126,11 +5461,53 @@ input type for updating data in table "Settings"
 """
 input Settings_set_input {
   createdAt: timestamp
-  id: String
+  id: Int
   key: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   value: String
+}
+
+"""aggregate stddev on columns"""
+type Settings_stddev_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "Settings"
+"""
+input Settings_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Settings_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Settings"
+"""
+input Settings_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Settings_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Settings"
+"""
+input Settings_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -4147,11 +5524,25 @@ input Settings_stream_cursor_input {
 """Initial value of the column from where the streaming should start"""
 input Settings_stream_cursor_value_input {
   createdAt: timestamp
-  id: String
+  id: Int
   key: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   value: String
+}
+
+"""aggregate sum on columns"""
+type Settings_sum_fields {
+  id: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "Settings"
+"""
+input Settings_sum_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -4178,16 +5569,61 @@ enum Settings_update_column {
 }
 
 input Settings_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Settings_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Settings_set_input
   where: Settings_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Settings_var_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "Settings"
+"""
+input Settings_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Settings_var_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "Settings"
+"""
+input Settings_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type Settings_variance_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "Settings"
+"""
+input Settings_variance_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 input SignupInputbe {
   email: String!
   firstname: String
   lastname: String
-  organizationId: String!
+  organizationId: Int!
   password: String!
 }
 
@@ -4370,7 +5806,7 @@ type Task {
   description: String!
   dueDate: timestamp!
   id: String!
-  organizationId: String!
+  organizationId: Int!
   parentId: String
   priority: TaskPriority!
   projectId: String!
@@ -4431,18 +5867,18 @@ type TaskDefinition {
 
   """An object relationship"""
   Workflow: Workflow!
-  actvityId: String!
+  actvityId: Int!
   config: String!
   createdAt: timestamp!
   description: String!
   icon: String!
-  id: String!
-  organizationId: String!
-  parentId: String
+  id: Int!
+  organizationId: Int!
+  parentId: Int
   thumbnail: String!
   title: String!
   updatedAt: timestamp!
-  workflowId: String!
+  workflowId: Int!
 }
 
 """
@@ -4468,18 +5904,34 @@ input TaskDefinition_aggregate_bool_exp_count {
 aggregate fields of "TaskDefinition"
 """
 type TaskDefinition_aggregate_fields {
+  avg: TaskDefinition_avg_fields
   count(columns: [TaskDefinition_select_column!], distinct: Boolean): Int!
   max: TaskDefinition_max_fields
   min: TaskDefinition_min_fields
+  stddev: TaskDefinition_stddev_fields
+  stddev_pop: TaskDefinition_stddev_pop_fields
+  stddev_samp: TaskDefinition_stddev_samp_fields
+  sum: TaskDefinition_sum_fields
+  var_pop: TaskDefinition_var_pop_fields
+  var_samp: TaskDefinition_var_samp_fields
+  variance: TaskDefinition_variance_fields
 }
 
 """
 order by aggregate values of table "TaskDefinition"
 """
 input TaskDefinition_aggregate_order_by {
+  avg: TaskDefinition_avg_order_by
   count: order_by
   max: TaskDefinition_max_order_by
   min: TaskDefinition_min_order_by
+  stddev: TaskDefinition_stddev_order_by
+  stddev_pop: TaskDefinition_stddev_pop_order_by
+  stddev_samp: TaskDefinition_stddev_samp_order_by
+  sum: TaskDefinition_sum_order_by
+  var_pop: TaskDefinition_var_pop_order_by
+  var_samp: TaskDefinition_var_samp_order_by
+  variance: TaskDefinition_variance_order_by
 }
 
 """
@@ -4490,6 +5942,26 @@ input TaskDefinition_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: TaskDefinition_on_conflict
+}
+
+"""aggregate avg on columns"""
+type TaskDefinition_avg_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by avg() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_avg_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
 }
 
 """
@@ -4505,18 +5977,18 @@ input TaskDefinition_bool_exp {
   _and: [TaskDefinition_bool_exp!]
   _not: TaskDefinition_bool_exp
   _or: [TaskDefinition_bool_exp!]
-  actvityId: String_comparison_exp
+  actvityId: Int_comparison_exp
   config: String_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
   icon: String_comparison_exp
-  id: String_comparison_exp
-  organizationId: String_comparison_exp
-  parentId: String_comparison_exp
+  id: Int_comparison_exp
+  organizationId: Int_comparison_exp
+  parentId: Int_comparison_exp
   thumbnail: String_comparison_exp
   title: String_comparison_exp
   updatedAt: timestamp_comparison_exp
-  workflowId: String_comparison_exp
+  workflowId: Int_comparison_exp
 }
 
 """
@@ -4530,6 +6002,17 @@ enum TaskDefinition_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "TaskDefinition"
+"""
+input TaskDefinition_inc_input {
+  actvityId: Int
+  id: Int
+  organizationId: Int
+  parentId: Int
+  workflowId: Int
+}
+
+"""
 input type for inserting data into table "TaskDefinition"
 """
 input TaskDefinition_insert_input {
@@ -4538,34 +6021,34 @@ input TaskDefinition_insert_input {
   TaskDefinition: TaskDefinition_obj_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Workflow: Workflow_obj_rel_insert_input
-  actvityId: String
+  actvityId: Int
   config: String
   createdAt: timestamp
   description: String
   icon: String
-  id: String
-  organizationId: String
-  parentId: String
+  id: Int
+  organizationId: Int
+  parentId: Int
   thumbnail: String
   title: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """aggregate max on columns"""
 type TaskDefinition_max_fields {
-  actvityId: String
+  actvityId: Int
   config: String
   createdAt: timestamp
   description: String
   icon: String
-  id: String
-  organizationId: String
-  parentId: String
+  id: Int
+  organizationId: Int
+  parentId: Int
   thumbnail: String
   title: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """
@@ -4588,18 +6071,18 @@ input TaskDefinition_max_order_by {
 
 """aggregate min on columns"""
 type TaskDefinition_min_fields {
-  actvityId: String
+  actvityId: Int
   config: String
   createdAt: timestamp
   description: String
   icon: String
-  id: String
-  organizationId: String
-  parentId: String
+  id: Int
+  organizationId: Int
+  parentId: Int
   thumbnail: String
   title: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
 }
 
 """
@@ -4673,7 +6156,7 @@ input TaskDefinition_order_by {
 
 """primary key columns input for table: TaskDefinition"""
 input TaskDefinition_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -4721,18 +6204,78 @@ enum TaskDefinition_select_column {
 input type for updating data in table "TaskDefinition"
 """
 input TaskDefinition_set_input {
-  actvityId: String
+  actvityId: Int
   config: String
   createdAt: timestamp
   description: String
   icon: String
-  id: String
-  organizationId: String
-  parentId: String
+  id: Int
+  organizationId: Int
+  parentId: Int
   thumbnail: String
   title: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
+}
+
+"""aggregate stddev on columns"""
+type TaskDefinition_stddev_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by stddev() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_stddev_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type TaskDefinition_stddev_pop_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_stddev_pop_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type TaskDefinition_stddev_samp_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_stddev_samp_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
 }
 
 """
@@ -4748,18 +6291,38 @@ input TaskDefinition_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input TaskDefinition_stream_cursor_value_input {
-  actvityId: String
+  actvityId: Int
   config: String
   createdAt: timestamp
   description: String
   icon: String
-  id: String
-  organizationId: String
-  parentId: String
+  id: Int
+  organizationId: Int
+  parentId: Int
   thumbnail: String
   title: String
   updatedAt: timestamp
-  workflowId: String
+  workflowId: Int
+}
+
+"""aggregate sum on columns"""
+type TaskDefinition_sum_fields {
+  actvityId: Int
+  id: Int
+  organizationId: Int
+  parentId: Int
+  workflowId: Int
+}
+
+"""
+order by sum() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_sum_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
 }
 
 """
@@ -4804,9 +6367,72 @@ enum TaskDefinition_update_column {
 }
 
 input TaskDefinition_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: TaskDefinition_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinition_set_input
   where: TaskDefinition_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type TaskDefinition_var_pop_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by var_pop() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_var_pop_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type TaskDefinition_var_samp_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by var_samp() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_var_samp_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
+}
+
+"""aggregate variance on columns"""
+type TaskDefinition_variance_fields {
+  actvityId: Float
+  id: Float
+  organizationId: Float
+  parentId: Float
+  workflowId: Float
+}
+
+"""
+order by variance() on columns of table "TaskDefinition"
+"""
+input TaskDefinition_variance_order_by {
+  actvityId: order_by
+  id: order_by
+  organizationId: order_by
+  parentId: order_by
+  workflowId: order_by
 }
 
 scalar TaskPriority
@@ -4866,18 +6492,34 @@ input Task_aggregate_bool_exp_count {
 aggregate fields of "Task"
 """
 type Task_aggregate_fields {
+  avg: Task_avg_fields
   count(columns: [Task_select_column!], distinct: Boolean): Int!
   max: Task_max_fields
   min: Task_min_fields
+  stddev: Task_stddev_fields
+  stddev_pop: Task_stddev_pop_fields
+  stddev_samp: Task_stddev_samp_fields
+  sum: Task_sum_fields
+  var_pop: Task_var_pop_fields
+  var_samp: Task_var_samp_fields
+  variance: Task_variance_fields
 }
 
 """
 order by aggregate values of table "Task"
 """
 input Task_aggregate_order_by {
+  avg: Task_avg_order_by
   count: order_by
   max: Task_max_order_by
   min: Task_min_order_by
+  stddev: Task_stddev_order_by
+  stddev_pop: Task_stddev_pop_order_by
+  stddev_samp: Task_stddev_samp_order_by
+  sum: Task_sum_order_by
+  var_pop: Task_var_pop_order_by
+  var_samp: Task_var_samp_order_by
+  variance: Task_variance_order_by
 }
 
 """
@@ -4888,6 +6530,18 @@ input Task_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: Task_on_conflict
+}
+
+"""aggregate avg on columns"""
+type Task_avg_fields {
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "Task"
+"""
+input Task_avg_order_by {
+  organizationId: order_by
 }
 
 """
@@ -4912,7 +6566,7 @@ input Task_bool_exp {
   description: String_comparison_exp
   dueDate: timestamp_comparison_exp
   id: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   parentId: String_comparison_exp
   priority: TaskPriority_comparison_exp
   projectId: String_comparison_exp
@@ -4933,6 +6587,13 @@ enum Task_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Task"
+"""
+input Task_inc_input {
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "Task"
 """
 input Task_insert_input {
@@ -4948,7 +6609,7 @@ input Task_insert_input {
   description: String
   dueDate: timestamp
   id: String
-  organizationId: String
+  organizationId: Int
   parentId: String
   priority: TaskPriority
   projectId: String
@@ -4966,7 +6627,7 @@ type Task_max_fields {
   description: String
   dueDate: timestamp
   id: String
-  organizationId: String
+  organizationId: Int
   parentId: String
   priority: TaskPriority
   projectId: String
@@ -5004,7 +6665,7 @@ type Task_min_fields {
   description: String
   dueDate: timestamp
   id: String
-  organizationId: String
+  organizationId: Int
   parentId: String
   priority: TaskPriority
   projectId: String
@@ -5150,7 +6811,7 @@ input Task_set_input {
   description: String
   dueDate: timestamp
   id: String
-  organizationId: String
+  organizationId: Int
   parentId: String
   priority: TaskPriority
   projectId: String
@@ -5158,6 +6819,42 @@ input Task_set_input {
   teamId: String
   title: String
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Task_stddev_fields {
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "Task"
+"""
+input Task_stddev_order_by {
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Task_stddev_pop_fields {
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Task"
+"""
+input Task_stddev_pop_order_by {
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Task_stddev_samp_fields {
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Task"
+"""
+input Task_stddev_samp_order_by {
+  organizationId: order_by
 }
 
 """
@@ -5179,7 +6876,7 @@ input Task_stream_cursor_value_input {
   description: String
   dueDate: timestamp
   id: String
-  organizationId: String
+  organizationId: Int
   parentId: String
   priority: TaskPriority
   projectId: String
@@ -5187,6 +6884,18 @@ input Task_stream_cursor_value_input {
   teamId: String
   title: String
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Task_sum_fields {
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "Task"
+"""
+input Task_sum_order_by {
+  organizationId: order_by
 }
 
 """
@@ -5237,9 +6946,48 @@ enum Task_update_column {
 }
 
 input Task_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Task_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Task_set_input
   where: Task_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Task_var_pop_fields {
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "Task"
+"""
+input Task_var_pop_order_by {
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Task_var_samp_fields {
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "Task"
+"""
+input Task_var_samp_order_by {
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type Task_variance_fields {
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "Task"
+"""
+input Task_variance_order_by {
+  organizationId: order_by
 }
 
 """
@@ -5325,12 +7073,12 @@ type Team {
   User: User!
   bio: String!
   createdAt: timestamp!
-  creatorId: String!
+  creatorId: Int!
   description: String!
   id: String!
-  managerId: String!
+  managerId: Int!
   name: String!
-  organizationId: String!
+  organizationId: Int!
   updatedAt: timestamp!
 
   """An object relationship"""
@@ -5360,18 +7108,34 @@ input Team_aggregate_bool_exp_count {
 aggregate fields of "Team"
 """
 type Team_aggregate_fields {
+  avg: Team_avg_fields
   count(columns: [Team_select_column!], distinct: Boolean): Int!
   max: Team_max_fields
   min: Team_min_fields
+  stddev: Team_stddev_fields
+  stddev_pop: Team_stddev_pop_fields
+  stddev_samp: Team_stddev_samp_fields
+  sum: Team_sum_fields
+  var_pop: Team_var_pop_fields
+  var_samp: Team_var_samp_fields
+  variance: Team_variance_fields
 }
 
 """
 order by aggregate values of table "Team"
 """
 input Team_aggregate_order_by {
+  avg: Team_avg_order_by
   count: order_by
   max: Team_max_order_by
   min: Team_min_order_by
+  stddev: Team_stddev_order_by
+  stddev_pop: Team_stddev_pop_order_by
+  stddev_samp: Team_stddev_samp_order_by
+  sum: Team_sum_order_by
+  var_pop: Team_var_pop_order_by
+  var_samp: Team_var_samp_order_by
+  variance: Team_variance_order_by
 }
 
 """
@@ -5382,6 +7146,22 @@ input Team_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: Team_on_conflict
+}
+
+"""aggregate avg on columns"""
+type Team_avg_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "Team"
+"""
+input Team_avg_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
 }
 
 """
@@ -5399,12 +7179,12 @@ input Team_bool_exp {
   _or: [Team_bool_exp!]
   bio: String_comparison_exp
   createdAt: timestamp_comparison_exp
-  creatorId: String_comparison_exp
+  creatorId: Int_comparison_exp
   description: String_comparison_exp
   id: String_comparison_exp
-  managerId: String_comparison_exp
+  managerId: Int_comparison_exp
   name: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
   userByManagerid: User_bool_exp
 }
@@ -5420,6 +7200,15 @@ enum Team_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "Team"
+"""
+input Team_inc_input {
+  creatorId: Int
+  managerId: Int
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "Team"
 """
 input Team_insert_input {
@@ -5429,12 +7218,12 @@ input Team_insert_input {
   User: User_obj_rel_insert_input
   bio: String
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
   description: String
   id: String
-  managerId: String
+  managerId: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
   userByManagerid: User_obj_rel_insert_input
 }
@@ -5443,12 +7232,12 @@ input Team_insert_input {
 type Team_max_fields {
   bio: String
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
   description: String
   id: String
-  managerId: String
+  managerId: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -5471,12 +7260,12 @@ input Team_max_order_by {
 type Team_min_fields {
   bio: String
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
   description: String
   id: String
-  managerId: String
+  managerId: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -5586,13 +7375,61 @@ input type for updating data in table "Team"
 input Team_set_input {
   bio: String
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
   description: String
   id: String
-  managerId: String
+  managerId: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Team_stddev_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "Team"
+"""
+input Team_stddev_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Team_stddev_pop_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Team"
+"""
+input Team_stddev_pop_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Team_stddev_samp_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Team"
+"""
+input Team_stddev_samp_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
 }
 
 """
@@ -5610,13 +7447,29 @@ input Team_stream_cursor_input {
 input Team_stream_cursor_value_input {
   bio: String
   createdAt: timestamp
-  creatorId: String
+  creatorId: Int
   description: String
   id: String
-  managerId: String
+  managerId: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Team_sum_fields {
+  creatorId: Int
+  managerId: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "Team"
+"""
+input Team_sum_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
 }
 
 """
@@ -5652,9 +7505,60 @@ enum Team_update_column {
 }
 
 input Team_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Team_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Team_set_input
   where: Team_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Team_var_pop_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "Team"
+"""
+input Team_var_pop_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Team_var_samp_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "Team"
+"""
+input Team_var_samp_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type Team_variance_fields {
+  creatorId: Float
+  managerId: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "Team"
+"""
+input Team_variance_order_by {
+  creatorId: order_by
+  managerId: order_by
+  organizationId: order_by
 }
 
 type Tokenbe {
@@ -5671,14 +7575,14 @@ columns and relationships of "Trigger"
 type Trigger {
   """An object relationship"""
   Activity: Activity!
-  activityId: String!
+  activityId: Int!
   config(
     """JSON select path"""
     path: String
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
   type: TriggerType!
   updatedAt: timestamp!
@@ -5724,18 +7628,34 @@ input Trigger_aggregate_bool_exp_count {
 aggregate fields of "Trigger"
 """
 type Trigger_aggregate_fields {
+  avg: Trigger_avg_fields
   count(columns: [Trigger_select_column!], distinct: Boolean): Int!
   max: Trigger_max_fields
   min: Trigger_min_fields
+  stddev: Trigger_stddev_fields
+  stddev_pop: Trigger_stddev_pop_fields
+  stddev_samp: Trigger_stddev_samp_fields
+  sum: Trigger_sum_fields
+  var_pop: Trigger_var_pop_fields
+  var_samp: Trigger_var_samp_fields
+  variance: Trigger_variance_fields
 }
 
 """
 order by aggregate values of table "Trigger"
 """
 input Trigger_aggregate_order_by {
+  avg: Trigger_avg_order_by
   count: order_by
   max: Trigger_max_order_by
   min: Trigger_min_order_by
+  stddev: Trigger_stddev_order_by
+  stddev_pop: Trigger_stddev_pop_order_by
+  stddev_samp: Trigger_stddev_samp_order_by
+  sum: Trigger_sum_order_by
+  var_pop: Trigger_var_pop_order_by
+  var_samp: Trigger_var_samp_order_by
+  variance: Trigger_variance_order_by
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -5753,6 +7673,20 @@ input Trigger_arr_rel_insert_input {
   on_conflict: Trigger_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Trigger_avg_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "Trigger"
+"""
+input Trigger_avg_order_by {
+  activityId: order_by
+  id: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Trigger". All fields are combined with a logical 'AND'.
 """
@@ -5761,11 +7695,11 @@ input Trigger_bool_exp {
   _and: [Trigger_bool_exp!]
   _not: Trigger_bool_exp
   _or: [Trigger_bool_exp!]
-  activityId: String_comparison_exp
+  activityId: Int_comparison_exp
   config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
   type: TriggerType_comparison_exp
   updatedAt: timestamp_comparison_exp
@@ -5803,15 +7737,23 @@ input Trigger_delete_key_input {
 }
 
 """
+input type for incrementing numeric columns in table "Trigger"
+"""
+input Trigger_inc_input {
+  activityId: Int
+  id: Int
+}
+
+"""
 input type for inserting data into table "Trigger"
 """
 input Trigger_insert_input {
   Activity: Activity_obj_rel_insert_input
-  activityId: String
+  activityId: Int
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   type: TriggerType
   updatedAt: timestamp
@@ -5819,10 +7761,10 @@ input Trigger_insert_input {
 
 """aggregate max on columns"""
 type Trigger_max_fields {
-  activityId: String
+  activityId: Int
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   type: TriggerType
   updatedAt: timestamp
@@ -5843,10 +7785,10 @@ input Trigger_max_order_by {
 
 """aggregate min on columns"""
 type Trigger_min_fields {
-  activityId: String
+  activityId: Int
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   type: TriggerType
   updatedAt: timestamp
@@ -5900,7 +7842,7 @@ input Trigger_order_by {
 
 """primary key columns input for table: Trigger"""
 input Trigger_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
@@ -5941,14 +7883,56 @@ enum Trigger_select_column {
 input type for updating data in table "Trigger"
 """
 input Trigger_set_input {
-  activityId: String
+  activityId: Int
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   type: TriggerType
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Trigger_stddev_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "Trigger"
+"""
+input Trigger_stddev_order_by {
+  activityId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Trigger_stddev_pop_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Trigger"
+"""
+input Trigger_stddev_pop_order_by {
+  activityId: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Trigger_stddev_samp_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Trigger"
+"""
+input Trigger_stddev_samp_order_by {
+  activityId: order_by
+  id: order_by
 }
 
 """
@@ -5964,14 +7948,28 @@ input Trigger_stream_cursor_input {
 
 """Initial value of the column from where the streaming should start"""
 input Trigger_stream_cursor_value_input {
-  activityId: String
+  activityId: Int
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
   type: TriggerType
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Trigger_sum_fields {
+  activityId: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "Trigger"
+"""
+input Trigger_sum_order_by {
+  activityId: order_by
+  id: order_by
 }
 
 """
@@ -6022,12 +8020,57 @@ input Trigger_updates {
   """
   _delete_key: Trigger_delete_key_input
 
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Trigger_inc_input
+
   """prepend existing jsonb value of filtered columns with new jsonb value"""
   _prepend: Trigger_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Trigger_set_input
   where: Trigger_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Trigger_var_pop_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "Trigger"
+"""
+input Trigger_var_pop_order_by {
+  activityId: order_by
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Trigger_var_samp_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "Trigger"
+"""
+input Trigger_var_samp_order_by {
+  activityId: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type Trigger_variance_fields {
+  activityId: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "Trigger"
+"""
+input Trigger_variance_order_by {
+  activityId: order_by
+  id: order_by
 }
 
 input UpdateUserInputbe {
@@ -6221,12 +8264,48 @@ type User {
     """filter the rows returned"""
     where: Team_bool_exp
   ): Team_aggregate!
+
+  """An array relationship"""
+  UserPermissions(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): [UserPermission!]!
+
+  """An aggregate relationship"""
+  UserPermissions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermission_aggregate!
   createdAt: timestamp!
   email: String!
   firstname: String
-  id: String!
+  id: Int!
   lastname: String
-  organizationId: String!
+  organizationId: Int!
   password: String!
   role: Role!
 
@@ -6269,6 +8348,384 @@ type User {
 }
 
 """
+columns and relationships of "UserPermission"
+"""
+type UserPermission {
+  """An object relationship"""
+  Permission: Permission!
+
+  """An object relationship"""
+  User: User!
+  createdAt: timestamp!
+  id: String!
+  permissionId: Int!
+  userId: Int!
+}
+
+"""
+aggregated selection of "UserPermission"
+"""
+type UserPermission_aggregate {
+  aggregate: UserPermission_aggregate_fields
+  nodes: [UserPermission!]!
+}
+
+input UserPermission_aggregate_bool_exp {
+  count: UserPermission_aggregate_bool_exp_count
+}
+
+input UserPermission_aggregate_bool_exp_count {
+  arguments: [UserPermission_select_column!]
+  distinct: Boolean
+  filter: UserPermission_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "UserPermission"
+"""
+type UserPermission_aggregate_fields {
+  avg: UserPermission_avg_fields
+  count(columns: [UserPermission_select_column!], distinct: Boolean): Int!
+  max: UserPermission_max_fields
+  min: UserPermission_min_fields
+  stddev: UserPermission_stddev_fields
+  stddev_pop: UserPermission_stddev_pop_fields
+  stddev_samp: UserPermission_stddev_samp_fields
+  sum: UserPermission_sum_fields
+  var_pop: UserPermission_var_pop_fields
+  var_samp: UserPermission_var_samp_fields
+  variance: UserPermission_variance_fields
+}
+
+"""
+order by aggregate values of table "UserPermission"
+"""
+input UserPermission_aggregate_order_by {
+  avg: UserPermission_avg_order_by
+  count: order_by
+  max: UserPermission_max_order_by
+  min: UserPermission_min_order_by
+  stddev: UserPermission_stddev_order_by
+  stddev_pop: UserPermission_stddev_pop_order_by
+  stddev_samp: UserPermission_stddev_samp_order_by
+  sum: UserPermission_sum_order_by
+  var_pop: UserPermission_var_pop_order_by
+  var_samp: UserPermission_var_samp_order_by
+  variance: UserPermission_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "UserPermission"
+"""
+input UserPermission_arr_rel_insert_input {
+  data: [UserPermission_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: UserPermission_on_conflict
+}
+
+"""aggregate avg on columns"""
+type UserPermission_avg_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "UserPermission"
+"""
+input UserPermission_avg_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "UserPermission". All fields are combined with a logical 'AND'.
+"""
+input UserPermission_bool_exp {
+  Permission: Permission_bool_exp
+  User: User_bool_exp
+  _and: [UserPermission_bool_exp!]
+  _not: UserPermission_bool_exp
+  _or: [UserPermission_bool_exp!]
+  createdAt: timestamp_comparison_exp
+  id: String_comparison_exp
+  permissionId: Int_comparison_exp
+  userId: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "UserPermission"
+"""
+enum UserPermission_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  UserPermission_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "UserPermission"
+"""
+input UserPermission_inc_input {
+  permissionId: Int
+  userId: Int
+}
+
+"""
+input type for inserting data into table "UserPermission"
+"""
+input UserPermission_insert_input {
+  Permission: Permission_obj_rel_insert_input
+  User: User_obj_rel_insert_input
+  createdAt: timestamp
+  id: String
+  permissionId: Int
+  userId: Int
+}
+
+"""aggregate max on columns"""
+type UserPermission_max_fields {
+  createdAt: timestamp
+  id: String
+  permissionId: Int
+  userId: Int
+}
+
+"""
+order by max() on columns of table "UserPermission"
+"""
+input UserPermission_max_order_by {
+  createdAt: order_by
+  id: order_by
+  permissionId: order_by
+  userId: order_by
+}
+
+"""aggregate min on columns"""
+type UserPermission_min_fields {
+  createdAt: timestamp
+  id: String
+  permissionId: Int
+  userId: Int
+}
+
+"""
+order by min() on columns of table "UserPermission"
+"""
+input UserPermission_min_order_by {
+  createdAt: order_by
+  id: order_by
+  permissionId: order_by
+  userId: order_by
+}
+
+"""
+response of any mutation on the table "UserPermission"
+"""
+type UserPermission_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [UserPermission!]!
+}
+
+"""
+on_conflict condition type for table "UserPermission"
+"""
+input UserPermission_on_conflict {
+  constraint: UserPermission_constraint!
+  update_columns: [UserPermission_update_column!]! = []
+  where: UserPermission_bool_exp
+}
+
+"""Ordering options when selecting data from "UserPermission"."""
+input UserPermission_order_by {
+  Permission: Permission_order_by
+  User: User_order_by
+  createdAt: order_by
+  id: order_by
+  permissionId: order_by
+  userId: order_by
+}
+
+"""primary key columns input for table: UserPermission"""
+input UserPermission_pk_columns_input {
+  id: String!
+}
+
+"""
+select columns of table "UserPermission"
+"""
+enum UserPermission_select_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  permissionId
+
+  """column name"""
+  userId
+}
+
+"""
+input type for updating data in table "UserPermission"
+"""
+input UserPermission_set_input {
+  createdAt: timestamp
+  id: String
+  permissionId: Int
+  userId: Int
+}
+
+"""aggregate stddev on columns"""
+type UserPermission_stddev_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "UserPermission"
+"""
+input UserPermission_stddev_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type UserPermission_stddev_pop_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "UserPermission"
+"""
+input UserPermission_stddev_pop_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type UserPermission_stddev_samp_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "UserPermission"
+"""
+input UserPermission_stddev_samp_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""
+Streaming cursor of the table "UserPermission"
+"""
+input UserPermission_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: UserPermission_stream_cursor_value_input!
+
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input UserPermission_stream_cursor_value_input {
+  createdAt: timestamp
+  id: String
+  permissionId: Int
+  userId: Int
+}
+
+"""aggregate sum on columns"""
+type UserPermission_sum_fields {
+  permissionId: Int
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "UserPermission"
+"""
+input UserPermission_sum_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""
+update columns of table "UserPermission"
+"""
+enum UserPermission_update_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  permissionId
+
+  """column name"""
+  userId
+}
+
+input UserPermission_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: UserPermission_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: UserPermission_set_input
+  where: UserPermission_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type UserPermission_var_pop_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by var_pop() on columns of table "UserPermission"
+"""
+input UserPermission_var_pop_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type UserPermission_var_samp_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "UserPermission"
+"""
+input UserPermission_var_samp_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type UserPermission_variance_fields {
+  permissionId: Float
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "UserPermission"
+"""
+input UserPermission_variance_order_by {
+  permissionId: order_by
+  userId: order_by
+}
+
+"""
 aggregated selection of "User"
 """
 type User_aggregate {
@@ -6291,18 +8748,34 @@ input User_aggregate_bool_exp_count {
 aggregate fields of "User"
 """
 type User_aggregate_fields {
+  avg: User_avg_fields
   count(columns: [User_select_column!], distinct: Boolean): Int!
   max: User_max_fields
   min: User_min_fields
+  stddev: User_stddev_fields
+  stddev_pop: User_stddev_pop_fields
+  stddev_samp: User_stddev_samp_fields
+  sum: User_sum_fields
+  var_pop: User_var_pop_fields
+  var_samp: User_var_samp_fields
+  variance: User_variance_fields
 }
 
 """
 order by aggregate values of table "User"
 """
 input User_aggregate_order_by {
+  avg: User_avg_order_by
   count: order_by
   max: User_max_order_by
   min: User_min_order_by
+  stddev: User_stddev_order_by
+  stddev_pop: User_stddev_pop_order_by
+  stddev_samp: User_stddev_samp_order_by
+  sum: User_sum_order_by
+  var_pop: User_var_pop_order_by
+  var_samp: User_var_samp_order_by
+  variance: User_variance_order_by
 }
 
 """
@@ -6313,6 +8786,20 @@ input User_arr_rel_insert_input {
 
   """upsert condition"""
   on_conflict: User_on_conflict
+}
+
+"""aggregate avg on columns"""
+type User_avg_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "User"
+"""
+input User_avg_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -6330,15 +8817,17 @@ input User_bool_exp {
   Posts_aggregate: Post_aggregate_bool_exp
   Teams: Team_bool_exp
   Teams_aggregate: Team_aggregate_bool_exp
+  UserPermissions: UserPermission_bool_exp
+  UserPermissions_aggregate: UserPermission_aggregate_bool_exp
   _and: [User_bool_exp!]
   _not: User_bool_exp
   _or: [User_bool_exp!]
   createdAt: timestamp_comparison_exp
   email: String_comparison_exp
   firstname: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   lastname: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   password: String_comparison_exp
   role: Role_comparison_exp
   teamsByManagerid: Team_bool_exp
@@ -6362,6 +8851,14 @@ enum User_constraint {
 }
 
 """
+input type for incrementing numeric columns in table "User"
+"""
+input User_inc_input {
+  id: Int
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "User"
 """
 input User_insert_input {
@@ -6371,12 +8868,13 @@ input User_insert_input {
   Organization: Organization_obj_rel_insert_input
   Posts: Post_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
+  UserPermissions: UserPermission_arr_rel_insert_input
   createdAt: timestamp
   email: String
   firstname: String
-  id: String
+  id: Int
   lastname: String
-  organizationId: String
+  organizationId: Int
   password: String
   role: Role
   teamsByManagerid: Team_arr_rel_insert_input
@@ -6388,9 +8886,9 @@ type User_max_fields {
   createdAt: timestamp
   email: String
   firstname: String
-  id: String
+  id: Int
   lastname: String
-  organizationId: String
+  organizationId: Int
   password: String
   role: Role
   updatedAt: timestamp
@@ -6416,9 +8914,9 @@ type User_min_fields {
   createdAt: timestamp
   email: String
   firstname: String
-  id: String
+  id: Int
   lastname: String
-  organizationId: String
+  organizationId: Int
   password: String
   role: Role
   updatedAt: timestamp
@@ -6477,6 +8975,7 @@ input User_order_by {
   Organization: Organization_order_by
   Posts_aggregate: Post_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
+  UserPermissions_aggregate: UserPermission_aggregate_order_by
   createdAt: order_by
   email: order_by
   firstname: order_by
@@ -6491,7 +8990,7 @@ input User_order_by {
 
 """primary key columns input for table: User"""
 input User_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """
@@ -6533,12 +9032,54 @@ input User_set_input {
   createdAt: timestamp
   email: String
   firstname: String
-  id: String
+  id: Int
   lastname: String
-  organizationId: String
+  organizationId: Int
   password: String
   role: Role
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type User_stddev_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "User"
+"""
+input User_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type User_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "User"
+"""
+input User_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type User_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "User"
+"""
+input User_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -6557,12 +9098,26 @@ input User_stream_cursor_value_input {
   createdAt: timestamp
   email: String
   firstname: String
-  id: String
+  id: Int
   lastname: String
-  organizationId: String
+  organizationId: Int
   password: String
   role: Role
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type User_sum_fields {
+  id: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "User"
+"""
+input User_sum_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -6598,9 +9153,54 @@ enum User_update_column {
 }
 
 input User_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: User_inc_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: User_set_input
   where: User_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type User_var_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "User"
+"""
+input User_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type User_var_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "User"
+"""
+input User_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type User_variance_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "User"
+"""
+input User_variance_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 type Userbe {
@@ -6610,7 +9210,7 @@ type Userbe {
   firstname: String
   id: ID!
   lastname: String
-  posts: [Postbe!]
+  permissions: [Permissionbe!]
   role: Rolebe!
 
   """Identifies the date and time when the object was last updated."""
@@ -6701,9 +9301,9 @@ type Workflow {
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: String!
+  id: Int!
   name: String!
-  organizationId: String!
+  organizationId: Int!
   updatedAt: timestamp!
 }
 
@@ -6730,18 +9330,34 @@ input Workflow_aggregate_bool_exp_count {
 aggregate fields of "Workflow"
 """
 type Workflow_aggregate_fields {
+  avg: Workflow_avg_fields
   count(columns: [Workflow_select_column!], distinct: Boolean): Int!
   max: Workflow_max_fields
   min: Workflow_min_fields
+  stddev: Workflow_stddev_fields
+  stddev_pop: Workflow_stddev_pop_fields
+  stddev_samp: Workflow_stddev_samp_fields
+  sum: Workflow_sum_fields
+  var_pop: Workflow_var_pop_fields
+  var_samp: Workflow_var_samp_fields
+  variance: Workflow_variance_fields
 }
 
 """
 order by aggregate values of table "Workflow"
 """
 input Workflow_aggregate_order_by {
+  avg: Workflow_avg_order_by
   count: order_by
   max: Workflow_max_order_by
   min: Workflow_min_order_by
+  stddev: Workflow_stddev_order_by
+  stddev_pop: Workflow_stddev_pop_order_by
+  stddev_samp: Workflow_stddev_samp_order_by
+  sum: Workflow_sum_order_by
+  var_pop: Workflow_var_pop_order_by
+  var_samp: Workflow_var_samp_order_by
+  variance: Workflow_variance_order_by
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -6759,6 +9375,20 @@ input Workflow_arr_rel_insert_input {
   on_conflict: Workflow_on_conflict
 }
 
+"""aggregate avg on columns"""
+type Workflow_avg_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by avg() on columns of table "Workflow"
+"""
+input Workflow_avg_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
 """
 Boolean expression to filter rows from the table "Workflow". All fields are combined with a logical 'AND'.
 """
@@ -6774,9 +9404,9 @@ input Workflow_bool_exp {
   config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
-  id: String_comparison_exp
+  id: Int_comparison_exp
   name: String_comparison_exp
-  organizationId: String_comparison_exp
+  organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
 }
 
@@ -6812,6 +9442,14 @@ input Workflow_delete_key_input {
 }
 
 """
+input type for incrementing numeric columns in table "Workflow"
+"""
+input Workflow_inc_input {
+  id: Int
+  organizationId: Int
+}
+
+"""
 input type for inserting data into table "Workflow"
 """
 input Workflow_insert_input {
@@ -6821,9 +9459,9 @@ input Workflow_insert_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -6831,9 +9469,9 @@ input Workflow_insert_input {
 type Workflow_max_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -6853,9 +9491,9 @@ input Workflow_max_order_by {
 type Workflow_min_fields {
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
 }
 
@@ -6917,7 +9555,7 @@ input Workflow_order_by {
 
 """primary key columns input for table: Workflow"""
 input Workflow_pk_columns_input {
-  id: String!
+  id: Int!
 }
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
@@ -6958,10 +9596,52 @@ input Workflow_set_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Workflow_stddev_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev() on columns of table "Workflow"
+"""
+input Workflow_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Workflow_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Workflow"
+"""
+input Workflow_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Workflow_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Workflow"
+"""
+input Workflow_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -6980,10 +9660,24 @@ input Workflow_stream_cursor_value_input {
   config: jsonb
   createdAt: timestamp
   description: String
-  id: String
+  id: Int
   name: String
-  organizationId: String
+  organizationId: Int
   updatedAt: timestamp
+}
+
+"""aggregate sum on columns"""
+type Workflow_sum_fields {
+  id: Int
+  organizationId: Int
+}
+
+"""
+order by sum() on columns of table "Workflow"
+"""
+input Workflow_sum_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -7031,12 +9725,57 @@ input Workflow_updates {
   """
   _delete_key: Workflow_delete_key_input
 
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Workflow_inc_input
+
   """prepend existing jsonb value of filtered columns with new jsonb value"""
   _prepend: Workflow_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Workflow_set_input
   where: Workflow_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Workflow_var_pop_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_pop() on columns of table "Workflow"
+"""
+input Workflow_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Workflow_var_samp_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by var_samp() on columns of table "Workflow"
+"""
+input Workflow_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+}
+
+"""aggregate variance on columns"""
+type Workflow_variance_fields {
+  id: Float
+  organizationId: Float
+}
+
+"""
+order by variance() on columns of table "Workflow"
+"""
+input Workflow_variance_order_by {
+  id: order_by
+  organizationId: order_by
 }
 
 """
@@ -7380,7 +10119,6 @@ input jsonb_comparison_exp {
 """mutation root"""
 type mutation_root {
   changePassword(data: ChangePasswordInputbe!): Userbe!
-  createPost(data: CreatePostInputbe!): Postbe!
 
   """
   delete data from the table: "Action"
@@ -7393,7 +10131,7 @@ type mutation_root {
   """
   delete single row from the table: "Action"
   """
-  delete_Action_by_pk(id: String!): Action
+  delete_Action_by_pk(id: Int!): Action
 
   """
   delete data from the table: "Activity"
@@ -7406,7 +10144,7 @@ type mutation_root {
   """
   delete single row from the table: "Activity"
   """
-  delete_Activity_by_pk(id: String!): Activity
+  delete_Activity_by_pk(id: Int!): Activity
 
   """
   delete data from the table: "Comment"
@@ -7419,7 +10157,7 @@ type mutation_root {
   """
   delete single row from the table: "Comment"
   """
-  delete_Comment_by_pk(id: String!): Comment
+  delete_Comment_by_pk(id: Int!): Comment
 
   """
   delete data from the table: "EventLog"
@@ -7432,7 +10170,7 @@ type mutation_root {
   """
   delete single row from the table: "EventLog"
   """
-  delete_EventLog_by_pk(id: String!): EventLog
+  delete_EventLog_by_pk(id: Int!): EventLog
 
   """
   delete data from the table: "File"
@@ -7445,7 +10183,7 @@ type mutation_root {
   """
   delete single row from the table: "File"
   """
-  delete_File_by_pk(id: String!): File
+  delete_File_by_pk(id: Int!): File
 
   """
   delete data from the table: "MemberOnTeams"
@@ -7458,7 +10196,7 @@ type mutation_root {
   """
   delete single row from the table: "MemberOnTeams"
   """
-  delete_MemberOnTeams_by_pk(teamId: String!, userId: String!): MemberOnTeams
+  delete_MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
 
   """
   delete data from the table: "Organization"
@@ -7471,7 +10209,7 @@ type mutation_root {
   """
   delete single row from the table: "Organization"
   """
-  delete_Organization_by_pk(id: String!): Organization
+  delete_Organization_by_pk(id: Int!): Organization
 
   """
   delete data from the table: "Permission"
@@ -7492,12 +10230,12 @@ type mutation_root {
   """
   delete single row from the table: "PermissionGroup"
   """
-  delete_PermissionGroup_by_pk(id: String!): PermissionGroup
+  delete_PermissionGroup_by_pk(id: Int!): PermissionGroup
 
   """
   delete single row from the table: "Permission"
   """
-  delete_Permission_by_pk(id: String!): Permission
+  delete_Permission_by_pk(id: Int!): Permission
 
   """
   delete data from the table: "Post"
@@ -7510,7 +10248,7 @@ type mutation_root {
   """
   delete single row from the table: "Post"
   """
-  delete_Post_by_pk(id: String!): Post
+  delete_Post_by_pk(id: Int!): Post
 
   """
   delete data from the table: "Settings"
@@ -7523,7 +10261,7 @@ type mutation_root {
   """
   delete single row from the table: "Settings"
   """
-  delete_Settings_by_pk(id: String!): Settings
+  delete_Settings_by_pk(id: Int!): Settings
 
   """
   delete data from the table: "Task"
@@ -7544,7 +10282,7 @@ type mutation_root {
   """
   delete single row from the table: "TaskDefinition"
   """
-  delete_TaskDefinition_by_pk(id: String!): TaskDefinition
+  delete_TaskDefinition_by_pk(id: Int!): TaskDefinition
 
   """
   delete single row from the table: "Task"
@@ -7575,7 +10313,7 @@ type mutation_root {
   """
   delete single row from the table: "Trigger"
   """
-  delete_Trigger_by_pk(id: String!): Trigger
+  delete_Trigger_by_pk(id: Int!): Trigger
 
   """
   delete data from the table: "User"
@@ -7586,9 +10324,22 @@ type mutation_root {
   ): User_mutation_response
 
   """
+  delete data from the table: "UserPermission"
+  """
+  delete_UserPermission(
+    """filter the rows which have to be deleted"""
+    where: UserPermission_bool_exp!
+  ): UserPermission_mutation_response
+
+  """
+  delete single row from the table: "UserPermission"
+  """
+  delete_UserPermission_by_pk(id: String!): UserPermission
+
+  """
   delete single row from the table: "User"
   """
-  delete_User_by_pk(id: String!): User
+  delete_User_by_pk(id: Int!): User
 
   """
   delete data from the table: "Workflow"
@@ -7601,7 +10352,7 @@ type mutation_root {
   """
   delete single row from the table: "Workflow"
   """
-  delete_Workflow_by_pk(id: String!): Workflow
+  delete_Workflow_by_pk(id: Int!): Workflow
 
   """
   delete data from the table: "_prisma_migrations"
@@ -7958,6 +10709,28 @@ type mutation_root {
   ): User_mutation_response
 
   """
+  insert data into the table: "UserPermission"
+  """
+  insert_UserPermission(
+    """the rows to be inserted"""
+    objects: [UserPermission_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: UserPermission_on_conflict
+  ): UserPermission_mutation_response
+
+  """
+  insert a single row into the table: "UserPermission"
+  """
+  insert_UserPermission_one(
+    """the row to be inserted"""
+    object: UserPermission_insert_input!
+
+    """upsert condition"""
+    on_conflict: UserPermission_on_conflict
+  ): UserPermission
+
+  """
   insert a single row into the table: "User"
   """
   insert_User_one(
@@ -8020,6 +10793,9 @@ type mutation_root {
   update data of the table: "Action"
   """
   update_Action(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Action_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Action_set_input
 
@@ -8031,6 +10807,9 @@ type mutation_root {
   update single row of the table: "Action"
   """
   update_Action_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Action_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Action_set_input
     pk_columns: Action_pk_columns_input!
@@ -8066,6 +10845,9 @@ type mutation_root {
     """
     _delete_key: Activity_delete_key_input
 
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Activity_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Activity_prepend_input
 
@@ -8098,6 +10880,9 @@ type mutation_root {
     """
     _delete_key: Activity_delete_key_input
 
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Activity_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Activity_prepend_input
 
@@ -8118,6 +10903,9 @@ type mutation_root {
   update data of the table: "Comment"
   """
   update_Comment(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Comment_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Comment_set_input
 
@@ -8129,6 +10917,9 @@ type mutation_root {
   update single row of the table: "Comment"
   """
   update_Comment_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Comment_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Comment_set_input
     pk_columns: Comment_pk_columns_input!
@@ -8146,6 +10937,9 @@ type mutation_root {
   update data of the table: "EventLog"
   """
   update_EventLog(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: EventLog_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: EventLog_set_input
 
@@ -8157,6 +10951,9 @@ type mutation_root {
   update single row of the table: "EventLog"
   """
   update_EventLog_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: EventLog_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: EventLog_set_input
     pk_columns: EventLog_pk_columns_input!
@@ -8174,6 +10971,9 @@ type mutation_root {
   update data of the table: "File"
   """
   update_File(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: File_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: File_set_input
 
@@ -8185,6 +10985,9 @@ type mutation_root {
   update single row of the table: "File"
   """
   update_File_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: File_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: File_set_input
     pk_columns: File_pk_columns_input!
@@ -8202,6 +11005,9 @@ type mutation_root {
   update data of the table: "MemberOnTeams"
   """
   update_MemberOnTeams(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: MemberOnTeams_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: MemberOnTeams_set_input
 
@@ -8213,6 +11019,9 @@ type mutation_root {
   update single row of the table: "MemberOnTeams"
   """
   update_MemberOnTeams_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: MemberOnTeams_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: MemberOnTeams_set_input
     pk_columns: MemberOnTeams_pk_columns_input!
@@ -8230,6 +11039,9 @@ type mutation_root {
   update data of the table: "Organization"
   """
   update_Organization(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Organization_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Organization_set_input
 
@@ -8241,6 +11053,9 @@ type mutation_root {
   update single row of the table: "Organization"
   """
   update_Organization_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Organization_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Organization_set_input
     pk_columns: Organization_pk_columns_input!
@@ -8258,6 +11073,9 @@ type mutation_root {
   update data of the table: "Permission"
   """
   update_Permission(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Permission_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Permission_set_input
 
@@ -8269,6 +11087,9 @@ type mutation_root {
   update data of the table: "PermissionGroup"
   """
   update_PermissionGroup(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: PermissionGroup_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: PermissionGroup_set_input
 
@@ -8280,6 +11101,9 @@ type mutation_root {
   update single row of the table: "PermissionGroup"
   """
   update_PermissionGroup_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: PermissionGroup_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: PermissionGroup_set_input
     pk_columns: PermissionGroup_pk_columns_input!
@@ -8297,6 +11121,9 @@ type mutation_root {
   update single row of the table: "Permission"
   """
   update_Permission_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Permission_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Permission_set_input
     pk_columns: Permission_pk_columns_input!
@@ -8314,6 +11141,9 @@ type mutation_root {
   update data of the table: "Post"
   """
   update_Post(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Post_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Post_set_input
 
@@ -8325,6 +11155,9 @@ type mutation_root {
   update single row of the table: "Post"
   """
   update_Post_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Post_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Post_set_input
     pk_columns: Post_pk_columns_input!
@@ -8342,6 +11175,9 @@ type mutation_root {
   update data of the table: "Settings"
   """
   update_Settings(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Settings_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Settings_set_input
 
@@ -8353,6 +11189,9 @@ type mutation_root {
   update single row of the table: "Settings"
   """
   update_Settings_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Settings_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Settings_set_input
     pk_columns: Settings_pk_columns_input!
@@ -8370,6 +11209,9 @@ type mutation_root {
   update data of the table: "Task"
   """
   update_Task(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Task_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Task_set_input
 
@@ -8381,6 +11223,9 @@ type mutation_root {
   update data of the table: "TaskDefinition"
   """
   update_TaskDefinition(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskDefinition_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: TaskDefinition_set_input
 
@@ -8392,6 +11237,9 @@ type mutation_root {
   update single row of the table: "TaskDefinition"
   """
   update_TaskDefinition_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskDefinition_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: TaskDefinition_set_input
     pk_columns: TaskDefinition_pk_columns_input!
@@ -8409,6 +11257,9 @@ type mutation_root {
   update single row of the table: "Task"
   """
   update_Task_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Task_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Task_set_input
     pk_columns: Task_pk_columns_input!
@@ -8426,6 +11277,9 @@ type mutation_root {
   update data of the table: "Team"
   """
   update_Team(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Team_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Team_set_input
 
@@ -8437,6 +11291,9 @@ type mutation_root {
   update single row of the table: "Team"
   """
   update_Team_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Team_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: Team_set_input
     pk_columns: Team_pk_columns_input!
@@ -8472,6 +11329,9 @@ type mutation_root {
     """
     _delete_key: Trigger_delete_key_input
 
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Trigger_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Trigger_prepend_input
 
@@ -8504,6 +11364,9 @@ type mutation_root {
     """
     _delete_key: Trigger_delete_key_input
 
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Trigger_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Trigger_prepend_input
 
@@ -8524,6 +11387,9 @@ type mutation_root {
   update data of the table: "User"
   """
   update_User(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: User_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: User_set_input
 
@@ -8532,9 +11398,46 @@ type mutation_root {
   ): User_mutation_response
 
   """
+  update data of the table: "UserPermission"
+  """
+  update_UserPermission(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: UserPermission_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: UserPermission_set_input
+
+    """filter the rows which have to be updated"""
+    where: UserPermission_bool_exp!
+  ): UserPermission_mutation_response
+
+  """
+  update single row of the table: "UserPermission"
+  """
+  update_UserPermission_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: UserPermission_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: UserPermission_set_input
+    pk_columns: UserPermission_pk_columns_input!
+  ): UserPermission
+
+  """
+  update multiples rows of table: "UserPermission"
+  """
+  update_UserPermission_many(
+    """updates to execute, in order"""
+    updates: [UserPermission_updates!]!
+  ): [UserPermission_mutation_response]
+
+  """
   update single row of the table: "User"
   """
   update_User_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: User_inc_input
+
     """sets the columns of the filtered rows to the given values"""
     _set: User_set_input
     pk_columns: User_pk_columns_input!
@@ -8570,6 +11473,9 @@ type mutation_root {
     """
     _delete_key: Workflow_delete_key_input
 
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Workflow_inc_input
+
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Workflow_prepend_input
 
@@ -8601,6 +11507,9 @@ type mutation_root {
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
     _delete_key: Workflow_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Workflow_inc_input
 
     """prepend existing jsonb value of filtered columns with new jsonb value"""
     _prepend: Workflow_prepend_input
@@ -8716,7 +11625,7 @@ type query_root {
   ): Action_aggregate!
 
   """fetch data from the table: "Action" using primary key columns"""
-  Action_by_pk(id: String!): Action
+  Action_by_pk(id: Int!): Action
 
   """
   fetch data from the table: "Activity"
@@ -8759,7 +11668,7 @@ type query_root {
   ): Activity_aggregate!
 
   """fetch data from the table: "Activity" using primary key columns"""
-  Activity_by_pk(id: String!): Activity
+  Activity_by_pk(id: Int!): Activity
 
   """
   fetch data from the table: "Comment"
@@ -8802,7 +11711,7 @@ type query_root {
   ): Comment_aggregate!
 
   """fetch data from the table: "Comment" using primary key columns"""
-  Comment_by_pk(id: String!): Comment
+  Comment_by_pk(id: Int!): Comment
 
   """
   fetch data from the table: "EventLog"
@@ -8845,7 +11754,7 @@ type query_root {
   ): EventLog_aggregate!
 
   """fetch data from the table: "EventLog" using primary key columns"""
-  EventLog_by_pk(id: String!): EventLog
+  EventLog_by_pk(id: Int!): EventLog
 
   """
   fetch data from the table: "File"
@@ -8888,7 +11797,7 @@ type query_root {
   ): File_aggregate!
 
   """fetch data from the table: "File" using primary key columns"""
-  File_by_pk(id: String!): File
+  File_by_pk(id: Int!): File
 
   """An array relationship"""
   MemberOnTeams(
@@ -8927,7 +11836,7 @@ type query_root {
   ): MemberOnTeams_aggregate!
 
   """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: String!, userId: String!): MemberOnTeams
+  MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
 
   """
   fetch data from the table: "Organization"
@@ -8970,7 +11879,7 @@ type query_root {
   ): Organization_aggregate!
 
   """fetch data from the table: "Organization" using primary key columns"""
-  Organization_by_pk(id: String!): Organization
+  Organization_by_pk(id: Int!): Organization
 
   """
   fetch data from the table: "Permission"
@@ -9033,7 +11942,7 @@ type query_root {
   ): PermissionGroup_aggregate!
 
   """fetch data from the table: "PermissionGroup" using primary key columns"""
-  PermissionGroup_by_pk(id: String!): PermissionGroup
+  PermissionGroup_by_pk(id: Int!): PermissionGroup
 
   """
   fetch aggregated fields from the table: "Permission"
@@ -9056,7 +11965,7 @@ type query_root {
   ): Permission_aggregate!
 
   """fetch data from the table: "Permission" using primary key columns"""
-  Permission_by_pk(id: String!): Permission
+  Permission_by_pk(id: Int!): Permission
 
   """
   fetch data from the table: "Post"
@@ -9099,7 +12008,7 @@ type query_root {
   ): Post_aggregate!
 
   """fetch data from the table: "Post" using primary key columns"""
-  Post_by_pk(id: String!): Post
+  Post_by_pk(id: Int!): Post
 
   """An array relationship"""
   Settings(
@@ -9138,7 +12047,7 @@ type query_root {
   ): Settings_aggregate!
 
   """fetch data from the table: "Settings" using primary key columns"""
-  Settings_by_pk(id: String!): Settings
+  Settings_by_pk(id: Int!): Settings
 
   """
   fetch data from the table: "Task"
@@ -9201,7 +12110,7 @@ type query_root {
   ): TaskDefinition_aggregate!
 
   """fetch data from the table: "TaskDefinition" using primary key columns"""
-  TaskDefinition_by_pk(id: String!): TaskDefinition
+  TaskDefinition_by_pk(id: Int!): TaskDefinition
 
   """
   fetch aggregated fields from the table: "Task"
@@ -9310,7 +12219,7 @@ type query_root {
   ): Trigger_aggregate!
 
   """fetch data from the table: "Trigger" using primary key columns"""
-  Trigger_by_pk(id: String!): Trigger
+  Trigger_by_pk(id: Int!): Trigger
 
   """
   fetch data from the table: "User"
@@ -9333,6 +12242,49 @@ type query_root {
   ): [User!]!
 
   """
+  fetch data from the table: "UserPermission"
+  """
+  UserPermission(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): [UserPermission!]!
+
+  """
+  fetch aggregated fields from the table: "UserPermission"
+  """
+  UserPermission_aggregate(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermission_aggregate!
+
+  """fetch data from the table: "UserPermission" using primary key columns"""
+  UserPermission_by_pk(id: String!): UserPermission
+
+  """
   fetch aggregated fields from the table: "User"
   """
   User_aggregate(
@@ -9353,7 +12305,7 @@ type query_root {
   ): User_aggregate!
 
   """fetch data from the table: "User" using primary key columns"""
-  User_by_pk(id: String!): User
+  User_by_pk(id: Int!): User
 
   """
   fetch data from the table: "Workflow"
@@ -9396,7 +12348,7 @@ type query_root {
   ): Workflow_aggregate!
 
   """fetch data from the table: "Workflow" using primary key columns"""
-  Workflow_by_pk(id: String!): Workflow
+  Workflow_by_pk(id: Int!): Workflow
 
   """
   fetch data from the table: "_prisma_migrations"
@@ -9445,9 +12397,6 @@ type query_root {
   hello(name: String!): String!
   helloWorld: String!
   me: Userbe!
-  post(postId: String!): Postbe!
-  publishedPosts(after: String, before: String, first: Int, last: Int, orderBy: PostOrderbe, query: String, skip: Int): PostConnectionbe!
-  userPosts(userId: String!): [Postbe!]!
 }
 
 type subscription_root {
@@ -9492,7 +12441,7 @@ type subscription_root {
   ): Action_aggregate!
 
   """fetch data from the table: "Action" using primary key columns"""
-  Action_by_pk(id: String!): Action
+  Action_by_pk(id: Int!): Action
 
   """
   fetch data from the table in a streaming manner: "Action"
@@ -9549,7 +12498,7 @@ type subscription_root {
   ): Activity_aggregate!
 
   """fetch data from the table: "Activity" using primary key columns"""
-  Activity_by_pk(id: String!): Activity
+  Activity_by_pk(id: Int!): Activity
 
   """
   fetch data from the table in a streaming manner: "Activity"
@@ -9606,7 +12555,7 @@ type subscription_root {
   ): Comment_aggregate!
 
   """fetch data from the table: "Comment" using primary key columns"""
-  Comment_by_pk(id: String!): Comment
+  Comment_by_pk(id: Int!): Comment
 
   """
   fetch data from the table in a streaming manner: "Comment"
@@ -9663,7 +12612,7 @@ type subscription_root {
   ): EventLog_aggregate!
 
   """fetch data from the table: "EventLog" using primary key columns"""
-  EventLog_by_pk(id: String!): EventLog
+  EventLog_by_pk(id: Int!): EventLog
 
   """
   fetch data from the table in a streaming manner: "EventLog"
@@ -9720,7 +12669,7 @@ type subscription_root {
   ): File_aggregate!
 
   """fetch data from the table: "File" using primary key columns"""
-  File_by_pk(id: String!): File
+  File_by_pk(id: Int!): File
 
   """
   fetch data from the table in a streaming manner: "File"
@@ -9773,7 +12722,7 @@ type subscription_root {
   ): MemberOnTeams_aggregate!
 
   """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: String!, userId: String!): MemberOnTeams
+  MemberOnTeams_by_pk(teamId: String!, userId: Int!): MemberOnTeams
 
   """
   fetch data from the table in a streaming manner: "MemberOnTeams"
@@ -9830,7 +12779,7 @@ type subscription_root {
   ): Organization_aggregate!
 
   """fetch data from the table: "Organization" using primary key columns"""
-  Organization_by_pk(id: String!): Organization
+  Organization_by_pk(id: Int!): Organization
 
   """
   fetch data from the table in a streaming manner: "Organization"
@@ -9907,7 +12856,7 @@ type subscription_root {
   ): PermissionGroup_aggregate!
 
   """fetch data from the table: "PermissionGroup" using primary key columns"""
-  PermissionGroup_by_pk(id: String!): PermissionGroup
+  PermissionGroup_by_pk(id: Int!): PermissionGroup
 
   """
   fetch data from the table in a streaming manner: "PermissionGroup"
@@ -9944,7 +12893,7 @@ type subscription_root {
   ): Permission_aggregate!
 
   """fetch data from the table: "Permission" using primary key columns"""
-  Permission_by_pk(id: String!): Permission
+  Permission_by_pk(id: Int!): Permission
 
   """
   fetch data from the table in a streaming manner: "Permission"
@@ -10001,7 +12950,7 @@ type subscription_root {
   ): Post_aggregate!
 
   """fetch data from the table: "Post" using primary key columns"""
-  Post_by_pk(id: String!): Post
+  Post_by_pk(id: Int!): Post
 
   """
   fetch data from the table in a streaming manner: "Post"
@@ -10054,7 +13003,7 @@ type subscription_root {
   ): Settings_aggregate!
 
   """fetch data from the table: "Settings" using primary key columns"""
-  Settings_by_pk(id: String!): Settings
+  Settings_by_pk(id: Int!): Settings
 
   """
   fetch data from the table in a streaming manner: "Settings"
@@ -10131,7 +13080,7 @@ type subscription_root {
   ): TaskDefinition_aggregate!
 
   """fetch data from the table: "TaskDefinition" using primary key columns"""
-  TaskDefinition_by_pk(id: String!): TaskDefinition
+  TaskDefinition_by_pk(id: Int!): TaskDefinition
 
   """
   fetch data from the table in a streaming manner: "TaskDefinition"
@@ -10282,7 +13231,7 @@ type subscription_root {
   ): Trigger_aggregate!
 
   """fetch data from the table: "Trigger" using primary key columns"""
-  Trigger_by_pk(id: String!): Trigger
+  Trigger_by_pk(id: Int!): Trigger
 
   """
   fetch data from the table in a streaming manner: "Trigger"
@@ -10319,6 +13268,63 @@ type subscription_root {
   ): [User!]!
 
   """
+  fetch data from the table: "UserPermission"
+  """
+  UserPermission(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): [UserPermission!]!
+
+  """
+  fetch aggregated fields from the table: "UserPermission"
+  """
+  UserPermission_aggregate(
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermission_aggregate!
+
+  """fetch data from the table: "UserPermission" using primary key columns"""
+  UserPermission_by_pk(id: String!): UserPermission
+
+  """
+  fetch data from the table in a streaming manner: "UserPermission"
+  """
+  UserPermission_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+
+    """cursor to stream the results returned by the query"""
+    cursor: [UserPermission_stream_cursor_input]!
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): [UserPermission!]!
+
+  """
   fetch aggregated fields from the table: "User"
   """
   User_aggregate(
@@ -10339,7 +13345,7 @@ type subscription_root {
   ): User_aggregate!
 
   """fetch data from the table: "User" using primary key columns"""
-  User_by_pk(id: String!): User
+  User_by_pk(id: Int!): User
 
   """
   fetch data from the table in a streaming manner: "User"
@@ -10396,7 +13402,7 @@ type subscription_root {
   ): Workflow_aggregate!
 
   """fetch data from the table: "Workflow" using primary key columns"""
-  Workflow_by_pk(id: String!): Workflow
+  Workflow_by_pk(id: Int!): Workflow
 
   """
   fetch data from the table in a streaming manner: "Workflow"
@@ -10470,7 +13476,6 @@ type subscription_root {
     """filter the rows returned"""
     where: _prisma_migrations_bool_exp
   ): [_prisma_migrations!]!
-  postCreated: Postbe!
 }
 
 scalar timestamp
