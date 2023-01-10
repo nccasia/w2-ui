@@ -12,7 +12,6 @@ import React, { useState } from "react";
 export interface ChannelPickerDialogProps {
   channelsChoices: Array<Choice<string, string>>;
   confirmButtonState: ConfirmButtonTransitionState;
-  // defaultChoice: string;
   open: boolean;
   onClose: () => void;
   onConfirm?: (fieldNewTask: Task) => void;
@@ -21,7 +20,6 @@ export interface ChannelPickerDialogProps {
 const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
   channelsChoices = [],
   confirmButtonState,
-  // defaultChoice,
   open,
   onClose,
   onConfirm,
@@ -66,7 +64,6 @@ const ChannelPickerDialog: React.FC<ChannelPickerDialogProps> = ({
         data-test-id="channel-autocomplete"
         value={choice}
         onChange={e => setChoice(e.target.value)}
-        // onInputChange={setSelectType}
       >
         {({ getItemProps, highlightedIndex }) =>
           result.map((choice, choiceIndex) => (

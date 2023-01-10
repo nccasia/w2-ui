@@ -1,6 +1,5 @@
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
-import { typeTaskMock } from "@saleor/tasks/__mock__/typeTask";
 import TaskCreation from "@saleor/tasks/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/tasks/components/TaskListPage";
 import {
@@ -9,10 +8,7 @@ import {
   TaskListUrlQueryParams,
 } from "@saleor/tasks/urls";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
-import { mapNodeToChoice } from "@saleor/utils/maps";
 import React from "react";
-
-import { tasks } from "../../__mock__/Task";
 
 interface TaskListProps {
   params: TaskListUrlQueryParams;
@@ -20,11 +16,8 @@ interface TaskListProps {
 
 export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   const navigate = useNavigator();
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { channel, availableChannels } = {
+  const { channel } = {
     channel: undefined,
-    availableChannels: [],
   };
 
   const paginationValues = usePaginator({
@@ -43,11 +36,6 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
     },
   });
 
-  // mock api type
-  // eslint-disable-next-line no-console
-  const channelOpts = typeTaskMock ? mapNodeToChoice(typeTaskMock) : null;
-  // --------------
-
   const noTaskType = !channel && typeof channel !== "undefined";
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
@@ -57,10 +45,9 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   return (
     <>
       <PaginatorContext.Provider value={paginationValues}>
-        <TaskListPage onAdd={() => openModal("create-task")} tasks={tasks} />
+        <TaskListPage onAdd={() => openModal("create-task")} />
         {!noTaskType && (
           <TaskCreation
-            TypeChoices={channelOpts}
             open={params.action === "create-task"}
             onClose={closeModal}
           />

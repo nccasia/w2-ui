@@ -4,19 +4,19 @@ import Container from "@saleor/components/Container";
 import { FilterElement } from "@saleor/components/Filter";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
+import { useGetTasksQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
-import { Task } from "../../model/Task";
 import TaskList from "../TaskList/TaskList";
 
 export interface TaskListPageProps {
-  tasks: Task[] | [];
   onAdd: () => void;
 }
 
-const TaskListPage: React.FC<TaskListPageProps> = ({ tasks, onAdd }) => {
+const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
+  const { data } = useGetTasksQuery();
   const intl = useIntl();
   return (
     <Container>
@@ -70,7 +70,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ tasks, onAdd }) => {
           }}
         />
       </Card>
-      <TaskList tasks={tasks} />
+      <TaskList tasks={data?.Task} />
     </Container>
   );
 };

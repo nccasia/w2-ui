@@ -114,6 +114,14 @@ export const commonMessages = defineMessages({
     id: "rqiCWU",
     defaultMessage: "Saved changes",
   },
+  savedSuccess: {
+    id: "anuM+d",
+    defaultMessage: "Saved Task Success",
+  },
+  savedfaild: {
+    id: "0Bgf0g",
+    defaultMessage: "Please feel free to enter information",
+  },
   selected: {
     id: "byP6IC",
     defaultMessage: "Selected",

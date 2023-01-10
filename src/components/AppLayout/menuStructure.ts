@@ -44,8 +44,8 @@ function useMenuStructure(
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) => {
-    const userPermissions = (user?.userPermissions || []).map(
-      permission => permission.code,
+    const userPermissions = (user?.UserPermissions || []).map(
+      permission => permission.Permission.code,
     );
     if (!menuItem?.permissions || menuItem?.permissions?.length < 1) {
       return true;

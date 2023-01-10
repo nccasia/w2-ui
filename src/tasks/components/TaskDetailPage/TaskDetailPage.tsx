@@ -35,7 +35,13 @@ interface SwitchSelectorButtonOptions {
   value: string;
 }
 
-const TaskDetailPage = () => {
+interface ITaskDetailProps {
+  taskDetail: any;
+}
+
+const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: TaskDetailPage.tsx:43 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const [openModal, setOpenModal] = useState<boolean>(false);
   const intl = useIntl();

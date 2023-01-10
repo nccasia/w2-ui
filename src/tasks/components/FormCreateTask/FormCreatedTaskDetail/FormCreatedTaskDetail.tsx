@@ -3,8 +3,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
 interface Props {
-  formId: string;
-  onNewRequest: (data: any, type: any) => void;
+  formId: number;
+  onNewRequest: (data: any) => void;
 }
 
 const useStyles = makeStyles(
@@ -50,10 +50,7 @@ const FormCreatedTaskDetail: React.FC<Props> = ({ formId, onNewRequest }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <FormSchema
-        formId={formId}
-        onSubmit={newR => onNewRequest(newR, formId)}
-      />
+      <FormSchema formId={formId} onSubmit={newR => onNewRequest(newR)} />
     </div>
   );
 };

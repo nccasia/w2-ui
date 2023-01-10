@@ -72,7 +72,7 @@ const useStyles = makeStyles(
       },
     };
   },
-  { name: "OrderList" },
+  { name: "TaskList" },
 );
 
 interface TaskListProps {
@@ -132,21 +132,25 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
           task => (
             <TableRowLink
               hover={!!task}
-              href={task && taskUrl(task.id)}
+              href={task && taskUrl(`${task.id}`)}
               className={classes.colRow}
             >
               <TableCell className={classes.colID}>
                 {maybe(() => task.id) ? task.id : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colTask}>
-                {maybe(() => task.name) ? task.name : <Skeleton />}
+                {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colUser}>
-                {maybe(() => task.userName) ? task.userName : <Skeleton />}
+                {maybe(() => `${task.User.firstname} ${task.User.lastname}`) ? (
+                  `${task.User.firstname} ${task.User.lastname}`
+                ) : (
+                  <Skeleton />
+                )}
               </TableCell>
               <TableCell className={classes.colType}>
-                {maybe(() => task.type) ? (
-                  <Pill label={task.type} color="info" />
+                {maybe(() => task.title) ? (
+                  <Pill label={task.title} color="info" />
                 ) : (
                   <Skeleton />
                 )}
@@ -172,15 +176,15 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                 )}
               </TableCell>
               <TableCell className={classes.colState}>
-                {maybe(() => task.state) ? (
-                  <Pill label={task.state} color="warning" />
+                {maybe(() => task.status) ? (
+                  <Pill label={task.status} color="warning" />
                 ) : (
                   <Skeleton />
                 )}
               </TableCell>
               <TableCell className={classes.colDate}>
-                {maybe(() => task.createdDate) ? (
-                  <DateTime date={task.createdDate} />
+                {maybe(() => task.dueDate) ? (
+                  <DateTime date={task.dueDate} />
                 ) : (
                   <Skeleton />
                 )}

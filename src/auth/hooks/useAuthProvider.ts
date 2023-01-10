@@ -40,7 +40,7 @@ export function useAuthProvider({
     logout,
   } = useAuth();
   const navigate = useNavigator();
-  const { authenticated, authenticating, user, setUser } = useAuthState();
+  const { authenticated, authenticating, user, setUserId } = useAuthState();
   const [requestedExternalPluginId] = useLocalStorage(
     "requestedExternalPluginId",
     null,
@@ -117,7 +117,7 @@ export function useAuthProvider({
     }
 
     // TODO: fetch data logout
-    setUser(null);
+    setUserId(null);
 
     return;
   };
@@ -140,7 +140,7 @@ export function useAuthProvider({
 
       await logoutNonStaffUser(result.data.login.accessToken);
 
-      setUser(result.data.login.user);
+      setUserId(result.data.login.user);
 
       return result.data.login.user;
     } catch (error) {
@@ -162,7 +162,7 @@ export function useAuthProvider({
       }
       await logoutNonStaffUser(result.data.tokenCreate);
 
-      setUser(result.data.tokenCreate.user);
+      setUserId(result.data.tokenCreate.user);
 
       return result.data.tokenCreate.user;
     } catch (error) {
@@ -195,7 +195,7 @@ export function useAuthProvider({
   };
 
   const logoutNonStaffUser = async (data: any) => {
-    if (data.user && data.user.role === Rolebe.USER) {
+    if (data && data.role === Rolebe.USER) {
       notify({
         status: "error",
         text: intl.formatMessage(commonMessages.unauthorizedDashboardAccess),
@@ -216,6 +216,6 @@ export function useAuthProvider({
     authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
-    setUser,
+    setUserId,
   };
 }
