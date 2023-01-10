@@ -109,3 +109,42 @@ export function useHomeLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOpt
 export type HomeQueryHookResult = ReturnType<typeof useHomeQuery>;
 export type HomeLazyQueryHookResult = ReturnType<typeof useHomeLazyQuery>;
 export type HomeQueryResult = Apollo.QueryResult<Types.HomeQuery, Types.HomeQueryVariables>;
+export const GetTasksDocument = gql`
+    query getTasks {
+  Task(limit: 10, offset: 0) {
+    id
+    priority
+    status
+    title
+    assigneeId
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetTasksQuery__
+ *
+ * To run a query within a React component, call `useGetTasksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTasksQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetTasksQuery, Types.GetTasksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetTasksQuery, Types.GetTasksQueryVariables>(GetTasksDocument, options);
+      }
+export function useGetTasksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetTasksQuery, Types.GetTasksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetTasksQuery, Types.GetTasksQueryVariables>(GetTasksDocument, options);
+        }
+export type GetTasksQueryHookResult = ReturnType<typeof useGetTasksQuery>;
+export type GetTasksLazyQueryHookResult = ReturnType<typeof useGetTasksLazyQuery>;
+export type GetTasksQueryResult = Apollo.QueryResult<Types.GetTasksQuery, Types.GetTasksQueryVariables>;

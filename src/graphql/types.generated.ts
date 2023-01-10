@@ -5110,3 +5110,8 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type HomeQuery = { __typename: 'query_root', hello: string };
+
+export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetTasksQuery = { __typename: 'query_root', Task: Array<{ __typename: 'Task', id: string, priority: any, status: any, title: string, assigneeId: string, createdAt: any }> };
