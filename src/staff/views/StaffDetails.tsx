@@ -66,7 +66,9 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
     { error },
   ] = useUpdateInformationUserMutation();
 
-  const { user, setUser } = useUser();
+  const { user, setUserId } = useUser();
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: StaffDetails.tsx:70 ~ user", user);
 
   const handleUpdate = (formData: StaffDetailsFormData) => {
     updateInformationUserMutation({
@@ -84,7 +86,7 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
         text: error,
       });
     } else {
-      setUser({
+      setUserId({
         ...user,
         id: user.id,
         firstname: formData.firstName,

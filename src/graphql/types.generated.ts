@@ -6289,7 +6289,7 @@ export type UserByPkQueryVariables = Exact<{
 }>;
 
 
-export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: number, name: string, description: string, organizationId: number } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: number, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: number, code: string, permissionGroupId: number } }> } | null };
+export type UserByPkQuery = { __typename: 'query_root', User_by_pk: { __typename: 'User', id: number, email: string, role: any, lastname: string | null, firstname: string | null, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: number, name: string, description: string, organizationId: number } }>, Organization: { __typename: 'Organization', id: number, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: number, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: number, code: string, permissionGroupId: number } }> } | null };
 
 export type GetInformationUserQueryVariables = Exact<{
   id: Scalars['Int'];

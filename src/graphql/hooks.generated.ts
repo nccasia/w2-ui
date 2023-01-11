@@ -110,6 +110,8 @@ export const UserByPkDocument = gql`
     id
     email
     role
+    lastname
+    firstname
     MemberOnTeams {
       teamId
       Team {
@@ -545,22 +547,6 @@ export function useTaskByPkLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type TaskByPkQueryHookResult = ReturnType<typeof useTaskByPkQuery>;
 export type TaskByPkLazyQueryHookResult = ReturnType<typeof useTaskByPkLazyQuery>;
 export type TaskByPkQueryResult = Apollo.QueryResult<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>;
-
-/**
- * __useGetTasksQuery__
- *
- * To run a query within a React component, call `useGetTasksQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTasksQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTasksQuery({
- *   variables: {
- *   },
- * });
- */
 export const GetEventLogsDocument = gql`
     query getEventLogs {
   EventLog(limit: 15) {
