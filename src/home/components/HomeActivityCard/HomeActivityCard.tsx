@@ -53,8 +53,8 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
     <Card>
       <CardTitle
         title={intl.formatMessage({
-          id: "BXkF8Z",
-          defaultMessage: "Activity",
+          id: "nCsCh6",
+          defaultMessage: "Event Log",
           description: "header",
         })}
       />
