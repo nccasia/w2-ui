@@ -41,12 +41,13 @@ export const PermissionGroupDetails: React.FC<PermissionGroupDetailsProps> = ({
 
   const lastSourcesOfPermission = [];
 
-  const userPermissions = user?.user.permissions.map(p => p.code) || [];
+  const userPermissions =
+    user?.user.UserPermissions.map(p => p.Permission.code) || [];
 
   const permissions = (shop?.permissions || []).map(perm => ({
     ...perm,
-    disabled: !userPermissions.includes(perm.code),
-    lastSource: lastSourcesOfPermission.includes(perm.code),
+    disabled: !userPermissions.includes(perm.Permission.code),
+    lastSource: lastSourcesOfPermission.includes(perm.Permission.code),
   }));
 
   const disabled = false;

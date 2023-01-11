@@ -30,6 +30,8 @@ export const userByPk = gql`
       id
       email
       role
+      lastname
+      firstname
       MemberOnTeams {
         teamId
         Team {

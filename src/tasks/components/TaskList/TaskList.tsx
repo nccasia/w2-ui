@@ -54,9 +54,7 @@ const useStyles = makeStyles(
         ...overflowing,
       },
       colUser: overflowing,
-      colType: {},
       colPriority: {},
-      colState: {},
       colID: {},
       colStatus: {},
       priority: {
@@ -99,17 +97,11 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
           <TableCellHeader className={classes.colUser}>
             <FormattedMessage id="EwRIOm" defaultMessage="User" />
           </TableCellHeader>
-          <TableCellHeader className={classes.colType}>
-            <FormattedMessage id="+U6ozc" defaultMessage="Type" />
-          </TableCellHeader>
           <TableCellHeader className={classes.colStatus}>
             <FormattedMessage id="tzMNF3" defaultMessage="Status" />
           </TableCellHeader>
           <TableCellHeader className={classes.colPriority}>
             <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
-          </TableCellHeader>
-          <TableCellHeader className={classes.colState}>
-            <FormattedMessage id="ku+mDU" defaultMessage="State" />
           </TableCellHeader>
           <TableCellHeader textAlign="right" className={classes.colDate}>
             <FormattedMessage id="tLfo5O" defaultMessage="Created date" />
@@ -148,13 +140,6 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                   <Skeleton />
                 )}
               </TableCell>
-              <TableCell className={classes.colType}>
-                {maybe(() => task.title) ? (
-                  <Pill label={task.title} color="info" />
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
                   <Pill label={task.status} color="success" />
@@ -171,13 +156,6 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                       color="error"
                     />
                   </Container>
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colState}>
-                {maybe(() => task.status) ? (
-                  <Pill label={task.status} color="warning" />
                 ) : (
                   <Skeleton />
                 )}
