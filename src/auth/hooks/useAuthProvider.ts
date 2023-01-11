@@ -40,7 +40,13 @@ export function useAuthProvider({
     logout,
   } = useAuth();
   const navigate = useNavigator();
-  const { authenticated, authenticating, user, setUserId } = useAuthState();
+  const {
+    authenticated,
+    authenticating,
+    user,
+    setUserId,
+    refetch,
+  } = useAuthState();
   const [requestedExternalPluginId] = useLocalStorage(
     "requestedExternalPluginId",
     null,
@@ -216,6 +222,6 @@ export function useAuthProvider({
     authenticated: authenticated && user?.role === Rolebe.USER,
     user,
     errors,
-    setUserId,
+    refeshUser: refetch,
   };
 }

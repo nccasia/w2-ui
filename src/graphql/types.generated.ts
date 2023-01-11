@@ -6300,8 +6300,8 @@ export type GetInformationUserQuery = { __typename: 'query_root', User_by_pk: { 
 
 export type UpdateInformationUserMutationVariables = Exact<{
   id: Scalars['Int'];
-  firstname?: InputMaybe<Scalars['String']>;
-  lastname?: InputMaybe<Scalars['String']>;
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
 }>;
 
 

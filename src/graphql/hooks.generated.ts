@@ -207,7 +207,7 @@ export type GetInformationUserQueryHookResult = ReturnType<typeof useGetInformat
 export type GetInformationUserLazyQueryHookResult = ReturnType<typeof useGetInformationUserLazyQuery>;
 export type GetInformationUserQueryResult = Apollo.QueryResult<Types.GetInformationUserQuery, Types.GetInformationUserQueryVariables>;
 export const UpdateInformationUserDocument = gql`
-    mutation UpdateInformationUser($id: Int!, $firstname: String = "", $lastname: String = "") {
+    mutation UpdateInformationUser($id: Int!, $firstname: String!, $lastname: String!) {
   update_User_by_pk(
     pk_columns: {id: $id}
     _set: {firstname: $firstname, lastname: $lastname}
