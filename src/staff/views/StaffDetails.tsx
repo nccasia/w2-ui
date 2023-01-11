@@ -26,6 +26,7 @@ interface OrderListProps {
 }
 
 export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
+  const { user, refeshUser } = useUser();
   const navigate = useNavigator();
   const intl = useIntl();
   const notify = useNotifier();
@@ -61,14 +62,24 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
 
   const [deleteStaffAvatar, deleteAvatarResult] = [{}, {}];
 
-  const [
-    updateInformationUserMutation,
-    { error },
-  ] = useUpdateInformationUserMutation();
-
-  const { user, setUserId } = useUser();
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: StaffDetails.tsx:70 ~ user", user);
+  const [updateInformationUserMutation] = useUpdateInformationUserMutation({
+    onCompleted(data) {
+      // eslint-disable-next-line no-console
+      console.log(data);
+      if (!data.update_User_by_pk) {
+        notify({
+          status: "error",
+          text: data.update_User_by_pk,
+        });
+      } else {
+        refeshUser();
+        notify({
+          status: "success",
+          text: "Change profile successfully",
+        });
+      }
+    },
+  });
 
   const handleUpdate = (formData: StaffDetailsFormData) => {
     updateInformationUserMutation({
@@ -78,27 +89,8 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
         lastname: formData.lastName,
       },
     });
-    if (error) {
-      // eslint-disable-next-line no-console
-      console.log("Error: ", error);
-      notify({
-        status: "error",
-        text: error,
-      });
-    } else {
-      setUserId({
-        ...user,
-        id: user.id,
-        firstname: formData.firstName,
-        lastname: formData.lastName,
-      });
-      notify({
-        status: "success",
-        text: "Change profile successfully",
-      });
-    }
   };
-  if (false) {
+  if (!user) {
     return <NotFoundPage backHref={staffListUrl()} />;
   }
 

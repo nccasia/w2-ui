@@ -31,7 +31,7 @@ export const UserContext = React.createContext<Context>({
   authenticating: false,
   authenticated: false,
   user: undefined,
-  setUserId: undefined,
+  refeshUser: undefined,
   errors: [],
 });
 

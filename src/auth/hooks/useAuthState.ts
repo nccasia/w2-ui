@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 
 export const useAuthState = () => {
   const [userId, setUserId] = useState(null);
-  const [getUser, { data, loading }] = useUserByPkLazyQuery();
+  const [getUser, { data, loading, refetch }] = useUserByPkLazyQuery();
 
   const user = useMemo(() => {
     return data?.User_by_pk;
@@ -24,5 +24,5 @@ export const useAuthState = () => {
     });
   }, [getUser, userId]);
 
-  return { authenticated, authenticating, user, setUserId };
+  return { authenticated, authenticating, user, setUserId, refetch };
 };

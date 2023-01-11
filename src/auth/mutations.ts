@@ -74,8 +74,8 @@ export const getInformationUser = gql`
 export const updateInformationUser = gql`
   mutation UpdateInformationUser(
     $id: Int!
-    $firstname: String = ""
-    $lastname: String = ""
+    $firstname: String!
+    $lastname: String!
   ) {
     update_User_by_pk(
       pk_columns: { id: $id }

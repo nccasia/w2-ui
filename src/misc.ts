@@ -175,7 +175,7 @@ export const getMutationErrors = <
     return [] as TErrors;
   }
   return Object.values(result.data).reduce(
-    (acc: TErrors[], mut: TData) => [...acc, ...(mut.errors || [])],
+    (acc: TErrors[], mut: TData) => [...acc, ...(mut?.errors ?? [])],
     [] as TErrors[],
   ) as TErrors;
 };
