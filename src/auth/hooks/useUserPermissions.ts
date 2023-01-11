@@ -1,3 +1,3 @@
 import { useUser } from "..";
 
-export const useUserPermissions = () => useUser().user?.permissions;
+export const useUserPermissions = () => useUser().user?.UserPermissions;

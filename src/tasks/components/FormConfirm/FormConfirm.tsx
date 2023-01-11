@@ -21,9 +21,10 @@ interface FormConfirmProps {
 
 const FormConfirm: React.FC<FormConfirmProps> = ({ onConfirm }) => {
   const classes = useStyles();
+  // fix sau
   return (
     <div className={classes.container}>
-      <FormSchema formId="Q2hhbm5lbDoxMg==" onSubmit={onConfirm} />
+      <FormSchema formId={33} onSubmit={onConfirm} />
     </div>
   );
 };

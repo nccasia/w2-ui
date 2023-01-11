@@ -24,6 +24,40 @@ export const login = gql`
   }
 `;
 
+export const userByPk = gql`
+  query UserByPk($id: Int!) {
+    User_by_pk(id: $id) {
+      id
+      email
+      role
+      MemberOnTeams {
+        teamId
+        Team {
+          id
+          name
+          description
+          organizationId
+        }
+        userId
+      }
+      Organization {
+        id
+        name
+        description
+      }
+      UserPermissions {
+        id
+        permissionId
+        userId
+        Permission {
+          id
+          code
+          permissionGroupId
+        }
+      }
+    }
+  }
+`;
 export const getInformationUser = gql`
   query GetInformationUser($id: Int!) {
     User_by_pk(id: $id) {
