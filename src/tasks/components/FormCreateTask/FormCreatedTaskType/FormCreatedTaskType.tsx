@@ -16,7 +16,7 @@ interface Props {
 }
 
 const FormCreatedTaskType: React.FC<Props> = ({ typeList, onSetType }) => {
-  const [typeSelect, SetTyprSelect] = useState<string>("");
+  const [typeSelect, SetTypeSelect] = useState<string>("");
   return (
     <>
       <Box>
@@ -26,7 +26,7 @@ const FormCreatedTaskType: React.FC<Props> = ({ typeList, onSetType }) => {
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
             value={typeSelect}
-            onChange={e => SetTyprSelect(e.target.value)}
+            onChange={e => SetTypeSelect(e.target.value)}
           >
             {typeList.map(item => (
               <FormControlLabel

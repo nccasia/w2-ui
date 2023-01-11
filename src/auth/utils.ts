@@ -23,7 +23,7 @@ const getNetworkErrors = (error: ApolloError): string[] => {
     // Apparently network errors can be an object or an array
     if (Array.isArray(networkErrors.result)) {
       networkErrors.result.forEach(result => {
-        if (result.errors) {
+        if (result?.errors) {
           return result.errors.map(({ message }) => message);
         }
       });

@@ -14,14 +14,15 @@ const PermissionGroupCreateView: React.FC = () => {
 
   const errors = [];
 
-  const userPermissions = user?.user.permissions.map(p => p.code) || [];
+  const userPermissions =
+    user?.user.UserPermissions.map(p => p.Permission.code) || [];
 
   const permissions: PermissionData[] =
     shop?.permissions.map(
       p =>
         ({
           ...p,
-          disabled: !userPermissions.includes(p.code),
+          disabled: !userPermissions.includes(p.Permission.code),
           lastSource: false,
         } as PermissionData),
     ) || [];

@@ -131,9 +131,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         </div>
         {eventLog && (
           <div>
-            <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
-              <HomeActivityCard eventLog={eventLog} />
-            </RequirePermissions>
+            <HomeActivityCard eventLog={eventLog} />
           </div>
         )}
       </Grid>

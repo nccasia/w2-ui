@@ -47,14 +47,12 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
   const classes = useStyles(props);
 
   const intl = useIntl();
-  // eslint-disable-next-line no-console
-  console.log("1111", eventLog.EventLog[0]);
   return (
     <Card>
       <CardTitle
         title={intl.formatMessage({
-          id: "BXkF8Z",
-          defaultMessage: "Activity",
+          id: "nCsCh6",
+          defaultMessage: "Event Log",
           description: "header",
         })}
       />

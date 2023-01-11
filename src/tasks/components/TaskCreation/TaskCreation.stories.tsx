@@ -7,7 +7,6 @@ import TaskCreation, { TaskCreationProps } from "./TaskCreation";
 const props: TaskCreationProps = {
   onClose: () => undefined,
   open: true,
-  TypeChoices: [],
 };
 
 storiesOf("Views / Type / Settings dialog", module)

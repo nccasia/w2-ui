@@ -39,7 +39,7 @@ export interface UserContext {
     input: RequestExternalLoginInput,
   ) => Promise<GetExternalAuthUrlData>;
   user?: any;
-  setUser?: any;
+  refeshUser?: () => void;
   authenticating: boolean;
   authenticated: boolean;
   errors: UserContextError[];
