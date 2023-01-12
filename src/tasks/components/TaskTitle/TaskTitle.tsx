@@ -50,9 +50,10 @@ const useStyles = makeStyles(
 
 interface TaskTitleProps {
   avatar?: string;
+  title?: string;
 }
 
-const TaskTitle: React.FC<TaskTitleProps> = ({ avatar }) => {
+const TaskTitle: React.FC<TaskTitleProps> = ({ avatar, title }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -64,7 +65,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({ avatar }) => {
             </div>
             <HorizontalSpacer spacing={2} />
             <Typography className={classes.cardHeader}>
-              Request device
+              {title}
               <Pill
                 className={classes.cardPill}
                 label={"WAIT_PM_APPROVE"}

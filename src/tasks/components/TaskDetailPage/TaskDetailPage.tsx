@@ -9,6 +9,7 @@ import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import { Savebar } from "@saleor/components/Savebar";
+import { TaskByPkQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import {
@@ -36,7 +37,7 @@ interface SwitchSelectorButtonOptions {
 }
 
 interface ITaskDetailProps {
-  taskDetail: any;
+  taskDetail: TaskByPkQuery;
 }
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
@@ -89,17 +90,30 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
             <Backlink href={taskListUrl()}>
               {intl.formatMessage(sectionNames.tasks)}
             </Backlink>
-            <PageHeader className={classes.header} inline title={<Title />} />
+            <PageHeader
+              className={classes.header}
+              inline
+              title={
+                <Title
+                  props={{
+                    title: taskDetail.Task_by_pk.title,
+                    status: taskDetail.Task_by_pk.status,
+                  }}
+                />
+              }
+            />
             <div className={classes.date}>
               <Typography variant="body2">
-                <DateTime date={"2022-12-15T11:07:55.916944+00:00"} />
+                <DateTime date={taskDetail.Task_by_pk.dueDate} />
               </Typography>
               {/* <Skeleton style={{ width: "10em" }} /> */}
             </div>
             <Grid>
               <div>
-                <SubTask />
-                <Task />
+                <Task task={taskDetail} />
+                {taskDetail.Task_by_pk?.Tasks.map(submap => {
+                  return <SubTask task={submap} />;
+                })}
                 <div className={classes.attach}>
                   <Modal
                     open={openModal}

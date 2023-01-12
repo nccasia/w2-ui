@@ -6,7 +6,7 @@ import { CustomSchemaBridge } from "./customSchemaBridge";
 
 const ajv = new Ajv({
   allErrors: true,
-  formats: { "date-time": true },
+  formats: { date: true },
   useDefaults: true,
 });
 
@@ -19,7 +19,7 @@ function createValidator(schema: object) {
   };
 }
 
-ajv.addVocabulary(["uniforms"]);
+ajv.addVocabulary(["uniforms", "formats"]);
 
 export function useFormSchema(formId: number) {
   const { data } = useGetFormSchemaQuery({

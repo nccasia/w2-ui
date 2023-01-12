@@ -17,14 +17,15 @@ const useStyles = makeStyles(
 
 interface FormConfirmProps {
   onConfirm: (event: any) => void;
+  formId?: number;
 }
 
-const FormConfirm: React.FC<FormConfirmProps> = ({ onConfirm }) => {
+const FormConfirm: React.FC<FormConfirmProps> = ({ onConfirm, formId }) => {
   const classes = useStyles();
   // fix sau
   return (
     <div className={classes.container}>
-      <FormSchema formId={33} onSubmit={onConfirm} />
+      <FormSchema onSubmit={onConfirm} readonly={false} formId={formId} />
     </div>
   );
 };

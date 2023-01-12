@@ -105,18 +105,7 @@ export const getTasks = gql`
 export const getTaskDetail = gql`
   query TaskByPk($id: Int!) {
     Task_by_pk(id: $id) {
-      id
-      creatorId
-      definitionId
-      description
-      dueDate
-      organizationId
-      status
-      teamId
-      title
-      values
-      parentId
-      priority
+      ...TaskFragment
       userByCreatorid {
         id
         email
@@ -125,10 +114,10 @@ export const getTaskDetail = gql`
         organizationId
         role
       }
-      Tasks {
+      priority
+      Tasks(where: { parentId: { _eq: $id } }) {
         ...TaskFragment
       }
-      priority
     }
   }
 
@@ -144,5 +133,16 @@ export const getTaskDetail = gql`
     priority
     teamId
     title
+    values
+    TaskDefinition {
+      formId
+    }
+    Task {
+      User {
+        email
+        firstname
+        id
+      }
+    }
   }
 `;

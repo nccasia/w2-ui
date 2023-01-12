@@ -132,8 +132,8 @@ const StaffDetailsPage: React.FC<StaffDetailsPageProps> = ({
 
         return (
           <Container>
-            <Backlink href={staffListUrl()}>
-              {intl.formatMessage(sectionNames.staff)}
+            <Backlink href={"/"}>
+              {intl.formatMessage(sectionNames.dashboard)}
             </Backlink>
             <PageHeader title={getUserName(staffMember)} />
             <Grid>

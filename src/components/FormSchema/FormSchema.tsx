@@ -4,8 +4,10 @@ import React from "react";
 import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
-  formId: number;
+  formId?: number;
   onSubmit: any;
+  readonly?: boolean;
+  modelData?: any;
 }
 
 const useStyles = makeStyles(
@@ -50,9 +52,17 @@ const useStyles = makeStyles(
 export function FormSchema(props: PropsFormSchema) {
   const classes = useStyles();
   const { bridge } = useFormSchema(props.formId);
+  const model = JSON.parse(props.modelData);
   return (
     <div className={classes.root}>
-      {bridge && <AutoForm schema={bridge} onSubmit={props.onSubmit} />}
+      {bridge && (
+        <AutoForm
+          schema={bridge}
+          onSubmit={props.onSubmit}
+          readOnly={props.readonly}
+          model={model}
+        />
+      )}
     </div>
   );
 }

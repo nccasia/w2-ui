@@ -15,6 +15,7 @@ export type Scalars = {
   /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTimebe: any;
   FileType: any;
+  JWT: any;
   /** A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction. */
   JWTbe: any;
   Role: any;
@@ -1617,6 +1618,11 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type LoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type LoginInputbe = {
@@ -6357,9 +6363,9 @@ export type TaskByPkQueryVariables = Exact<{
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', Task_by_pk: { __typename: 'Task', id: number, creatorId: number, definitionId: number, description: string, dueDate: any, organizationId: number, status: any, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: number, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string }> } | null };
+export type TaskByPkQuery = { __typename: 'query_root', Task_by_pk: { __typename: 'Task', priority: any, id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, teamId: number, title: string, values: any | null, userByCreatorid: { __typename: 'User', id: number, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string, values: any | null, TaskDefinition: { __typename: 'TaskDefinition', formId: number | null }, Task: { __typename: 'Task', User: { __typename: 'User', email: string, firstname: string | null, id: number } } | null }>, TaskDefinition: { __typename: 'TaskDefinition', formId: number | null }, Task: { __typename: 'Task', User: { __typename: 'User', email: string, firstname: string | null, id: number } } | null } | null };
 
-export type TaskFragmentFragment = { __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string };
+export type TaskFragmentFragment = { __typename: 'Task', id: number, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, teamId: number, title: string, values: any | null, TaskDefinition: { __typename: 'TaskDefinition', formId: number | null }, Task: { __typename: 'Task', User: { __typename: 'User', email: string, firstname: string | null, id: number } } | null };
 
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 

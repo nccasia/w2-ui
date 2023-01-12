@@ -1,21 +1,22 @@
 import { Pill } from "@saleor/macaw-ui";
 import React from "react";
-import { useIntl } from "react-intl";
 
 import { useStyles } from "./style";
 
-const Title = () => {
-  const intl = useIntl();
+interface TitleProps {
+  props: {
+    title: string;
+    status?: string;
+  };
+}
+const Title = ({ props }: TitleProps) => {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      {intl.formatMessage({
-        id: "0wJ7N+",
-        defaultMessage: "Task",
-      })}
+      {props.title}
       <div>
-        <Pill label={"PROGRESS"} color={"success"} />
+        <Pill label={props.status} color={"success"} />
       </div>
     </div>
   );

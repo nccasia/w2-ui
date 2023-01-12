@@ -2983,14 +2983,34 @@ input Int_comparison_exp {
   _nin: [Int!]
 }
 
+scalar JWT
+
 """
 A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
 """
 scalar JWTbe
 
+type LoginAuth {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: LoginUser!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 input LoginInputbe {
   email: String!
   password: String!
+}
+
+type LoginUser {
+  email: String!
+  firstname: String
+  id: ID!
+  lastname: String
 }
 
 """
@@ -12810,6 +12830,7 @@ type mutation_root {
   ): _prisma_migrations
   login(data: LoginInputbe!): Authbe!
   refreshToken(token: JWTbe!): Tokenbe!
+  signin(data: LoginInput!): LoginAuth!
   signup(data: SignupInputbe!): Authbe!
   updateUser(data: UpdateUserInputbe!): Userbe!
 

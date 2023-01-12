@@ -5,11 +5,10 @@ import { Button, makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
 const useStyles = makeStyles(
-  theme => ({
+  {
     containerQuillEditor: {
-      width: "98%",
+      width: "100%",
       margin: "0 auto",
-      marginBottom: theme.spacing(8),
     },
     title: {
       display: "flex",
@@ -29,7 +28,7 @@ const useStyles = makeStyles(
       justifyContent: "flex-start",
       gap: "24px",
     },
-  }),
+  },
   { name: "EditQuillEditor" },
 );
 
@@ -43,7 +42,7 @@ interface EdiiQuillEditorProps extends QuillEditorProps {
 const EditQuillEditor: React.FC<EdiiQuillEditorProps> = ({
   key,
   modules,
-  edit,
+  readonly,
   onChange,
   value,
   handleEdit,
@@ -64,10 +63,10 @@ const EditQuillEditor: React.FC<EdiiQuillEditorProps> = ({
         value={value}
         key={key}
         modules={modules}
-        edit={edit}
+        readonly={readonly}
         onChange={onChange}
       />
-      {!edit && (
+      {!readonly && (
         <div className={classes.listButtonQuillEditor}>
           <Button variant="secondary" onClick={() => handleCancel()}>
             Cancel

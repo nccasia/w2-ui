@@ -14,12 +14,15 @@ const QuillEditorField: React.FC<Props> = (props: Props) => {
     },
     [fieldProps],
   );
+  // eslint-disable-next-line no-console
+  console.log("a", fieldProps);
 
   return (
     <>
       <QuillEditor
         value={fieldProps.value as string}
         onChange={handleLongText}
+        readonly={fieldProps.readOnly}
       />
     </>
   );

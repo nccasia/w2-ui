@@ -26,6 +26,17 @@ export const TaskFragmentFragmentDoc = gql`
   priority
   teamId
   title
+  values
+  TaskDefinition {
+    formId
+  }
+  Task {
+    User {
+      email
+      firstname
+      id
+    }
+  }
 }
     `;
 export const MyQueryDocument = gql`
@@ -492,18 +503,7 @@ export type GetTasksQueryResult = Apollo.QueryResult<Types.GetTasksQuery, Types.
 export const TaskByPkDocument = gql`
     query TaskByPk($id: Int!) {
   Task_by_pk(id: $id) {
-    id
-    creatorId
-    definitionId
-    description
-    dueDate
-    organizationId
-    status
-    teamId
-    title
-    values
-    parentId
-    priority
+    ...TaskFragment
     userByCreatorid {
       id
       email
@@ -512,10 +512,10 @@ export const TaskByPkDocument = gql`
       organizationId
       role
     }
-    Tasks {
+    priority
+    Tasks(where: {parentId: {_eq: $id}}) {
       ...TaskFragment
     }
-    priority
   }
 }
     ${TaskFragmentFragmentDoc}`;
