@@ -64,6 +64,15 @@ export const useStyles = makeStyles(
       borderRadius: "50%",
       cursor: "pointer",
     },
+    subTaskItem: {
+      "& .MuiAvatar-root": {
+        margin: "10px",
+        "& :hover": {
+          cursor: "pointer",
+          opacity: 0.8,
+        },
+      },
+    },
   }),
   {
     name: "TaskDetailPage",

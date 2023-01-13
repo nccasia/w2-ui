@@ -54,7 +54,7 @@ export function FormSchema(props: PropsFormSchema) {
   const { bridge } = useFormSchema(props.formId);
   const model = useMemo(() => {
     if (props.modelData) {
-      return JSON.parse(props.modelData);
+      return props.modelData;
     } else {
       return;
     }

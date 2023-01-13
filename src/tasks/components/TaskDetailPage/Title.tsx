@@ -5,7 +5,7 @@ import { useStyles } from "./style";
 
 interface TitleProps {
   props: {
-    title: string;
+    title?: string;
     status?: string;
   };
 }

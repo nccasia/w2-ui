@@ -57,17 +57,15 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
 
   const handleNewRequest = data => {
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth() +
-      1}/${current.getFullYear()}`;
     createTaskMutation({
       variables: {
-        values: JSON.stringify({ ...data }),
+        values: { ...data },
         creatorId: user.id,
         assigneeId: user.id,
         organizationId: user.Organization.id,
         definitionId: selectedType.id,
         teamId: selectTeam.teamId,
-        dueDate: date,
+        dueDate: current.toISOString(),
         title: selectedType?.titleTemplate,
       },
     });

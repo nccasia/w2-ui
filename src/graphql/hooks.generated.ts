@@ -512,6 +512,7 @@ export const TaskByPkDocument = gql`
       organizationId
       role
     }
+    assigneeId
     priority
     Tasks(where: {parentId: {_eq: $id}}) {
       ...TaskFragment

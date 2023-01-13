@@ -114,6 +114,7 @@ export const getTaskDetail = gql`
         organizationId
         role
       }
+      assigneeId
       priority
       Tasks(where: { parentId: { _eq: $id } }) {
         ...TaskFragment

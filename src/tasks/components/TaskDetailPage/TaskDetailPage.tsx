@@ -1,9 +1,11 @@
-import { Modal, Typography } from "@material-ui/core";
+import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import Attachment from "@saleor/components/Attachment";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
+import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import CustomModal from "@saleor/components/CustomModal/CustomModal";
 import { DateTime } from "@saleor/components/Date";
-import FileViewer from "@saleor/components/FileViewer/FileViewer";
+// import FileViewer from "@saleor/components/FileViewer/FileViewer";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
@@ -13,7 +15,7 @@ import { TaskByPkQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import {
-  CloseIcon,
+  // CloseIcon,
   SwitchSelector,
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
@@ -77,9 +79,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
     setOpenModal(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setOpenModal(false);
+  // };
 
   return (
     <Form confirmLeave initial={initial}>
@@ -111,11 +113,41 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
             <Grid>
               <div>
                 <Task task={taskDetail} />
-                {taskDetail.Task_by_pk?.Tasks.map(submap => {
-                  return <SubTask task={submap} />;
-                })}
+                {false &&
+                  taskDetail.Task_by_pk?.Tasks.map(submap => {
+                    return <SubTask task={submap} />;
+                  })}
+                <List>
+                  <h2>Sub Tasks</h2>
+                  {taskDetail.Task_by_pk?.Tasks.map(e => {
+                    return (
+                      <ListItem
+                        button
+                        key={e.id}
+                        className={classes.subTaskItem}
+                        onClick={handleOpenModal}
+                      >
+                        <ListItemText primary={e.id} />
+                        <ListItemText primary={e.title} />
+                        <CustomAvatar id={taskDetail.Task_by_pk.assigneeId} />
+                        <Title
+                          props={{
+                            status: taskDetail.Task_by_pk.status,
+                          }}
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+
                 <div className={classes.attach}>
-                  <Modal
+                  <CustomModal
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                  >
+                    <div>123</div>
+                  </CustomModal>
+                  {/* <Modal
                     open={openModal}
                     onClose={handleCloseModal}
                     aria-labelledby="simple-modal-title"
@@ -135,7 +167,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                         ]}
                       />
                     </div>
-                  </Modal>
+                  </Modal> */}
                   <Typography
                     variant="subtitle1"
                     className={classes.attachTitle}
