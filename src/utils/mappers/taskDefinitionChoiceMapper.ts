@@ -7,9 +7,9 @@ export function taskDefinitionChoiceMapper(
   if (!data) {
     return [];
   }
-  const choiceType = data.map(item => {
+  const choiceType = data?.map(item => {
     const result = {
-      value: item.id.toString(),
+      value: item.Form.id,
       label: item.title,
     };
     return result;

@@ -1,4 +1,4 @@
-schema: http://10.10.31.80:8080/v1/graphql
+schema: http://10.10.31.80:8080/v1beta1/relay
 generates:
   ./introspection.json:
     plugins:

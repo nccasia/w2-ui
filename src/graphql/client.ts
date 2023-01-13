@@ -43,11 +43,6 @@ export const apolloClient = new ApolloClient({
       Shop: {
         keyFields: [],
       },
-      Permission: {
-        merge(permission = []) {
-          return permission.code;
-        },
-      },
       AttributeValue: {
         fields: {
           /**

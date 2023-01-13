@@ -2,7 +2,6 @@ import { ApolloClient, ApolloError } from "@apollo/client";
 import { useAuth } from "@saleor/auth/hooks/useAuth";
 import { IMessageContext } from "@saleor/components/messages";
 import { DEMO_MODE } from "@saleor/config";
-import { Rolebe } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { commonMessages } from "@saleor/intl";
@@ -139,16 +138,16 @@ export function useAuthProvider({
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
         }
-        saveCredentials(result.data.login.user, password);
+        saveCredentials(result.data.signin.user, password);
       } else {
         setErrors(["loginError"]);
       }
 
-      await logoutNonStaffUser(result.data.login.accessToken);
+      await logoutNonStaffUser(result.data.signin.accessToken);
 
-      setUserId(result.data.login.user);
+      setUserId(result.data.signin.user);
 
-      return result.data.login.user;
+      return result.data.signin.user;
     } catch (error) {
       handleLoginError(error);
     }
@@ -201,7 +200,7 @@ export function useAuthProvider({
   };
 
   const logoutNonStaffUser = async (data: any) => {
-    if (data && data.role === Rolebe.USER) {
+    if (data && data.role === "USER") {
       notify({
         status: "error",
         text: intl.formatMessage(commonMessages.unauthorizedDashboardAccess),
@@ -219,7 +218,8 @@ export function useAuthProvider({
     loginByExternalPlugin: handleExternalLogin,
     logout: handleLogout,
     authenticating: authenticating && !errors.length,
-    authenticated: authenticated && user?.role === Rolebe.USER,
+    // @ts-ignore
+    authenticated: authenticated && user?.role === "USER",
     user,
     errors,
     refeshUser: refetch,

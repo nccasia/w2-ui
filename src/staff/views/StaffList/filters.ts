@@ -24,7 +24,7 @@ export function getFilterOpts(
   return {
     status: {
       active: maybe(() => params.status !== undefined, false),
-      value: maybe(() => findValueInEnum(params.status, "StaffMemberStatus")),
+      value: maybe(() => findValueInEnum(params?.status, "StaffMemberStatus")),
     },
   };
 }
@@ -33,7 +33,7 @@ export function getFilterVariables(params: StaffListUrlFilters): any {
   return {
     search: params.query,
     status: params.status
-      ? findValueInEnum(params.status, "StaffMemberStatus")
+      ? findValueInEnum(params?.status, "StaffMemberStatus")
       : null,
   };
 }

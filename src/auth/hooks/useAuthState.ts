@@ -1,12 +1,14 @@
 import { useUserByPkLazyQuery } from "@saleor/graphql";
+import { createRelayId } from "@saleor/utils/createRelayId";
 import { useEffect, useMemo, useState } from "react";
 
 export const useAuthState = () => {
   const [userId, setUserId] = useState(null);
   const [getUser, { data, loading, refetch }] = useUserByPkLazyQuery();
+  const relayId = createRelayId([1, "public", "User", userId?.id]);
 
   const user = useMemo(() => {
-    return data?.User_by_pk;
+    return data?.node;
   }, [data]);
 
   const authenticated = useMemo(() => {
@@ -19,10 +21,10 @@ export const useAuthState = () => {
   useEffect(() => {
     getUser({
       variables: {
-        id: userId?.id,
+        id: relayId,
       },
     });
-  }, [getUser, userId]);
+  }, [getUser, relayId, userId]);
 
   return { authenticated, authenticating, user, setUserId, refetch };
 };

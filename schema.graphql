@@ -16,7 +16,7 @@ directive @cached(
 """
 columns and relationships of "Action"
 """
-type Action {
+type Action implements Node {
   """An array relationship"""
   EventLogs(
     """distinct select on columns"""
@@ -52,13 +52,43 @@ type Action {
     """filter the rows returned"""
     where: EventLog_bool_exp
   ): EventLog_aggregate!
+
+  """An array relationship connection"""
+  EventLogs_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [EventLog_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [EventLog_order_by!]
+
+    """filter the rows returned"""
+    where: EventLog_bool_exp
+  ): EventLogConnection!
   action: String!
   content: String!
   createdAt: timestamp!
   domain: String!
-  id: Int!
+  id: ID!
   intent: String!
   type: ActionType!
+}
+
+"""
+A Relay connection object on "Action"
+"""
+type ActionConnection {
+  edges: [ActionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ActionEdge {
+  cursor: String!
+  node: Action!
 }
 
 scalar ActionType
@@ -76,36 +106,6 @@ input ActionType_comparison_exp {
   _lte: ActionType
   _neq: ActionType
   _nin: [ActionType!]
-}
-
-"""
-aggregated selection of "Action"
-"""
-type Action_aggregate {
-  aggregate: Action_aggregate_fields
-  nodes: [Action!]!
-}
-
-"""
-aggregate fields of "Action"
-"""
-type Action_aggregate_fields {
-  avg: Action_avg_fields
-  count(columns: [Action_select_column!], distinct: Boolean): Int!
-  max: Action_max_fields
-  min: Action_min_fields
-  stddev: Action_stddev_fields
-  stddev_pop: Action_stddev_pop_fields
-  stddev_samp: Action_stddev_samp_fields
-  sum: Action_sum_fields
-  var_pop: Action_var_pop_fields
-  var_samp: Action_var_samp_fields
-  variance: Action_variance_fields
-}
-
-"""aggregate avg on columns"""
-type Action_avg_fields {
-  id: Float
 }
 
 """
@@ -148,28 +148,6 @@ input type for inserting data into table "Action"
 """
 input Action_insert_input {
   EventLogs: EventLog_arr_rel_insert_input
-  action: String
-  content: String
-  createdAt: timestamp
-  domain: String
-  id: Int
-  intent: String
-  type: ActionType
-}
-
-"""aggregate max on columns"""
-type Action_max_fields {
-  action: String
-  content: String
-  createdAt: timestamp
-  domain: String
-  id: Int
-  intent: String
-  type: ActionType
-}
-
-"""aggregate min on columns"""
-type Action_min_fields {
   action: String
   content: String
   createdAt: timestamp
@@ -265,48 +243,6 @@ input Action_set_input {
   type: ActionType
 }
 
-"""aggregate stddev on columns"""
-type Action_stddev_fields {
-  id: Float
-}
-
-"""aggregate stddev_pop on columns"""
-type Action_stddev_pop_fields {
-  id: Float
-}
-
-"""aggregate stddev_samp on columns"""
-type Action_stddev_samp_fields {
-  id: Float
-}
-
-"""
-Streaming cursor of the table "Action"
-"""
-input Action_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Action_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Action_stream_cursor_value_input {
-  action: String
-  content: String
-  createdAt: timestamp
-  domain: String
-  id: Int
-  intent: String
-  type: ActionType
-}
-
-"""aggregate sum on columns"""
-type Action_sum_fields {
-  id: Int
-}
-
 """
 update columns of table "Action"
 """
@@ -342,25 +278,10 @@ input Action_updates {
   where: Action_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
-type Action_var_pop_fields {
-  id: Float
-}
-
-"""aggregate var_samp on columns"""
-type Action_var_samp_fields {
-  id: Float
-}
-
-"""aggregate variance on columns"""
-type Action_variance_fields {
-  id: Float
-}
-
 """
 columns and relationships of "Activity"
 """
-type Activity {
+type Activity implements Node {
   """An array relationship"""
   TaskDefinitions(
     """distinct select on columns"""
@@ -396,6 +317,23 @@ type Activity {
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
+
+  """An array relationship connection"""
+  TaskDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinitionConnection!
 
   """An array relationship"""
   Triggers(
@@ -433,6 +371,23 @@ type Activity {
     where: Trigger_bool_exp
   ): Trigger_aggregate!
 
+  """An array relationship connection"""
+  Triggers_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Trigger_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Trigger_order_by!]
+
+    """filter the rows returned"""
+    where: Trigger_bool_exp
+  ): TriggerConnection!
+
   """An object relationship"""
   Workflow: Workflow!
   config(
@@ -441,10 +396,23 @@ type Activity {
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   updatedAt: timestamp!
   workflowId: Int!
+}
+
+"""
+A Relay connection object on "Activity"
+"""
+type ActivityConnection {
+  edges: [ActivityEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ActivityEdge {
+  cursor: String!
+  node: Activity!
 }
 
 """
@@ -784,28 +752,6 @@ input Activity_stddev_samp_order_by {
   workflowId: order_by
 }
 
-"""
-Streaming cursor of the table "Activity"
-"""
-input Activity_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Activity_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Activity_stream_cursor_value_input {
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-  workflowId: Int
-}
-
 """aggregate sum on columns"""
 type Activity_sum_fields {
   id: Int
@@ -918,15 +864,6 @@ input Activity_variance_order_by {
   workflowId: order_by
 }
 
-type Authbe {
-  """JWT access token"""
-  accessToken: JWTbe!
-
-  """JWT refresh token"""
-  refreshToken: JWTbe!
-  user: Userbe!
-}
-
 """
 Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
 """
@@ -942,15 +879,10 @@ input Boolean_comparison_exp {
   _nin: [Boolean!]
 }
 
-input ChangePasswordInputbe {
-  newPassword: String!
-  oldPassword: String!
-}
-
 """
 columns and relationships of "Comment"
 """
-type Comment {
+type Comment implements Node {
   """An object relationship"""
   Task: Task!
 
@@ -959,9 +891,22 @@ type Comment {
   content: String!
   createdAt: timestamp!
   creatorId: Int!
-  id: Int!
+  id: ID!
   taskId: Int!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "Comment"
+"""
+type CommentConnection {
+  edges: [CommentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CommentEdge {
+  cursor: String!
+  node: Comment!
 }
 
 """
@@ -1257,27 +1202,6 @@ input Comment_stddev_samp_order_by {
   taskId: order_by
 }
 
-"""
-Streaming cursor of the table "Comment"
-"""
-input Comment_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Comment_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Comment_stream_cursor_value_input {
-  content: String
-  createdAt: timestamp
-  creatorId: Int
-  id: Int
-  taskId: Int
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Comment_sum_fields {
   creatorId: Int
@@ -1375,14 +1299,9 @@ input Comment_variance_order_by {
 }
 
 """
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTimebe
-
-"""
 columns and relationships of "EventLog"
 """
-type EventLog {
+type EventLog implements Node {
   """An object relationship"""
   Action: Action!
 
@@ -1396,10 +1315,23 @@ type EventLog {
   User: User
   actionId: Int!
   createdAt: timestamp!
-  id: Int!
+  id: ID!
   organizationId: Int!
   taskId: Int
   userId: Int
+}
+
+"""
+A Relay connection object on "EventLog"
+"""
+type EventLogConnection {
+  edges: [EventLogEdge!]!
+  pageInfo: PageInfo!
+}
+
+type EventLogEdge {
+  cursor: String!
+  node: EventLog!
 }
 
 """
@@ -1719,27 +1651,6 @@ input EventLog_stddev_samp_order_by {
   userId: order_by
 }
 
-"""
-Streaming cursor of the table "EventLog"
-"""
-input EventLog_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: EventLog_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input EventLog_stream_cursor_value_input {
-  actionId: Int
-  createdAt: timestamp
-  id: Int
-  organizationId: Int
-  taskId: Int
-  userId: Int
-}
-
 """aggregate sum on columns"""
 type EventLog_sum_fields {
   actionId: Int
@@ -1855,7 +1766,7 @@ input EventLog_variance_order_by {
 """
 columns and relationships of "File"
 """
-type File {
+type File implements Node {
   """An object relationship"""
   File: File
 
@@ -1895,6 +1806,23 @@ type File {
     where: File_bool_exp
   ): File_aggregate!
 
+  """An array relationship connection"""
+  Files_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [File_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [File_order_by!]
+
+    """filter the rows returned"""
+    where: File_bool_exp
+  ): FileConnection!
+
   """An object relationship"""
   Organization: Organization!
   cdnUrl: String!
@@ -1903,7 +1831,7 @@ type File {
   encoding: String!
   fileType: FileType!
   filename: String!
-  id: Int!
+  id: ID!
   mimetype: String!
   organizationId: Int!
   updatedAt: timestamp!
@@ -1911,6 +1839,19 @@ type File {
   variantKey: String
   variantOfId: Int
   variantValue: String
+}
+
+"""
+A Relay connection object on "File"
+"""
+type FileConnection {
+  edges: [FileEdge!]!
+  pageInfo: PageInfo!
+}
+
+type FileEdge {
+  cursor: String!
+  node: File!
 }
 
 scalar FileType
@@ -2325,35 +2266,6 @@ input File_stddev_samp_order_by {
   variantOfId: order_by
 }
 
-"""
-Streaming cursor of the table "File"
-"""
-input File_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: File_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input File_stream_cursor_value_input {
-  cdnUrl: String
-  createdAt: timestamp
-  data: String
-  encoding: String
-  fileType: FileType
-  filename: String
-  id: Int
-  mimetype: String
-  organizationId: Int
-  updatedAt: timestamp
-  varantName: String
-  variantKey: String
-  variantOfId: Int
-  variantValue: String
-}
-
 """aggregate sum on columns"""
 type File_sum_fields {
   id: Int
@@ -2477,7 +2389,7 @@ input File_variance_order_by {
 """
 columns and relationships of "Form"
 """
-type Form {
+type Form implements Node {
   """An array relationship"""
   TaskDefinitions(
     """distinct select on columns"""
@@ -2513,6 +2425,23 @@ type Form {
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
+
+  """An array relationship connection"""
+  TaskDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinitionConnection!
   code: String!
   config(
     """JSON select path"""
@@ -2525,7 +2454,7 @@ type Form {
     path: String
   ): jsonb!
   displayTemplate: String!
-  id: Int!
+  id: ID!
   name: String!
   schema(
     """JSON select path"""
@@ -2547,28 +2476,16 @@ type Form {
 }
 
 """
-aggregated selection of "Form"
+A Relay connection object on "Form"
 """
-type Form_aggregate {
-  aggregate: Form_aggregate_fields
-  nodes: [Form!]!
+type FormConnection {
+  edges: [FormEdge!]!
+  pageInfo: PageInfo!
 }
 
-"""
-aggregate fields of "Form"
-"""
-type Form_aggregate_fields {
-  avg: Form_avg_fields
-  count(columns: [Form_select_column!], distinct: Boolean): Int!
-  max: Form_max_fields
-  min: Form_min_fields
-  stddev: Form_stddev_fields
-  stddev_pop: Form_stddev_pop_fields
-  stddev_samp: Form_stddev_samp_fields
-  sum: Form_sum_fields
-  var_pop: Form_var_pop_fields
-  var_samp: Form_var_samp_fields
-  variance: Form_variance_fields
+type FormEdge {
+  cursor: String!
+  node: Form!
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -2579,11 +2496,6 @@ input Form_append_input {
   serializerConfig: jsonb
   triggerConfig: jsonb
   validationConfig: jsonb
-}
-
-"""aggregate avg on columns"""
-type Form_avg_fields {
-  id: Float
 }
 
 """
@@ -2681,28 +2593,6 @@ input Form_insert_input {
   triggerConfig: jsonb
   updatedAt: timestamp
   validationConfig: jsonb
-}
-
-"""aggregate max on columns"""
-type Form_max_fields {
-  code: String
-  createdAt: timestamp
-  description: String
-  displayTemplate: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-}
-
-"""aggregate min on columns"""
-type Form_min_fields {
-  code: String
-  createdAt: timestamp
-  description: String
-  displayTemplate: String
-  id: Int
-  name: String
-  updatedAt: timestamp
 }
 
 """
@@ -2831,54 +2721,6 @@ input Form_set_input {
   validationConfig: jsonb
 }
 
-"""aggregate stddev on columns"""
-type Form_stddev_fields {
-  id: Float
-}
-
-"""aggregate stddev_pop on columns"""
-type Form_stddev_pop_fields {
-  id: Float
-}
-
-"""aggregate stddev_samp on columns"""
-type Form_stddev_samp_fields {
-  id: Float
-}
-
-"""
-Streaming cursor of the table "Form"
-"""
-input Form_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Form_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Form_stream_cursor_value_input {
-  code: String
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  displayConfig: jsonb
-  displayTemplate: String
-  id: Int
-  name: String
-  schema: jsonb
-  serializerConfig: jsonb
-  triggerConfig: jsonb
-  updatedAt: timestamp
-  validationConfig: jsonb
-}
-
-"""aggregate sum on columns"""
-type Form_sum_fields {
-  id: Int
-}
-
 """
 update columns of table "Form"
 """
@@ -2953,21 +2795,6 @@ input Form_updates {
   where: Form_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
-type Form_var_pop_fields {
-  id: Float
-}
-
-"""aggregate var_samp on columns"""
-type Form_var_samp_fields {
-  id: Float
-}
-
-"""aggregate variance on columns"""
-type Form_variance_fields {
-  id: Float
-}
-
 """
 Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
 """
@@ -2983,20 +2810,30 @@ input Int_comparison_exp {
   _nin: [Int!]
 }
 
-"""
-A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
-"""
-scalar JWTbe
+scalar JWT
 
-input LoginInputbe {
+type LoginAuth {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: LoginUser!
+}
+
+input LoginInput {
   email: String!
   password: String!
+}
+
+type LoginUser {
+  email: String!
+  firstname: String
+  id: ID!
+  lastname: String
 }
 
 """
 columns and relationships of "MemberOnTeams"
 """
-type MemberOnTeams {
+type MemberOnTeams implements Node {
   """An object relationship"""
   Team: Team!
 
@@ -3004,8 +2841,22 @@ type MemberOnTeams {
   User: User!
   assignedAt: timestamp!
   assignedBy: String!
+  id: ID!
   teamId: Int!
   userId: Int!
+}
+
+"""
+A Relay connection object on "MemberOnTeams"
+"""
+type MemberOnTeamsConnection {
+  edges: [MemberOnTeamsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type MemberOnTeamsEdge {
+  cursor: String!
+  node: MemberOnTeams!
 }
 
 """
@@ -3271,25 +3122,6 @@ input MemberOnTeams_stddev_samp_order_by {
   userId: order_by
 }
 
-"""
-Streaming cursor of the table "MemberOnTeams"
-"""
-input MemberOnTeams_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: MemberOnTeams_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input MemberOnTeams_stream_cursor_value_input {
-  assignedAt: timestamp
-  assignedBy: String
-  teamId: Int
-  userId: Int
-}
-
 """aggregate sum on columns"""
 type MemberOnTeams_sum_fields {
   teamId: Int
@@ -3372,10 +3204,16 @@ input MemberOnTeams_variance_order_by {
   userId: order_by
 }
 
+"""An object with globally unique ID"""
+interface Node {
+  """A globally unique identifier"""
+  id: ID!
+}
+
 """
 columns and relationships of "Organization"
 """
-type Organization {
+type Organization implements Node {
   """An array relationship"""
   EventLogs(
     """distinct select on columns"""
@@ -3411,6 +3249,23 @@ type Organization {
     """filter the rows returned"""
     where: EventLog_bool_exp
   ): EventLog_aggregate!
+
+  """An array relationship connection"""
+  EventLogs_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [EventLog_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [EventLog_order_by!]
+
+    """filter the rows returned"""
+    where: EventLog_bool_exp
+  ): EventLogConnection!
 
   """An array relationship"""
   Files(
@@ -3448,6 +3303,23 @@ type Organization {
     where: File_bool_exp
   ): File_aggregate!
 
+  """An array relationship connection"""
+  Files_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [File_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [File_order_by!]
+
+    """filter the rows returned"""
+    where: File_bool_exp
+  ): FileConnection!
+
   """An array relationship"""
   PermissionGroups(
     """distinct select on columns"""
@@ -3483,6 +3355,23 @@ type Organization {
     """filter the rows returned"""
     where: PermissionGroup_bool_exp
   ): PermissionGroup_aggregate!
+
+  """An array relationship connection"""
+  PermissionGroups_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [PermissionGroup_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [PermissionGroup_order_by!]
+
+    """filter the rows returned"""
+    where: PermissionGroup_bool_exp
+  ): PermissionGroupConnection!
 
   """An array relationship"""
   Permissions(
@@ -3520,6 +3409,23 @@ type Organization {
     where: Permission_bool_exp
   ): Permission_aggregate!
 
+  """An array relationship connection"""
+  Permissions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Permission_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Permission_order_by!]
+
+    """filter the rows returned"""
+    where: Permission_bool_exp
+  ): PermissionConnection!
+
   """An array relationship"""
   Resources(
     """distinct select on columns"""
@@ -3555,6 +3461,23 @@ type Organization {
     """filter the rows returned"""
     where: Resource_bool_exp
   ): Resource_aggregate!
+
+  """An array relationship connection"""
+  Resources_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Resource_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Resource_order_by!]
+
+    """filter the rows returned"""
+    where: Resource_bool_exp
+  ): ResourceConnection!
 
   """An array relationship"""
   Settings(
@@ -3592,6 +3515,23 @@ type Organization {
     where: Settings_bool_exp
   ): Settings_aggregate!
 
+  """An array relationship connection"""
+  Settings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Settings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Settings_order_by!]
+
+    """filter the rows returned"""
+    where: Settings_bool_exp
+  ): SettingsConnection!
+
   """An array relationship"""
   TaskDefinitions(
     """distinct select on columns"""
@@ -3627,6 +3567,23 @@ type Organization {
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
+
+  """An array relationship connection"""
+  TaskDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinitionConnection!
 
   """An array relationship"""
   Tasks(
@@ -3664,6 +3621,23 @@ type Organization {
     where: Task_bool_exp
   ): Task_aggregate!
 
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
   """An array relationship"""
   Teams(
     """distinct select on columns"""
@@ -3699,6 +3673,23 @@ type Organization {
     """filter the rows returned"""
     where: Team_bool_exp
   ): Team_aggregate!
+
+  """An array relationship connection"""
+  Teams_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Team_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Team_order_by!]
+
+    """filter the rows returned"""
+    where: Team_bool_exp
+  ): TeamConnection!
 
   """An array relationship"""
   Users(
@@ -3736,6 +3727,23 @@ type Organization {
     where: User_bool_exp
   ): User_aggregate!
 
+  """An array relationship connection"""
+  Users_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [User_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [User_order_by!]
+
+    """filter the rows returned"""
+    where: User_bool_exp
+  ): UserConnection!
+
   """An array relationship"""
   Workflows(
     """distinct select on columns"""
@@ -3771,41 +3779,41 @@ type Organization {
     """filter the rows returned"""
     where: Workflow_bool_exp
   ): Workflow_aggregate!
+
+  """An array relationship connection"""
+  Workflows_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Workflow_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Workflow_order_by!]
+
+    """filter the rows returned"""
+    where: Workflow_bool_exp
+  ): WorkflowConnection!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   updatedAt: timestamp!
 }
 
 """
-aggregated selection of "Organization"
+A Relay connection object on "Organization"
 """
-type Organization_aggregate {
-  aggregate: Organization_aggregate_fields
-  nodes: [Organization!]!
+type OrganizationConnection {
+  edges: [OrganizationEdge!]!
+  pageInfo: PageInfo!
 }
 
-"""
-aggregate fields of "Organization"
-"""
-type Organization_aggregate_fields {
-  avg: Organization_avg_fields
-  count(columns: [Organization_select_column!], distinct: Boolean): Int!
-  max: Organization_max_fields
-  min: Organization_min_fields
-  stddev: Organization_stddev_fields
-  stddev_pop: Organization_stddev_pop_fields
-  stddev_samp: Organization_stddev_samp_fields
-  sum: Organization_sum_fields
-  var_pop: Organization_var_pop_fields
-  var_samp: Organization_var_samp_fields
-  variance: Organization_variance_fields
-}
-
-"""aggregate avg on columns"""
-type Organization_avg_fields {
-  id: Float
+type OrganizationEdge {
+  cursor: String!
+  node: Organization!
 }
 
 """
@@ -3876,24 +3884,6 @@ input Organization_insert_input {
   Teams: Team_arr_rel_insert_input
   Users: User_arr_rel_insert_input
   Workflows: Workflow_arr_rel_insert_input
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-}
-
-"""aggregate max on columns"""
-type Organization_max_fields {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-}
-
-"""aggregate min on columns"""
-type Organization_min_fields {
   createdAt: timestamp
   description: String
   id: Int
@@ -3987,46 +3977,6 @@ input Organization_set_input {
   updatedAt: timestamp
 }
 
-"""aggregate stddev on columns"""
-type Organization_stddev_fields {
-  id: Float
-}
-
-"""aggregate stddev_pop on columns"""
-type Organization_stddev_pop_fields {
-  id: Float
-}
-
-"""aggregate stddev_samp on columns"""
-type Organization_stddev_samp_fields {
-  id: Float
-}
-
-"""
-Streaming cursor of the table "Organization"
-"""
-input Organization_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Organization_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Organization_stream_cursor_value_input {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-}
-
-"""aggregate sum on columns"""
-type Organization_sum_fields {
-  id: Int
-}
-
 """
 update columns of table "Organization"
 """
@@ -4056,25 +4006,17 @@ input Organization_updates {
   where: Organization_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
-type Organization_var_pop_fields {
-  id: Float
-}
-
-"""aggregate var_samp on columns"""
-type Organization_var_samp_fields {
-  id: Float
-}
-
-"""aggregate variance on columns"""
-type Organization_variance_fields {
-  id: Float
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String!
 }
 
 """
 columns and relationships of "Permission"
 """
-type Permission {
+type Permission implements Node {
   """An object relationship"""
   Organization: Organization!
 
@@ -4116,10 +4058,27 @@ type Permission {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermission_aggregate!
+
+  """An array relationship connection"""
+  UserPermissions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermissionConnection!
   code: String!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   organizationId: Int!
   permissionGroupId: Int!
@@ -4127,9 +4086,22 @@ type Permission {
 }
 
 """
+A Relay connection object on "Permission"
+"""
+type PermissionConnection {
+  edges: [PermissionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PermissionEdge {
+  cursor: String!
+  node: Permission!
+}
+
+"""
 columns and relationships of "PermissionGroup"
 """
-type PermissionGroup {
+type PermissionGroup implements Node {
   """An object relationship"""
   Organization: Organization!
 
@@ -4168,12 +4140,42 @@ type PermissionGroup {
     """filter the rows returned"""
     where: Permission_bool_exp
   ): Permission_aggregate!
+
+  """An array relationship connection"""
+  Permissions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Permission_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Permission_order_by!]
+
+    """filter the rows returned"""
+    where: Permission_bool_exp
+  ): PermissionConnection!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   organizationId: Int!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "PermissionGroup"
+"""
+type PermissionGroupConnection {
+  edges: [PermissionGroupEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PermissionGroupEdge {
+  cursor: String!
+  node: PermissionGroup!
 }
 
 """
@@ -4469,27 +4471,6 @@ order by stddev_samp() on columns of table "PermissionGroup"
 input PermissionGroup_stddev_samp_order_by {
   id: order_by
   organizationId: order_by
-}
-
-"""
-Streaming cursor of the table "PermissionGroup"
-"""
-input PermissionGroup_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: PermissionGroup_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input PermissionGroup_stream_cursor_value_input {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
 }
 
 """aggregate sum on columns"""
@@ -4909,29 +4890,6 @@ input Permission_stddev_samp_order_by {
   permissionGroupId: order_by
 }
 
-"""
-Streaming cursor of the table "Permission"
-"""
-input Permission_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Permission_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Permission_stream_cursor_value_input {
-  code: String
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  permissionGroupId: Int
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Permission_sum_fields {
   id: Int
@@ -5034,31 +4992,32 @@ input Permission_variance_order_by {
   permissionGroupId: order_by
 }
 
-type Permissionbe {
-  code: String!
-
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTimebe!
-  id: Int!
-  name: String!
-
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTimebe!
-}
-
 """
 columns and relationships of "Post"
 """
-type Post {
+type Post implements Node {
   """An object relationship"""
   User: User
   authorId: Int
   content: String
   createdAt: timestamp!
-  id: Int!
+  id: ID!
   published: Boolean!
   title: String!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "Post"
+"""
+type PostConnection {
+  edges: [PostEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post!
 }
 
 """
@@ -5381,28 +5340,6 @@ input Post_stddev_samp_order_by {
   id: order_by
 }
 
-"""
-Streaming cursor of the table "Post"
-"""
-input Post_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Post_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Post_stream_cursor_value_input {
-  authorId: Int
-  content: String
-  createdAt: timestamp
-  id: Int
-  published: Boolean
-  title: String
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Post_sum_fields {
   authorId: Int
@@ -5497,7 +5434,7 @@ input Post_variance_order_by {
 """
 columns and relationships of "Resource"
 """
-type Resource {
+type Resource implements Node {
   """An object relationship"""
   Organization: Organization!
 
@@ -5536,30 +5473,73 @@ type Resource {
     """filter the rows returned"""
     where: ResourceItem_bool_exp
   ): ResourceItem_aggregate!
+
+  """An array relationship connection"""
+  ResourceItems_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [ResourceItem_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ResourceItem_order_by!]
+
+    """filter the rows returned"""
+    where: ResourceItem_bool_exp
+  ): ResourceItemConnection!
   code: String!
   createdAt: timestamp!
   description: String!
   icon: String!
-  id: Int!
+  id: ID!
   name: String!
   organizationId: Int!
   updatedAt: timestamp!
 }
 
 """
+A Relay connection object on "Resource"
+"""
+type ResourceConnection {
+  edges: [ResourceEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ResourceEdge {
+  cursor: String!
+  node: Resource!
+}
+
+"""
 columns and relationships of "ResourceItem"
 """
-type ResourceItem {
+type ResourceItem implements Node {
   """An object relationship"""
   Resource: Resource!
   code: String!
   createdAt: timestamp!
   description: String!
   icon: String!
-  id: Int!
+  id: ID!
   name: String!
   resourceId: Int!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "ResourceItem"
+"""
+type ResourceItemConnection {
+  edges: [ResourceItemEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ResourceItemEdge {
+  cursor: String!
+  node: ResourceItem!
 }
 
 """
@@ -5863,29 +5843,6 @@ order by stddev_samp() on columns of table "ResourceItem"
 input ResourceItem_stddev_samp_order_by {
   id: order_by
   resourceId: order_by
-}
-
-"""
-Streaming cursor of the table "ResourceItem"
-"""
-input ResourceItem_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: ResourceItem_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input ResourceItem_stream_cursor_value_input {
-  code: String
-  createdAt: timestamp
-  description: String
-  icon: String
-  id: Int
-  name: String
-  resourceId: Int
-  updatedAt: timestamp
 }
 
 """aggregate sum on columns"""
@@ -6299,29 +6256,6 @@ input Resource_stddev_samp_order_by {
   organizationId: order_by
 }
 
-"""
-Streaming cursor of the table "Resource"
-"""
-input Resource_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Resource_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Resource_stream_cursor_value_input {
-  code: String
-  createdAt: timestamp
-  description: String
-  icon: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Resource_sum_fields {
   id: Int
@@ -6433,24 +6367,31 @@ input Role_comparison_exp {
   _nin: [Role!]
 }
 
-"""User role"""
-enum Rolebe {
-  ADMIN
-  USER
-}
-
 """
 columns and relationships of "Settings"
 """
-type Settings {
+type Settings implements Node {
   """An object relationship"""
   Organization: Organization!
   createdAt: timestamp!
-  id: Int!
+  id: ID!
   key: String!
   organizationId: Int!
   updatedAt: timestamp!
   value: String!
+}
+
+"""
+A Relay connection object on "Settings"
+"""
+type SettingsConnection {
+  edges: [SettingsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type SettingsEdge {
+  cursor: String!
+  node: Settings!
 }
 
 """
@@ -6734,27 +6675,6 @@ input Settings_stddev_samp_order_by {
   organizationId: order_by
 }
 
-"""
-Streaming cursor of the table "Settings"
-"""
-input Settings_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Settings_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Settings_stream_cursor_value_input {
-  createdAt: timestamp
-  id: Int
-  key: String
-  organizationId: Int
-  updatedAt: timestamp
-  value: String
-}
-
 """aggregate sum on columns"""
 type Settings_sum_fields {
   id: Int
@@ -6843,14 +6763,6 @@ input Settings_variance_order_by {
   organizationId: order_by
 }
 
-input SignupInputbe {
-  email: String!
-  firstname: String
-  lastname: String
-  organizationId: Int!
-  password: String!
-}
-
 """
 Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
 """
@@ -6907,7 +6819,7 @@ input String_comparison_exp {
 """
 columns and relationships of "Task"
 """
-type Task {
+type Task implements Node {
   """An array relationship"""
   Comments(
     """distinct select on columns"""
@@ -6944,6 +6856,23 @@ type Task {
     where: Comment_bool_exp
   ): Comment_aggregate!
 
+  """An array relationship connection"""
+  Comments_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Comment_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Comment_order_by!]
+
+    """filter the rows returned"""
+    where: Comment_bool_exp
+  ): CommentConnection!
+
   """An array relationship"""
   EventLogs(
     """distinct select on columns"""
@@ -6979,6 +6908,23 @@ type Task {
     """filter the rows returned"""
     where: EventLog_bool_exp
   ): EventLog_aggregate!
+
+  """An array relationship connection"""
+  EventLogs_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [EventLog_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [EventLog_order_by!]
+
+    """filter the rows returned"""
+    where: EventLog_bool_exp
+  ): EventLogConnection!
 
   """An object relationship"""
   Organization: Organization!
@@ -7025,6 +6971,23 @@ type Task {
     where: Task_bool_exp
   ): Task_aggregate!
 
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
   """An object relationship"""
   Team: Team!
 
@@ -7037,7 +7000,7 @@ type Task {
   definitionId: Int!
   description: String!
   dueDate: timestamp!
-  id: Int!
+  id: ID!
   organizationId: Int!
   parentId: Int
   priority: TaskPriority!
@@ -7057,9 +7020,17 @@ type Task {
 }
 
 """
+A Relay connection object on "Task"
+"""
+type TaskConnection {
+  edges: [TaskEdge!]!
+  pageInfo: PageInfo!
+}
+
+"""
 columns and relationships of "TaskDefinition"
 """
-type TaskDefinition {
+type TaskDefinition implements Node {
   """An object relationship"""
   Activity: Activity
 
@@ -7108,6 +7079,23 @@ type TaskDefinition {
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
 
+  """An array relationship connection"""
+  TaskDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinitionConnection!
+
   """An array relationship"""
   Tasks(
     """distinct select on columns"""
@@ -7144,6 +7132,23 @@ type TaskDefinition {
     where: Task_bool_exp
   ): Task_aggregate!
 
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
   """An object relationship"""
   Workflow: Workflow
   actvityId: Int
@@ -7161,7 +7166,7 @@ type TaskDefinition {
   descriptionTemplate: String
   formId: Int
   icon: String!
-  id: Int!
+  id: ID!
   notificationConfig(
     """JSON select path"""
     path: String
@@ -7192,6 +7197,19 @@ type TaskDefinition {
   ): jsonb
   updatedAt: timestamp!
   workflowId: Int
+}
+
+"""
+A Relay connection object on "TaskDefinition"
+"""
+type TaskDefinitionConnection {
+  edges: [TaskDefinitionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskDefinitionEdge {
+  cursor: String!
+  node: TaskDefinition!
 }
 
 """
@@ -7783,46 +7801,6 @@ input TaskDefinition_stddev_samp_order_by {
   workflowId: order_by
 }
 
-"""
-Streaming cursor of the table "TaskDefinition"
-"""
-input TaskDefinition_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: TaskDefinition_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input TaskDefinition_stream_cursor_value_input {
-  actvityId: Int
-  config: jsonb
-  createdAt: timestamp
-  ctaConfig: jsonb
-  ctaTemplate: String
-  description: String
-  descriptionTemplate: String
-  formId: Int
-  icon: String
-  id: Int
-  notificationConfig: jsonb
-  notificationTemplate: String
-  organizationId: Int
-  parentId: Int
-  processConfig: jsonb
-  stageConfig: jsonb
-  stateTemplate: String
-  statusConfig: jsonb
-  statusTemplate: String
-  thumbnail: String
-  title: String
-  titleTemplate: String
-  triggerConfig: jsonb
-  updatedAt: timestamp
-  workflowId: Int
-}
-
 """aggregate sum on columns"""
 type TaskDefinition_sum_fields {
   actvityId: Int
@@ -8019,6 +7997,11 @@ input TaskDefinition_variance_order_by {
   organizationId: order_by
   parentId: order_by
   workflowId: order_by
+}
+
+type TaskEdge {
+  cursor: String!
+  node: Task!
 }
 
 scalar TaskPriority
@@ -8577,39 +8560,6 @@ input Task_stddev_samp_order_by {
   teamId: order_by
 }
 
-"""
-Streaming cursor of the table "Task"
-"""
-input Task_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Task_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Task_stream_cursor_value_input {
-  assigneeId: Int
-  createdAt: timestamp
-  creatorId: Int
-  ctaName: String
-  definitionId: Int
-  description: String
-  dueDate: timestamp
-  id: Int
-  organizationId: Int
-  parentId: Int
-  priority: TaskPriority
-  stateName: String
-  status: TaskStatus
-  statusName: String
-  teamId: Int
-  title: String
-  updatedAt: timestamp
-  values: jsonb
-}
-
 """aggregate sum on columns"""
 type Task_sum_fields {
   assigneeId: Int
@@ -8798,7 +8748,7 @@ input Task_variance_order_by {
 """
 columns and relationships of "Team"
 """
-type Team {
+type Team implements Node {
   """An array relationship"""
   MemberOnTeams(
     """distinct select on columns"""
@@ -8834,6 +8784,23 @@ type Team {
     """filter the rows returned"""
     where: MemberOnTeams_bool_exp
   ): MemberOnTeams_aggregate!
+
+  """An array relationship connection"""
+  MemberOnTeams_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnTeams_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnTeams_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnTeams_bool_exp
+  ): MemberOnTeamsConnection!
 
   """An object relationship"""
   Organization: Organization!
@@ -8874,13 +8841,30 @@ type Team {
     where: Task_bool_exp
   ): Task_aggregate!
 
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
   """An object relationship"""
   User: User!
   bio: String!
   createdAt: timestamp!
   creatorId: Int!
   description: String!
-  id: Int!
+  id: ID!
   managerId: Int!
   name: String!
   organizationId: Int!
@@ -8888,6 +8872,19 @@ type Team {
 
   """An object relationship"""
   userByManagerid: User!
+}
+
+"""
+A Relay connection object on "Team"
+"""
+type TeamConnection {
+  edges: [TeamEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TeamEdge {
+  cursor: String!
+  node: Team!
 }
 
 """
@@ -9246,30 +9243,6 @@ input Team_stddev_samp_order_by {
   organizationId: order_by
 }
 
-"""
-Streaming cursor of the table "Team"
-"""
-input Team_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Team_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Team_stream_cursor_value_input {
-  bio: String
-  createdAt: timestamp
-  creatorId: Int
-  description: String
-  id: Int
-  managerId: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Team_sum_fields {
   creatorId: Int
@@ -9383,18 +9356,10 @@ input Team_variance_order_by {
   organizationId: order_by
 }
 
-type Tokenbe {
-  """JWT access token"""
-  accessToken: JWTbe!
-
-  """JWT refresh token"""
-  refreshToken: JWTbe!
-}
-
 """
 columns and relationships of "Trigger"
 """
-type Trigger {
+type Trigger implements Node {
   """An object relationship"""
   Activity: Activity!
   activityId: Int!
@@ -9404,10 +9369,23 @@ type Trigger {
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   type: TriggerType!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "Trigger"
+"""
+type TriggerConnection {
+  edges: [TriggerEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TriggerEdge {
+  cursor: String!
+  node: Trigger!
 }
 
 scalar TriggerType
@@ -9757,29 +9735,6 @@ input Trigger_stddev_samp_order_by {
   id: order_by
 }
 
-"""
-Streaming cursor of the table "Trigger"
-"""
-input Trigger_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Trigger_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Trigger_stream_cursor_value_input {
-  activityId: Int
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  type: TriggerType
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Trigger_sum_fields {
   activityId: Int
@@ -9895,15 +9850,10 @@ input Trigger_variance_order_by {
   id: order_by
 }
 
-input UpdateUserInputbe {
-  firstname: String
-  lastname: String
-}
-
 """
 columns and relationships of "User"
 """
-type User {
+type User implements Node {
   """An array relationship"""
   Comments(
     """distinct select on columns"""
@@ -9939,6 +9889,23 @@ type User {
     """filter the rows returned"""
     where: Comment_bool_exp
   ): Comment_aggregate!
+
+  """An array relationship connection"""
+  Comments_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Comment_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Comment_order_by!]
+
+    """filter the rows returned"""
+    where: Comment_bool_exp
+  ): CommentConnection!
 
   """An array relationship"""
   EventLogs(
@@ -9976,6 +9943,23 @@ type User {
     where: EventLog_bool_exp
   ): EventLog_aggregate!
 
+  """An array relationship connection"""
+  EventLogs_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [EventLog_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [EventLog_order_by!]
+
+    """filter the rows returned"""
+    where: EventLog_bool_exp
+  ): EventLogConnection!
+
   """An array relationship"""
   MemberOnTeams(
     """distinct select on columns"""
@@ -10011,6 +9995,23 @@ type User {
     """filter the rows returned"""
     where: MemberOnTeams_bool_exp
   ): MemberOnTeams_aggregate!
+
+  """An array relationship connection"""
+  MemberOnTeams_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnTeams_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnTeams_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnTeams_bool_exp
+  ): MemberOnTeamsConnection!
 
   """An object relationship"""
   Organization: Organization!
@@ -10051,6 +10052,23 @@ type User {
     where: Post_bool_exp
   ): Post_aggregate!
 
+  """An array relationship connection"""
+  Posts_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Post_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Post_order_by!]
+
+    """filter the rows returned"""
+    where: Post_bool_exp
+  ): PostConnection!
+
   """An array relationship"""
   Tasks(
     """distinct select on columns"""
@@ -10086,6 +10104,23 @@ type User {
     """filter the rows returned"""
     where: Task_bool_exp
   ): Task_aggregate!
+
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
 
   """An array relationship"""
   Teams(
@@ -10123,6 +10158,23 @@ type User {
     where: Team_bool_exp
   ): Team_aggregate!
 
+  """An array relationship connection"""
+  Teams_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Team_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Team_order_by!]
+
+    """filter the rows returned"""
+    where: Team_bool_exp
+  ): TeamConnection!
+
   """An array relationship"""
   UserPermissions(
     """distinct select on columns"""
@@ -10158,10 +10210,27 @@ type User {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermission_aggregate!
+
+  """An array relationship connection"""
+  UserPermissions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [UserPermission_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserPermission_order_by!]
+
+    """filter the rows returned"""
+    where: UserPermission_bool_exp
+  ): UserPermissionConnection!
   createdAt: timestamp!
   email: String!
   firstname: String
-  id: Int!
+  id: ID!
   lastname: String
   organizationId: Int!
   password: String!
@@ -10203,6 +10272,23 @@ type User {
     where: Task_bool_exp
   ): Task_aggregate!
 
+  """An array relationship connection"""
+  tasksByCreatorid_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
   """An array relationship"""
   teamsByManagerid(
     """distinct select on columns"""
@@ -10238,22 +10324,65 @@ type User {
     """filter the rows returned"""
     where: Team_bool_exp
   ): Team_aggregate!
+
+  """An array relationship connection"""
+  teamsByManagerid_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Team_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Team_order_by!]
+
+    """filter the rows returned"""
+    where: Team_bool_exp
+  ): TeamConnection!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "User"
+"""
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserEdge {
+  cursor: String!
+  node: User!
 }
 
 """
 columns and relationships of "UserPermission"
 """
-type UserPermission {
+type UserPermission implements Node {
   """An object relationship"""
   Permission: Permission!
 
   """An object relationship"""
   User: User!
   createdAt: timestamp!
-  id: Int!
+  id: ID!
   permissionId: Int!
   userId: Int!
+}
+
+"""
+A Relay connection object on "UserPermission"
+"""
+type UserPermissionConnection {
+  edges: [UserPermissionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserPermissionEdge {
+  cursor: String!
+  node: UserPermission!
 }
 
 """
@@ -10525,25 +10654,6 @@ input UserPermission_stddev_samp_order_by {
   id: order_by
   permissionId: order_by
   userId: order_by
-}
-
-"""
-Streaming cursor of the table "UserPermission"
-"""
-input UserPermission_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: UserPermission_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input UserPermission_stream_cursor_value_input {
-  createdAt: timestamp
-  id: Int
-  permissionId: Int
-  userId: Int
 }
 
 """aggregate sum on columns"""
@@ -11001,30 +11111,6 @@ input User_stddev_samp_order_by {
   organizationId: order_by
 }
 
-"""
-Streaming cursor of the table "User"
-"""
-input User_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: User_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input User_stream_cursor_value_input {
-  createdAt: timestamp
-  email: String
-  firstname: String
-  id: Int
-  lastname: String
-  organizationId: Int
-  password: String
-  role: Role
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type User_sum_fields {
   id: Int
@@ -11122,24 +11208,10 @@ input User_variance_order_by {
   organizationId: order_by
 }
 
-type Userbe {
-  """Identifies the date and time when the object was created."""
-  createdAt: DateTimebe!
-  email: String!
-  firstname: String
-  id: ID!
-  lastname: String
-  permissions: [Permissionbe!]
-  role: Rolebe!
-
-  """Identifies the date and time when the object was last updated."""
-  updatedAt: DateTimebe!
-}
-
 """
 columns and relationships of "Workflow"
 """
-type Workflow {
+type Workflow implements Node {
   """An array relationship"""
   Activities(
     """distinct select on columns"""
@@ -11175,6 +11247,23 @@ type Workflow {
     """filter the rows returned"""
     where: Activity_bool_exp
   ): Activity_aggregate!
+
+  """An array relationship connection"""
+  Activities_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Activity_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Activity_order_by!]
+
+    """filter the rows returned"""
+    where: Activity_bool_exp
+  ): ActivityConnection!
 
   """An object relationship"""
   Organization: Organization!
@@ -11214,16 +11303,46 @@ type Workflow {
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
   ): TaskDefinition_aggregate!
+
+  """An array relationship connection"""
+  TaskDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinition_bool_exp
+  ): TaskDefinitionConnection!
   config(
     """JSON select path"""
     path: String
   ): jsonb!
   createdAt: timestamp!
   description: String!
-  id: Int!
+  id: ID!
   name: String!
   organizationId: Int!
   updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "Workflow"
+"""
+type WorkflowConnection {
+  edges: [WorkflowEdge!]!
+  pageInfo: PageInfo!
+}
+
+type WorkflowEdge {
+  cursor: String!
+  node: Workflow!
 }
 
 """
@@ -11563,28 +11682,6 @@ input Workflow_stddev_samp_order_by {
   organizationId: order_by
 }
 
-"""
-Streaming cursor of the table "Workflow"
-"""
-input Workflow_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: Workflow_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input Workflow_stream_cursor_value_input {
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
 """aggregate sum on columns"""
 type Workflow_sum_fields {
   id: Int
@@ -11700,11 +11797,11 @@ input Workflow_variance_order_by {
 """
 columns and relationships of "_prisma_migrations"
 """
-type _prisma_migrations {
+type _prisma_migrations implements Node {
   applied_steps_count: Int!
   checksum: String!
   finished_at: timestamptz
-  id: String!
+  id: ID!
   logs: String
   migration_name: String!
   rolled_back_at: timestamptz
@@ -11712,33 +11809,16 @@ type _prisma_migrations {
 }
 
 """
-aggregated selection of "_prisma_migrations"
+A Relay connection object on "_prisma_migrations"
 """
-type _prisma_migrations_aggregate {
-  aggregate: _prisma_migrations_aggregate_fields
-  nodes: [_prisma_migrations!]!
+type _prisma_migrationsConnection {
+  edges: [_prisma_migrationsEdge!]!
+  pageInfo: PageInfo!
 }
 
-"""
-aggregate fields of "_prisma_migrations"
-"""
-type _prisma_migrations_aggregate_fields {
-  avg: _prisma_migrations_avg_fields
-  count(columns: [_prisma_migrations_select_column!], distinct: Boolean): Int!
-  max: _prisma_migrations_max_fields
-  min: _prisma_migrations_min_fields
-  stddev: _prisma_migrations_stddev_fields
-  stddev_pop: _prisma_migrations_stddev_pop_fields
-  stddev_samp: _prisma_migrations_stddev_samp_fields
-  sum: _prisma_migrations_sum_fields
-  var_pop: _prisma_migrations_var_pop_fields
-  var_samp: _prisma_migrations_var_samp_fields
-  variance: _prisma_migrations_variance_fields
-}
-
-"""aggregate avg on columns"""
-type _prisma_migrations_avg_fields {
-  applied_steps_count: Float
+type _prisma_migrationsEdge {
+  cursor: String!
+  node: _prisma_migrations!
 }
 
 """
@@ -11779,30 +11859,6 @@ input _prisma_migrations_inc_input {
 input type for inserting data into table "_prisma_migrations"
 """
 input _prisma_migrations_insert_input {
-  applied_steps_count: Int
-  checksum: String
-  finished_at: timestamptz
-  id: String
-  logs: String
-  migration_name: String
-  rolled_back_at: timestamptz
-  started_at: timestamptz
-}
-
-"""aggregate max on columns"""
-type _prisma_migrations_max_fields {
-  applied_steps_count: Int
-  checksum: String
-  finished_at: timestamptz
-  id: String
-  logs: String
-  migration_name: String
-  rolled_back_at: timestamptz
-  started_at: timestamptz
-}
-
-"""aggregate min on columns"""
-type _prisma_migrations_min_fields {
   applied_steps_count: Int
   checksum: String
   finished_at: timestamptz
@@ -11893,49 +11949,6 @@ input _prisma_migrations_set_input {
   started_at: timestamptz
 }
 
-"""aggregate stddev on columns"""
-type _prisma_migrations_stddev_fields {
-  applied_steps_count: Float
-}
-
-"""aggregate stddev_pop on columns"""
-type _prisma_migrations_stddev_pop_fields {
-  applied_steps_count: Float
-}
-
-"""aggregate stddev_samp on columns"""
-type _prisma_migrations_stddev_samp_fields {
-  applied_steps_count: Float
-}
-
-"""
-Streaming cursor of the table "_prisma_migrations"
-"""
-input _prisma_migrations_stream_cursor_input {
-  """Stream column input with initial value"""
-  initial_value: _prisma_migrations_stream_cursor_value_input!
-
-  """cursor ordering"""
-  ordering: cursor_ordering
-}
-
-"""Initial value of the column from where the streaming should start"""
-input _prisma_migrations_stream_cursor_value_input {
-  applied_steps_count: Int
-  checksum: String
-  finished_at: timestamptz
-  id: String
-  logs: String
-  migration_name: String
-  rolled_back_at: timestamptz
-  started_at: timestamptz
-}
-
-"""aggregate sum on columns"""
-type _prisma_migrations_sum_fields {
-  applied_steps_count: Int
-}
-
 """
 update columns of table "_prisma_migrations"
 """
@@ -11972,30 +11985,6 @@ input _prisma_migrations_updates {
   """sets the columns of the filtered rows to the given values"""
   _set: _prisma_migrations_set_input
   where: _prisma_migrations_bool_exp!
-}
-
-"""aggregate var_pop on columns"""
-type _prisma_migrations_var_pop_fields {
-  applied_steps_count: Float
-}
-
-"""aggregate var_samp on columns"""
-type _prisma_migrations_var_samp_fields {
-  applied_steps_count: Float
-}
-
-"""aggregate variance on columns"""
-type _prisma_migrations_variance_fields {
-  applied_steps_count: Float
-}
-
-"""ordering argument of a cursor"""
-enum cursor_ordering {
-  """ascending ordering of the cursor"""
-  ASC
-
-  """descending ordering of the cursor"""
-  DESC
 }
 
 scalar jsonb
@@ -12037,8 +12026,6 @@ input jsonb_comparison_exp {
 
 """mutation root"""
 type mutation_root {
-  changePassword(data: ChangePasswordInputbe!): Userbe!
-
   """
   delete data from the table: "Action"
   """
@@ -12808,10 +12795,7 @@ type mutation_root {
     """upsert condition"""
     on_conflict: _prisma_migrations_on_conflict
   ): _prisma_migrations
-  login(data: LoginInputbe!): Authbe!
-  refreshToken(token: JWTbe!): Tokenbe!
-  signup(data: SignupInputbe!): Authbe!
-  updateUser(data: UpdateUserInputbe!): Userbe!
+  signin(data: LoginInput!): LoginAuth!
 
   """
   update data of the table: "Action"
@@ -13839,2195 +13823,840 @@ type query_root {
   """
   fetch data from the table: "Action"
   """
-  Action(
+  Action_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Action_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Action_order_by!]
 
     """filter the rows returned"""
     where: Action_bool_exp
-  ): [Action!]!
-
-  """
-  fetch aggregated fields from the table: "Action"
-  """
-  Action_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Action_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Action_order_by!]
-
-    """filter the rows returned"""
-    where: Action_bool_exp
-  ): Action_aggregate!
-
-  """fetch data from the table: "Action" using primary key columns"""
-  Action_by_pk(id: Int!): Action
+  ): ActionConnection!
 
   """
   fetch data from the table: "Activity"
   """
-  Activity(
+  Activity_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Activity_order_by!]
 
     """filter the rows returned"""
     where: Activity_bool_exp
-  ): [Activity!]!
-
-  """
-  fetch aggregated fields from the table: "Activity"
-  """
-  Activity_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): Activity_aggregate!
-
-  """fetch data from the table: "Activity" using primary key columns"""
-  Activity_by_pk(id: Int!): Activity
+  ): ActivityConnection!
 
   """
   fetch data from the table: "Comment"
   """
-  Comment(
+  Comment_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Comment_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Comment_order_by!]
 
     """filter the rows returned"""
     where: Comment_bool_exp
-  ): [Comment!]!
-
-  """
-  fetch aggregated fields from the table: "Comment"
-  """
-  Comment_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Comment_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Comment_order_by!]
-
-    """filter the rows returned"""
-    where: Comment_bool_exp
-  ): Comment_aggregate!
-
-  """fetch data from the table: "Comment" using primary key columns"""
-  Comment_by_pk(id: Int!): Comment
+  ): CommentConnection!
 
   """
   fetch data from the table: "EventLog"
   """
-  EventLog(
+  EventLog_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [EventLog_order_by!]
 
     """filter the rows returned"""
     where: EventLog_bool_exp
-  ): [EventLog!]!
-
-  """
-  fetch aggregated fields from the table: "EventLog"
-  """
-  EventLog_aggregate(
-    """distinct select on columns"""
-    distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [EventLog_order_by!]
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): EventLog_aggregate!
-
-  """fetch data from the table: "EventLog" using primary key columns"""
-  EventLog_by_pk(id: Int!): EventLog
+  ): EventLogConnection!
 
   """
   fetch data from the table: "File"
   """
-  File(
+  File_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [File_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [File_order_by!]
 
     """filter the rows returned"""
     where: File_bool_exp
-  ): [File!]!
-
-  """
-  fetch aggregated fields from the table: "File"
-  """
-  File_aggregate(
-    """distinct select on columns"""
-    distinct_on: [File_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [File_order_by!]
-
-    """filter the rows returned"""
-    where: File_bool_exp
-  ): File_aggregate!
-
-  """fetch data from the table: "File" using primary key columns"""
-  File_by_pk(id: Int!): File
+  ): FileConnection!
 
   """
   fetch data from the table: "Form"
   """
-  Form(
+  Form_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Form_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Form_order_by!]
 
     """filter the rows returned"""
     where: Form_bool_exp
-  ): [Form!]!
+  ): FormConnection!
 
-  """
-  fetch aggregated fields from the table: "Form"
-  """
-  Form_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Form_select_column!]
+  """An array relationship connection"""
+  MemberOnTeams_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Form_order_by!]
-
-    """filter the rows returned"""
-    where: Form_bool_exp
-  ): Form_aggregate!
-
-  """fetch data from the table: "Form" using primary key columns"""
-  Form_by_pk(id: Int!): Form
-
-  """An array relationship"""
-  MemberOnTeams(
     """distinct select on columns"""
     distinct_on: [MemberOnTeams_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [MemberOnTeams_order_by!]
 
     """filter the rows returned"""
     where: MemberOnTeams_bool_exp
-  ): [MemberOnTeams!]!
-
-  """An aggregate relationship"""
-  MemberOnTeams_aggregate(
-    """distinct select on columns"""
-    distinct_on: [MemberOnTeams_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [MemberOnTeams_order_by!]
-
-    """filter the rows returned"""
-    where: MemberOnTeams_bool_exp
-  ): MemberOnTeams_aggregate!
-
-  """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: Int!, userId: Int!): MemberOnTeams
+  ): MemberOnTeamsConnection!
 
   """
   fetch data from the table: "Organization"
   """
-  Organization(
+  Organization_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Organization_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Organization_order_by!]
 
     """filter the rows returned"""
     where: Organization_bool_exp
-  ): [Organization!]!
-
-  """
-  fetch aggregated fields from the table: "Organization"
-  """
-  Organization_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Organization_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Organization_order_by!]
-
-    """filter the rows returned"""
-    where: Organization_bool_exp
-  ): Organization_aggregate!
-
-  """fetch data from the table: "Organization" using primary key columns"""
-  Organization_by_pk(id: Int!): Organization
-
-  """
-  fetch data from the table: "Permission"
-  """
-  Permission(
-    """distinct select on columns"""
-    distinct_on: [Permission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Permission_order_by!]
-
-    """filter the rows returned"""
-    where: Permission_bool_exp
-  ): [Permission!]!
+  ): OrganizationConnection!
 
   """
   fetch data from the table: "PermissionGroup"
   """
-  PermissionGroup(
+  PermissionGroup_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [PermissionGroup_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [PermissionGroup_order_by!]
 
     """filter the rows returned"""
     where: PermissionGroup_bool_exp
-  ): [PermissionGroup!]!
+  ): PermissionGroupConnection!
 
   """
-  fetch aggregated fields from the table: "PermissionGroup"
+  fetch data from the table: "Permission"
   """
-  PermissionGroup_aggregate(
-    """distinct select on columns"""
-    distinct_on: [PermissionGroup_select_column!]
+  Permission_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [PermissionGroup_order_by!]
-
-    """filter the rows returned"""
-    where: PermissionGroup_bool_exp
-  ): PermissionGroup_aggregate!
-
-  """fetch data from the table: "PermissionGroup" using primary key columns"""
-  PermissionGroup_by_pk(id: Int!): PermissionGroup
-
-  """
-  fetch aggregated fields from the table: "Permission"
-  """
-  Permission_aggregate(
     """distinct select on columns"""
     distinct_on: [Permission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Permission_order_by!]
 
     """filter the rows returned"""
     where: Permission_bool_exp
-  ): Permission_aggregate!
-
-  """fetch data from the table: "Permission" using primary key columns"""
-  Permission_by_pk(id: Int!): Permission
+  ): PermissionConnection!
 
   """
   fetch data from the table: "Post"
   """
-  Post(
+  Post_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Post_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Post_order_by!]
 
     """filter the rows returned"""
     where: Post_bool_exp
-  ): [Post!]!
-
-  """
-  fetch aggregated fields from the table: "Post"
-  """
-  Post_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Post_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Post_order_by!]
-
-    """filter the rows returned"""
-    where: Post_bool_exp
-  ): Post_aggregate!
-
-  """fetch data from the table: "Post" using primary key columns"""
-  Post_by_pk(id: Int!): Post
-
-  """
-  fetch data from the table: "Resource"
-  """
-  Resource(
-    """distinct select on columns"""
-    distinct_on: [Resource_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Resource_order_by!]
-
-    """filter the rows returned"""
-    where: Resource_bool_exp
-  ): [Resource!]!
+  ): PostConnection!
 
   """
   fetch data from the table: "ResourceItem"
   """
-  ResourceItem(
+  ResourceItem_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [ResourceItem_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [ResourceItem_order_by!]
 
     """filter the rows returned"""
     where: ResourceItem_bool_exp
-  ): [ResourceItem!]!
+  ): ResourceItemConnection!
 
   """
-  fetch aggregated fields from the table: "ResourceItem"
+  fetch data from the table: "Resource"
   """
-  ResourceItem_aggregate(
-    """distinct select on columns"""
-    distinct_on: [ResourceItem_select_column!]
+  Resource_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [ResourceItem_order_by!]
-
-    """filter the rows returned"""
-    where: ResourceItem_bool_exp
-  ): ResourceItem_aggregate!
-
-  """fetch data from the table: "ResourceItem" using primary key columns"""
-  ResourceItem_by_pk(id: Int!): ResourceItem
-
-  """
-  fetch aggregated fields from the table: "Resource"
-  """
-  Resource_aggregate(
     """distinct select on columns"""
     distinct_on: [Resource_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Resource_order_by!]
 
     """filter the rows returned"""
     where: Resource_bool_exp
-  ): Resource_aggregate!
+  ): ResourceConnection!
 
-  """fetch data from the table: "Resource" using primary key columns"""
-  Resource_by_pk(id: Int!): Resource
+  """An array relationship connection"""
+  Settings_connection(
+    after: String
+    before: String
 
-  """An array relationship"""
-  Settings(
     """distinct select on columns"""
     distinct_on: [Settings_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Settings_order_by!]
 
     """filter the rows returned"""
     where: Settings_bool_exp
-  ): [Settings!]!
-
-  """An aggregate relationship"""
-  Settings_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Settings_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Settings_order_by!]
-
-    """filter the rows returned"""
-    where: Settings_bool_exp
-  ): Settings_aggregate!
-
-  """fetch data from the table: "Settings" using primary key columns"""
-  Settings_by_pk(id: Int!): Settings
-
-  """
-  fetch data from the table: "Task"
-  """
-  Task(
-    """distinct select on columns"""
-    distinct_on: [Task_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Task_order_by!]
-
-    """filter the rows returned"""
-    where: Task_bool_exp
-  ): [Task!]!
+  ): SettingsConnection!
 
   """
   fetch data from the table: "TaskDefinition"
   """
-  TaskDefinition(
+  TaskDefinition_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [TaskDefinition_order_by!]
 
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
+  ): TaskDefinitionConnection!
 
   """
-  fetch aggregated fields from the table: "TaskDefinition"
+  fetch data from the table: "Task"
   """
-  TaskDefinition_aggregate(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
+  Task_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinition_aggregate!
-
-  """fetch data from the table: "TaskDefinition" using primary key columns"""
-  TaskDefinition_by_pk(id: Int!): TaskDefinition
-
-  """
-  fetch aggregated fields from the table: "Task"
-  """
-  Task_aggregate(
     """distinct select on columns"""
     distinct_on: [Task_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Task_order_by!]
 
     """filter the rows returned"""
     where: Task_bool_exp
-  ): Task_aggregate!
-
-  """fetch data from the table: "Task" using primary key columns"""
-  Task_by_pk(id: Int!): Task
+  ): TaskConnection!
 
   """
   fetch data from the table: "Team"
   """
-  Team(
+  Team_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Team_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Team_order_by!]
 
     """filter the rows returned"""
     where: Team_bool_exp
-  ): [Team!]!
-
-  """
-  fetch aggregated fields from the table: "Team"
-  """
-  Team_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Team_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Team_order_by!]
-
-    """filter the rows returned"""
-    where: Team_bool_exp
-  ): Team_aggregate!
-
-  """fetch data from the table: "Team" using primary key columns"""
-  Team_by_pk(id: Int!): Team
+  ): TeamConnection!
 
   """
   fetch data from the table: "Trigger"
   """
-  Trigger(
+  Trigger_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Trigger_order_by!]
 
     """filter the rows returned"""
     where: Trigger_bool_exp
-  ): [Trigger!]!
-
-  """
-  fetch aggregated fields from the table: "Trigger"
-  """
-  Trigger_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Trigger_order_by!]
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): Trigger_aggregate!
-
-  """fetch data from the table: "Trigger" using primary key columns"""
-  Trigger_by_pk(id: Int!): Trigger
-
-  """
-  fetch data from the table: "User"
-  """
-  User(
-    """distinct select on columns"""
-    distinct_on: [User_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [User_order_by!]
-
-    """filter the rows returned"""
-    where: User_bool_exp
-  ): [User!]!
+  ): TriggerConnection!
 
   """
   fetch data from the table: "UserPermission"
   """
-  UserPermission(
+  UserPermission_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [UserPermission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [UserPermission_order_by!]
 
     """filter the rows returned"""
     where: UserPermission_bool_exp
-  ): [UserPermission!]!
+  ): UserPermissionConnection!
 
   """
-  fetch aggregated fields from the table: "UserPermission"
+  fetch data from the table: "User"
   """
-  UserPermission_aggregate(
-    """distinct select on columns"""
-    distinct_on: [UserPermission_select_column!]
+  User_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [UserPermission_order_by!]
-
-    """filter the rows returned"""
-    where: UserPermission_bool_exp
-  ): UserPermission_aggregate!
-
-  """fetch data from the table: "UserPermission" using primary key columns"""
-  UserPermission_by_pk(id: Int!): UserPermission
-
-  """
-  fetch aggregated fields from the table: "User"
-  """
-  User_aggregate(
     """distinct select on columns"""
     distinct_on: [User_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [User_order_by!]
 
     """filter the rows returned"""
     where: User_bool_exp
-  ): User_aggregate!
-
-  """fetch data from the table: "User" using primary key columns"""
-  User_by_pk(id: Int!): User
+  ): UserConnection!
 
   """
   fetch data from the table: "Workflow"
   """
-  Workflow(
+  Workflow_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Workflow_order_by!]
 
     """filter the rows returned"""
     where: Workflow_bool_exp
-  ): [Workflow!]!
-
-  """
-  fetch aggregated fields from the table: "Workflow"
-  """
-  Workflow_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): Workflow_aggregate!
-
-  """fetch data from the table: "Workflow" using primary key columns"""
-  Workflow_by_pk(id: Int!): Workflow
+  ): WorkflowConnection!
 
   """
   fetch data from the table: "_prisma_migrations"
   """
-  _prisma_migrations(
+  _prisma_migrations_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [_prisma_migrations_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [_prisma_migrations_order_by!]
 
     """filter the rows returned"""
     where: _prisma_migrations_bool_exp
-  ): [_prisma_migrations!]!
-
-  """
-  fetch aggregated fields from the table: "_prisma_migrations"
-  """
-  _prisma_migrations_aggregate(
-    """distinct select on columns"""
-    distinct_on: [_prisma_migrations_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [_prisma_migrations_order_by!]
-
-    """filter the rows returned"""
-    where: _prisma_migrations_bool_exp
-  ): _prisma_migrations_aggregate!
-
-  """
-  fetch data from the table: "_prisma_migrations" using primary key columns
-  """
-  _prisma_migrations_by_pk(id: String!): _prisma_migrations
-  hello(name: String!): String!
-  helloWorld: String!
-  me: Userbe!
+  ): _prisma_migrationsConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
 }
 
 type subscription_root {
   """
   fetch data from the table: "Action"
   """
-  Action(
+  Action_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Action_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Action_order_by!]
 
     """filter the rows returned"""
     where: Action_bool_exp
-  ): [Action!]!
-
-  """
-  fetch aggregated fields from the table: "Action"
-  """
-  Action_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Action_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Action_order_by!]
-
-    """filter the rows returned"""
-    where: Action_bool_exp
-  ): Action_aggregate!
-
-  """fetch data from the table: "Action" using primary key columns"""
-  Action_by_pk(id: Int!): Action
-
-  """
-  fetch data from the table in a streaming manner: "Action"
-  """
-  Action_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Action_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Action_bool_exp
-  ): [Action!]!
+  ): ActionConnection!
 
   """
   fetch data from the table: "Activity"
   """
-  Activity(
+  Activity_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Activity_order_by!]
 
     """filter the rows returned"""
     where: Activity_bool_exp
-  ): [Activity!]!
-
-  """
-  fetch aggregated fields from the table: "Activity"
-  """
-  Activity_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): Activity_aggregate!
-
-  """fetch data from the table: "Activity" using primary key columns"""
-  Activity_by_pk(id: Int!): Activity
-
-  """
-  fetch data from the table in a streaming manner: "Activity"
-  """
-  Activity_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Activity_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): [Activity!]!
+  ): ActivityConnection!
 
   """
   fetch data from the table: "Comment"
   """
-  Comment(
+  Comment_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Comment_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Comment_order_by!]
 
     """filter the rows returned"""
     where: Comment_bool_exp
-  ): [Comment!]!
-
-  """
-  fetch aggregated fields from the table: "Comment"
-  """
-  Comment_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Comment_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Comment_order_by!]
-
-    """filter the rows returned"""
-    where: Comment_bool_exp
-  ): Comment_aggregate!
-
-  """fetch data from the table: "Comment" using primary key columns"""
-  Comment_by_pk(id: Int!): Comment
-
-  """
-  fetch data from the table in a streaming manner: "Comment"
-  """
-  Comment_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Comment_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Comment_bool_exp
-  ): [Comment!]!
+  ): CommentConnection!
 
   """
   fetch data from the table: "EventLog"
   """
-  EventLog(
+  EventLog_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [EventLog_order_by!]
 
     """filter the rows returned"""
     where: EventLog_bool_exp
-  ): [EventLog!]!
-
-  """
-  fetch aggregated fields from the table: "EventLog"
-  """
-  EventLog_aggregate(
-    """distinct select on columns"""
-    distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [EventLog_order_by!]
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): EventLog_aggregate!
-
-  """fetch data from the table: "EventLog" using primary key columns"""
-  EventLog_by_pk(id: Int!): EventLog
-
-  """
-  fetch data from the table in a streaming manner: "EventLog"
-  """
-  EventLog_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [EventLog_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): [EventLog!]!
+  ): EventLogConnection!
 
   """
   fetch data from the table: "File"
   """
-  File(
+  File_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [File_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [File_order_by!]
 
     """filter the rows returned"""
     where: File_bool_exp
-  ): [File!]!
-
-  """
-  fetch aggregated fields from the table: "File"
-  """
-  File_aggregate(
-    """distinct select on columns"""
-    distinct_on: [File_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [File_order_by!]
-
-    """filter the rows returned"""
-    where: File_bool_exp
-  ): File_aggregate!
-
-  """fetch data from the table: "File" using primary key columns"""
-  File_by_pk(id: Int!): File
-
-  """
-  fetch data from the table in a streaming manner: "File"
-  """
-  File_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [File_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: File_bool_exp
-  ): [File!]!
+  ): FileConnection!
 
   """
   fetch data from the table: "Form"
   """
-  Form(
+  Form_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Form_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Form_order_by!]
 
     """filter the rows returned"""
     where: Form_bool_exp
-  ): [Form!]!
+  ): FormConnection!
 
-  """
-  fetch aggregated fields from the table: "Form"
-  """
-  Form_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Form_select_column!]
+  """An array relationship connection"""
+  MemberOnTeams_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Form_order_by!]
-
-    """filter the rows returned"""
-    where: Form_bool_exp
-  ): Form_aggregate!
-
-  """fetch data from the table: "Form" using primary key columns"""
-  Form_by_pk(id: Int!): Form
-
-  """
-  fetch data from the table in a streaming manner: "Form"
-  """
-  Form_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Form_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Form_bool_exp
-  ): [Form!]!
-
-  """An array relationship"""
-  MemberOnTeams(
     """distinct select on columns"""
     distinct_on: [MemberOnTeams_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [MemberOnTeams_order_by!]
 
     """filter the rows returned"""
     where: MemberOnTeams_bool_exp
-  ): [MemberOnTeams!]!
-
-  """An aggregate relationship"""
-  MemberOnTeams_aggregate(
-    """distinct select on columns"""
-    distinct_on: [MemberOnTeams_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [MemberOnTeams_order_by!]
-
-    """filter the rows returned"""
-    where: MemberOnTeams_bool_exp
-  ): MemberOnTeams_aggregate!
-
-  """fetch data from the table: "MemberOnTeams" using primary key columns"""
-  MemberOnTeams_by_pk(teamId: Int!, userId: Int!): MemberOnTeams
-
-  """
-  fetch data from the table in a streaming manner: "MemberOnTeams"
-  """
-  MemberOnTeams_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [MemberOnTeams_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: MemberOnTeams_bool_exp
-  ): [MemberOnTeams!]!
+  ): MemberOnTeamsConnection!
 
   """
   fetch data from the table: "Organization"
   """
-  Organization(
+  Organization_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Organization_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Organization_order_by!]
 
     """filter the rows returned"""
     where: Organization_bool_exp
-  ): [Organization!]!
-
-  """
-  fetch aggregated fields from the table: "Organization"
-  """
-  Organization_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Organization_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Organization_order_by!]
-
-    """filter the rows returned"""
-    where: Organization_bool_exp
-  ): Organization_aggregate!
-
-  """fetch data from the table: "Organization" using primary key columns"""
-  Organization_by_pk(id: Int!): Organization
-
-  """
-  fetch data from the table in a streaming manner: "Organization"
-  """
-  Organization_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Organization_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Organization_bool_exp
-  ): [Organization!]!
-
-  """
-  fetch data from the table: "Permission"
-  """
-  Permission(
-    """distinct select on columns"""
-    distinct_on: [Permission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Permission_order_by!]
-
-    """filter the rows returned"""
-    where: Permission_bool_exp
-  ): [Permission!]!
+  ): OrganizationConnection!
 
   """
   fetch data from the table: "PermissionGroup"
   """
-  PermissionGroup(
+  PermissionGroup_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [PermissionGroup_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [PermissionGroup_order_by!]
 
     """filter the rows returned"""
     where: PermissionGroup_bool_exp
-  ): [PermissionGroup!]!
+  ): PermissionGroupConnection!
 
   """
-  fetch aggregated fields from the table: "PermissionGroup"
+  fetch data from the table: "Permission"
   """
-  PermissionGroup_aggregate(
-    """distinct select on columns"""
-    distinct_on: [PermissionGroup_select_column!]
+  Permission_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [PermissionGroup_order_by!]
-
-    """filter the rows returned"""
-    where: PermissionGroup_bool_exp
-  ): PermissionGroup_aggregate!
-
-  """fetch data from the table: "PermissionGroup" using primary key columns"""
-  PermissionGroup_by_pk(id: Int!): PermissionGroup
-
-  """
-  fetch data from the table in a streaming manner: "PermissionGroup"
-  """
-  PermissionGroup_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [PermissionGroup_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: PermissionGroup_bool_exp
-  ): [PermissionGroup!]!
-
-  """
-  fetch aggregated fields from the table: "Permission"
-  """
-  Permission_aggregate(
     """distinct select on columns"""
     distinct_on: [Permission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Permission_order_by!]
 
     """filter the rows returned"""
     where: Permission_bool_exp
-  ): Permission_aggregate!
-
-  """fetch data from the table: "Permission" using primary key columns"""
-  Permission_by_pk(id: Int!): Permission
-
-  """
-  fetch data from the table in a streaming manner: "Permission"
-  """
-  Permission_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Permission_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Permission_bool_exp
-  ): [Permission!]!
+  ): PermissionConnection!
 
   """
   fetch data from the table: "Post"
   """
-  Post(
+  Post_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Post_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Post_order_by!]
 
     """filter the rows returned"""
     where: Post_bool_exp
-  ): [Post!]!
-
-  """
-  fetch aggregated fields from the table: "Post"
-  """
-  Post_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Post_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Post_order_by!]
-
-    """filter the rows returned"""
-    where: Post_bool_exp
-  ): Post_aggregate!
-
-  """fetch data from the table: "Post" using primary key columns"""
-  Post_by_pk(id: Int!): Post
-
-  """
-  fetch data from the table in a streaming manner: "Post"
-  """
-  Post_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Post_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Post_bool_exp
-  ): [Post!]!
-
-  """
-  fetch data from the table: "Resource"
-  """
-  Resource(
-    """distinct select on columns"""
-    distinct_on: [Resource_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Resource_order_by!]
-
-    """filter the rows returned"""
-    where: Resource_bool_exp
-  ): [Resource!]!
+  ): PostConnection!
 
   """
   fetch data from the table: "ResourceItem"
   """
-  ResourceItem(
+  ResourceItem_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [ResourceItem_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [ResourceItem_order_by!]
 
     """filter the rows returned"""
     where: ResourceItem_bool_exp
-  ): [ResourceItem!]!
+  ): ResourceItemConnection!
 
   """
-  fetch aggregated fields from the table: "ResourceItem"
+  fetch data from the table: "Resource"
   """
-  ResourceItem_aggregate(
-    """distinct select on columns"""
-    distinct_on: [ResourceItem_select_column!]
+  Resource_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [ResourceItem_order_by!]
-
-    """filter the rows returned"""
-    where: ResourceItem_bool_exp
-  ): ResourceItem_aggregate!
-
-  """fetch data from the table: "ResourceItem" using primary key columns"""
-  ResourceItem_by_pk(id: Int!): ResourceItem
-
-  """
-  fetch data from the table in a streaming manner: "ResourceItem"
-  """
-  ResourceItem_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [ResourceItem_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: ResourceItem_bool_exp
-  ): [ResourceItem!]!
-
-  """
-  fetch aggregated fields from the table: "Resource"
-  """
-  Resource_aggregate(
     """distinct select on columns"""
     distinct_on: [Resource_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Resource_order_by!]
 
     """filter the rows returned"""
     where: Resource_bool_exp
-  ): Resource_aggregate!
+  ): ResourceConnection!
 
-  """fetch data from the table: "Resource" using primary key columns"""
-  Resource_by_pk(id: Int!): Resource
+  """An array relationship connection"""
+  Settings_connection(
+    after: String
+    before: String
 
-  """
-  fetch data from the table in a streaming manner: "Resource"
-  """
-  Resource_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Resource_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Resource_bool_exp
-  ): [Resource!]!
-
-  """An array relationship"""
-  Settings(
     """distinct select on columns"""
     distinct_on: [Settings_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Settings_order_by!]
 
     """filter the rows returned"""
     where: Settings_bool_exp
-  ): [Settings!]!
-
-  """An aggregate relationship"""
-  Settings_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Settings_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Settings_order_by!]
-
-    """filter the rows returned"""
-    where: Settings_bool_exp
-  ): Settings_aggregate!
-
-  """fetch data from the table: "Settings" using primary key columns"""
-  Settings_by_pk(id: Int!): Settings
-
-  """
-  fetch data from the table in a streaming manner: "Settings"
-  """
-  Settings_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Settings_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Settings_bool_exp
-  ): [Settings!]!
-
-  """
-  fetch data from the table: "Task"
-  """
-  Task(
-    """distinct select on columns"""
-    distinct_on: [Task_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Task_order_by!]
-
-    """filter the rows returned"""
-    where: Task_bool_exp
-  ): [Task!]!
+  ): SettingsConnection!
 
   """
   fetch data from the table: "TaskDefinition"
   """
-  TaskDefinition(
+  TaskDefinition_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [TaskDefinition_order_by!]
 
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
+  ): TaskDefinitionConnection!
 
   """
-  fetch aggregated fields from the table: "TaskDefinition"
+  fetch data from the table: "Task"
   """
-  TaskDefinition_aggregate(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
+  Task_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinition_aggregate!
-
-  """fetch data from the table: "TaskDefinition" using primary key columns"""
-  TaskDefinition_by_pk(id: Int!): TaskDefinition
-
-  """
-  fetch data from the table in a streaming manner: "TaskDefinition"
-  """
-  TaskDefinition_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [TaskDefinition_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
-
-  """
-  fetch aggregated fields from the table: "Task"
-  """
-  Task_aggregate(
     """distinct select on columns"""
     distinct_on: [Task_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Task_order_by!]
 
     """filter the rows returned"""
     where: Task_bool_exp
-  ): Task_aggregate!
-
-  """fetch data from the table: "Task" using primary key columns"""
-  Task_by_pk(id: Int!): Task
-
-  """
-  fetch data from the table in a streaming manner: "Task"
-  """
-  Task_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Task_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Task_bool_exp
-  ): [Task!]!
+  ): TaskConnection!
 
   """
   fetch data from the table: "Team"
   """
-  Team(
+  Team_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Team_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Team_order_by!]
 
     """filter the rows returned"""
     where: Team_bool_exp
-  ): [Team!]!
-
-  """
-  fetch aggregated fields from the table: "Team"
-  """
-  Team_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Team_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Team_order_by!]
-
-    """filter the rows returned"""
-    where: Team_bool_exp
-  ): Team_aggregate!
-
-  """fetch data from the table: "Team" using primary key columns"""
-  Team_by_pk(id: Int!): Team
-
-  """
-  fetch data from the table in a streaming manner: "Team"
-  """
-  Team_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Team_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Team_bool_exp
-  ): [Team!]!
+  ): TeamConnection!
 
   """
   fetch data from the table: "Trigger"
   """
-  Trigger(
+  Trigger_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Trigger_order_by!]
 
     """filter the rows returned"""
     where: Trigger_bool_exp
-  ): [Trigger!]!
-
-  """
-  fetch aggregated fields from the table: "Trigger"
-  """
-  Trigger_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Trigger_order_by!]
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): Trigger_aggregate!
-
-  """fetch data from the table: "Trigger" using primary key columns"""
-  Trigger_by_pk(id: Int!): Trigger
-
-  """
-  fetch data from the table in a streaming manner: "Trigger"
-  """
-  Trigger_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Trigger_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): [Trigger!]!
-
-  """
-  fetch data from the table: "User"
-  """
-  User(
-    """distinct select on columns"""
-    distinct_on: [User_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [User_order_by!]
-
-    """filter the rows returned"""
-    where: User_bool_exp
-  ): [User!]!
+  ): TriggerConnection!
 
   """
   fetch data from the table: "UserPermission"
   """
-  UserPermission(
+  UserPermission_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [UserPermission_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [UserPermission_order_by!]
 
     """filter the rows returned"""
     where: UserPermission_bool_exp
-  ): [UserPermission!]!
+  ): UserPermissionConnection!
 
   """
-  fetch aggregated fields from the table: "UserPermission"
+  fetch data from the table: "User"
   """
-  UserPermission_aggregate(
-    """distinct select on columns"""
-    distinct_on: [UserPermission_select_column!]
+  User_connection(
+    after: String
+    before: String
 
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [UserPermission_order_by!]
-
-    """filter the rows returned"""
-    where: UserPermission_bool_exp
-  ): UserPermission_aggregate!
-
-  """fetch data from the table: "UserPermission" using primary key columns"""
-  UserPermission_by_pk(id: Int!): UserPermission
-
-  """
-  fetch data from the table in a streaming manner: "UserPermission"
-  """
-  UserPermission_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [UserPermission_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: UserPermission_bool_exp
-  ): [UserPermission!]!
-
-  """
-  fetch aggregated fields from the table: "User"
-  """
-  User_aggregate(
     """distinct select on columns"""
     distinct_on: [User_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [User_order_by!]
 
     """filter the rows returned"""
     where: User_bool_exp
-  ): User_aggregate!
-
-  """fetch data from the table: "User" using primary key columns"""
-  User_by_pk(id: Int!): User
-
-  """
-  fetch data from the table in a streaming manner: "User"
-  """
-  User_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [User_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: User_bool_exp
-  ): [User!]!
+  ): UserConnection!
 
   """
   fetch data from the table: "Workflow"
   """
-  Workflow(
+  Workflow_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [Workflow_order_by!]
 
     """filter the rows returned"""
     where: Workflow_bool_exp
-  ): [Workflow!]!
-
-  """
-  fetch aggregated fields from the table: "Workflow"
-  """
-  Workflow_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): Workflow_aggregate!
-
-  """fetch data from the table: "Workflow" using primary key columns"""
-  Workflow_by_pk(id: Int!): Workflow
-
-  """
-  fetch data from the table in a streaming manner: "Workflow"
-  """
-  Workflow_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [Workflow_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): [Workflow!]!
+  ): WorkflowConnection!
 
   """
   fetch data from the table: "_prisma_migrations"
   """
-  _prisma_migrations(
+  _prisma_migrations_connection(
+    after: String
+    before: String
+
     """distinct select on columns"""
     distinct_on: [_prisma_migrations_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
+    first: Int
+    last: Int
 
     """sort the rows by one or more columns"""
     order_by: [_prisma_migrations_order_by!]
 
     """filter the rows returned"""
     where: _prisma_migrations_bool_exp
-  ): [_prisma_migrations!]!
-
-  """
-  fetch aggregated fields from the table: "_prisma_migrations"
-  """
-  _prisma_migrations_aggregate(
-    """distinct select on columns"""
-    distinct_on: [_prisma_migrations_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [_prisma_migrations_order_by!]
-
-    """filter the rows returned"""
-    where: _prisma_migrations_bool_exp
-  ): _prisma_migrations_aggregate!
-
-  """
-  fetch data from the table: "_prisma_migrations" using primary key columns
-  """
-  _prisma_migrations_by_pk(id: String!): _prisma_migrations
-
-  """
-  fetch data from the table in a streaming manner: "_prisma_migrations"
-  """
-  _prisma_migrations_stream(
-    """maximum number of rows returned in a single batch"""
-    batch_size: Int!
-
-    """cursor to stream the results returned by the query"""
-    cursor: [_prisma_migrations_stream_cursor_input]!
-
-    """filter the rows returned"""
-    where: _prisma_migrations_bool_exp
-  ): [_prisma_migrations!]!
+  ): _prisma_migrationsConnection!
+  node(
+    """A globally unique id"""
+    id: ID!
+  ): Node
 }
 
 scalar timestamp

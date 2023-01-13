@@ -15,7 +15,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({ id }) => {
   });
   return (
     <>
-      <TaskDetailPage taskDetail={data?.Task_by_pk} />
+      <TaskDetailPage taskDetail={data?.node} />
     </>
   );
 };
