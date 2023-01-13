@@ -24,6 +24,7 @@ const FormConfirm: React.FC<FormConfirmProps> = ({ onConfirm }) => {
   // fix sau
   return (
     <div className={classes.container}>
+      {/* @ts-ignore */}
       <FormSchema formId={33} onSubmit={onConfirm} />
     </div>
   );

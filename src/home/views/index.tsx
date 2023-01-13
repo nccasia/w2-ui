@@ -18,12 +18,12 @@ const HomeSection = () => {
 
   const { dataHomePage } = { dataHomePage: undefined };
 
-  const { data } = useGetEventLogsQuery({
-    variables: {},
-  });
+  const { data } = useGetEventLogsQuery();
+  const mapEdgesToEventLogs = mapEdgesToItems(data.EventLog_connection);
   return (
     <HomePage
-      eventLog={data}
+      // @ts-ignore
+      eventLog={mapEdgesToEventLogs}
       quantityTasks={quantity}
       sales={dataHomePage?.salesToday?.gross}
       topTasks={mapEdgesToItems(dataHomePage?.tasksTopToday)}
