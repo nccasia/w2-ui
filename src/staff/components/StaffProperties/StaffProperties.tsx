@@ -114,7 +114,6 @@ const StaffProperties: React.FC<StaffPropertiesProps> = props => {
     onImageDelete,
     onImageUpload,
   } = props;
-
   const classes = useStyles(props);
   const intl = useIntl();
   const imgInputAnchor = React.createRef<HTMLInputElement>();
@@ -125,8 +124,6 @@ const StaffProperties: React.FC<StaffPropertiesProps> = props => {
     errors || [],
   );
 
-  // eslint-disable-next-line no-console
-  console.log("111", data);
   const hasAvatar = !!staffMember?.avatar?.url;
 
   const getFieldProps = (name: string) => ({

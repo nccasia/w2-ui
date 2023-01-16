@@ -19,7 +19,7 @@ const HomeSection = () => {
   const { dataHomePage } = { dataHomePage: undefined };
 
   const { data } = useGetEventLogsQuery();
-  const mapEdgesToEventLogs = mapEdgesToItems(data.EventLog_connection);
+  const mapEdgesToEventLogs = mapEdgesToItems(data?.EventLog_connection);
   return (
     <HomePage
       // @ts-ignore

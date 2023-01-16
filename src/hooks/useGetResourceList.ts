@@ -9,11 +9,6 @@ export function useGetResourceList(resourceId: number) {
       id: resourceIdRelay,
     },
   });
-  // eslint-disable-next-line no-console
-  console.log(
-    "🚀 ~ file: useGetResourceList.ts:12 ~ useGetResourceList ~ data",
-    data,
-  );
 
   const options = useMemo(() => {
     if (!data || !data.node || data.node.__typename !== "Resource") {

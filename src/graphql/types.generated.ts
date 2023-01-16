@@ -16,7 +16,6 @@ export type Scalars = {
   JWT: any;
   Role: any;
   TaskPriority: any;
-  TaskStatus: any;
   TriggerType: any;
   jsonb: any;
   timestamp: any;
@@ -972,6 +971,8 @@ export type File_Bool_Exp = {
   Files?: InputMaybe<File_Bool_Exp>;
   Files_aggregate?: InputMaybe<File_Aggregate_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
+  Users?: InputMaybe<User_Bool_Exp>;
+  Users_aggregate?: InputMaybe<User_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<File_Bool_Exp>>;
   _not?: InputMaybe<File_Bool_Exp>;
   _or?: InputMaybe<Array<File_Bool_Exp>>;
@@ -1009,6 +1010,7 @@ export type File_Insert_Input = {
   File?: InputMaybe<File_Obj_Rel_Insert_Input>;
   Files?: InputMaybe<File_Arr_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  Users?: InputMaybe<User_Arr_Rel_Insert_Input>;
   cdnUrl?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   data?: InputMaybe<Scalars['String']>;
@@ -1080,6 +1082,7 @@ export type File_Order_By = {
   File?: InputMaybe<File_Order_By>;
   Files_aggregate?: InputMaybe<File_Aggregate_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
+  Users_aggregate?: InputMaybe<User_Aggregate_Order_By>;
   cdnUrl?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   data?: InputMaybe<Order_By>;
@@ -3070,6 +3073,11 @@ export type Settings_Aggregate_Order_By = {
   variance?: InputMaybe<Settings_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Settings_Append_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "Settings" */
 export type Settings_Arr_Rel_Insert_Input = {
   data: Array<Settings_Insert_Input>;
@@ -3094,7 +3102,7 @@ export type Settings_Bool_Exp = {
   key?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  value?: InputMaybe<String_Comparison_Exp>;
+  value?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "Settings" */
@@ -3102,6 +3110,21 @@ export enum Settings_Constraint {
   /** unique or primary key constraint on columns "id" */
   SETTINGS_PKEY = 'Settings_pkey'
 }
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Settings_Delete_At_Path_Input = {
+  value?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Settings_Delete_Elem_Input = {
+  value?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Settings_Delete_Key_Input = {
+  value?: InputMaybe<Scalars['String']>;
+};
 
 /** input type for incrementing numeric columns in table "Settings" */
 export type Settings_Inc_Input = {
@@ -3117,7 +3140,7 @@ export type Settings_Insert_Input = {
   key?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  value?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** order by max() on columns of table "Settings" */
@@ -3127,7 +3150,6 @@ export type Settings_Max_Order_By = {
   key?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  value?: InputMaybe<Order_By>;
 };
 
 /** order by min() on columns of table "Settings" */
@@ -3137,7 +3159,6 @@ export type Settings_Min_Order_By = {
   key?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  value?: InputMaybe<Order_By>;
 };
 
 /** on_conflict condition type for table "Settings" */
@@ -3163,6 +3184,11 @@ export type Settings_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Settings_Prepend_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "Settings" */
 export enum Settings_Select_Column {
   /** column name */
@@ -3186,7 +3212,7 @@ export type Settings_Set_Input = {
   key?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  value?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** order by stddev() on columns of table "Settings" */
@@ -3230,8 +3256,18 @@ export enum Settings_Update_Column {
 }
 
 export type Settings_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Settings_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Settings_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Settings_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Settings_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Settings_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Settings_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Settings_Set_Input>;
   where: Settings_Bool_Exp;
@@ -3320,7 +3356,7 @@ export type TaskDefinition_Append_Input = {
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
-  stageConfig?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   statusConfig?: InputMaybe<Scalars['jsonb']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
 };
@@ -3371,7 +3407,7 @@ export type TaskDefinition_Bool_Exp = {
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   parentId?: InputMaybe<Int_Comparison_Exp>;
   processConfig?: InputMaybe<Jsonb_Comparison_Exp>;
-  stageConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  stateConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   stateTemplate?: InputMaybe<String_Comparison_Exp>;
   statusConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   statusTemplate?: InputMaybe<String_Comparison_Exp>;
@@ -3395,7 +3431,7 @@ export type TaskDefinition_Delete_At_Path_Input = {
   ctaConfig?: InputMaybe<Array<Scalars['String']>>;
   notificationConfig?: InputMaybe<Array<Scalars['String']>>;
   processConfig?: InputMaybe<Array<Scalars['String']>>;
-  stageConfig?: InputMaybe<Array<Scalars['String']>>;
+  stateConfig?: InputMaybe<Array<Scalars['String']>>;
   statusConfig?: InputMaybe<Array<Scalars['String']>>;
   triggerConfig?: InputMaybe<Array<Scalars['String']>>;
 };
@@ -3406,7 +3442,7 @@ export type TaskDefinition_Delete_Elem_Input = {
   ctaConfig?: InputMaybe<Scalars['Int']>;
   notificationConfig?: InputMaybe<Scalars['Int']>;
   processConfig?: InputMaybe<Scalars['Int']>;
-  stageConfig?: InputMaybe<Scalars['Int']>;
+  stateConfig?: InputMaybe<Scalars['Int']>;
   statusConfig?: InputMaybe<Scalars['Int']>;
   triggerConfig?: InputMaybe<Scalars['Int']>;
 };
@@ -3417,7 +3453,7 @@ export type TaskDefinition_Delete_Key_Input = {
   ctaConfig?: InputMaybe<Scalars['String']>;
   notificationConfig?: InputMaybe<Scalars['String']>;
   processConfig?: InputMaybe<Scalars['String']>;
-  stageConfig?: InputMaybe<Scalars['String']>;
+  stateConfig?: InputMaybe<Scalars['String']>;
   statusConfig?: InputMaybe<Scalars['String']>;
   triggerConfig?: InputMaybe<Scalars['String']>;
 };
@@ -3456,7 +3492,7 @@ export type TaskDefinition_Insert_Input = {
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
-  stageConfig?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateTemplate?: InputMaybe<Scalars['String']>;
   statusConfig?: InputMaybe<Scalars['jsonb']>;
   statusTemplate?: InputMaybe<Scalars['String']>;
@@ -3550,7 +3586,7 @@ export type TaskDefinition_Order_By = {
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   processConfig?: InputMaybe<Order_By>;
-  stageConfig?: InputMaybe<Order_By>;
+  stateConfig?: InputMaybe<Order_By>;
   stateTemplate?: InputMaybe<Order_By>;
   statusConfig?: InputMaybe<Order_By>;
   statusTemplate?: InputMaybe<Order_By>;
@@ -3573,7 +3609,7 @@ export type TaskDefinition_Prepend_Input = {
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
-  stageConfig?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   statusConfig?: InputMaybe<Scalars['jsonb']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
 };
@@ -3611,7 +3647,7 @@ export enum TaskDefinition_Select_Column {
   /** column name */
   PROCESSCONFIG = 'processConfig',
   /** column name */
-  STAGECONFIG = 'stageConfig',
+  STATECONFIG = 'stateConfig',
   /** column name */
   STATETEMPLATE = 'stateTemplate',
   /** column name */
@@ -3649,7 +3685,7 @@ export type TaskDefinition_Set_Input = {
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
-  stageConfig?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateTemplate?: InputMaybe<Scalars['String']>;
   statusConfig?: InputMaybe<Scalars['jsonb']>;
   statusTemplate?: InputMaybe<Scalars['String']>;
@@ -3734,7 +3770,7 @@ export enum TaskDefinition_Update_Column {
   /** column name */
   PROCESSCONFIG = 'processConfig',
   /** column name */
-  STAGECONFIG = 'stageConfig',
+  STATECONFIG = 'stateConfig',
   /** column name */
   STATETEMPLATE = 'stateTemplate',
   /** column name */
@@ -3816,21 +3852,24 @@ export type TaskPriority_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['TaskPriority']>>;
 };
 
-/** Boolean expression to compare columns of type "TaskStatus". All fields are combined with logical 'AND'. */
-export type TaskStatus_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['TaskStatus']>;
-  _gt?: InputMaybe<Scalars['TaskStatus']>;
-  _gte?: InputMaybe<Scalars['TaskStatus']>;
-  _in?: InputMaybe<Array<Scalars['TaskStatus']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['TaskStatus']>;
-  _lte?: InputMaybe<Scalars['TaskStatus']>;
-  _neq?: InputMaybe<Scalars['TaskStatus']>;
-  _nin?: InputMaybe<Array<Scalars['TaskStatus']>>;
+export type Task_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Task_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Task_Aggregate_Bool_Exp_Bool_Or>;
+  count?: InputMaybe<Task_Aggregate_Bool_Exp_Count>;
 };
 
-export type Task_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Task_Aggregate_Bool_Exp_Count>;
+export type Task_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Task_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Task_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Task_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
 };
 
 export type Task_Aggregate_Bool_Exp_Count = {
@@ -3857,6 +3896,14 @@ export type Task_Aggregate_Order_By = {
 
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Task_Append_Input = {
+  config?: InputMaybe<Scalars['jsonb']>;
+  ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  notificationConfig?: InputMaybe<Scalars['jsonb']>;
+  processConfig?: InputMaybe<Scalars['jsonb']>;
+  properties?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
+  statusConfig?: InputMaybe<Scalars['jsonb']>;
+  triggerConfig?: InputMaybe<Scalars['jsonb']>;
   values?: InputMaybe<Scalars['jsonb']>;
 };
 
@@ -3895,21 +3942,41 @@ export type Task_Bool_Exp = {
   _not?: InputMaybe<Task_Bool_Exp>;
   _or?: InputMaybe<Array<Task_Bool_Exp>>;
   assigneeId?: InputMaybe<Int_Comparison_Exp>;
+  config?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   creatorId?: InputMaybe<Int_Comparison_Exp>;
+  cta?: InputMaybe<String_Comparison_Exp>;
+  ctaConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   ctaName?: InputMaybe<String_Comparison_Exp>;
+  ctaTemplate?: InputMaybe<String_Comparison_Exp>;
   definitionId?: InputMaybe<Int_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  descriptionTemplate?: InputMaybe<String_Comparison_Exp>;
   dueDate?: InputMaybe<Timestamp_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  isActve?: InputMaybe<Boolean_Comparison_Exp>;
+  notificationConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  notificationTemplate?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   parentId?: InputMaybe<Int_Comparison_Exp>;
   priority?: InputMaybe<TaskPriority_Comparison_Exp>;
+  processConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  properties?: InputMaybe<Jsonb_Comparison_Exp>;
+  state?: InputMaybe<String_Comparison_Exp>;
+  stateConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   stateName?: InputMaybe<String_Comparison_Exp>;
-  status?: InputMaybe<TaskStatus_Comparison_Exp>;
+  stateTemplate?: InputMaybe<String_Comparison_Exp>;
+  stateValues?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
+  statusConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   statusName?: InputMaybe<String_Comparison_Exp>;
+  statusTemplate?: InputMaybe<String_Comparison_Exp>;
   teamId?: InputMaybe<Int_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
+  titleTemplate?: InputMaybe<String_Comparison_Exp>;
+  triggerConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  type?: InputMaybe<String_Comparison_Exp>;
+  typeName?: InputMaybe<String_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
   userByCreatorid?: InputMaybe<User_Bool_Exp>;
   values?: InputMaybe<Jsonb_Comparison_Exp>;
@@ -3923,16 +3990,40 @@ export enum Task_Constraint {
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Task_Delete_At_Path_Input = {
+  config?: InputMaybe<Array<Scalars['String']>>;
+  ctaConfig?: InputMaybe<Array<Scalars['String']>>;
+  notificationConfig?: InputMaybe<Array<Scalars['String']>>;
+  processConfig?: InputMaybe<Array<Scalars['String']>>;
+  properties?: InputMaybe<Array<Scalars['String']>>;
+  stateConfig?: InputMaybe<Array<Scalars['String']>>;
+  statusConfig?: InputMaybe<Array<Scalars['String']>>;
+  triggerConfig?: InputMaybe<Array<Scalars['String']>>;
   values?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type Task_Delete_Elem_Input = {
+  config?: InputMaybe<Scalars['Int']>;
+  ctaConfig?: InputMaybe<Scalars['Int']>;
+  notificationConfig?: InputMaybe<Scalars['Int']>;
+  processConfig?: InputMaybe<Scalars['Int']>;
+  properties?: InputMaybe<Scalars['Int']>;
+  stateConfig?: InputMaybe<Scalars['Int']>;
+  statusConfig?: InputMaybe<Scalars['Int']>;
+  triggerConfig?: InputMaybe<Scalars['Int']>;
   values?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type Task_Delete_Key_Input = {
+  config?: InputMaybe<Scalars['String']>;
+  ctaConfig?: InputMaybe<Scalars['String']>;
+  notificationConfig?: InputMaybe<Scalars['String']>;
+  processConfig?: InputMaybe<Scalars['String']>;
+  properties?: InputMaybe<Scalars['String']>;
+  stateConfig?: InputMaybe<Scalars['String']>;
+  statusConfig?: InputMaybe<Scalars['String']>;
+  triggerConfig?: InputMaybe<Scalars['String']>;
   values?: InputMaybe<Scalars['String']>;
 };
 
@@ -3958,21 +4049,41 @@ export type Task_Insert_Input = {
   Team?: InputMaybe<Team_Obj_Rel_Insert_Input>;
   User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   assigneeId?: InputMaybe<Scalars['Int']>;
+  config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   creatorId?: InputMaybe<Scalars['Int']>;
+  cta?: InputMaybe<Scalars['String']>;
+  ctaConfig?: InputMaybe<Scalars['jsonb']>;
   ctaName?: InputMaybe<Scalars['String']>;
+  ctaTemplate?: InputMaybe<Scalars['String']>;
   definitionId?: InputMaybe<Scalars['Int']>;
   description?: InputMaybe<Scalars['String']>;
+  descriptionTemplate?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['Int']>;
+  isActve?: InputMaybe<Scalars['Boolean']>;
+  notificationConfig?: InputMaybe<Scalars['jsonb']>;
+  notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   priority?: InputMaybe<Scalars['TaskPriority']>;
+  processConfig?: InputMaybe<Scalars['jsonb']>;
+  properties?: InputMaybe<Scalars['jsonb']>;
+  state?: InputMaybe<Scalars['String']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateName?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['TaskStatus']>;
+  stateTemplate?: InputMaybe<Scalars['String']>;
+  stateValues?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  statusConfig?: InputMaybe<Scalars['jsonb']>;
   statusName?: InputMaybe<Scalars['String']>;
+  statusTemplate?: InputMaybe<Scalars['String']>;
   teamId?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
+  titleTemplate?: InputMaybe<Scalars['String']>;
+  triggerConfig?: InputMaybe<Scalars['jsonb']>;
+  type?: InputMaybe<Scalars['String']>;
+  typeName?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   userByCreatorid?: InputMaybe<User_Obj_Rel_Insert_Input>;
   values?: InputMaybe<Scalars['jsonb']>;
@@ -3983,19 +4094,30 @@ export type Task_Max_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
+  cta?: InputMaybe<Order_By>;
   ctaName?: InputMaybe<Order_By>;
+  ctaTemplate?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
+  state?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
+  stateTemplate?: InputMaybe<Order_By>;
+  stateValues?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   statusName?: InputMaybe<Order_By>;
+  statusTemplate?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  titleTemplate?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  typeName?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
 
@@ -4004,19 +4126,30 @@ export type Task_Min_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
+  cta?: InputMaybe<Order_By>;
   ctaName?: InputMaybe<Order_By>;
+  ctaTemplate?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
+  state?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
+  stateTemplate?: InputMaybe<Order_By>;
+  stateValues?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   statusName?: InputMaybe<Order_By>;
+  statusTemplate?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  titleTemplate?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  typeName?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
 
@@ -4045,21 +4178,41 @@ export type Task_Order_By = {
   Team?: InputMaybe<Team_Order_By>;
   User?: InputMaybe<User_Order_By>;
   assigneeId?: InputMaybe<Order_By>;
+  config?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
+  cta?: InputMaybe<Order_By>;
+  ctaConfig?: InputMaybe<Order_By>;
   ctaName?: InputMaybe<Order_By>;
+  ctaTemplate?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  isActve?: InputMaybe<Order_By>;
+  notificationConfig?: InputMaybe<Order_By>;
+  notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
+  processConfig?: InputMaybe<Order_By>;
+  properties?: InputMaybe<Order_By>;
+  state?: InputMaybe<Order_By>;
+  stateConfig?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
+  stateTemplate?: InputMaybe<Order_By>;
+  stateValues?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  statusConfig?: InputMaybe<Order_By>;
   statusName?: InputMaybe<Order_By>;
+  statusTemplate?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
+  titleTemplate?: InputMaybe<Order_By>;
+  triggerConfig?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  typeName?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
   userByCreatorid?: InputMaybe<User_Order_By>;
   values?: InputMaybe<Order_By>;
@@ -4072,6 +4225,14 @@ export type Task_Pk_Columns_Input = {
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type Task_Prepend_Input = {
+  config?: InputMaybe<Scalars['jsonb']>;
+  ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  notificationConfig?: InputMaybe<Scalars['jsonb']>;
+  processConfig?: InputMaybe<Scalars['jsonb']>;
+  properties?: InputMaybe<Scalars['jsonb']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
+  statusConfig?: InputMaybe<Scalars['jsonb']>;
+  triggerConfig?: InputMaybe<Scalars['jsonb']>;
   values?: InputMaybe<Scalars['jsonb']>;
 };
 
@@ -4080,19 +4241,35 @@ export enum Task_Select_Column {
   /** column name */
   ASSIGNEEID = 'assigneeId',
   /** column name */
+  CONFIG = 'config',
+  /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
   CREATORID = 'creatorId',
   /** column name */
+  CTA = 'cta',
+  /** column name */
+  CTACONFIG = 'ctaConfig',
+  /** column name */
   CTANAME = 'ctaName',
+  /** column name */
+  CTATEMPLATE = 'ctaTemplate',
   /** column name */
   DEFINITIONID = 'definitionId',
   /** column name */
   DESCRIPTION = 'description',
   /** column name */
+  DESCRIPTIONTEMPLATE = 'descriptionTemplate',
+  /** column name */
   DUEDATE = 'dueDate',
   /** column name */
   ID = 'id',
+  /** column name */
+  ISACTVE = 'isActve',
+  /** column name */
+  NOTIFICATIONCONFIG = 'notificationConfig',
+  /** column name */
+  NOTIFICATIONTEMPLATE = 'notificationTemplate',
   /** column name */
   ORGANIZATIONID = 'organizationId',
   /** column name */
@@ -4100,39 +4277,95 @@ export enum Task_Select_Column {
   /** column name */
   PRIORITY = 'priority',
   /** column name */
+  PROCESSCONFIG = 'processConfig',
+  /** column name */
+  PROPERTIES = 'properties',
+  /** column name */
+  STATE = 'state',
+  /** column name */
+  STATECONFIG = 'stateConfig',
+  /** column name */
   STATENAME = 'stateName',
+  /** column name */
+  STATETEMPLATE = 'stateTemplate',
+  /** column name */
+  STATEVALUES = 'stateValues',
   /** column name */
   STATUS = 'status',
   /** column name */
+  STATUSCONFIG = 'statusConfig',
+  /** column name */
   STATUSNAME = 'statusName',
+  /** column name */
+  STATUSTEMPLATE = 'statusTemplate',
   /** column name */
   TEAMID = 'teamId',
   /** column name */
   TITLE = 'title',
+  /** column name */
+  TITLETEMPLATE = 'titleTemplate',
+  /** column name */
+  TRIGGERCONFIG = 'triggerConfig',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  TYPENAME = 'typeName',
   /** column name */
   UPDATEDAT = 'updatedAt',
   /** column name */
   VALUES = 'values'
 }
 
+/** select "Task_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Task" */
+export enum Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  ISACTVE = 'isActve'
+}
+
+/** select "Task_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Task" */
+export enum Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  ISACTVE = 'isActve'
+}
+
 /** input type for updating data in table "Task" */
 export type Task_Set_Input = {
   assigneeId?: InputMaybe<Scalars['Int']>;
+  config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   creatorId?: InputMaybe<Scalars['Int']>;
+  cta?: InputMaybe<Scalars['String']>;
+  ctaConfig?: InputMaybe<Scalars['jsonb']>;
   ctaName?: InputMaybe<Scalars['String']>;
+  ctaTemplate?: InputMaybe<Scalars['String']>;
   definitionId?: InputMaybe<Scalars['Int']>;
   description?: InputMaybe<Scalars['String']>;
+  descriptionTemplate?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['timestamp']>;
   id?: InputMaybe<Scalars['Int']>;
+  isActve?: InputMaybe<Scalars['Boolean']>;
+  notificationConfig?: InputMaybe<Scalars['jsonb']>;
+  notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   priority?: InputMaybe<Scalars['TaskPriority']>;
+  processConfig?: InputMaybe<Scalars['jsonb']>;
+  properties?: InputMaybe<Scalars['jsonb']>;
+  state?: InputMaybe<Scalars['String']>;
+  stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateName?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Scalars['TaskStatus']>;
+  stateTemplate?: InputMaybe<Scalars['String']>;
+  stateValues?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  statusConfig?: InputMaybe<Scalars['jsonb']>;
   statusName?: InputMaybe<Scalars['String']>;
+  statusTemplate?: InputMaybe<Scalars['String']>;
   teamId?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
+  titleTemplate?: InputMaybe<Scalars['String']>;
+  triggerConfig?: InputMaybe<Scalars['jsonb']>;
+  type?: InputMaybe<Scalars['String']>;
+  typeName?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   values?: InputMaybe<Scalars['jsonb']>;
 };
@@ -4186,19 +4419,35 @@ export enum Task_Update_Column {
   /** column name */
   ASSIGNEEID = 'assigneeId',
   /** column name */
+  CONFIG = 'config',
+  /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
   CREATORID = 'creatorId',
   /** column name */
+  CTA = 'cta',
+  /** column name */
+  CTACONFIG = 'ctaConfig',
+  /** column name */
   CTANAME = 'ctaName',
+  /** column name */
+  CTATEMPLATE = 'ctaTemplate',
   /** column name */
   DEFINITIONID = 'definitionId',
   /** column name */
   DESCRIPTION = 'description',
   /** column name */
+  DESCRIPTIONTEMPLATE = 'descriptionTemplate',
+  /** column name */
   DUEDATE = 'dueDate',
   /** column name */
   ID = 'id',
+  /** column name */
+  ISACTVE = 'isActve',
+  /** column name */
+  NOTIFICATIONCONFIG = 'notificationConfig',
+  /** column name */
+  NOTIFICATIONTEMPLATE = 'notificationTemplate',
   /** column name */
   ORGANIZATIONID = 'organizationId',
   /** column name */
@@ -4206,15 +4455,39 @@ export enum Task_Update_Column {
   /** column name */
   PRIORITY = 'priority',
   /** column name */
+  PROCESSCONFIG = 'processConfig',
+  /** column name */
+  PROPERTIES = 'properties',
+  /** column name */
+  STATE = 'state',
+  /** column name */
+  STATECONFIG = 'stateConfig',
+  /** column name */
   STATENAME = 'stateName',
+  /** column name */
+  STATETEMPLATE = 'stateTemplate',
+  /** column name */
+  STATEVALUES = 'stateValues',
   /** column name */
   STATUS = 'status',
   /** column name */
+  STATUSCONFIG = 'statusConfig',
+  /** column name */
   STATUSNAME = 'statusName',
+  /** column name */
+  STATUSTEMPLATE = 'statusTemplate',
   /** column name */
   TEAMID = 'teamId',
   /** column name */
   TITLE = 'title',
+  /** column name */
+  TITLETEMPLATE = 'titleTemplate',
+  /** column name */
+  TRIGGERCONFIG = 'triggerConfig',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  TYPENAME = 'typeName',
   /** column name */
   UPDATEDAT = 'updatedAt',
   /** column name */
@@ -4591,11 +4864,6 @@ export type Trigger_Aggregate_Order_By = {
   variance?: InputMaybe<Trigger_Variance_Order_By>;
 };
 
-/** append existing jsonb value of filtered columns with new jsonb value */
-export type Trigger_Append_Input = {
-  config?: InputMaybe<Scalars['jsonb']>;
-};
-
 /** input type for inserting array relation for remote table "Trigger" */
 export type Trigger_Arr_Rel_Insert_Input = {
   data: Array<Trigger_Insert_Input>;
@@ -4616,7 +4884,6 @@ export type Trigger_Bool_Exp = {
   _not?: InputMaybe<Trigger_Bool_Exp>;
   _or?: InputMaybe<Array<Trigger_Bool_Exp>>;
   activityId?: InputMaybe<Int_Comparison_Exp>;
-  config?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
@@ -4631,21 +4898,6 @@ export enum Trigger_Constraint {
   TRIGGER_PKEY = 'Trigger_pkey'
 }
 
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Trigger_Delete_At_Path_Input = {
-  config?: InputMaybe<Array<Scalars['String']>>;
-};
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Trigger_Delete_Elem_Input = {
-  config?: InputMaybe<Scalars['Int']>;
-};
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Trigger_Delete_Key_Input = {
-  config?: InputMaybe<Scalars['String']>;
-};
-
 /** input type for incrementing numeric columns in table "Trigger" */
 export type Trigger_Inc_Input = {
   activityId?: InputMaybe<Scalars['Int']>;
@@ -4656,7 +4908,6 @@ export type Trigger_Inc_Input = {
 export type Trigger_Insert_Input = {
   Activity?: InputMaybe<Activity_Obj_Rel_Insert_Input>;
   activityId?: InputMaybe<Scalars['Int']>;
-  config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -4698,7 +4949,6 @@ export type Trigger_On_Conflict = {
 export type Trigger_Order_By = {
   Activity?: InputMaybe<Activity_Order_By>;
   activityId?: InputMaybe<Order_By>;
-  config?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -4712,17 +4962,10 @@ export type Trigger_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Trigger_Prepend_Input = {
-  config?: InputMaybe<Scalars['jsonb']>;
-};
-
 /** select columns of table "Trigger" */
 export enum Trigger_Select_Column {
   /** column name */
   ACTIVITYID = 'activityId',
-  /** column name */
-  CONFIG = 'config',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -4740,7 +4983,6 @@ export enum Trigger_Select_Column {
 /** input type for updating data in table "Trigger" */
 export type Trigger_Set_Input = {
   activityId?: InputMaybe<Scalars['Int']>;
-  config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -4778,8 +5020,6 @@ export enum Trigger_Update_Column {
   /** column name */
   ACTIVITYID = 'activityId',
   /** column name */
-  CONFIG = 'config',
-  /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
   DESCRIPTION = 'description',
@@ -4794,18 +5034,8 @@ export enum Trigger_Update_Column {
 }
 
 export type Trigger_Updates = {
-  /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: InputMaybe<Trigger_Append_Input>;
-  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: InputMaybe<Trigger_Delete_At_Path_Input>;
-  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: InputMaybe<Trigger_Delete_Elem_Input>;
-  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: InputMaybe<Trigger_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Trigger_Inc_Input>;
-  /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: InputMaybe<Trigger_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Trigger_Set_Input>;
   where: Trigger_Bool_Exp;
@@ -5067,6 +5297,7 @@ export type User_Arr_Rel_Insert_Input = {
 
 /** order by avg() on columns of table "User" */
 export type User_Avg_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
@@ -5077,6 +5308,7 @@ export type User_Bool_Exp = {
   Comments_aggregate?: InputMaybe<Comment_Aggregate_Bool_Exp>;
   EventLogs?: InputMaybe<EventLog_Bool_Exp>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Bool_Exp>;
+  File?: InputMaybe<File_Bool_Exp>;
   MemberOnTeams?: InputMaybe<MemberOnTeams_Bool_Exp>;
   MemberOnTeams_aggregate?: InputMaybe<MemberOnTeams_Aggregate_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
@@ -5091,6 +5323,7 @@ export type User_Bool_Exp = {
   _and?: InputMaybe<Array<User_Bool_Exp>>;
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
+  avatarId?: InputMaybe<Int_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   firstname?: InputMaybe<String_Comparison_Exp>;
@@ -5116,6 +5349,7 @@ export enum User_Constraint {
 
 /** input type for incrementing numeric columns in table "User" */
 export type User_Inc_Input = {
+  avatarId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
   organizationId?: InputMaybe<Scalars['Int']>;
 };
@@ -5124,12 +5358,14 @@ export type User_Inc_Input = {
 export type User_Insert_Input = {
   Comments?: InputMaybe<Comment_Arr_Rel_Insert_Input>;
   EventLogs?: InputMaybe<EventLog_Arr_Rel_Insert_Input>;
+  File?: InputMaybe<File_Obj_Rel_Insert_Input>;
   MemberOnTeams?: InputMaybe<MemberOnTeams_Arr_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
   Posts?: InputMaybe<Post_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   Teams?: InputMaybe<Team_Arr_Rel_Insert_Input>;
   UserPermissions?: InputMaybe<UserPermission_Arr_Rel_Insert_Input>;
+  avatarId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   firstname?: InputMaybe<Scalars['String']>;
@@ -5145,6 +5381,7 @@ export type User_Insert_Input = {
 
 /** order by max() on columns of table "User" */
 export type User_Max_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
@@ -5158,6 +5395,7 @@ export type User_Max_Order_By = {
 
 /** order by min() on columns of table "User" */
 export type User_Min_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
@@ -5187,12 +5425,14 @@ export type User_On_Conflict = {
 export type User_Order_By = {
   Comments_aggregate?: InputMaybe<Comment_Aggregate_Order_By>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Order_By>;
+  File?: InputMaybe<File_Order_By>;
   MemberOnTeams_aggregate?: InputMaybe<MemberOnTeams_Aggregate_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
   Posts_aggregate?: InputMaybe<Post_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   Teams_aggregate?: InputMaybe<Team_Aggregate_Order_By>;
   UserPermissions_aggregate?: InputMaybe<UserPermission_Aggregate_Order_By>;
+  avatarId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
@@ -5213,6 +5453,8 @@ export type User_Pk_Columns_Input = {
 
 /** select columns of table "User" */
 export enum User_Select_Column {
+  /** column name */
+  AVATARID = 'avatarId',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -5235,6 +5477,7 @@ export enum User_Select_Column {
 
 /** input type for updating data in table "User" */
 export type User_Set_Input = {
+  avatarId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   firstname?: InputMaybe<Scalars['String']>;
@@ -5248,30 +5491,36 @@ export type User_Set_Input = {
 
 /** order by stddev() on columns of table "User" */
 export type User_Stddev_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "User" */
 export type User_Stddev_Pop_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "User" */
 export type User_Stddev_Samp_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** order by sum() on columns of table "User" */
 export type User_Sum_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "User" */
 export enum User_Update_Column {
+  /** column name */
+  AVATARID = 'avatarId',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -5302,18 +5551,21 @@ export type User_Updates = {
 
 /** order by var_pop() on columns of table "User" */
 export type User_Var_Pop_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "User" */
 export type User_Var_Samp_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "User" */
 export type User_Variance_Order_By = {
+  avatarId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
 };
@@ -5824,8 +6076,6 @@ export type CreateTaskMutationVariables = Exact<{
 
 export type CreateTaskMutation = { __typename: 'mutation_root', insert_Task: { __typename: 'Task_mutation_response', returning: Array<{ __typename: 'Task', id: string }> } | null };
 
-export type TaskDefinitionFragmentFragment = { __typename: 'TaskDefinition', id: string, formId: number | null, title: string, titleTemplate: string | null };
-
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5860,13 +6110,13 @@ export type ResourceItemFragmentFragment = { __typename: 'ResourceItem', id: str
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: any, teamId: number, title: string, stateName: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } } }> } };
+export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number, title: string, stateName: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
 
 export type TaskByPkQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any, organizationId: number, status: any, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, values: any | null, teamId: number, title: string }> } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number, title: string }> } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
 
-export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: any, priority: any, values: any | null, teamId: number, title: string };
+export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number, title: string };

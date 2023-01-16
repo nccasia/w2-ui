@@ -8,8 +8,11 @@ export const useAuthState = () => {
   const relayId = createRelayId([1, "public", "User", userId?.id]);
 
   const user = useMemo(() => {
-    return data?.node;
-  }, [data]);
+    return {
+      ...data?.node,
+      userId: userId?.id,
+    };
+  }, [data?.node, userId?.id]);
 
   const authenticated = useMemo(() => {
     return !!user;

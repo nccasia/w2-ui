@@ -1825,6 +1825,59 @@ type File implements Node {
 
   """An object relationship"""
   Organization: Organization!
+
+  """An array relationship"""
+  Users(
+    """distinct select on columns"""
+    distinct_on: [User_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [User_order_by!]
+
+    """filter the rows returned"""
+    where: User_bool_exp
+  ): [User!]!
+
+  """An aggregate relationship"""
+  Users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [User_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [User_order_by!]
+
+    """filter the rows returned"""
+    where: User_bool_exp
+  ): User_aggregate!
+
+  """An array relationship connection"""
+  Users_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [User_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [User_order_by!]
+
+    """filter the rows returned"""
+    where: User_bool_exp
+  ): UserConnection!
   cdnUrl: String!
   createdAt: timestamp!
   data: String!
@@ -1958,6 +2011,8 @@ input File_bool_exp {
   Files: File_bool_exp
   Files_aggregate: File_aggregate_bool_exp
   Organization: Organization_bool_exp
+  Users: User_bool_exp
+  Users_aggregate: User_aggregate_bool_exp
   _and: [File_bool_exp!]
   _not: File_bool_exp
   _or: [File_bool_exp!]
@@ -2003,6 +2058,7 @@ input File_insert_input {
   File: File_obj_rel_insert_input
   Files: File_arr_rel_insert_input
   Organization: Organization_obj_rel_insert_input
+  Users: User_arr_rel_insert_input
   cdnUrl: String
   createdAt: timestamp
   data: String
@@ -2130,6 +2186,7 @@ input File_order_by {
   File: File_order_by
   Files_aggregate: File_aggregate_order_by
   Organization: Organization_order_by
+  Users_aggregate: User_aggregate_order_by
   cdnUrl: order_by
   createdAt: order_by
   data: order_by
@@ -6378,7 +6435,10 @@ type Settings implements Node {
   key: String!
   organizationId: Int!
   updatedAt: timestamp!
-  value: String!
+  value(
+    """JSON select path"""
+    path: String
+  ): jsonb!
 }
 
 """
@@ -6447,6 +6507,11 @@ input Settings_aggregate_order_by {
   variance: Settings_variance_order_by
 }
 
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input Settings_append_input {
+  value: jsonb
+}
+
 """
 input type for inserting array relation for remote table "Settings"
 """
@@ -6484,7 +6549,7 @@ input Settings_bool_exp {
   key: String_comparison_exp
   organizationId: Int_comparison_exp
   updatedAt: timestamp_comparison_exp
-  value: String_comparison_exp
+  value: jsonb_comparison_exp
 }
 
 """
@@ -6495,6 +6560,27 @@ enum Settings_constraint {
   unique or primary key constraint on columns "id"
   """
   Settings_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input Settings_delete_at_path_input {
+  value: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input Settings_delete_elem_input {
+  value: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input Settings_delete_key_input {
+  value: String
 }
 
 """
@@ -6515,7 +6601,7 @@ input Settings_insert_input {
   key: String
   organizationId: Int
   updatedAt: timestamp
-  value: String
+  value: jsonb
 }
 
 """aggregate max on columns"""
@@ -6525,7 +6611,6 @@ type Settings_max_fields {
   key: String
   organizationId: Int
   updatedAt: timestamp
-  value: String
 }
 
 """
@@ -6537,7 +6622,6 @@ input Settings_max_order_by {
   key: order_by
   organizationId: order_by
   updatedAt: order_by
-  value: order_by
 }
 
 """aggregate min on columns"""
@@ -6547,7 +6631,6 @@ type Settings_min_fields {
   key: String
   organizationId: Int
   updatedAt: timestamp
-  value: String
 }
 
 """
@@ -6559,7 +6642,6 @@ input Settings_min_order_by {
   key: order_by
   organizationId: order_by
   updatedAt: order_by
-  value: order_by
 }
 
 """
@@ -6598,6 +6680,11 @@ input Settings_pk_columns_input {
   id: Int!
 }
 
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input Settings_prepend_input {
+  value: jsonb
+}
+
 """
 select columns of table "Settings"
 """
@@ -6630,7 +6717,7 @@ input Settings_set_input {
   key: String
   organizationId: Int
   updatedAt: timestamp
-  value: String
+  value: jsonb
 }
 
 """aggregate stddev on columns"""
@@ -6713,8 +6800,29 @@ enum Settings_update_column {
 }
 
 input Settings_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: Settings_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: Settings_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: Settings_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: Settings_delete_key_input
+
   """increments the numeric columns with given value of the filtered values"""
   _inc: Settings_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: Settings_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Settings_set_input
@@ -6992,23 +7100,67 @@ type Task implements Node {
   Team: Team!
 
   """An object relationship"""
-  User: User!
-  assigneeId: Int!
+  User: User
+  assigneeId: Int
+  config(
+    """JSON select path"""
+    path: String
+  ): jsonb
   createdAt: timestamp!
   creatorId: Int!
+  cta: String!
+  ctaConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   ctaName: String!
+  ctaTemplate: String
   definitionId: Int!
   description: String!
-  dueDate: timestamp!
+  descriptionTemplate: String
+  dueDate: timestamp
   id: ID!
+  isActve: Boolean!
+  notificationConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  notificationTemplate: String
   organizationId: Int!
   parentId: Int
   priority: TaskPriority!
+  processConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  properties(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  state: String!
+  stateConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   stateName: String!
-  status: TaskStatus!
+  stateTemplate: String
+  stateValues: String!
+  status: String!
+  statusConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   statusName: String!
+  statusTemplate: String
   teamId: Int!
   title: String!
+  titleTemplate: String
+  triggerConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  type: String!
+  typeName: String!
   updatedAt: timestamp!
 
   """An object relationship"""
@@ -7178,7 +7330,7 @@ type TaskDefinition implements Node {
     """JSON select path"""
     path: String
   ): jsonb
-  stageConfig(
+  stateConfig(
     """JSON select path"""
     path: String
   ): jsonb
@@ -7271,7 +7423,7 @@ input TaskDefinition_append_input {
   ctaConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
-  stageConfig: jsonb
+  stateConfig: jsonb
   statusConfig: jsonb
   triggerConfig: jsonb
 }
@@ -7339,7 +7491,7 @@ input TaskDefinition_bool_exp {
   organizationId: Int_comparison_exp
   parentId: Int_comparison_exp
   processConfig: jsonb_comparison_exp
-  stageConfig: jsonb_comparison_exp
+  stateConfig: jsonb_comparison_exp
   stateTemplate: String_comparison_exp
   statusConfig: jsonb_comparison_exp
   statusTemplate: String_comparison_exp
@@ -7369,7 +7521,7 @@ input TaskDefinition_delete_at_path_input {
   ctaConfig: [String!]
   notificationConfig: [String!]
   processConfig: [String!]
-  stageConfig: [String!]
+  stateConfig: [String!]
   statusConfig: [String!]
   triggerConfig: [String!]
 }
@@ -7382,7 +7534,7 @@ input TaskDefinition_delete_elem_input {
   ctaConfig: Int
   notificationConfig: Int
   processConfig: Int
-  stageConfig: Int
+  stateConfig: Int
   statusConfig: Int
   triggerConfig: Int
 }
@@ -7395,7 +7547,7 @@ input TaskDefinition_delete_key_input {
   ctaConfig: String
   notificationConfig: String
   processConfig: String
-  stageConfig: String
+  stateConfig: String
   statusConfig: String
   triggerConfig: String
 }
@@ -7438,7 +7590,7 @@ input TaskDefinition_insert_input {
   organizationId: Int
   parentId: Int
   processConfig: jsonb
-  stageConfig: jsonb
+  stateConfig: jsonb
   stateTemplate: String
   statusConfig: jsonb
   statusTemplate: String
@@ -7596,7 +7748,7 @@ input TaskDefinition_order_by {
   organizationId: order_by
   parentId: order_by
   processConfig: order_by
-  stageConfig: order_by
+  stateConfig: order_by
   stateTemplate: order_by
   statusConfig: order_by
   statusTemplate: order_by
@@ -7619,7 +7771,7 @@ input TaskDefinition_prepend_input {
   ctaConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
-  stageConfig: jsonb
+  stateConfig: jsonb
   statusConfig: jsonb
   triggerConfig: jsonb
 }
@@ -7674,7 +7826,7 @@ enum TaskDefinition_select_column {
   processConfig
 
   """column name"""
-  stageConfig
+  stateConfig
 
   """column name"""
   stateTemplate
@@ -7723,7 +7875,7 @@ input TaskDefinition_set_input {
   organizationId: Int
   parentId: Int
   processConfig: jsonb
-  stageConfig: jsonb
+  stateConfig: jsonb
   stateTemplate: String
   statusConfig: jsonb
   statusTemplate: String
@@ -7873,7 +8025,7 @@ enum TaskDefinition_update_column {
   processConfig
 
   """column name"""
-  stageConfig
+  stateConfig
 
   """column name"""
   stateTemplate
@@ -8021,23 +8173,6 @@ input TaskPriority_comparison_exp {
   _nin: [TaskPriority!]
 }
 
-scalar TaskStatus
-
-"""
-Boolean expression to compare columns of type "TaskStatus". All fields are combined with logical 'AND'.
-"""
-input TaskStatus_comparison_exp {
-  _eq: TaskStatus
-  _gt: TaskStatus
-  _gte: TaskStatus
-  _in: [TaskStatus!]
-  _is_null: Boolean
-  _lt: TaskStatus
-  _lte: TaskStatus
-  _neq: TaskStatus
-  _nin: [TaskStatus!]
-}
-
 """
 aggregated selection of "Task"
 """
@@ -8047,7 +8182,23 @@ type Task_aggregate {
 }
 
 input Task_aggregate_bool_exp {
+  bool_and: Task_aggregate_bool_exp_bool_and
+  bool_or: Task_aggregate_bool_exp_bool_or
   count: Task_aggregate_bool_exp_count
+}
+
+input Task_aggregate_bool_exp_bool_and {
+  arguments: Task_select_column_Task_aggregate_bool_exp_bool_and_arguments_columns!
+  distinct: Boolean
+  filter: Task_bool_exp
+  predicate: Boolean_comparison_exp!
+}
+
+input Task_aggregate_bool_exp_bool_or {
+  arguments: Task_select_column_Task_aggregate_bool_exp_bool_or_arguments_columns!
+  distinct: Boolean
+  filter: Task_bool_exp
+  predicate: Boolean_comparison_exp!
 }
 
 input Task_aggregate_bool_exp_count {
@@ -8093,6 +8244,14 @@ input Task_aggregate_order_by {
 
 """append existing jsonb value of filtered columns with new jsonb value"""
 input Task_append_input {
+  config: jsonb
+  ctaConfig: jsonb
+  notificationConfig: jsonb
+  processConfig: jsonb
+  properties: jsonb
+  stateConfig: jsonb
+  statusConfig: jsonb
+  triggerConfig: jsonb
   values: jsonb
 }
 
@@ -8149,21 +8308,41 @@ input Task_bool_exp {
   _not: Task_bool_exp
   _or: [Task_bool_exp!]
   assigneeId: Int_comparison_exp
+  config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   creatorId: Int_comparison_exp
+  cta: String_comparison_exp
+  ctaConfig: jsonb_comparison_exp
   ctaName: String_comparison_exp
+  ctaTemplate: String_comparison_exp
   definitionId: Int_comparison_exp
   description: String_comparison_exp
+  descriptionTemplate: String_comparison_exp
   dueDate: timestamp_comparison_exp
   id: Int_comparison_exp
+  isActve: Boolean_comparison_exp
+  notificationConfig: jsonb_comparison_exp
+  notificationTemplate: String_comparison_exp
   organizationId: Int_comparison_exp
   parentId: Int_comparison_exp
   priority: TaskPriority_comparison_exp
+  processConfig: jsonb_comparison_exp
+  properties: jsonb_comparison_exp
+  state: String_comparison_exp
+  stateConfig: jsonb_comparison_exp
   stateName: String_comparison_exp
-  status: TaskStatus_comparison_exp
+  stateTemplate: String_comparison_exp
+  stateValues: String_comparison_exp
+  status: String_comparison_exp
+  statusConfig: jsonb_comparison_exp
   statusName: String_comparison_exp
+  statusTemplate: String_comparison_exp
   teamId: Int_comparison_exp
   title: String_comparison_exp
+  titleTemplate: String_comparison_exp
+  triggerConfig: jsonb_comparison_exp
+  type: String_comparison_exp
+  typeName: String_comparison_exp
   updatedAt: timestamp_comparison_exp
   userByCreatorid: User_bool_exp
   values: jsonb_comparison_exp
@@ -8183,6 +8362,14 @@ enum Task_constraint {
 delete the field or element with specified path (for JSON arrays, negative integers count from the end)
 """
 input Task_delete_at_path_input {
+  config: [String!]
+  ctaConfig: [String!]
+  notificationConfig: [String!]
+  processConfig: [String!]
+  properties: [String!]
+  stateConfig: [String!]
+  statusConfig: [String!]
+  triggerConfig: [String!]
   values: [String!]
 }
 
@@ -8190,6 +8377,14 @@ input Task_delete_at_path_input {
 delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
 """
 input Task_delete_elem_input {
+  config: Int
+  ctaConfig: Int
+  notificationConfig: Int
+  processConfig: Int
+  properties: Int
+  stateConfig: Int
+  statusConfig: Int
+  triggerConfig: Int
   values: Int
 }
 
@@ -8197,6 +8392,14 @@ input Task_delete_elem_input {
 delete key/value pair or string element. key/value pairs are matched based on their key value
 """
 input Task_delete_key_input {
+  config: String
+  ctaConfig: String
+  notificationConfig: String
+  processConfig: String
+  properties: String
+  stateConfig: String
+  statusConfig: String
+  triggerConfig: String
   values: String
 }
 
@@ -8226,21 +8429,41 @@ input Task_insert_input {
   Team: Team_obj_rel_insert_input
   User: User_obj_rel_insert_input
   assigneeId: Int
+  config: jsonb
   createdAt: timestamp
   creatorId: Int
+  cta: String
+  ctaConfig: jsonb
   ctaName: String
+  ctaTemplate: String
   definitionId: Int
   description: String
+  descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  isActve: Boolean
+  notificationConfig: jsonb
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  processConfig: jsonb
+  properties: jsonb
+  state: String
+  stateConfig: jsonb
   stateName: String
-  status: TaskStatus
+  stateTemplate: String
+  stateValues: String
+  status: String
+  statusConfig: jsonb
   statusName: String
+  statusTemplate: String
   teamId: Int
   title: String
+  titleTemplate: String
+  triggerConfig: jsonb
+  type: String
+  typeName: String
   updatedAt: timestamp
   userByCreatorid: User_obj_rel_insert_input
   values: jsonb
@@ -8251,19 +8474,30 @@ type Task_max_fields {
   assigneeId: Int
   createdAt: timestamp
   creatorId: Int
+  cta: String
   ctaName: String
+  ctaTemplate: String
   definitionId: Int
   description: String
+  descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  state: String
   stateName: String
-  status: TaskStatus
+  stateTemplate: String
+  stateValues: String
+  status: String
   statusName: String
+  statusTemplate: String
   teamId: Int
   title: String
+  titleTemplate: String
+  type: String
+  typeName: String
   updatedAt: timestamp
 }
 
@@ -8274,19 +8508,30 @@ input Task_max_order_by {
   assigneeId: order_by
   createdAt: order_by
   creatorId: order_by
+  cta: order_by
   ctaName: order_by
+  ctaTemplate: order_by
   definitionId: order_by
   description: order_by
+  descriptionTemplate: order_by
   dueDate: order_by
   id: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
+  state: order_by
   stateName: order_by
+  stateTemplate: order_by
+  stateValues: order_by
   status: order_by
   statusName: order_by
+  statusTemplate: order_by
   teamId: order_by
   title: order_by
+  titleTemplate: order_by
+  type: order_by
+  typeName: order_by
   updatedAt: order_by
 }
 
@@ -8295,19 +8540,30 @@ type Task_min_fields {
   assigneeId: Int
   createdAt: timestamp
   creatorId: Int
+  cta: String
   ctaName: String
+  ctaTemplate: String
   definitionId: Int
   description: String
+  descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  state: String
   stateName: String
-  status: TaskStatus
+  stateTemplate: String
+  stateValues: String
+  status: String
   statusName: String
+  statusTemplate: String
   teamId: Int
   title: String
+  titleTemplate: String
+  type: String
+  typeName: String
   updatedAt: timestamp
 }
 
@@ -8318,19 +8574,30 @@ input Task_min_order_by {
   assigneeId: order_by
   createdAt: order_by
   creatorId: order_by
+  cta: order_by
   ctaName: order_by
+  ctaTemplate: order_by
   definitionId: order_by
   description: order_by
+  descriptionTemplate: order_by
   dueDate: order_by
   id: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
+  state: order_by
   stateName: order_by
+  stateTemplate: order_by
+  stateValues: order_by
   status: order_by
   statusName: order_by
+  statusTemplate: order_by
   teamId: order_by
   title: order_by
+  titleTemplate: order_by
+  type: order_by
+  typeName: order_by
   updatedAt: order_by
 }
 
@@ -8375,21 +8642,41 @@ input Task_order_by {
   Team: Team_order_by
   User: User_order_by
   assigneeId: order_by
+  config: order_by
   createdAt: order_by
   creatorId: order_by
+  cta: order_by
+  ctaConfig: order_by
   ctaName: order_by
+  ctaTemplate: order_by
   definitionId: order_by
   description: order_by
+  descriptionTemplate: order_by
   dueDate: order_by
   id: order_by
+  isActve: order_by
+  notificationConfig: order_by
+  notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
+  processConfig: order_by
+  properties: order_by
+  state: order_by
+  stateConfig: order_by
   stateName: order_by
+  stateTemplate: order_by
+  stateValues: order_by
   status: order_by
+  statusConfig: order_by
   statusName: order_by
+  statusTemplate: order_by
   teamId: order_by
   title: order_by
+  titleTemplate: order_by
+  triggerConfig: order_by
+  type: order_by
+  typeName: order_by
   updatedAt: order_by
   userByCreatorid: User_order_by
   values: order_by
@@ -8402,6 +8689,14 @@ input Task_pk_columns_input {
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
 input Task_prepend_input {
+  config: jsonb
+  ctaConfig: jsonb
+  notificationConfig: jsonb
+  processConfig: jsonb
+  properties: jsonb
+  stateConfig: jsonb
+  statusConfig: jsonb
+  triggerConfig: jsonb
   values: jsonb
 }
 
@@ -8413,13 +8708,25 @@ enum Task_select_column {
   assigneeId
 
   """column name"""
+  config
+
+  """column name"""
   createdAt
 
   """column name"""
   creatorId
 
   """column name"""
+  cta
+
+  """column name"""
+  ctaConfig
+
+  """column name"""
   ctaName
+
+  """column name"""
+  ctaTemplate
 
   """column name"""
   definitionId
@@ -8428,10 +8735,22 @@ enum Task_select_column {
   description
 
   """column name"""
+  descriptionTemplate
+
+  """column name"""
   dueDate
 
   """column name"""
   id
+
+  """column name"""
+  isActve
+
+  """column name"""
+  notificationConfig
+
+  """column name"""
+  notificationTemplate
 
   """column name"""
   organizationId
@@ -8443,19 +8762,55 @@ enum Task_select_column {
   priority
 
   """column name"""
+  processConfig
+
+  """column name"""
+  properties
+
+  """column name"""
+  state
+
+  """column name"""
+  stateConfig
+
+  """column name"""
   stateName
+
+  """column name"""
+  stateTemplate
+
+  """column name"""
+  stateValues
 
   """column name"""
   status
 
   """column name"""
+  statusConfig
+
+  """column name"""
   statusName
+
+  """column name"""
+  statusTemplate
 
   """column name"""
   teamId
 
   """column name"""
   title
+
+  """column name"""
+  titleTemplate
+
+  """column name"""
+  triggerConfig
+
+  """column name"""
+  type
+
+  """column name"""
+  typeName
 
   """column name"""
   updatedAt
@@ -8465,25 +8820,61 @@ enum Task_select_column {
 }
 
 """
+select "Task_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Task"
+"""
+enum Task_select_column_Task_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  isActve
+}
+
+"""
+select "Task_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Task"
+"""
+enum Task_select_column_Task_aggregate_bool_exp_bool_or_arguments_columns {
+  """column name"""
+  isActve
+}
+
+"""
 input type for updating data in table "Task"
 """
 input Task_set_input {
   assigneeId: Int
+  config: jsonb
   createdAt: timestamp
   creatorId: Int
+  cta: String
+  ctaConfig: jsonb
   ctaName: String
+  ctaTemplate: String
   definitionId: Int
   description: String
+  descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  isActve: Boolean
+  notificationConfig: jsonb
+  notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  processConfig: jsonb
+  properties: jsonb
+  state: String
+  stateConfig: jsonb
   stateName: String
-  status: TaskStatus
+  stateTemplate: String
+  stateValues: String
+  status: String
+  statusConfig: jsonb
   statusName: String
+  statusTemplate: String
   teamId: Int
   title: String
+  titleTemplate: String
+  triggerConfig: jsonb
+  type: String
+  typeName: String
   updatedAt: timestamp
   values: jsonb
 }
@@ -8592,13 +8983,25 @@ enum Task_update_column {
   assigneeId
 
   """column name"""
+  config
+
+  """column name"""
   createdAt
 
   """column name"""
   creatorId
 
   """column name"""
+  cta
+
+  """column name"""
+  ctaConfig
+
+  """column name"""
   ctaName
+
+  """column name"""
+  ctaTemplate
 
   """column name"""
   definitionId
@@ -8607,10 +9010,22 @@ enum Task_update_column {
   description
 
   """column name"""
+  descriptionTemplate
+
+  """column name"""
   dueDate
 
   """column name"""
   id
+
+  """column name"""
+  isActve
+
+  """column name"""
+  notificationConfig
+
+  """column name"""
+  notificationTemplate
 
   """column name"""
   organizationId
@@ -8622,19 +9037,55 @@ enum Task_update_column {
   priority
 
   """column name"""
+  processConfig
+
+  """column name"""
+  properties
+
+  """column name"""
+  state
+
+  """column name"""
+  stateConfig
+
+  """column name"""
   stateName
+
+  """column name"""
+  stateTemplate
+
+  """column name"""
+  stateValues
 
   """column name"""
   status
 
   """column name"""
+  statusConfig
+
+  """column name"""
   statusName
+
+  """column name"""
+  statusTemplate
 
   """column name"""
   teamId
 
   """column name"""
   title
+
+  """column name"""
+  titleTemplate
+
+  """column name"""
+  triggerConfig
+
+  """column name"""
+  type
+
+  """column name"""
+  typeName
 
   """column name"""
   updatedAt
@@ -9363,10 +9814,6 @@ type Trigger implements Node {
   """An object relationship"""
   Activity: Activity!
   activityId: Int!
-  config(
-    """JSON select path"""
-    path: String
-  ): jsonb!
   createdAt: timestamp!
   description: String!
   id: ID!
@@ -9458,11 +9905,6 @@ input Trigger_aggregate_order_by {
   variance: Trigger_variance_order_by
 }
 
-"""append existing jsonb value of filtered columns with new jsonb value"""
-input Trigger_append_input {
-  config: jsonb
-}
-
 """
 input type for inserting array relation for remote table "Trigger"
 """
@@ -9496,7 +9938,6 @@ input Trigger_bool_exp {
   _not: Trigger_bool_exp
   _or: [Trigger_bool_exp!]
   activityId: Int_comparison_exp
-  config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
   id: Int_comparison_exp
@@ -9516,27 +9957,6 @@ enum Trigger_constraint {
 }
 
 """
-delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-"""
-input Trigger_delete_at_path_input {
-  config: [String!]
-}
-
-"""
-delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-"""
-input Trigger_delete_elem_input {
-  config: Int
-}
-
-"""
-delete key/value pair or string element. key/value pairs are matched based on their key value
-"""
-input Trigger_delete_key_input {
-  config: String
-}
-
-"""
 input type for incrementing numeric columns in table "Trigger"
 """
 input Trigger_inc_input {
@@ -9550,7 +9970,6 @@ input type for inserting data into table "Trigger"
 input Trigger_insert_input {
   Activity: Activity_obj_rel_insert_input
   activityId: Int
-  config: jsonb
   createdAt: timestamp
   description: String
   id: Int
@@ -9631,7 +10050,6 @@ input Trigger_on_conflict {
 input Trigger_order_by {
   Activity: Activity_order_by
   activityId: order_by
-  config: order_by
   createdAt: order_by
   description: order_by
   id: order_by
@@ -9645,20 +10063,12 @@ input Trigger_pk_columns_input {
   id: Int!
 }
 
-"""prepend existing jsonb value of filtered columns with new jsonb value"""
-input Trigger_prepend_input {
-  config: jsonb
-}
-
 """
 select columns of table "Trigger"
 """
 enum Trigger_select_column {
   """column name"""
   activityId
-
-  """column name"""
-  config
 
   """column name"""
   createdAt
@@ -9684,7 +10094,6 @@ input type for updating data in table "Trigger"
 """
 input Trigger_set_input {
   activityId: Int
-  config: jsonb
   createdAt: timestamp
   description: String
   id: Int
@@ -9757,9 +10166,6 @@ enum Trigger_update_column {
   activityId
 
   """column name"""
-  config
-
-  """column name"""
   createdAt
 
   """column name"""
@@ -9779,29 +10185,8 @@ enum Trigger_update_column {
 }
 
 input Trigger_updates {
-  """append existing jsonb value of filtered columns with new jsonb value"""
-  _append: Trigger_append_input
-
-  """
-  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-  """
-  _delete_at_path: Trigger_delete_at_path_input
-
-  """
-  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-  """
-  _delete_elem: Trigger_delete_elem_input
-
-  """
-  delete key/value pair or string element. key/value pairs are matched based on their key value
-  """
-  _delete_key: Trigger_delete_key_input
-
   """increments the numeric columns with given value of the filtered values"""
   _inc: Trigger_inc_input
-
-  """prepend existing jsonb value of filtered columns with new jsonb value"""
-  _prepend: Trigger_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: Trigger_set_input
@@ -9959,6 +10344,9 @@ type User implements Node {
     """filter the rows returned"""
     where: EventLog_bool_exp
   ): EventLogConnection!
+
+  """An object relationship"""
+  File: File
 
   """An array relationship"""
   MemberOnTeams(
@@ -10227,6 +10615,7 @@ type User implements Node {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermissionConnection!
+  avatarId: Int
   createdAt: timestamp!
   email: String!
   firstname: String
@@ -10811,6 +11200,7 @@ input User_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type User_avg_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -10819,6 +11209,7 @@ type User_avg_fields {
 order by avg() on columns of table "User"
 """
 input User_avg_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
@@ -10831,6 +11222,7 @@ input User_bool_exp {
   Comments_aggregate: Comment_aggregate_bool_exp
   EventLogs: EventLog_bool_exp
   EventLogs_aggregate: EventLog_aggregate_bool_exp
+  File: File_bool_exp
   MemberOnTeams: MemberOnTeams_bool_exp
   MemberOnTeams_aggregate: MemberOnTeams_aggregate_bool_exp
   Organization: Organization_bool_exp
@@ -10845,6 +11237,7 @@ input User_bool_exp {
   _and: [User_bool_exp!]
   _not: User_bool_exp
   _or: [User_bool_exp!]
+  avatarId: Int_comparison_exp
   createdAt: timestamp_comparison_exp
   email: String_comparison_exp
   firstname: String_comparison_exp
@@ -10879,6 +11272,7 @@ enum User_constraint {
 input type for incrementing numeric columns in table "User"
 """
 input User_inc_input {
+  avatarId: Int
   id: Int
   organizationId: Int
 }
@@ -10889,12 +11283,14 @@ input type for inserting data into table "User"
 input User_insert_input {
   Comments: Comment_arr_rel_insert_input
   EventLogs: EventLog_arr_rel_insert_input
+  File: File_obj_rel_insert_input
   MemberOnTeams: MemberOnTeams_arr_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   Posts: Post_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
   UserPermissions: UserPermission_arr_rel_insert_input
+  avatarId: Int
   createdAt: timestamp
   email: String
   firstname: String
@@ -10910,6 +11306,7 @@ input User_insert_input {
 
 """aggregate max on columns"""
 type User_max_fields {
+  avatarId: Int
   createdAt: timestamp
   email: String
   firstname: String
@@ -10925,6 +11322,7 @@ type User_max_fields {
 order by max() on columns of table "User"
 """
 input User_max_order_by {
+  avatarId: order_by
   createdAt: order_by
   email: order_by
   firstname: order_by
@@ -10938,6 +11336,7 @@ input User_max_order_by {
 
 """aggregate min on columns"""
 type User_min_fields {
+  avatarId: Int
   createdAt: timestamp
   email: String
   firstname: String
@@ -10953,6 +11352,7 @@ type User_min_fields {
 order by min() on columns of table "User"
 """
 input User_min_order_by {
+  avatarId: order_by
   createdAt: order_by
   email: order_by
   firstname: order_by
@@ -10998,12 +11398,14 @@ input User_on_conflict {
 input User_order_by {
   Comments_aggregate: Comment_aggregate_order_by
   EventLogs_aggregate: EventLog_aggregate_order_by
+  File: File_order_by
   MemberOnTeams_aggregate: MemberOnTeams_aggregate_order_by
   Organization: Organization_order_by
   Posts_aggregate: Post_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
   UserPermissions_aggregate: UserPermission_aggregate_order_by
+  avatarId: order_by
   createdAt: order_by
   email: order_by
   firstname: order_by
@@ -11026,6 +11428,9 @@ input User_pk_columns_input {
 select columns of table "User"
 """
 enum User_select_column {
+  """column name"""
+  avatarId
+
   """column name"""
   createdAt
 
@@ -11058,6 +11463,7 @@ enum User_select_column {
 input type for updating data in table "User"
 """
 input User_set_input {
+  avatarId: Int
   createdAt: timestamp
   email: String
   firstname: String
@@ -11071,6 +11477,7 @@ input User_set_input {
 
 """aggregate stddev on columns"""
 type User_stddev_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11079,12 +11486,14 @@ type User_stddev_fields {
 order by stddev() on columns of table "User"
 """
 input User_stddev_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type User_stddev_pop_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11093,12 +11502,14 @@ type User_stddev_pop_fields {
 order by stddev_pop() on columns of table "User"
 """
 input User_stddev_pop_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type User_stddev_samp_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11107,12 +11518,14 @@ type User_stddev_samp_fields {
 order by stddev_samp() on columns of table "User"
 """
 input User_stddev_samp_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
 
 """aggregate sum on columns"""
 type User_sum_fields {
+  avatarId: Int
   id: Int
   organizationId: Int
 }
@@ -11121,6 +11534,7 @@ type User_sum_fields {
 order by sum() on columns of table "User"
 """
 input User_sum_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
@@ -11129,6 +11543,9 @@ input User_sum_order_by {
 update columns of table "User"
 """
 enum User_update_column {
+  """column name"""
+  avatarId
+
   """column name"""
   createdAt
 
@@ -11168,6 +11585,7 @@ input User_updates {
 
 """aggregate var_pop on columns"""
 type User_var_pop_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11176,12 +11594,14 @@ type User_var_pop_fields {
 order by var_pop() on columns of table "User"
 """
 input User_var_pop_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
 
 """aggregate var_samp on columns"""
 type User_var_samp_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11190,12 +11610,14 @@ type User_var_samp_fields {
 order by var_samp() on columns of table "User"
 """
 input User_var_samp_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
 
 """aggregate variance on columns"""
 type User_variance_fields {
+  avatarId: Float
   id: Float
   organizationId: Float
 }
@@ -11204,6 +11626,7 @@ type User_variance_fields {
 order by variance() on columns of table "User"
 """
 input User_variance_order_by {
+  avatarId: order_by
   id: order_by
   organizationId: order_by
 }
@@ -13327,8 +13750,29 @@ type mutation_root {
   update data of the table: "Settings"
   """
   update_Settings(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Settings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Settings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Settings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Settings_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Settings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Settings_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Settings_set_input
@@ -13341,8 +13785,29 @@ type mutation_root {
   update single row of the table: "Settings"
   """
   update_Settings_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Settings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Settings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Settings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Settings_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Settings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Settings_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Settings_set_input
@@ -13547,29 +14012,8 @@ type mutation_root {
   update data of the table: "Trigger"
   """
   update_Trigger(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Trigger_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: Trigger_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: Trigger_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: Trigger_delete_key_input
-
     """increments the numeric columns with given value of the filtered values"""
     _inc: Trigger_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Trigger_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Trigger_set_input
@@ -13582,29 +14026,8 @@ type mutation_root {
   update single row of the table: "Trigger"
   """
   update_Trigger_by_pk(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Trigger_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: Trigger_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: Trigger_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: Trigger_delete_key_input
-
     """increments the numeric columns with given value of the filtered values"""
     _inc: Trigger_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Trigger_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Trigger_set_input

@@ -5,14 +5,6 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import * as ApolloReactHooks from '@saleor/hooks/graphql';
 const defaultOptions = {} as const;
-export const TaskDefinitionFragmentFragmentDoc = gql`
-    fragment TaskDefinitionFragment on TaskDefinition {
-  id
-  formId
-  title
-  titleTemplate
-}
-    `;
 export const ResourceItemFragmentFragmentDoc = gql`
     fragment ResourceItemFragment on ResourceItem {
   id

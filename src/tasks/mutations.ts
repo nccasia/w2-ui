@@ -30,12 +30,3 @@ export const CreateTask = gql`
     }
   }
 `;
-
-export const TaskDefinitionFragment = gql`
-  fragment TaskDefinitionFragment on TaskDefinition {
-    id
-    formId
-    title
-    titleTemplate
-  }
-`;

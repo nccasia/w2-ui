@@ -377,13 +377,16 @@ export type EventLog_variance_fieldsFieldPolicy = {
 	taskId?: FieldPolicy<any> | FieldReadFunction<any>,
 	userId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FileKeySpecifier = ('File' | 'Files' | 'Files_aggregate' | 'Files_connection' | 'Organization' | 'cdnUrl' | 'createdAt' | 'data' | 'encoding' | 'fileType' | 'filename' | 'id' | 'mimetype' | 'organizationId' | 'updatedAt' | 'varantName' | 'variantKey' | 'variantOfId' | 'variantValue' | FileKeySpecifier)[];
+export type FileKeySpecifier = ('File' | 'Files' | 'Files_aggregate' | 'Files_connection' | 'Organization' | 'Users' | 'Users_aggregate' | 'Users_connection' | 'cdnUrl' | 'createdAt' | 'data' | 'encoding' | 'fileType' | 'filename' | 'id' | 'mimetype' | 'organizationId' | 'updatedAt' | 'varantName' | 'variantKey' | 'variantOfId' | 'variantValue' | FileKeySpecifier)[];
 export type FileFieldPolicy = {
 	File?: FieldPolicy<any> | FieldReadFunction<any>,
 	Files?: FieldPolicy<any> | FieldReadFunction<any>,
 	Files_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Files_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Organization?: FieldPolicy<any> | FieldReadFunction<any>,
+	Users?: FieldPolicy<any> | FieldReadFunction<any>,
+	Users_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
+	Users_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	cdnUrl?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	data?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1318,23 +1321,21 @@ export type Settings_avg_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Settings_max_fieldsKeySpecifier = ('createdAt' | 'id' | 'key' | 'organizationId' | 'updatedAt' | 'value' | Settings_max_fieldsKeySpecifier)[];
+export type Settings_max_fieldsKeySpecifier = ('createdAt' | 'id' | 'key' | 'organizationId' | 'updatedAt' | Settings_max_fieldsKeySpecifier)[];
 export type Settings_max_fieldsFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	value?: FieldPolicy<any> | FieldReadFunction<any>
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Settings_min_fieldsKeySpecifier = ('createdAt' | 'id' | 'key' | 'organizationId' | 'updatedAt' | 'value' | Settings_min_fieldsKeySpecifier)[];
+export type Settings_min_fieldsKeySpecifier = ('createdAt' | 'id' | 'key' | 'organizationId' | 'updatedAt' | Settings_min_fieldsKeySpecifier)[];
 export type Settings_min_fieldsFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	value?: FieldPolicy<any> | FieldReadFunction<any>
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type Settings_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | Settings_mutation_responseKeySpecifier)[];
 export type Settings_mutation_responseFieldPolicy = {
@@ -1376,7 +1377,7 @@ export type Settings_variance_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Organization' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'User' | 'assigneeId' | 'createdAt' | 'creatorId' | 'ctaName' | 'definitionId' | 'description' | 'dueDate' | 'id' | 'organizationId' | 'parentId' | 'priority' | 'stateName' | 'status' | 'statusName' | 'teamId' | 'title' | 'updatedAt' | 'userByCreatorid' | 'values' | TaskKeySpecifier)[];
+export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Organization' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaConfig' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'id' | 'isActve' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'processConfig' | 'properties' | 'state' | 'stateConfig' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusConfig' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'triggerConfig' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'values' | TaskKeySpecifier)[];
 export type TaskFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1393,21 +1394,41 @@ export type TaskFieldPolicy = {
 	Team?: FieldPolicy<any> | FieldReadFunction<any>,
 	User?: FieldPolicy<any> | FieldReadFunction<any>,
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
+	config?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
+	cta?: FieldPolicy<any> | FieldReadFunction<any>,
+	ctaConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaName?: FieldPolicy<any> | FieldReadFunction<any>,
+	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	descriptionTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	dueDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	isActve?: FieldPolicy<any> | FieldReadFunction<any>,
+	notificationConfig?: FieldPolicy<any> | FieldReadFunction<any>,
+	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	priority?: FieldPolicy<any> | FieldReadFunction<any>,
+	processConfig?: FieldPolicy<any> | FieldReadFunction<any>,
+	properties?: FieldPolicy<any> | FieldReadFunction<any>,
+	state?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateName?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateValues?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
+	statusConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
+	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	titleTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	triggerConfig?: FieldPolicy<any> | FieldReadFunction<any>,
+	type?: FieldPolicy<any> | FieldReadFunction<any>,
+	typeName?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	userByCreatorid?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
@@ -1417,7 +1438,7 @@ export type TaskConnectionFieldPolicy = {
 	edges?: FieldPolicy<any> | FieldReadFunction<any>,
 	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskDefinitionKeySpecifier = ('Activity' | 'Form' | 'Organization' | 'TaskDefinition' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Workflow' | 'actvityId' | 'config' | 'createdAt' | 'ctaConfig' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'processConfig' | 'stageConfig' | 'stateTemplate' | 'statusConfig' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'triggerConfig' | 'updatedAt' | 'workflowId' | TaskDefinitionKeySpecifier)[];
+export type TaskDefinitionKeySpecifier = ('Activity' | 'Form' | 'Organization' | 'TaskDefinition' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Workflow' | 'actvityId' | 'config' | 'createdAt' | 'ctaConfig' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'processConfig' | 'stateConfig' | 'stateTemplate' | 'statusConfig' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'triggerConfig' | 'updatedAt' | 'workflowId' | TaskDefinitionKeySpecifier)[];
 export type TaskDefinitionFieldPolicy = {
 	Activity?: FieldPolicy<any> | FieldReadFunction<any>,
 	Form?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1445,7 +1466,7 @@ export type TaskDefinitionFieldPolicy = {
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	processConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	stageConfig?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1638,44 +1659,66 @@ export type Task_avg_fieldsFieldPolicy = {
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_max_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'ctaName' | 'definitionId' | 'description' | 'dueDate' | 'id' | 'organizationId' | 'parentId' | 'priority' | 'stateName' | 'status' | 'statusName' | 'teamId' | 'title' | 'updatedAt' | Task_max_fieldsKeySpecifier)[];
+export type Task_max_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'id' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_max_fieldsKeySpecifier)[];
 export type Task_max_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
+	cta?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaName?: FieldPolicy<any> | FieldReadFunction<any>,
+	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	descriptionTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	dueDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	priority?: FieldPolicy<any> | FieldReadFunction<any>,
+	state?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateName?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateValues?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
+	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	titleTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	type?: FieldPolicy<any> | FieldReadFunction<any>,
+	typeName?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_min_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'ctaName' | 'definitionId' | 'description' | 'dueDate' | 'id' | 'organizationId' | 'parentId' | 'priority' | 'stateName' | 'status' | 'statusName' | 'teamId' | 'title' | 'updatedAt' | Task_min_fieldsKeySpecifier)[];
+export type Task_min_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'id' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_min_fieldsKeySpecifier)[];
 export type Task_min_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
+	cta?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaName?: FieldPolicy<any> | FieldReadFunction<any>,
+	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	descriptionTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	dueDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	priority?: FieldPolicy<any> | FieldReadFunction<any>,
+	state?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateName?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	stateValues?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
+	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	titleTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
+	type?: FieldPolicy<any> | FieldReadFunction<any>,
+	typeName?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type Task_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | Task_mutation_responseKeySpecifier)[];
@@ -1888,11 +1931,10 @@ export type Team_variance_fieldsFieldPolicy = {
 	managerId?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TriggerKeySpecifier = ('Activity' | 'activityId' | 'config' | 'createdAt' | 'description' | 'id' | 'name' | 'type' | 'updatedAt' | TriggerKeySpecifier)[];
+export type TriggerKeySpecifier = ('Activity' | 'activityId' | 'createdAt' | 'description' | 'id' | 'name' | 'type' | 'updatedAt' | TriggerKeySpecifier)[];
 export type TriggerFieldPolicy = {
 	Activity?: FieldPolicy<any> | FieldReadFunction<any>,
 	activityId?: FieldPolicy<any> | FieldReadFunction<any>,
-	config?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1994,7 +2036,7 @@ export type Trigger_variance_fieldsFieldPolicy = {
 	activityId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'File' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2002,6 +2044,7 @@ export type UserFieldPolicy = {
 	EventLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	EventLogs_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	EventLogs_connection?: FieldPolicy<any> | FieldReadFunction<any>,
+	File?: FieldPolicy<any> | FieldReadFunction<any>,
 	MemberOnTeams?: FieldPolicy<any> | FieldReadFunction<any>,
 	MemberOnTeams_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	MemberOnTeams_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2018,6 +2061,7 @@ export type UserFieldPolicy = {
 	UserPermissions?: FieldPolicy<any> | FieldReadFunction<any>,
 	UserPermissions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	UserPermissions_connection?: FieldPolicy<any> | FieldReadFunction<any>,
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2168,13 +2212,15 @@ export type User_aggregate_fieldsFieldPolicy = {
 	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
 	variance?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_avg_fieldsKeySpecifier = ('id' | 'organizationId' | User_avg_fieldsKeySpecifier)[];
+export type User_avg_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_avg_fieldsKeySpecifier)[];
 export type User_avg_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_max_fieldsKeySpecifier = ('createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_max_fieldsKeySpecifier)[];
+export type User_max_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_max_fieldsKeySpecifier)[];
 export type User_max_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2185,8 +2231,9 @@ export type User_max_fieldsFieldPolicy = {
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_min_fieldsKeySpecifier = ('createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_min_fieldsKeySpecifier)[];
+export type User_min_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_min_fieldsKeySpecifier)[];
 export type User_min_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2202,38 +2249,45 @@ export type User_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_stddev_fieldsKeySpecifier = ('id' | 'organizationId' | User_stddev_fieldsKeySpecifier)[];
+export type User_stddev_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_stddev_fieldsKeySpecifier)[];
 export type User_stddev_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_stddev_pop_fieldsKeySpecifier = ('id' | 'organizationId' | User_stddev_pop_fieldsKeySpecifier)[];
+export type User_stddev_pop_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_stddev_pop_fieldsKeySpecifier)[];
 export type User_stddev_pop_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_stddev_samp_fieldsKeySpecifier = ('id' | 'organizationId' | User_stddev_samp_fieldsKeySpecifier)[];
+export type User_stddev_samp_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_stddev_samp_fieldsKeySpecifier)[];
 export type User_stddev_samp_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_sum_fieldsKeySpecifier = ('id' | 'organizationId' | User_sum_fieldsKeySpecifier)[];
+export type User_sum_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_sum_fieldsKeySpecifier)[];
 export type User_sum_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_var_pop_fieldsKeySpecifier = ('id' | 'organizationId' | User_var_pop_fieldsKeySpecifier)[];
+export type User_var_pop_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_var_pop_fieldsKeySpecifier)[];
 export type User_var_pop_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_var_samp_fieldsKeySpecifier = ('id' | 'organizationId' | User_var_samp_fieldsKeySpecifier)[];
+export type User_var_samp_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_var_samp_fieldsKeySpecifier)[];
 export type User_var_samp_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_variance_fieldsKeySpecifier = ('id' | 'organizationId' | User_variance_fieldsKeySpecifier)[];
+export type User_variance_fieldsKeySpecifier = ('avatarId' | 'id' | 'organizationId' | User_variance_fieldsKeySpecifier)[];
 export type User_variance_fieldsFieldPolicy = {
+	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
