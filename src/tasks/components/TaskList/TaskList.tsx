@@ -4,11 +4,9 @@ import {
   TableFooter,
   TableHead,
 } from "@material-ui/core";
-import { ExpandLessSharp } from "@material-ui/icons";
 import { Skeleton } from "@material-ui/lab";
 import { CSSProperties } from "@material-ui/styles";
 import Container from "@saleor/components/Container";
-import { DateTime } from "@saleor/components/Date";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
@@ -88,11 +86,8 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     <ResponsiveTable>
       <TableHead>
         <TableRowLink>
-          <TableCellHeader className={classes.colID}>
-            <FormattedMessage id="qlcuNQ" defaultMessage="ID" />
-          </TableCellHeader>
           <TableCellHeader className={classes.colTask}>
-            <FormattedMessage id="0wJ7N+" defaultMessage="Task" />
+            <FormattedMessage id="9a9+ww" defaultMessage="Title" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
             <FormattedMessage id="EwRIOm" defaultMessage="User" />
@@ -102,9 +97,6 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
           </TableCellHeader>
           <TableCellHeader className={classes.colPriority}>
             <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
-          </TableCellHeader>
-          <TableCellHeader textAlign="right" className={classes.colDate}>
-            <FormattedMessage id="tLfo5O" defaultMessage="Created date" />
           </TableCellHeader>
         </TableRowLink>
       </TableHead>
@@ -127,18 +119,11 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
               href={task && taskUrl(`${task.id}`)}
               className={classes.colRow}
             >
-              <TableCell className={classes.colID}>
-                {maybe(() => task.id) ? task.id : <Skeleton />}
-              </TableCell>
               <TableCell className={classes.colTask}>
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colUser}>
-                {maybe(() => `${task.User.firstname} ${task.User.lastname}`) ? (
-                  `${task.User.firstname} ${task.User.lastname}`
-                ) : (
-                  <Skeleton />
-                )}
+                {maybe(() => task.User.email) ? task.User.email : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
@@ -151,18 +136,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                 {maybe(() => task.priority) ? (
                   <Container className={classes.priority}>
                     <Pill label={task.priority} color="error" />
-                    <ExpandLessSharp
-                      style={{ fontSize: "30px" }}
-                      color="error"
-                    />
                   </Container>
-                ) : (
-                  <Skeleton />
-                )}
-              </TableCell>
-              <TableCell className={classes.colDate}>
-                {maybe(() => task.dueDate) ? (
-                  <DateTime date={task.dueDate} />
                 ) : (
                   <Skeleton />
                 )}

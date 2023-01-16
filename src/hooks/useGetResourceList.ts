@@ -1,20 +1,22 @@
-import { useGetResourceQuery } from "@saleor/graphql";
+import { useGetResourceItemsQuery } from "@saleor/graphql";
+import { createRelayId } from "@saleor/utils/createRelayId";
 import { useMemo } from "react";
 
 export function useGetResourceList(resourceId: number) {
-  const { data } = useGetResourceQuery({
+  const resourceIdRelay = createRelayId([1, "public", "Resource", resourceId]);
+  const { data } = useGetResourceItemsQuery({
     variables: {
-      id: resourceId,
+      id: resourceIdRelay,
     },
   });
 
   const options = useMemo(() => {
-    if (!data) {
+    if (!data || !data.node || data.node.__typename !== "Resource") {
       return [];
     }
-    const result = data.Resource_by_pk.ResourceItems.map(item => {
+    const result = data?.node?.ResourceItems?.map(item => {
       return {
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
       };
     });

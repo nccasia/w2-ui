@@ -1,7 +1,7 @@
-import { useLoginMutation } from "@saleor/graphql";
+import { useSigninMutation } from "@saleor/graphql";
 
 export const useAuth = () => {
-  const [loginMutation] = useLoginMutation();
+  const [loginMutation] = useSigninMutation();
   const login = async ({ password, email }) => {
     const result = await loginMutation({
       variables: {

@@ -1,15 +1,16 @@
 import { Choice } from "@saleor/components/SingleSelectField";
-import { TaskDefinitionFragmentFragment } from "@saleor/graphql";
+import { TaskFragmentFragment } from "@saleor/graphql";
 
 export function taskDefinitionChoiceMapper(
-  data: Array<Partial<TaskDefinitionFragmentFragment>>,
+  data: Array<Partial<TaskFragmentFragment>>,
 ): Array<Choice<string, string>> {
   if (!data) {
     return [];
   }
-  const choiceType = data.map(item => {
+  const choiceType = data?.map(item => {
     const result = {
-      value: item.id.toString(),
+      // @ts-ignore
+      value: item.Form.id,
       label: item.title,
     };
     return result;

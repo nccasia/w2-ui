@@ -20,7 +20,7 @@ export type AuthError = typeof AuthError[keyof typeof AuthError];
 export function isJwtError(error: GraphQLError): boolean {
   let jwtError: boolean;
   try {
-    jwtError = !!findValueInEnum(error.extensions.exception.code, JWTError);
+    jwtError = !!findValueInEnum(error?.extensions?.exception?.code, JWTError);
   } catch (e) {
     jwtError = false;
   }

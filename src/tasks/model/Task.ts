@@ -36,14 +36,14 @@ export enum TaskState {
 export interface User {
   email: string;
   firstname: string;
-  id: number;
+  id: string;
   lastname: string;
   organizationId: number;
   role: string;
 }
 
 export interface Task {
-  id: number;
+  id: string;
   creatorId: number;
   definitionId: number;
   description: string;

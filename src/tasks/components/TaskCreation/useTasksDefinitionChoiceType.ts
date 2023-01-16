@@ -3,8 +3,8 @@ import React from "react";
 
 export const useTaskDefinitionChoiceType = data => {
   const choiceType = React.useMemo(
-    () => taskDefinitionChoiceMapper(data?.TaskDefinition ?? []),
-    [data?.TaskDefinition],
+    () => taskDefinitionChoiceMapper(data ?? []),
+    [data],
   );
 
   return { choiceType };

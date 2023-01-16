@@ -64,8 +64,6 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
 
   const [updateInformationUserMutation] = useUpdateInformationUserMutation({
     onCompleted(data) {
-      // eslint-disable-next-line no-console
-      console.log(data);
       if (!data.update_User_by_pk) {
         notify({
           status: "error",
@@ -84,7 +82,7 @@ export const StaffDetails: React.FC<OrderListProps> = ({ id, params }) => {
   const handleUpdate = (formData: StaffDetailsFormData) => {
     updateInformationUserMutation({
       variables: {
-        id: user.id,
+        id: +user.userId,
         firstname: formData.firstName,
         lastname: formData.lastName,
       },
