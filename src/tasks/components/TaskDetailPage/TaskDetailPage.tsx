@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import Attachment from "@saleor/components/Attachment";
 import { Backlink } from "@saleor/components/Backlink";
@@ -21,8 +22,10 @@ import {
 import { histories } from "@saleor/tasks/__mock__/Task";
 import { taskListUrl } from "@saleor/tasks/urls";
 import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
+import { bridge } from "@saleor/utils/schema";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
+import { AutoForm } from "uniforms-material";
 
 import SubTask from "../SubTask";
 import Task from "../Task";
@@ -43,7 +46,8 @@ interface ITaskDetailProps {
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   const [active, setActive] = useState<string>("1");
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  // const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openModalSubtask, setOpenModalSubtask] = useState<boolean>(false);
   const intl = useIntl();
   const classes = useStyles();
   const navigate = useNavigator();
@@ -73,7 +77,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   };
 
   const handleOpenModal = () => {
-    setOpenModal(true);
+    setOpenModalSubtask(true);
   };
 
   // const handleCloseModal = () => {
@@ -136,35 +140,13 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                     );
                   })}
                 </List>
-
                 <div className={classes.attach}>
                   <CustomModal
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
+                    openModal={openModalSubtask}
+                    setOpenModal={setOpenModalSubtask}
                   >
-                    <div>123</div>
+                    <AutoForm schema={bridge} onSubmit={console.log} />
                   </CustomModal>
-                  {/* <Modal
-                    open={openModal}
-                    onClose={handleCloseModal}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                  >
-                    <div className={classes.modalContent}>
-                      <CloseIcon
-                        onClick={handleCloseModal}
-                        className={classes.btnClose}
-                      />
-                      <FileViewer
-                        docs={[
-                          {
-                            uri:
-                              "https://img.lovepik.com/element/40132/3240.png_300.png",
-                          },
-                        ]}
-                      />
-                    </div>
-                  </Modal> */}
                   <Typography
                     variant="subtitle1"
                     className={classes.attachTitle}
@@ -175,7 +157,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                     {[23423, 4, 324, 32, 2, 43, 24, 32, 4, 4, 324, 32].map(
                       (_item, index) => (
                         <Attachment
-                          click={handleOpenModal}
+                          click={() => true}
                           key={index}
                           nameFile={"IMAGE"}
                           timeFile={String(new Date().toLocaleString())}

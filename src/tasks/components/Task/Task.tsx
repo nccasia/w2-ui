@@ -1,13 +1,21 @@
+/* eslint-disable no-console */
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
+import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
+import { AutoForm } from "uniforms-material";
 
 import EditQuillEditor from "../EditQuillEditor";
 import TaskTitle from "../TaskTitle";
 
 const useStyles = makeStyles(
   () => ({
+    root: {
+      "& .MuiButtonBase-root": {
+        display: "none",
+      },
+    },
     container: {
       marginBottom: "27px",
       paddingBottom: "40px",
@@ -26,6 +34,8 @@ const Task = ({ task }: TaskType) => {
   const [modules, setModules] = useState({ toolbar: false });
   const [edit, setEdit] = useState<boolean>(true);
   const [key, setKey] = useState(1);
+
+  const { bridge } = useFormSchema("WzEsICJwdWJsaWMiLCAiRm9ybSIsIDQ4XQ==");
 
   const handleEdit = () => {
     setModules({ toolbar: true });
@@ -66,12 +76,16 @@ const Task = ({ task }: TaskType) => {
           />
         )}
         {task.definitionId && (
-          <FormSchema
-            formId={task.TaskDefinition.Form.id}
-            onSubmit={undefined}
-            readonly={true}
-            modelData={task.values}
-          />
+          <>
+            <div className={classes.root}>
+              <FormSchema
+                formId={task.TaskDefinition.Form.id}
+                readonly={true}
+                modelData={task.values}
+              />
+            </div>
+            <AutoForm schema={bridge} onSubmit={console.log} />
+          </>
         )}
       </div>
     </Card>

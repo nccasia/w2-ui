@@ -1,96 +1,36 @@
-export const schemaOffice = {
-  title: "NewRequestCOR",
+import Ajv from "ajv";
+import JSONSchemaBridge from "uniforms-bridge-json-schema";
+
+const ajv = new Ajv({
+  allErrors: true,
+  formats: { date: true },
+  useDefaults: true,
+});
+
+export const schema = {
+  title: "Singlechoice",
   type: "object",
   properties: {
-    currentOffice: {
+    singlechoice: {
       type: "string",
       nullable: true,
-      default: "HN1",
-      uniforms: { uiComponent: "SelectResourceField" },
-    },
-    destinationOffice: {
-      type: "string",
-      nullable: true,
-      default: "HN1",
-      uniforms: { uiComponent: "SelectResourceField" },
-    },
-    dueDate: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
+      uniforms: { uiComponent: "SinglechoiceField" },
     },
   },
-  required: ["currentOffice", "destinationOffice", "dueDate"] as never[],
+  required: ["singlechoice"] as never[],
 };
 
-export const schemaDevice = {
-  title: "NewRequestDR",
-  type: "object",
-  properties: {
-    device: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          type: {
-            type: "string",
-            uniforms: { uiComponent: "SelectResourceField" },
-          },
-          quantity: {
-            type: "integer",
-            minimum: 1,
-            maximum: 100,
-          },
-          detail: {
-            type: "string",
-          },
-        },
-        required: ["type", "detail", "quantity"] as never[],
-      },
-      minItems: 1,
-    },
-    dueDate: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
-    },
-  },
-  required: ["dueDate"] as never[],
-};
+ajv.addVocabulary(["uniforms"]);
 
-export const schemaWFH = {
-  title: "NewRequestWFH",
-  type: "object",
-  properties: {
-    dueDateStart: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    dueDateEnd: {
-      type: "object",
-      format: "date-time",
-      default: new Date(),
-      nullable: true,
-    },
-    content: {
-      type: "string",
-      nullable: true,
-      uniforms: { uiComponent: "QuillEditorField" },
-    },
-  },
-  required: ["dueDateStart", "dueDateEnd", "content"] as never[],
-};
+function createValidator(schema: any) {
+  const validator = ajv.compile(schema);
+
+  return (model: Record<string, unknown>) => {
+    validator(model);
+    return validator.errors?.length ? { details: validator.errors } : null;
+  };
+}
+
+const schemaValidator = createValidator(schema);
+
+export const bridge = new JSONSchemaBridge(schema, schemaValidator);

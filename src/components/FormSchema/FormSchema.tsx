@@ -5,7 +5,7 @@ import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
   formId: string;
-  onSubmit: any;
+  onSubmit?: any;
   readonly?: boolean;
   modelData?: any;
 }
