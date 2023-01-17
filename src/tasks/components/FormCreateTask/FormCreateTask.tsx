@@ -13,7 +13,7 @@ import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal } from "@saleor/styles/modal";
 import { taskUrl } from "@saleor/tasks/urls";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
 import { useTaskDefinitionChoiceType } from "../TaskCreation/useTasksDefinitionChoiceType";
@@ -61,31 +61,22 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
     [user?.MemberOnTeams, user?.id],
   );
 
-  const handleNewRequest = useCallback(
-    data => {
-      const decodedString = atob(selectedType?.id);
-      const newRequest = () => {
-        const current = new Date();
-        createTaskMutation({
-          variables: {
-            values: { ...data },
-            creatorId: +user.userId,
-            assigneeId: +user.userId,
-            organizationId: user.organizationId,
-            definitionId: JSON.parse(decodedString)[3],
-            teamId: selectTeam.teamId,
-            dueDate: current.toISOString(),
-            title: selectedType?.title,
-          },
-        });
-      };
-      // eslint-disable-next-line no-console
-      console.log(newRequest);
-
-      return newRequest();
-    },
-    [createTaskMutation, selectTeam, user],
-  );
+  const handleNewRequest = data => {
+    const decodedString = atob(selectedType?.id);
+    const current = new Date();
+    createTaskMutation({
+      variables: {
+        values: { ...data },
+        creatorId: +user.userId,
+        assigneeId: +user.userId,
+        organizationId: user.organizationId,
+        definitionId: JSON.parse(decodedString)[3],
+        teamId: selectTeam.teamId,
+        dueDate: current.toISOString(),
+        title: selectedType?.title,
+      },
+    });
+  };
 
   return (
     <>
