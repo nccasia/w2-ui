@@ -27,6 +27,11 @@ export const TaskFragmentFragmentDoc = gql`
   values
   teamId
   title
+  TaskDefinition {
+    Form {
+      id
+    }
+  }
 }
     `;
 export const SigninDocument = gql`

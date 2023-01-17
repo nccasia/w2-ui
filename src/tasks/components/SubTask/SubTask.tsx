@@ -63,7 +63,7 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
         />
         <FormConfirm
           onConfirm={handleConfirm}
-          formId={task.TaskDefinition.formId}
+          formId={task.TaskDefinition.Form.id}
         />
       </CardContent>
     </Card>

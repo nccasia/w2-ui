@@ -1,5 +1,6 @@
 import { Avatar, Box, makeStyles, Popper, Typography } from "@material-ui/core";
 import { useGetInformationUserQuery } from "@saleor/graphql";
+import { createRelayId } from "@saleor/utils/createRelayId";
 import React from "react";
 
 interface CustomAvatarProps {
@@ -18,9 +19,10 @@ const useStyles = makeStyles(
 
 const CustomAvatar = ({ id }: CustomAvatarProps): JSX.Element => {
   const classes = useStyles();
+  const userId = createRelayId([1, "public", "User", id]);
   const { data } = useGetInformationUserQuery({
     variables: {
-      id,
+      id: userId,
     },
   });
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -34,7 +36,7 @@ const CustomAvatar = ({ id }: CustomAvatarProps): JSX.Element => {
 
   return (
     <div>
-      {data && (
+      {data?.node && (
         <>
           <Avatar
             src="https://upload.wikimedia.org/wikipedia/commons/e/e1/%ED%88%AC%EB%AA%85%ED%95%9C_%ED%94%BC%EB%B6%80%EB%A5%BC_%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94_%EC%9C%A4%EC%95%84%28YOONA%29%EC%9D%98_%ED%94%BC%EB%B6%80_%EA%B4%80%EB%A6%AC_%EB%B9%84%EA%B2%B0%EC%9D%80_%281%29.jpg"
@@ -49,7 +51,8 @@ const CustomAvatar = ({ id }: CustomAvatarProps): JSX.Element => {
                   sizes="xl"
                 />
                 <Typography style={{ padding: "0px 10px" }}>
-                  {data.User_by_pk.email}
+                  {/* @ts-ignore */}
+                  {data?.node?.email}
                 </Typography>
               </div>
             </Box>

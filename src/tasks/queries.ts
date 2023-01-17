@@ -187,5 +187,10 @@ export const TaskFragment = gql`
     values
     teamId
     title
+    TaskDefinition {
+      Form {
+        id
+      }
+    }
   }
 `;
