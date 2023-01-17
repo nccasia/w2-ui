@@ -17,7 +17,7 @@ const TaskDetails: React.FC<TaskDetailsProps> = ({ id }) => {
   if (loading) {
     return <LoginLoading />;
   }
-  return <>{data?.Task_by_pk && <TaskDetailPage taskDetail={data} />}</>;
+  return <>{data?.node && <TaskDetailPage taskDetail={data?.node} />}</>;
 };
 
 export default TaskDetails;

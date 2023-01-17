@@ -6,6 +6,7 @@ import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import { useGetTasksQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
+import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -17,6 +18,7 @@ export interface TaskListPageProps {
 
 const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
   const { data } = useGetTasksQuery();
+  const resultMapsEdges = mapEdgesToItems(data?.Task_connection);
   const intl = useIntl();
   return (
     <Container>
@@ -70,7 +72,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
           }}
         />
       </Card>
-      <TaskList tasks={data?.Task} />
+      <TaskList tasks={resultMapsEdges} />
     </Container>
   );
 };

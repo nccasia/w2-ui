@@ -11,7 +11,6 @@ import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import { Savebar } from "@saleor/components/Savebar";
-import { TaskByPkQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import {
@@ -39,7 +38,7 @@ interface SwitchSelectorButtonOptions {
 }
 
 interface ITaskDetailProps {
-  taskDetail: TaskByPkQuery;
+  taskDetail: any;
 }
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
@@ -98,15 +97,15 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
               title={
                 <Title
                   props={{
-                    title: taskDetail.Task_by_pk.title,
-                    status: taskDetail.Task_by_pk.status,
+                    title: taskDetail.title,
+                    status: taskDetail.status,
                   }}
                 />
               }
             />
             <div className={classes.date}>
               <Typography variant="body2">
-                <DateTime date={taskDetail.Task_by_pk.dueDate} />
+                <DateTime date={taskDetail.dueDate} />
               </Typography>
               {/* <Skeleton style={{ width: "10em" }} /> */}
             </div>
@@ -114,12 +113,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
               <div>
                 <Task task={taskDetail} />
                 {false &&
-                  taskDetail.Task_by_pk?.Tasks.map(submap => {
+                  taskDetail?.Tasks.map(submap => {
                     return <SubTask task={submap} />;
                   })}
                 <List>
                   <h2>Sub Tasks</h2>
-                  {taskDetail.Task_by_pk?.Tasks.map(e => {
+                  {taskDetail?.Tasks.map(e => {
                     return (
                       <ListItem
                         button
@@ -129,10 +128,10 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                       >
                         <ListItemText primary={e.id} />
                         <ListItemText primary={e.title} />
-                        <CustomAvatar id={taskDetail.Task_by_pk.assigneeId} />
+                        <CustomAvatar id={taskDetail.assigneeId} />
                         <Title
                           props={{
-                            status: taskDetail.Task_by_pk.status,
+                            status: taskDetail.status,
                           }}
                         />
                       </ListItem>

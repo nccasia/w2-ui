@@ -57,7 +57,7 @@ export function asSortParams<
       defaultOrder === undefined ? true : defaultOrder,
     ),
     sort: params.sort
-      ? findValueInEnum(params.sort, fields)
+      ? findValueInEnum(params?.sort, fields)
       : defaultField?.toString() || "name",
   };
 }

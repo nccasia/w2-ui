@@ -1,66 +1,15 @@
 import { gql } from "@apollo/client";
 
 export const login = gql`
-  mutation Login($email: String = "", $password: String = "") {
-    login(data: { email: $email, password: $password }) {
+  mutation Signin($email: String = "", $password: String = "") {
+    signin(data: { email: $email, password: $password }) {
       user {
         id
         email
         firstname
         lastname
-        role
-        permissions {
-          code
-        }
       }
       accessToken
-    }
-  }
-`;
-
-export const userByPk = gql`
-  query UserByPk($id: Int!) {
-    User_by_pk(id: $id) {
-      id
-      email
-      role
-      lastname
-      firstname
-      MemberOnTeams {
-        teamId
-        Team {
-          id
-          name
-          description
-          organizationId
-        }
-        userId
-      }
-      Organization {
-        id
-        name
-        description
-      }
-      UserPermissions {
-        id
-        permissionId
-        userId
-        Permission {
-          id
-          code
-          permissionGroupId
-        }
-      }
-    }
-  }
-`;
-export const getInformationUser = gql`
-  query GetInformationUser($id: Int!) {
-    User_by_pk(id: $id) {
-      id
-      email
-      firstname
-      lastname
     }
   }
 `;

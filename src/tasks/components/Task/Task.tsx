@@ -1,6 +1,5 @@
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
-import { TaskByPkQuery } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
 
@@ -20,7 +19,7 @@ const useStyles = makeStyles(
   { name: "Task" },
 );
 interface TaskType {
-  task: TaskByPkQuery;
+  task: any;
 }
 const Task = ({ task }: TaskType) => {
   const classes = useStyles();
@@ -45,6 +44,7 @@ const Task = ({ task }: TaskType) => {
     setEdit(true);
     setKey(key => key + 1);
   };
+
   return (
     <Card className={classes.container}>
       <TaskTitle
@@ -65,12 +65,12 @@ const Task = ({ task }: TaskType) => {
             value={"s"}
           />
         )}
-        {task.Task_by_pk.TaskDefinition && (
+        {task.definitionId && (
           <FormSchema
-            formId={task.Task_by_pk.TaskDefinition.formId}
+            formId={task.TaskDefinition.Form.id}
             onSubmit={undefined}
             readonly={true}
-            modelData={task.Task_by_pk.values}
+            modelData={task.values}
           />
         )}
       </div>
@@ -79,5 +79,3 @@ const Task = ({ task }: TaskType) => {
 };
 
 export default Task;
-
-// {"type":"object","title":"Device Request","required":["dueDate"],"properties":{"device":{"type":"array","items":{"type":"object","required":["type","detail","quantity"],"properties":{"type":{"type":"string","uniforms":{"resource":22,"uiComponent":"SelectResourceField"}},"detail":{"type":"string"},"quantity":{"type":"integer","maximum":100,"minimum":1}}},"minItems":1,"uniforms":{"index":1}},"content":{"type":"string","nullable":true,"uniforms":{"index":4,"uiComponent":"QuillEditorField"}},"dueDate":{"type":"string","format":"date-time","default":null,"nullable":true,"uniforms":{"index":2}}}}

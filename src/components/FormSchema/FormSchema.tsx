@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
-  formId?: number;
+  formId: string;
   onSubmit: any;
   readonly?: boolean;
   modelData?: any;

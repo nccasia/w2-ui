@@ -21,14 +21,15 @@ function createValidator(schema: object) {
 
 ajv.addVocabulary(["uniforms", "formats"]);
 
-export function useFormSchema(formId: number) {
+export function useFormSchema(formId: string) {
   const { data } = useGetFormSchemaQuery({
     variables: {
       id: formId,
     },
   });
 
-  const schema = data?.Form_by_pk?.schema;
+  // @ts-ignore
+  const schema = data?.node?.schema;
 
   const bridge = useMemo(() => {
     if (!schema) {

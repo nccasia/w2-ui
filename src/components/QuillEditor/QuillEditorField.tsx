@@ -14,8 +14,6 @@ const QuillEditorField: React.FC<Props> = (props: Props) => {
     },
     [fieldProps],
   );
-  // eslint-disable-next-line no-console
-  console.log("a", fieldProps);
 
   return (
     <>

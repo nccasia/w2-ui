@@ -12,7 +12,8 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal } from "@saleor/styles/modal";
 import { taskUrl } from "@saleor/tasks/urls";
-import React, { useMemo, useState } from "react";
+import { mapEdgesToItems } from "@saleor/utils/maps";
+import React, { useCallback, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
 import { useTaskDefinitionChoiceType } from "../TaskCreation/useTasksDefinitionChoiceType";
@@ -35,7 +36,13 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
       navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
     },
   });
-  const { data } = useGetTaskDefinitionQuery();
+  const TaskDefinitionQuery = useGetTaskDefinitionQuery();
+  const data = useMemo(() => {
+    return (
+      mapEdgesToItems(TaskDefinitionQuery?.data?.TaskDefinition_connection) ||
+      []
+    );
+  }, [TaskDefinitionQuery?.data]);
   const { choiceType } = useTaskDefinitionChoiceType(data);
   const { result } = useChoiceSearch(choiceType);
 
@@ -45,31 +52,40 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
 
   const { user } = useUser();
 
-  const selectedType = useMemo(
-    () => data?.TaskDefinition?.find?.(item => item.id === +typeTask),
-    [data?.TaskDefinition, typeTask],
-  );
+  const selectedType = useMemo(() => {
+    return data?.find?.(item => item.Form.id === typeTask);
+  }, [data, typeTask]);
 
   const selectTeam = useMemo(
-    () => user?.MemberOnTeams?.find?.(item => item.userId === user?.id),
+    () => user?.MemberOnTeams?.find?.(item => item.User.id === user?.id),
     [user?.MemberOnTeams, user?.id],
   );
 
-  const handleNewRequest = data => {
-    const current = new Date();
-    createTaskMutation({
-      variables: {
-        values: { ...data },
-        creatorId: user.id,
-        assigneeId: user.id,
-        organizationId: user.Organization.id,
-        definitionId: selectedType.id,
-        teamId: selectTeam.teamId,
-        dueDate: current.toISOString(),
-        title: selectedType?.titleTemplate,
-      },
-    });
-  };
+  const handleNewRequest = useCallback(
+    data => {
+      const decodedString = atob(selectedType?.id);
+      const newRequest = () => {
+        const current = new Date();
+        createTaskMutation({
+          variables: {
+            values: { ...data },
+            creatorId: +user.userId,
+            assigneeId: +user.userId,
+            organizationId: user.organizationId,
+            definitionId: JSON.parse(decodedString)[3],
+            teamId: selectTeam.teamId,
+            dueDate: current.toISOString(),
+            title: selectedType?.title,
+          },
+        });
+      };
+      // eslint-disable-next-line no-console
+      console.log(newRequest);
+
+      return newRequest();
+    },
+    [createTaskMutation, selectTeam, user],
+  );
 
   return (
     <>
@@ -84,7 +100,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
       </Box>
       {typeTask && (
         <FormCreatedTaskDetail
-          formId={selectedType.formId}
+          formId={selectedType?.Form?.id}
           onNewRequest={handleNewRequest}
         />
       )}
