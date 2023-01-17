@@ -21,7 +21,7 @@ export interface QuillEditorProps {
   value: string | null;
   key?: number;
   modules?: { toolbar: boolean };
-  edit?: boolean;
+  readonly?: boolean;
   onChange: (text: string | null) => void;
 }
 
@@ -29,7 +29,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   value,
   key,
   modules,
-  edit,
+  readonly,
   onChange,
 }) => {
   const classes = useStyles();
@@ -37,7 +37,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   return (
     <div className={classes.root}>
       <ReactQuill
-        readOnly={edit}
+        readOnly={readonly}
         key={key}
         modules={modules}
         theme="snow"

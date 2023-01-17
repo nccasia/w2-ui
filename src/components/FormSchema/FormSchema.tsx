@@ -1,11 +1,13 @@
 import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
+import React, { useMemo } from "react";
 import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
   formId: string;
   onSubmit: any;
+  readonly?: boolean;
+  modelData?: any;
 }
 
 const useStyles = makeStyles(
@@ -50,9 +52,23 @@ const useStyles = makeStyles(
 export function FormSchema(props: PropsFormSchema) {
   const classes = useStyles();
   const { bridge } = useFormSchema(props.formId);
+  const model = useMemo(() => {
+    if (props.modelData) {
+      return props.modelData;
+    } else {
+      return;
+    }
+  }, [props]);
   return (
     <div className={classes.root}>
-      {bridge && <AutoForm schema={bridge} onSubmit={props.onSubmit} />}
+      {bridge && (
+        <AutoForm
+          schema={bridge}
+          onSubmit={props.onSubmit}
+          readOnly={props.readonly}
+          model={model}
+        />
+      )}
     </div>
   );
 }

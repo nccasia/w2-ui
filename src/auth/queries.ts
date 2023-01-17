@@ -9,6 +9,7 @@ export const userByPk = gql`
         role
         lastname
         firstname
+        organizationId
         MemberOnTeams {
           teamId
           Team {
@@ -18,6 +19,9 @@ export const userByPk = gql`
             organizationId
           }
           userId
+          User {
+            id
+          }
         }
         Organization {
           id

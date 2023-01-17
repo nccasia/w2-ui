@@ -1,3 +1,4 @@
+import LoginLoading from "@saleor/auth/components/LoginLoading";
 import { useTaskByPkQuery } from "@saleor/graphql";
 import TaskDetailPage from "@saleor/tasks/components/TaskDetailPage";
 import React from "react";
@@ -8,16 +9,15 @@ interface TaskDetailsProps {
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({ id }) => {
-  const { data } = useTaskByPkQuery({
+  const { data, loading } = useTaskByPkQuery({
     variables: {
       id,
     },
   });
-  return (
-    <>
-      <TaskDetailPage taskDetail={data?.node} />
-    </>
-  );
+  if (loading) {
+    return <LoginLoading />;
+  }
+  return <>{data?.node && <TaskDetailPage taskDetail={data?.node} />}</>;
 };
 
 export default TaskDetails;

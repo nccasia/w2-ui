@@ -163,6 +163,11 @@ export const getTaskDetail = gql`
           ...TaskFragment
         }
         priority
+        TaskDefinition {
+          Form {
+            id
+          }
+        }
       }
     }
   }
@@ -182,5 +187,10 @@ export const TaskFragment = gql`
     values
     teamId
     title
+    TaskDefinition {
+      Form {
+        id
+      }
+    }
   }
 `;

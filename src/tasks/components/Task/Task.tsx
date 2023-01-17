@@ -1,4 +1,5 @@
 import { Card } from "@material-ui/core";
+import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
 
@@ -8,16 +9,19 @@ import TaskTitle from "../TaskTitle";
 const useStyles = makeStyles(
   () => ({
     container: {
-      marginTop: "27px",
+      marginBottom: "27px",
+      paddingBottom: "40px",
+    },
+    editor: {
+      padding: "0 3.2rem",
     },
   }),
   { name: "Task" },
 );
-
-const content =
-  "<p>Adipisicing ut sunt magna amet laboris est nulla ad sunt reprehenderit fugiat veniam ex. Nulla cupidatat amet laborum fugiat irure mollit. Aliquip labore anim velit ea. Cillum aute nulla sit excepteur et. Voluptate mollit fugiat ex voluptate ut ea mollit sint dolor quis laboris id qui. Eiusmod ipsum nisi eu culpa. Consequat commodo enim voluptate non nisi reprehenderit excepteur veniam duis.</p>";
-
-const Task = () => {
+interface TaskType {
+  task: any;
+}
+const Task = ({ task }: TaskType) => {
   const classes = useStyles();
   const [modules, setModules] = useState({ toolbar: false });
   const [edit, setEdit] = useState<boolean>(true);
@@ -40,20 +44,36 @@ const Task = () => {
     setEdit(true);
     setKey(key => key + 1);
   };
+
   return (
     <Card className={classes.container}>
-      <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" />
-      <EditQuillEditor
-        key={key}
-        edit={edit}
-        modules={modules}
-        onChange={() => true}
-        handleCancel={handleCancel}
-        handleEdit={handleEdit}
-        handleSave={handleSave}
-        title={"Description"}
-        value={content}
+      <TaskTitle
+        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
+        title="PM Approve"
       />
+      <div className={classes.editor}>
+        {false && (
+          <EditQuillEditor
+            key={key}
+            readonly={edit}
+            modules={modules}
+            onChange={() => true}
+            handleCancel={handleCancel}
+            handleEdit={handleEdit}
+            handleSave={handleSave}
+            title={"Description"}
+            value={"s"}
+          />
+        )}
+        {task.definitionId && (
+          <FormSchema
+            formId={task.TaskDefinition.Form.id}
+            onSubmit={undefined}
+            readonly={true}
+            modelData={task.values}
+          />
+        )}
+      </div>
     </Card>
   );
 };

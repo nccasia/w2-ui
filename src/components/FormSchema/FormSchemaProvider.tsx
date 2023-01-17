@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { AutoField } from "uniforms-material";
 
+import CustomDateField from "../CustomDataField/CustomDateField";
 import QuillEditorField from "../QuillEditor/QuillEditorField";
 import SelectResourceField from "../SelectResourceField/SelectResourceField";
 import TestField from "../TestField/TestField";
-
 const FormSchemaProvider: React.FC = ({ children }) => {
   const value = useCallback((props, uniforms) => {
     if (props.uiComponent === "SelectResourceField") {
@@ -15,6 +15,9 @@ const FormSchemaProvider: React.FC = ({ children }) => {
     }
     if (props.uiComponent === "test") {
       return TestField;
+    }
+    if (props.field.format === "date") {
+      return CustomDateField;
     }
     return AutoField.defaultComponentDetector(props, uniforms);
   }, []);

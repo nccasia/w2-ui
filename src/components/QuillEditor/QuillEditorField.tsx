@@ -20,6 +20,7 @@ const QuillEditorField: React.FC<Props> = (props: Props) => {
       <QuillEditor
         value={fieldProps.value as string}
         onChange={handleLongText}
+        readonly={fieldProps.readOnly}
       />
     </>
   );

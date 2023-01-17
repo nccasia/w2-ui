@@ -57,24 +57,23 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
   }, [data, typeTask]);
 
   const selectTeam = useMemo(
-    () => user?.MemberOnTeams?.find?.(item => item.userId === user?.id),
+    () => user?.MemberOnTeams?.find?.(item => item.User.id === user?.id),
     [user?.MemberOnTeams, user?.id],
   );
 
   const handleNewRequest = data => {
+    const decodedString = atob(selectedType?.id);
     const current = new Date();
-    const date = `${current.getDate()}/${current.getMonth() +
-      1}/${current.getFullYear()}`;
     createTaskMutation({
       variables: {
-        values: JSON.stringify({ ...data }),
-        creatorId: user.id,
-        assigneeId: user.id,
-        organizationId: user.Organization.id,
-        definitionId: +selectedType.id,
+        values: { ...data },
+        creatorId: +user.userId,
+        assigneeId: +user.userId,
+        organizationId: user.organizationId,
+        definitionId: JSON.parse(decodedString)[3],
         teamId: selectTeam.teamId,
-        dueDate: date,
-        title: selectedType?.titleTemplate,
+        dueDate: current.toISOString(),
+        title: selectedType?.title,
       },
     });
   };

@@ -489,6 +489,11 @@ export const sectionNames = defineMessages({
     defaultMessage: "Staff Members",
     description: "staff section name",
   },
+  dashboard: {
+    id: "jSPeWl",
+    defaultMessage: "Back",
+    description: "back to daskboard",
+  },
   taxes: {
     id: "5elC9k",
     defaultMessage: "Taxes",

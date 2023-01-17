@@ -27,6 +27,11 @@ export const TaskFragmentFragmentDoc = gql`
   values
   teamId
   title
+  TaskDefinition {
+    Form {
+      id
+    }
+  }
 }
     `;
 export const SigninDocument = gql`
@@ -117,6 +122,7 @@ export const UserByPkDocument = gql`
       role
       lastname
       firstname
+      organizationId
       MemberOnTeams {
         teamId
         Team {
@@ -126,6 +132,9 @@ export const UserByPkDocument = gql`
           organizationId
         }
         userId
+        User {
+          id
+        }
       }
       Organization {
         id
@@ -571,6 +580,11 @@ export const TaskByPkDocument = gql`
         ...TaskFragment
       }
       priority
+      TaskDefinition {
+        Form {
+          id
+        }
+      }
     }
   }
 }

@@ -1,9 +1,11 @@
-import { Modal, Typography } from "@material-ui/core";
+import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
 import Attachment from "@saleor/components/Attachment";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
+import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import CustomModal from "@saleor/components/CustomModal/CustomModal";
 import { DateTime } from "@saleor/components/Date";
-import FileViewer from "@saleor/components/FileViewer/FileViewer";
+// import FileViewer from "@saleor/components/FileViewer/FileViewer";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
 import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
@@ -12,7 +14,7 @@ import { Savebar } from "@saleor/components/Savebar";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import {
-  CloseIcon,
+  // CloseIcon,
   SwitchSelector,
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
@@ -40,8 +42,6 @@ interface ITaskDetailProps {
 }
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: TaskDetailPage.tsx:43 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const [openModal, setOpenModal] = useState<boolean>(false);
   const intl = useIntl();
@@ -76,9 +76,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
     setOpenModal(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setOpenModal(false);
+  // };
 
   return (
     <Form confirmLeave initial={initial}>
@@ -89,19 +89,62 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
             <Backlink href={taskListUrl()}>
               {intl.formatMessage(sectionNames.tasks)}
             </Backlink>
-            <PageHeader className={classes.header} inline title={<Title />} />
+            <PageHeader
+              className={classes.header}
+              inline
+              title={
+                <Title
+                  props={{
+                    title: taskDetail.title,
+                    status: taskDetail.status,
+                  }}
+                />
+              }
+            />
             <div className={classes.date}>
               <Typography variant="body2">
-                <DateTime date={"2022-12-15T11:07:55.916944+00:00"} />
+                <DateTime date={taskDetail.dueDate} />
               </Typography>
               {/* <Skeleton style={{ width: "10em" }} /> */}
             </div>
             <Grid>
               <div>
-                <SubTask />
-                <Task />
+                <Task task={taskDetail} />
+                {false &&
+                  taskDetail?.Tasks.map(submap => {
+                    return <SubTask task={submap} />;
+                  })}
+                <List>
+                  <h2>Sub Tasks</h2>
+                  {taskDetail?.Tasks.map(e => {
+                    return (
+                      <ListItem
+                        button
+                        key={e.id}
+                        className={classes.subTaskItem}
+                        onClick={handleOpenModal}
+                      >
+                        <ListItemText primary={e.id} />
+                        <ListItemText primary={e.title} />
+                        <CustomAvatar id={taskDetail.creatorId} />
+                        <Title
+                          props={{
+                            status: taskDetail.status,
+                          }}
+                        />
+                      </ListItem>
+                    );
+                  })}
+                </List>
+
                 <div className={classes.attach}>
-                  <Modal
+                  <CustomModal
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                  >
+                    <div>123</div>
+                  </CustomModal>
+                  {/* <Modal
                     open={openModal}
                     onClose={handleCloseModal}
                     aria-labelledby="simple-modal-title"
@@ -121,7 +164,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                         ]}
                       />
                     </div>
-                  </Modal>
+                  </Modal> */}
                   <Typography
                     variant="subtitle1"
                     className={classes.attachTitle}
