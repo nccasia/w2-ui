@@ -32,6 +32,7 @@ export const useStyles = makeStyles(
       fontWeight: "bold",
     },
     attachments: {
+      marginBottom: "30px",
       display: "flex",
       overflowX: "scroll",
       alignItems: "center",
@@ -65,13 +66,19 @@ export const useStyles = makeStyles(
       cursor: "pointer",
     },
     subTaskItem: {
+      boxShadow: "0 0 1px 1px #999",
+      marginBottom: 10,
       "& .MuiAvatar-root": {
-        margin: "10px",
+        margin: "5px",
         "& :hover": {
           cursor: "pointer",
           opacity: 0.8,
         },
       },
+    },
+    subtask: {
+      width: "100%",
+      backgroundColor: theme.palette.background.paper,
     },
   }),
   {

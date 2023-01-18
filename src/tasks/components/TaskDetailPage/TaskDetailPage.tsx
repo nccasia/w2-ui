@@ -1,29 +1,29 @@
 /* eslint-disable no-console */
-import { List, ListItem, ListItemText, Typography } from "@material-ui/core";
-import Attachment from "@saleor/components/Attachment";
+import {
+  Avatar,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
 import CustomModal from "@saleor/components/CustomModal/CustomModal";
 import { DateTime } from "@saleor/components/Date";
-// import FileViewer from "@saleor/components/FileViewer/FileViewer";
 import Form from "@saleor/components/Form";
 import Grid from "@saleor/components/Grid";
-import Metadata, { MetadataFormData } from "@saleor/components/Metadata";
+import { MetadataFormData } from "@saleor/components/Metadata";
 import PageHeader from "@saleor/components/PageHeader";
 import { Savebar } from "@saleor/components/Savebar";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
-import {
-  // CloseIcon,
-  SwitchSelector,
-  SwitchSelectorButton,
-} from "@saleor/macaw-ui";
+import { SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
 import { histories } from "@saleor/tasks/__mock__/Task";
 import { taskListUrl } from "@saleor/tasks/urls";
-import useMetadataChangeTrigger from "@saleor/utils/metadata/useMetadataChangeTrigger";
-import { bridge } from "@saleor/utils/schema";
-import React, { useState } from "react";
+import { bridge, schema } from "@saleor/utils/schema";
+import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { AutoForm } from "uniforms-material";
 
@@ -46,7 +46,6 @@ interface ITaskDetailProps {
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   const [active, setActive] = useState<string>("1");
-  // const [openModal, setOpenModal] = useState<boolean>(false);
   const [openModalSubtask, setOpenModalSubtask] = useState<boolean>(false);
   const intl = useIntl();
   const classes = useStyles();
@@ -67,10 +66,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
     setActive(value);
   };
 
-  const {
-    makeChangeHandler: makeMetadataChangeHandler,
-  } = useMetadataChangeTrigger();
-
   const initial: MetadataFormData = {
     metadata: [],
     privateMetadata: [],
@@ -84,10 +79,16 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   //   setOpenModal(false);
   // };
 
+  const activeTask = useMemo(() => {
+    const active = taskDetail?.Tasks[0];
+    return active;
+  }, [taskDetail]);
+
+  console.log(JSON.stringify(schema));
+
   return (
     <Form confirmLeave initial={initial}>
-      {({ change, data, submit }) => {
-        const changeMetadata = makeMetadataChangeHandler(change);
+      {({ submit }) => {
         return (
           <Container>
             <Backlink href={taskListUrl()}>
@@ -114,10 +115,8 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
             <Grid>
               <div>
                 <Task task={taskDetail} />
-                {false &&
-                  taskDetail?.Tasks.map(submap => {
-                    return <SubTask task={submap} />;
-                  })}
+                {/* <Attachments /> */}
+                {activeTask && <SubTask task={activeTask}></SubTask>}
                 <List>
                   <h2>Sub Tasks</h2>
                   {taskDetail?.Tasks.map(e => {
@@ -128,14 +127,14 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                         className={classes.subTaskItem}
                         onClick={handleOpenModal}
                       >
-                        <ListItemText primary={e.id} />
+                        <ListItemAvatar>
+                          <Avatar>
+                            <CustomAvatar id={taskDetail.creatorId} />
+                          </Avatar>
+                        </ListItemAvatar>
                         <ListItemText primary={e.title} />
-                        <CustomAvatar id={taskDetail.creatorId} />
-                        <Title
-                          props={{
-                            status: taskDetail.status,
-                          }}
-                        />
+                        <ListItemText primary={e.title} />
+                        <ListItemText primary={e.title} />
                       </ListItem>
                     );
                   })}
@@ -147,29 +146,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                   >
                     <AutoForm schema={bridge} onSubmit={console.log} />
                   </CustomModal>
-                  <Typography
-                    variant="subtitle1"
-                    className={classes.attachTitle}
-                  >
-                    Attachments (4)
-                  </Typography>
-                  <div className={classes.attachments}>
-                    {[23423, 4, 324, 32, 2, 43, 24, 32, 4, 4, 324, 32].map(
-                      (_item, index) => (
-                        <Attachment
-                          click={() => true}
-                          key={index}
-                          nameFile={"IMAGE"}
-                          timeFile={String(new Date().toLocaleString())}
-                          image={
-                            "https://c.wallhere.com/images/fd/4f/a4f4e213733ee862dddde0e304ae-1567069.jpg!d"
-                          }
-                        />
-                      ),
-                    )}
-                  </div>
                 </div>
-                <Metadata data={data} onChange={changeMetadata} />
                 <div className={classes.activities}>
                   <SwitchSelector>
                     {OPTIONS.map(({ label, value }) => (

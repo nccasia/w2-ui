@@ -14,10 +14,15 @@ export const schema = {
     singlechoice: {
       type: "string",
       nullable: true,
-      uniforms: { uiComponent: "SinglechoiceField" },
+      uniforms: { uiComponent: "SinglechoiceField", index: 1 },
+    },
+    reason: {
+      type: "string",
+      nullable: true,
+      uniforms: { index: 2 },
     },
   },
-  required: ["singlechoice"] as never[],
+  required: ["singlechoice", "reason"] as never[],
 };
 
 ajv.addVocabulary(["uniforms"]);

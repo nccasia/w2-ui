@@ -1,6 +1,6 @@
 import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
@@ -13,44 +13,43 @@ interface PropsFormSchema {
 const useStyles = makeStyles(
   () => ({
     root: {
-      marginTop: "30px",
-      "& > *": {
-        margin: "0 0 20px 0",
+      "& .MuiButtonBase-root": {
+        display: "none",
+      },
+      "& .MuiInputBase-root:hover": {
+        boxShadow: "none",
+      },
+      "& .ql-toolbar": {
+        display: "none",
+      },
+      "& .quill": {
+        maxHeight: 50,
+      },
+      "& .ql-container": {
+        border: "none",
       },
       "& .MuiOutlinedInput-inputMarginDense": {
         paddingTop: "25px!important",
         paddingBottom: "10px!important",
       },
-      "& .MuiButtonBase-root": {
-        float: "right",
-        background: "#333",
+      "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
-        color: "#fff",
       },
-      "& .MuiListSubheader-root": {
-        fontSize: 16,
-        lineHeight: 0,
-        paddingLeft: 0,
+      "& .QuillEditor-root-323": {
+        border: "none",
       },
-      "& .MuiListItem-root, .MuiListItem-gutters": {
-        cursor: "pointer",
-        paddingLeft: 0,
-        paddingRight: 0,
-      },
-      "& .MuiListItem-root>.MuiFormControl-root": {
-        display: "contents!important",
-      },
-      "& .MuiListItem-root>.MuiButtonBase-root": {
-        padding: "15px 10px",
-        background: "#555",
+      "& .MuiFormControl-root": {
+        display: "inline-block",
+        width: "50% !important",
       },
     },
   }),
-  { name: "FormCreatedTaskDetail" },
+  { name: "FormSchema" },
 );
 
 export function FormSchema(props: PropsFormSchema) {
   const classes = useStyles();
+  const [classForm, setClassForm] = useState(null);
   const { bridge } = useFormSchema(props.formId);
   const model = useMemo(() => {
     if (props.modelData) {
@@ -59,8 +58,13 @@ export function FormSchema(props: PropsFormSchema) {
       return;
     }
   }, [props]);
+
+  useEffect(() => {
+    setClassForm(props.readonly ? classes.root : "");
+  }, [classes.root, props.readonly]);
+
   return (
-    <div className={classes.root}>
+    <div className={classForm}>
       {bridge && (
         <AutoForm
           schema={bridge}

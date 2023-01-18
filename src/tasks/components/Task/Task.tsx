@@ -1,21 +1,13 @@
-/* eslint-disable no-console */
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
-import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
-import { AutoForm } from "uniforms-material";
 
 import EditQuillEditor from "../EditQuillEditor";
 import TaskTitle from "../TaskTitle";
 
 const useStyles = makeStyles(
   () => ({
-    root: {
-      "& .MuiButtonBase-root": {
-        display: "none",
-      },
-    },
     container: {
       marginBottom: "27px",
       paddingBottom: "40px",
@@ -34,8 +26,6 @@ const Task = ({ task }: TaskType) => {
   const [modules, setModules] = useState({ toolbar: false });
   const [edit, setEdit] = useState<boolean>(true);
   const [key, setKey] = useState(1);
-
-  const { bridge } = useFormSchema("WzEsICJwdWJsaWMiLCAiRm9ybSIsIDQ4XQ==");
 
   const handleEdit = () => {
     setModules({ toolbar: true });
@@ -57,10 +47,7 @@ const Task = ({ task }: TaskType) => {
 
   return (
     <Card className={classes.container}>
-      <TaskTitle
-        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
-        title="PM Approve"
-      />
+      <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" />
       <div className={classes.editor}>
         {false && (
           <EditQuillEditor
@@ -77,14 +64,11 @@ const Task = ({ task }: TaskType) => {
         )}
         {task.definitionId && (
           <>
-            <div className={classes.root}>
-              <FormSchema
-                formId={task.TaskDefinition.Form.id}
-                readonly={true}
-                modelData={task.values}
-              />
-            </div>
-            <AutoForm schema={bridge} onSubmit={console.log} />
+            <FormSchema
+              formId={task.TaskDefinition.Form.id}
+              readonly={true}
+              modelData={task.values}
+            />
           </>
         )}
       </div>

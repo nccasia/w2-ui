@@ -7,10 +7,12 @@ import { AutoFieldProps, RadioField } from "uniforms-material";
 const useStyles = makeStyles(
   () => ({
     root: {
+      marginLeft: "10px",
       "& .MuiFormControl-root": {
         margin: "20px 10px",
       },
       "& .MuiFormControl-root>.MuiFormGroup-root": {
+        justifyContent: "space-around",
         flexDirection: "initial !important",
         gap: 50,
         marginTop: "7px",
