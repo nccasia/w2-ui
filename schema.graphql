@@ -275,8 +275,6 @@ input Action_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Action_set_input
-
-  """filter the rows which have to be updated"""
   where: Action_bool_exp!
 }
 
@@ -626,8 +624,6 @@ input ActivityDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ActivityDefinition_set_input
-
-  """filter the rows which have to be updated"""
   where: ActivityDefinition_bool_exp!
 }
 
@@ -1031,8 +1027,6 @@ input Comment_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Comment_set_input
-
-  """filter the rows which have to be updated"""
   where: Comment_bool_exp!
 }
 
@@ -1486,8 +1480,6 @@ input EventLog_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: EventLog_set_input
-
-  """filter the rows which have to be updated"""
   where: EventLog_bool_exp!
 }
 
@@ -2180,8 +2172,6 @@ input File_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: File_set_input
-
-  """filter the rows which have to be updated"""
   where: File_bool_exp!
 }
 
@@ -2289,6 +2279,59 @@ type Form implements Node {
     """filter the rows returned"""
     where: TaskDefinition_bool_exp
   ): TaskDefinitionConnection!
+
+  """An array relationship"""
+  Tasks(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  Tasks_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
+
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
   code: String!
   config(
     """JSON select path"""
@@ -2335,6 +2378,21 @@ type FormEdge {
   node: Form!
 }
 
+type FormOutput {
+  code: String!
+  config: String!
+  description: String!
+  displayTemplate: String!
+  id: ID!
+  name: String!
+}
+
+input FormTriggerInput {
+  formId: Int
+  taskId: Int
+  value: String!
+}
+
 """append existing jsonb value of filtered columns with new jsonb value"""
 input Form_append_input {
   config: jsonb
@@ -2351,6 +2409,8 @@ Boolean expression to filter rows from the table "Form". All fields are combined
 input Form_bool_exp {
   TaskDefinitions: TaskDefinition_bool_exp
   TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
+  Tasks: Task_bool_exp
+  Tasks_aggregate: Task_aggregate_bool_exp
   _and: [Form_bool_exp!]
   _not: Form_bool_exp
   _or: [Form_bool_exp!]
@@ -2427,6 +2487,7 @@ input type for inserting data into table "Form"
 """
 input Form_insert_input {
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
+  Tasks: Task_arr_rel_insert_input
   code: String
   config: jsonb
   createdAt: timestamp
@@ -2475,6 +2536,7 @@ input Form_on_conflict {
 """Ordering options when selecting data from "Form"."""
 input Form_order_by {
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
+  Tasks_aggregate: Task_aggregate_order_by
   code: order_by
   config: order_by
   createdAt: order_by
@@ -2639,8 +2701,6 @@ input Form_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Form_set_input
-
-  """filter the rows which have to be updated"""
   where: Form_bool_exp!
 }
 
@@ -2677,6 +2737,380 @@ type LoginUser {
   firstname: String
   id: ID!
   lastname: String
+}
+
+"""
+columns and relationships of "MemberOnProjects"
+"""
+type MemberOnProjects implements Node {
+  """An object relationship"""
+  Project: Project!
+
+  """An object relationship"""
+  User: User!
+  assignedAt: timestamp!
+  assignedBy: String!
+  id: ID!
+  projectId: Int!
+  userId: Int!
+}
+
+"""
+A Relay connection object on "MemberOnProjects"
+"""
+type MemberOnProjectsConnection {
+  edges: [MemberOnProjectsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type MemberOnProjectsEdge {
+  cursor: String!
+  node: MemberOnProjects!
+}
+
+"""
+aggregated selection of "MemberOnProjects"
+"""
+type MemberOnProjects_aggregate {
+  aggregate: MemberOnProjects_aggregate_fields
+  nodes: [MemberOnProjects!]!
+}
+
+input MemberOnProjects_aggregate_bool_exp {
+  count: MemberOnProjects_aggregate_bool_exp_count
+}
+
+input MemberOnProjects_aggregate_bool_exp_count {
+  arguments: [MemberOnProjects_select_column!]
+  distinct: Boolean
+  filter: MemberOnProjects_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "MemberOnProjects"
+"""
+type MemberOnProjects_aggregate_fields {
+  avg: MemberOnProjects_avg_fields
+  count(columns: [MemberOnProjects_select_column!], distinct: Boolean): Int!
+  max: MemberOnProjects_max_fields
+  min: MemberOnProjects_min_fields
+  stddev: MemberOnProjects_stddev_fields
+  stddev_pop: MemberOnProjects_stddev_pop_fields
+  stddev_samp: MemberOnProjects_stddev_samp_fields
+  sum: MemberOnProjects_sum_fields
+  var_pop: MemberOnProjects_var_pop_fields
+  var_samp: MemberOnProjects_var_samp_fields
+  variance: MemberOnProjects_variance_fields
+}
+
+"""
+order by aggregate values of table "MemberOnProjects"
+"""
+input MemberOnProjects_aggregate_order_by {
+  avg: MemberOnProjects_avg_order_by
+  count: order_by
+  max: MemberOnProjects_max_order_by
+  min: MemberOnProjects_min_order_by
+  stddev: MemberOnProjects_stddev_order_by
+  stddev_pop: MemberOnProjects_stddev_pop_order_by
+  stddev_samp: MemberOnProjects_stddev_samp_order_by
+  sum: MemberOnProjects_sum_order_by
+  var_pop: MemberOnProjects_var_pop_order_by
+  var_samp: MemberOnProjects_var_samp_order_by
+  variance: MemberOnProjects_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "MemberOnProjects"
+"""
+input MemberOnProjects_arr_rel_insert_input {
+  data: [MemberOnProjects_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: MemberOnProjects_on_conflict
+}
+
+"""aggregate avg on columns"""
+type MemberOnProjects_avg_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_avg_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "MemberOnProjects". All fields are combined with a logical 'AND'.
+"""
+input MemberOnProjects_bool_exp {
+  Project: Project_bool_exp
+  User: User_bool_exp
+  _and: [MemberOnProjects_bool_exp!]
+  _not: MemberOnProjects_bool_exp
+  _or: [MemberOnProjects_bool_exp!]
+  assignedAt: timestamp_comparison_exp
+  assignedBy: String_comparison_exp
+  projectId: Int_comparison_exp
+  userId: Int_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "MemberOnProjects"
+"""
+enum MemberOnProjects_constraint {
+  """
+  unique or primary key constraint on columns "projectId", "userId"
+  """
+  MemberOnProjects_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "MemberOnProjects"
+"""
+input MemberOnProjects_inc_input {
+  projectId: Int
+  userId: Int
+}
+
+"""
+input type for inserting data into table "MemberOnProjects"
+"""
+input MemberOnProjects_insert_input {
+  Project: Project_obj_rel_insert_input
+  User: User_obj_rel_insert_input
+  assignedAt: timestamp
+  assignedBy: String
+  projectId: Int
+  userId: Int
+}
+
+"""aggregate max on columns"""
+type MemberOnProjects_max_fields {
+  assignedAt: timestamp
+  assignedBy: String
+  projectId: Int
+  userId: Int
+}
+
+"""
+order by max() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_max_order_by {
+  assignedAt: order_by
+  assignedBy: order_by
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate min on columns"""
+type MemberOnProjects_min_fields {
+  assignedAt: timestamp
+  assignedBy: String
+  projectId: Int
+  userId: Int
+}
+
+"""
+order by min() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_min_order_by {
+  assignedAt: order_by
+  assignedBy: order_by
+  projectId: order_by
+  userId: order_by
+}
+
+"""
+response of any mutation on the table "MemberOnProjects"
+"""
+type MemberOnProjects_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [MemberOnProjects!]!
+}
+
+"""
+on_conflict condition type for table "MemberOnProjects"
+"""
+input MemberOnProjects_on_conflict {
+  constraint: MemberOnProjects_constraint!
+  update_columns: [MemberOnProjects_update_column!]! = []
+  where: MemberOnProjects_bool_exp
+}
+
+"""Ordering options when selecting data from "MemberOnProjects"."""
+input MemberOnProjects_order_by {
+  Project: Project_order_by
+  User: User_order_by
+  assignedAt: order_by
+  assignedBy: order_by
+  projectId: order_by
+  userId: order_by
+}
+
+"""primary key columns input for table: MemberOnProjects"""
+input MemberOnProjects_pk_columns_input {
+  projectId: Int!
+  userId: Int!
+}
+
+"""
+select columns of table "MemberOnProjects"
+"""
+enum MemberOnProjects_select_column {
+  """column name"""
+  assignedAt
+
+  """column name"""
+  assignedBy
+
+  """column name"""
+  projectId
+
+  """column name"""
+  userId
+}
+
+"""
+input type for updating data in table "MemberOnProjects"
+"""
+input MemberOnProjects_set_input {
+  assignedAt: timestamp
+  assignedBy: String
+  projectId: Int
+  userId: Int
+}
+
+"""aggregate stddev on columns"""
+type MemberOnProjects_stddev_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_stddev_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type MemberOnProjects_stddev_pop_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_stddev_pop_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type MemberOnProjects_stddev_samp_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_stddev_samp_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate sum on columns"""
+type MemberOnProjects_sum_fields {
+  projectId: Int
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_sum_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""
+update columns of table "MemberOnProjects"
+"""
+enum MemberOnProjects_update_column {
+  """column name"""
+  assignedAt
+
+  """column name"""
+  assignedBy
+
+  """column name"""
+  projectId
+
+  """column name"""
+  userId
+}
+
+input MemberOnProjects_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: MemberOnProjects_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: MemberOnProjects_set_input
+  where: MemberOnProjects_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type MemberOnProjects_var_pop_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by var_pop() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_var_pop_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type MemberOnProjects_var_samp_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_var_samp_order_by {
+  projectId: order_by
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type MemberOnProjects_variance_fields {
+  projectId: Float
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "MemberOnProjects"
+"""
+input MemberOnProjects_variance_order_by {
+  projectId: order_by
+  userId: order_by
 }
 
 """
@@ -3008,8 +3442,6 @@ input MemberOnTeams_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: MemberOnTeams_set_input
-
-  """filter the rows which have to be updated"""
   where: MemberOnTeams_bool_exp!
 }
 
@@ -3278,6 +3710,59 @@ type Organization implements Node {
   ): PermissionConnection!
 
   """An array relationship"""
+  Projects(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): [Project!]!
+
+  """An aggregate relationship"""
+  Projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): Project_aggregate!
+
+  """An array relationship connection"""
+  Projects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
+
+  """An array relationship"""
   Resources(
     """distinct select on columns"""
     distinct_on: [Resource_select_column!]
@@ -3382,6 +3867,59 @@ type Organization implements Node {
     """filter the rows returned"""
     where: Settings_bool_exp
   ): SettingsConnection!
+
+  """An array relationship"""
+  TaskBoards(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): [TaskBoard!]!
+
+  """An aggregate relationship"""
+  TaskBoards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoard_aggregate!
+
+  """An array relationship connection"""
+  TaskBoards_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoardConnection!
 
   """An array relationship"""
   TaskDefinitions(
@@ -3626,10 +4164,14 @@ input Organization_bool_exp {
   PermissionGroups_aggregate: PermissionGroup_aggregate_bool_exp
   Permissions: Permission_bool_exp
   Permissions_aggregate: Permission_aggregate_bool_exp
+  Projects: Project_bool_exp
+  Projects_aggregate: Project_aggregate_bool_exp
   Resources: Resource_bool_exp
   Resources_aggregate: Resource_aggregate_bool_exp
   Settings: Settings_bool_exp
   Settings_aggregate: Settings_aggregate_bool_exp
+  TaskBoards: TaskBoard_bool_exp
+  TaskBoards_aggregate: TaskBoard_aggregate_bool_exp
   TaskDefinitions: TaskDefinition_bool_exp
   TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
   Tasks: Task_bool_exp
@@ -3673,8 +4215,10 @@ input Organization_insert_input {
   Files: File_arr_rel_insert_input
   PermissionGroups: PermissionGroup_arr_rel_insert_input
   Permissions: Permission_arr_rel_insert_input
+  Projects: Project_arr_rel_insert_input
   Resources: Resource_arr_rel_insert_input
   Settings: Settings_arr_rel_insert_input
+  TaskBoards: TaskBoard_arr_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
@@ -3722,8 +4266,10 @@ input Organization_order_by {
   Files_aggregate: File_aggregate_order_by
   PermissionGroups_aggregate: PermissionGroup_aggregate_order_by
   Permissions_aggregate: Permission_aggregate_order_by
+  Projects_aggregate: Project_aggregate_order_by
   Resources_aggregate: Resource_aggregate_order_by
   Settings_aggregate: Settings_aggregate_order_by
+  TaskBoards_aggregate: TaskBoard_aggregate_order_by
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
@@ -3797,8 +4343,6 @@ input Organization_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Organization_set_input
-
-  """filter the rows which have to be updated"""
   where: Organization_bool_exp!
 }
 
@@ -4312,8 +4856,6 @@ input PermissionGroup_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: PermissionGroup_set_input
-
-  """filter the rows which have to be updated"""
   where: PermissionGroup_bool_exp!
 }
 
@@ -4739,8 +5281,6 @@ input Permission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Permission_set_input
-
-  """filter the rows which have to be updated"""
   where: Permission_bool_exp!
 }
 
@@ -5186,8 +5726,6 @@ input Post_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Post_set_input
-
-  """filter the rows which have to be updated"""
   where: Post_bool_exp!
 }
 
@@ -5231,6 +5769,1269 @@ order by variance() on columns of table "Post"
 input Post_variance_order_by {
   authorId: order_by
   id: order_by
+}
+
+"""
+columns and relationships of "Project"
+"""
+type Project implements Node {
+  """An array relationship"""
+  MemberOnProjects(
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): [MemberOnProjects!]!
+
+  """An aggregate relationship"""
+  MemberOnProjects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjects_aggregate!
+
+  """An array relationship connection"""
+  MemberOnProjects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjectsConnection!
+
+  """An object relationship"""
+  Organization: Organization!
+
+  """An array relationship"""
+  ProjectSettings(
+    """distinct select on columns"""
+    distinct_on: [ProjectSettings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectSettings_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectSettings_bool_exp
+  ): [ProjectSettings!]!
+
+  """An aggregate relationship"""
+  ProjectSettings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ProjectSettings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectSettings_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectSettings_bool_exp
+  ): ProjectSettings_aggregate!
+
+  """An array relationship connection"""
+  ProjectSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [ProjectSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectSettings_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectSettings_bool_exp
+  ): ProjectSettingsConnection!
+
+  """An array relationship"""
+  TaskBoards(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): [TaskBoard!]!
+
+  """An aggregate relationship"""
+  TaskBoards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoard_aggregate!
+
+  """An array relationship connection"""
+  TaskBoards_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoardConnection!
+
+  """An object relationship"""
+  TaskDefinition: TaskDefinition!
+
+  """An array relationship"""
+  Tasks(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  Tasks_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
+
+  """An array relationship connection"""
+  Tasks_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
+  """An object relationship"""
+  User: User!
+  code: String!
+  createdAt: timestamp!
+  creatorId: Int!
+  description: String!
+  icon: String!
+  id: ID!
+  managerId: Int!
+  name: String!
+  organizationId: Int!
+  reporterId: Int!
+  taskDefinitionId: Int!
+  updatedAt: timestamp!
+
+  """An object relationship"""
+  userByManagerid: User!
+
+  """An object relationship"""
+  userByReporterid: User!
+}
+
+"""
+A Relay connection object on "Project"
+"""
+type ProjectConnection {
+  edges: [ProjectEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProjectEdge {
+  cursor: String!
+  node: Project!
+}
+
+"""
+columns and relationships of "ProjectSettings"
+"""
+type ProjectSettings implements Node {
+  """An object relationship"""
+  Project: Project!
+  createdAt: timestamp!
+  id: ID!
+  key: String!
+  projectId: Int!
+  updatedAt: timestamp!
+  value(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+A Relay connection object on "ProjectSettings"
+"""
+type ProjectSettingsConnection {
+  edges: [ProjectSettingsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProjectSettingsEdge {
+  cursor: String!
+  node: ProjectSettings!
+}
+
+"""
+aggregated selection of "ProjectSettings"
+"""
+type ProjectSettings_aggregate {
+  aggregate: ProjectSettings_aggregate_fields
+  nodes: [ProjectSettings!]!
+}
+
+input ProjectSettings_aggregate_bool_exp {
+  count: ProjectSettings_aggregate_bool_exp_count
+}
+
+input ProjectSettings_aggregate_bool_exp_count {
+  arguments: [ProjectSettings_select_column!]
+  distinct: Boolean
+  filter: ProjectSettings_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "ProjectSettings"
+"""
+type ProjectSettings_aggregate_fields {
+  avg: ProjectSettings_avg_fields
+  count(columns: [ProjectSettings_select_column!], distinct: Boolean): Int!
+  max: ProjectSettings_max_fields
+  min: ProjectSettings_min_fields
+  stddev: ProjectSettings_stddev_fields
+  stddev_pop: ProjectSettings_stddev_pop_fields
+  stddev_samp: ProjectSettings_stddev_samp_fields
+  sum: ProjectSettings_sum_fields
+  var_pop: ProjectSettings_var_pop_fields
+  var_samp: ProjectSettings_var_samp_fields
+  variance: ProjectSettings_variance_fields
+}
+
+"""
+order by aggregate values of table "ProjectSettings"
+"""
+input ProjectSettings_aggregate_order_by {
+  avg: ProjectSettings_avg_order_by
+  count: order_by
+  max: ProjectSettings_max_order_by
+  min: ProjectSettings_min_order_by
+  stddev: ProjectSettings_stddev_order_by
+  stddev_pop: ProjectSettings_stddev_pop_order_by
+  stddev_samp: ProjectSettings_stddev_samp_order_by
+  sum: ProjectSettings_sum_order_by
+  var_pop: ProjectSettings_var_pop_order_by
+  var_samp: ProjectSettings_var_samp_order_by
+  variance: ProjectSettings_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input ProjectSettings_append_input {
+  value: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "ProjectSettings"
+"""
+input ProjectSettings_arr_rel_insert_input {
+  data: [ProjectSettings_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: ProjectSettings_on_conflict
+}
+
+"""aggregate avg on columns"""
+type ProjectSettings_avg_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by avg() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_avg_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "ProjectSettings". All fields are combined with a logical 'AND'.
+"""
+input ProjectSettings_bool_exp {
+  Project: Project_bool_exp
+  _and: [ProjectSettings_bool_exp!]
+  _not: ProjectSettings_bool_exp
+  _or: [ProjectSettings_bool_exp!]
+  createdAt: timestamp_comparison_exp
+  id: Int_comparison_exp
+  key: String_comparison_exp
+  projectId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  value: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "ProjectSettings"
+"""
+enum ProjectSettings_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  ProjectSettings_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input ProjectSettings_delete_at_path_input {
+  value: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input ProjectSettings_delete_elem_input {
+  value: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input ProjectSettings_delete_key_input {
+  value: String
+}
+
+"""
+input type for incrementing numeric columns in table "ProjectSettings"
+"""
+input ProjectSettings_inc_input {
+  id: Int
+  projectId: Int
+}
+
+"""
+input type for inserting data into table "ProjectSettings"
+"""
+input ProjectSettings_insert_input {
+  Project: Project_obj_rel_insert_input
+  createdAt: timestamp
+  id: Int
+  key: String
+  projectId: Int
+  updatedAt: timestamp
+  value: jsonb
+}
+
+"""aggregate max on columns"""
+type ProjectSettings_max_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  projectId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_max_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  projectId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type ProjectSettings_min_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  projectId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_min_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  projectId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "ProjectSettings"
+"""
+type ProjectSettings_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ProjectSettings!]!
+}
+
+"""
+on_conflict condition type for table "ProjectSettings"
+"""
+input ProjectSettings_on_conflict {
+  constraint: ProjectSettings_constraint!
+  update_columns: [ProjectSettings_update_column!]! = []
+  where: ProjectSettings_bool_exp
+}
+
+"""Ordering options when selecting data from "ProjectSettings"."""
+input ProjectSettings_order_by {
+  Project: Project_order_by
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  projectId: order_by
+  updatedAt: order_by
+  value: order_by
+}
+
+"""primary key columns input for table: ProjectSettings"""
+input ProjectSettings_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input ProjectSettings_prepend_input {
+  value: jsonb
+}
+
+"""
+select columns of table "ProjectSettings"
+"""
+enum ProjectSettings_select_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  projectId
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  value
+}
+
+"""
+input type for updating data in table "ProjectSettings"
+"""
+input ProjectSettings_set_input {
+  createdAt: timestamp
+  id: Int
+  key: String
+  projectId: Int
+  updatedAt: timestamp
+  value: jsonb
+}
+
+"""aggregate stddev on columns"""
+type ProjectSettings_stddev_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by stddev() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_stddev_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type ProjectSettings_stddev_pop_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_stddev_pop_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type ProjectSettings_stddev_samp_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_stddev_samp_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""aggregate sum on columns"""
+type ProjectSettings_sum_fields {
+  id: Int
+  projectId: Int
+}
+
+"""
+order by sum() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_sum_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""
+update columns of table "ProjectSettings"
+"""
+enum ProjectSettings_update_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  projectId
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  value
+}
+
+input ProjectSettings_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: ProjectSettings_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: ProjectSettings_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: ProjectSettings_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: ProjectSettings_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: ProjectSettings_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: ProjectSettings_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: ProjectSettings_set_input
+  where: ProjectSettings_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type ProjectSettings_var_pop_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by var_pop() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_var_pop_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type ProjectSettings_var_samp_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by var_samp() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_var_samp_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""aggregate variance on columns"""
+type ProjectSettings_variance_fields {
+  id: Float
+  projectId: Float
+}
+
+"""
+order by variance() on columns of table "ProjectSettings"
+"""
+input ProjectSettings_variance_order_by {
+  id: order_by
+  projectId: order_by
+}
+
+"""
+aggregated selection of "Project"
+"""
+type Project_aggregate {
+  aggregate: Project_aggregate_fields
+  nodes: [Project!]!
+}
+
+input Project_aggregate_bool_exp {
+  count: Project_aggregate_bool_exp_count
+}
+
+input Project_aggregate_bool_exp_count {
+  arguments: [Project_select_column!]
+  distinct: Boolean
+  filter: Project_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "Project"
+"""
+type Project_aggregate_fields {
+  avg: Project_avg_fields
+  count(columns: [Project_select_column!], distinct: Boolean): Int!
+  max: Project_max_fields
+  min: Project_min_fields
+  stddev: Project_stddev_fields
+  stddev_pop: Project_stddev_pop_fields
+  stddev_samp: Project_stddev_samp_fields
+  sum: Project_sum_fields
+  var_pop: Project_var_pop_fields
+  var_samp: Project_var_samp_fields
+  variance: Project_variance_fields
+}
+
+"""
+order by aggregate values of table "Project"
+"""
+input Project_aggregate_order_by {
+  avg: Project_avg_order_by
+  count: order_by
+  max: Project_max_order_by
+  min: Project_min_order_by
+  stddev: Project_stddev_order_by
+  stddev_pop: Project_stddev_pop_order_by
+  stddev_samp: Project_stddev_samp_order_by
+  sum: Project_sum_order_by
+  var_pop: Project_var_pop_order_by
+  var_samp: Project_var_samp_order_by
+  variance: Project_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "Project"
+"""
+input Project_arr_rel_insert_input {
+  data: [Project_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: Project_on_conflict
+}
+
+"""aggregate avg on columns"""
+type Project_avg_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by avg() on columns of table "Project"
+"""
+input Project_avg_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "Project". All fields are combined with a logical 'AND'.
+"""
+input Project_bool_exp {
+  MemberOnProjects: MemberOnProjects_bool_exp
+  MemberOnProjects_aggregate: MemberOnProjects_aggregate_bool_exp
+  Organization: Organization_bool_exp
+  ProjectSettings: ProjectSettings_bool_exp
+  ProjectSettings_aggregate: ProjectSettings_aggregate_bool_exp
+  TaskBoards: TaskBoard_bool_exp
+  TaskBoards_aggregate: TaskBoard_aggregate_bool_exp
+  TaskDefinition: TaskDefinition_bool_exp
+  Tasks: Task_bool_exp
+  Tasks_aggregate: Task_aggregate_bool_exp
+  User: User_bool_exp
+  _and: [Project_bool_exp!]
+  _not: Project_bool_exp
+  _or: [Project_bool_exp!]
+  code: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  creatorId: Int_comparison_exp
+  description: String_comparison_exp
+  icon: String_comparison_exp
+  id: Int_comparison_exp
+  managerId: Int_comparison_exp
+  name: String_comparison_exp
+  organizationId: Int_comparison_exp
+  reporterId: Int_comparison_exp
+  taskDefinitionId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  userByManagerid: User_bool_exp
+  userByReporterid: User_bool_exp
+}
+
+"""
+unique or primary key constraints on table "Project"
+"""
+enum Project_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  Project_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "Project"
+"""
+input Project_inc_input {
+  creatorId: Int
+  id: Int
+  managerId: Int
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+}
+
+"""
+input type for inserting data into table "Project"
+"""
+input Project_insert_input {
+  MemberOnProjects: MemberOnProjects_arr_rel_insert_input
+  Organization: Organization_obj_rel_insert_input
+  ProjectSettings: ProjectSettings_arr_rel_insert_input
+  TaskBoards: TaskBoard_arr_rel_insert_input
+  TaskDefinition: TaskDefinition_obj_rel_insert_input
+  Tasks: Task_arr_rel_insert_input
+  User: User_obj_rel_insert_input
+  code: String
+  createdAt: timestamp
+  creatorId: Int
+  description: String
+  icon: String
+  id: Int
+  managerId: Int
+  name: String
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+  userByManagerid: User_obj_rel_insert_input
+  userByReporterid: User_obj_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type Project_max_fields {
+  code: String
+  createdAt: timestamp
+  creatorId: Int
+  description: String
+  icon: String
+  id: Int
+  managerId: Int
+  name: String
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "Project"
+"""
+input Project_max_order_by {
+  code: order_by
+  createdAt: order_by
+  creatorId: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  managerId: order_by
+  name: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type Project_min_fields {
+  code: String
+  createdAt: timestamp
+  creatorId: Int
+  description: String
+  icon: String
+  id: Int
+  managerId: Int
+  name: String
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "Project"
+"""
+input Project_min_order_by {
+  code: order_by
+  createdAt: order_by
+  creatorId: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  managerId: order_by
+  name: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "Project"
+"""
+type Project_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [Project!]!
+}
+
+"""
+input type for inserting object relation for remote table "Project"
+"""
+input Project_obj_rel_insert_input {
+  data: Project_insert_input!
+
+  """upsert condition"""
+  on_conflict: Project_on_conflict
+}
+
+"""
+on_conflict condition type for table "Project"
+"""
+input Project_on_conflict {
+  constraint: Project_constraint!
+  update_columns: [Project_update_column!]! = []
+  where: Project_bool_exp
+}
+
+"""Ordering options when selecting data from "Project"."""
+input Project_order_by {
+  MemberOnProjects_aggregate: MemberOnProjects_aggregate_order_by
+  Organization: Organization_order_by
+  ProjectSettings_aggregate: ProjectSettings_aggregate_order_by
+  TaskBoards_aggregate: TaskBoard_aggregate_order_by
+  TaskDefinition: TaskDefinition_order_by
+  Tasks_aggregate: Task_aggregate_order_by
+  User: User_order_by
+  code: order_by
+  createdAt: order_by
+  creatorId: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  managerId: order_by
+  name: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+  userByManagerid: User_order_by
+  userByReporterid: User_order_by
+}
+
+"""primary key columns input for table: Project"""
+input Project_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "Project"
+"""
+enum Project_select_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  creatorId
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  managerId
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  reporterId
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  updatedAt
+}
+
+"""
+input type for updating data in table "Project"
+"""
+input Project_set_input {
+  code: String
+  createdAt: timestamp
+  creatorId: Int
+  description: String
+  icon: String
+  id: Int
+  managerId: Int
+  name: String
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type Project_stddev_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev() on columns of table "Project"
+"""
+input Project_stddev_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type Project_stddev_pop_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "Project"
+"""
+input Project_stddev_pop_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type Project_stddev_samp_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "Project"
+"""
+input Project_stddev_samp_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate sum on columns"""
+type Project_sum_fields {
+  creatorId: Int
+  id: Int
+  managerId: Int
+  organizationId: Int
+  reporterId: Int
+  taskDefinitionId: Int
+}
+
+"""
+order by sum() on columns of table "Project"
+"""
+input Project_sum_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+update columns of table "Project"
+"""
+enum Project_update_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  creatorId
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  managerId
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  reporterId
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  updatedAt
+}
+
+input Project_updates {
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: Project_inc_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: Project_set_input
+  where: Project_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type Project_var_pop_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_pop() on columns of table "Project"
+"""
+input Project_var_pop_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type Project_var_samp_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_samp() on columns of table "Project"
+"""
+input Project_var_samp_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate variance on columns"""
+type Project_variance_fields {
+  creatorId: Float
+  id: Float
+  managerId: Float
+  organizationId: Float
+  reporterId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by variance() on columns of table "Project"
+"""
+input Project_variance_order_by {
+  creatorId: order_by
+  id: order_by
+  managerId: order_by
+  organizationId: order_by
+  reporterId: order_by
+  taskDefinitionId: order_by
 }
 
 """
@@ -5696,8 +7497,6 @@ input ResourceItem_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ResourceItem_set_input
-
-  """filter the rows which have to be updated"""
   where: ResourceItem_bool_exp!
 }
 
@@ -6109,8 +7908,6 @@ input Resource_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Resource_set_input
-
-  """filter the rows which have to be updated"""
   where: Resource_bool_exp!
 }
 
@@ -6575,8 +8372,6 @@ input Settings_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Settings_set_input
-
-  """filter the rows which have to be updated"""
   where: Settings_bool_exp!
 }
 
@@ -6786,7 +8581,13 @@ type Task implements Node {
   ): EventLogConnection!
 
   """An object relationship"""
+  Form: Form
+
+  """An object relationship"""
   Organization: Organization!
+
+  """An object relationship"""
+  Project: Project
 
   """An object relationship"""
   Task: Task
@@ -6927,6 +8728,7 @@ type Task implements Node {
     """JSON select path"""
     path: String
   ): jsonb
+  formId: Int
   id: ID!
   isActive: Boolean!
   key: String!
@@ -6946,10 +8748,12 @@ type Task implements Node {
     """JSON select path"""
     path: String
   ): jsonb
+  projectId: Int
   properties(
     """JSON select path"""
     path: String
   ): jsonb
+  reporterId: Int
   state: String!
   stateConfig(
     """JSON select path"""
@@ -6978,10 +8782,1174 @@ type Task implements Node {
 
   """An object relationship"""
   userByCreatorid: User!
+
+  """An object relationship"""
+  userByReporterid: User
   values(
     """JSON select path"""
     path: String
   ): jsonb
+}
+
+"""
+columns and relationships of "TaskBoard"
+"""
+type TaskBoard implements Node {
+  """An object relationship"""
+  Organization: Organization!
+
+  """An object relationship"""
+  Project: Project
+
+  """An array relationship"""
+  TaskBoardSettings(
+    """distinct select on columns"""
+    distinct_on: [TaskBoardSettings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoardSettings_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoardSettings_bool_exp
+  ): [TaskBoardSettings!]!
+
+  """An aggregate relationship"""
+  TaskBoardSettings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskBoardSettings_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoardSettings_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoardSettings_bool_exp
+  ): TaskBoardSettings_aggregate!
+
+  """An array relationship connection"""
+  TaskBoardSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoardSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoardSettings_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoardSettings_bool_exp
+  ): TaskBoardSettingsConnection!
+
+  """An object relationship"""
+  TaskDefinition: TaskDefinition!
+  code: String!
+  createdAt: timestamp!
+  description: String!
+  icon: String!
+  id: ID!
+  name: String!
+  organizationId: Int!
+  projectId: Int
+  taskDefinitionId: Int!
+  type: TaskBoardType!
+  updatedAt: timestamp!
+  viewConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+  viewType: TaskBoardViewType!
+  visibility: Visibility!
+}
+
+"""
+A Relay connection object on "TaskBoard"
+"""
+type TaskBoardConnection {
+  edges: [TaskBoardEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskBoardEdge {
+  cursor: String!
+  node: TaskBoard!
+}
+
+"""
+columns and relationships of "TaskBoardSettings"
+"""
+type TaskBoardSettings implements Node {
+  """An object relationship"""
+  TaskBoard: TaskBoard!
+  createdAt: timestamp!
+  id: ID!
+  key: String!
+  taskBoardId: Int!
+  updatedAt: timestamp!
+  value(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+A Relay connection object on "TaskBoardSettings"
+"""
+type TaskBoardSettingsConnection {
+  edges: [TaskBoardSettingsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskBoardSettingsEdge {
+  cursor: String!
+  node: TaskBoardSettings!
+}
+
+"""
+aggregated selection of "TaskBoardSettings"
+"""
+type TaskBoardSettings_aggregate {
+  aggregate: TaskBoardSettings_aggregate_fields
+  nodes: [TaskBoardSettings!]!
+}
+
+input TaskBoardSettings_aggregate_bool_exp {
+  count: TaskBoardSettings_aggregate_bool_exp_count
+}
+
+input TaskBoardSettings_aggregate_bool_exp_count {
+  arguments: [TaskBoardSettings_select_column!]
+  distinct: Boolean
+  filter: TaskBoardSettings_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "TaskBoardSettings"
+"""
+type TaskBoardSettings_aggregate_fields {
+  avg: TaskBoardSettings_avg_fields
+  count(columns: [TaskBoardSettings_select_column!], distinct: Boolean): Int!
+  max: TaskBoardSettings_max_fields
+  min: TaskBoardSettings_min_fields
+  stddev: TaskBoardSettings_stddev_fields
+  stddev_pop: TaskBoardSettings_stddev_pop_fields
+  stddev_samp: TaskBoardSettings_stddev_samp_fields
+  sum: TaskBoardSettings_sum_fields
+  var_pop: TaskBoardSettings_var_pop_fields
+  var_samp: TaskBoardSettings_var_samp_fields
+  variance: TaskBoardSettings_variance_fields
+}
+
+"""
+order by aggregate values of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_aggregate_order_by {
+  avg: TaskBoardSettings_avg_order_by
+  count: order_by
+  max: TaskBoardSettings_max_order_by
+  min: TaskBoardSettings_min_order_by
+  stddev: TaskBoardSettings_stddev_order_by
+  stddev_pop: TaskBoardSettings_stddev_pop_order_by
+  stddev_samp: TaskBoardSettings_stddev_samp_order_by
+  sum: TaskBoardSettings_sum_order_by
+  var_pop: TaskBoardSettings_var_pop_order_by
+  var_samp: TaskBoardSettings_var_samp_order_by
+  variance: TaskBoardSettings_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input TaskBoardSettings_append_input {
+  value: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "TaskBoardSettings"
+"""
+input TaskBoardSettings_arr_rel_insert_input {
+  data: [TaskBoardSettings_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: TaskBoardSettings_on_conflict
+}
+
+"""aggregate avg on columns"""
+type TaskBoardSettings_avg_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by avg() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_avg_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "TaskBoardSettings". All fields are combined with a logical 'AND'.
+"""
+input TaskBoardSettings_bool_exp {
+  TaskBoard: TaskBoard_bool_exp
+  _and: [TaskBoardSettings_bool_exp!]
+  _not: TaskBoardSettings_bool_exp
+  _or: [TaskBoardSettings_bool_exp!]
+  createdAt: timestamp_comparison_exp
+  id: Int_comparison_exp
+  key: String_comparison_exp
+  taskBoardId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  value: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "TaskBoardSettings"
+"""
+enum TaskBoardSettings_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  TaskBoardSettings_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input TaskBoardSettings_delete_at_path_input {
+  value: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input TaskBoardSettings_delete_elem_input {
+  value: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input TaskBoardSettings_delete_key_input {
+  value: String
+}
+
+"""
+input type for incrementing numeric columns in table "TaskBoardSettings"
+"""
+input TaskBoardSettings_inc_input {
+  id: Int
+  taskBoardId: Int
+}
+
+"""
+input type for inserting data into table "TaskBoardSettings"
+"""
+input TaskBoardSettings_insert_input {
+  TaskBoard: TaskBoard_obj_rel_insert_input
+  createdAt: timestamp
+  id: Int
+  key: String
+  taskBoardId: Int
+  updatedAt: timestamp
+  value: jsonb
+}
+
+"""aggregate max on columns"""
+type TaskBoardSettings_max_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  taskBoardId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_max_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  taskBoardId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type TaskBoardSettings_min_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  taskBoardId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_min_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  taskBoardId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "TaskBoardSettings"
+"""
+type TaskBoardSettings_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [TaskBoardSettings!]!
+}
+
+"""
+on_conflict condition type for table "TaskBoardSettings"
+"""
+input TaskBoardSettings_on_conflict {
+  constraint: TaskBoardSettings_constraint!
+  update_columns: [TaskBoardSettings_update_column!]! = []
+  where: TaskBoardSettings_bool_exp
+}
+
+"""Ordering options when selecting data from "TaskBoardSettings"."""
+input TaskBoardSettings_order_by {
+  TaskBoard: TaskBoard_order_by
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  taskBoardId: order_by
+  updatedAt: order_by
+  value: order_by
+}
+
+"""primary key columns input for table: TaskBoardSettings"""
+input TaskBoardSettings_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input TaskBoardSettings_prepend_input {
+  value: jsonb
+}
+
+"""
+select columns of table "TaskBoardSettings"
+"""
+enum TaskBoardSettings_select_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  taskBoardId
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  value
+}
+
+"""
+input type for updating data in table "TaskBoardSettings"
+"""
+input TaskBoardSettings_set_input {
+  createdAt: timestamp
+  id: Int
+  key: String
+  taskBoardId: Int
+  updatedAt: timestamp
+  value: jsonb
+}
+
+"""aggregate stddev on columns"""
+type TaskBoardSettings_stddev_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by stddev() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_stddev_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type TaskBoardSettings_stddev_pop_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_stddev_pop_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type TaskBoardSettings_stddev_samp_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_stddev_samp_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""aggregate sum on columns"""
+type TaskBoardSettings_sum_fields {
+  id: Int
+  taskBoardId: Int
+}
+
+"""
+order by sum() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_sum_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""
+update columns of table "TaskBoardSettings"
+"""
+enum TaskBoardSettings_update_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  taskBoardId
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  value
+}
+
+input TaskBoardSettings_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: TaskBoardSettings_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: TaskBoardSettings_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: TaskBoardSettings_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: TaskBoardSettings_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: TaskBoardSettings_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: TaskBoardSettings_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: TaskBoardSettings_set_input
+  where: TaskBoardSettings_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type TaskBoardSettings_var_pop_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by var_pop() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_var_pop_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type TaskBoardSettings_var_samp_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by var_samp() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_var_samp_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+"""aggregate variance on columns"""
+type TaskBoardSettings_variance_fields {
+  id: Float
+  taskBoardId: Float
+}
+
+"""
+order by variance() on columns of table "TaskBoardSettings"
+"""
+input TaskBoardSettings_variance_order_by {
+  id: order_by
+  taskBoardId: order_by
+}
+
+scalar TaskBoardType
+
+"""
+Boolean expression to compare columns of type "TaskBoardType". All fields are combined with logical 'AND'.
+"""
+input TaskBoardType_comparison_exp {
+  _eq: TaskBoardType
+  _gt: TaskBoardType
+  _gte: TaskBoardType
+  _in: [TaskBoardType!]
+  _is_null: Boolean
+  _lt: TaskBoardType
+  _lte: TaskBoardType
+  _neq: TaskBoardType
+  _nin: [TaskBoardType!]
+}
+
+scalar TaskBoardViewType
+
+"""
+Boolean expression to compare columns of type "TaskBoardViewType". All fields are combined with logical 'AND'.
+"""
+input TaskBoardViewType_comparison_exp {
+  _eq: TaskBoardViewType
+  _gt: TaskBoardViewType
+  _gte: TaskBoardViewType
+  _in: [TaskBoardViewType!]
+  _is_null: Boolean
+  _lt: TaskBoardViewType
+  _lte: TaskBoardViewType
+  _neq: TaskBoardViewType
+  _nin: [TaskBoardViewType!]
+}
+
+"""
+aggregated selection of "TaskBoard"
+"""
+type TaskBoard_aggregate {
+  aggregate: TaskBoard_aggregate_fields
+  nodes: [TaskBoard!]!
+}
+
+input TaskBoard_aggregate_bool_exp {
+  count: TaskBoard_aggregate_bool_exp_count
+}
+
+input TaskBoard_aggregate_bool_exp_count {
+  arguments: [TaskBoard_select_column!]
+  distinct: Boolean
+  filter: TaskBoard_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "TaskBoard"
+"""
+type TaskBoard_aggregate_fields {
+  avg: TaskBoard_avg_fields
+  count(columns: [TaskBoard_select_column!], distinct: Boolean): Int!
+  max: TaskBoard_max_fields
+  min: TaskBoard_min_fields
+  stddev: TaskBoard_stddev_fields
+  stddev_pop: TaskBoard_stddev_pop_fields
+  stddev_samp: TaskBoard_stddev_samp_fields
+  sum: TaskBoard_sum_fields
+  var_pop: TaskBoard_var_pop_fields
+  var_samp: TaskBoard_var_samp_fields
+  variance: TaskBoard_variance_fields
+}
+
+"""
+order by aggregate values of table "TaskBoard"
+"""
+input TaskBoard_aggregate_order_by {
+  avg: TaskBoard_avg_order_by
+  count: order_by
+  max: TaskBoard_max_order_by
+  min: TaskBoard_min_order_by
+  stddev: TaskBoard_stddev_order_by
+  stddev_pop: TaskBoard_stddev_pop_order_by
+  stddev_samp: TaskBoard_stddev_samp_order_by
+  sum: TaskBoard_sum_order_by
+  var_pop: TaskBoard_var_pop_order_by
+  var_samp: TaskBoard_var_samp_order_by
+  variance: TaskBoard_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input TaskBoard_append_input {
+  viewConfig: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "TaskBoard"
+"""
+input TaskBoard_arr_rel_insert_input {
+  data: [TaskBoard_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: TaskBoard_on_conflict
+}
+
+"""aggregate avg on columns"""
+type TaskBoard_avg_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by avg() on columns of table "TaskBoard"
+"""
+input TaskBoard_avg_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "TaskBoard". All fields are combined with a logical 'AND'.
+"""
+input TaskBoard_bool_exp {
+  Organization: Organization_bool_exp
+  Project: Project_bool_exp
+  TaskBoardSettings: TaskBoardSettings_bool_exp
+  TaskBoardSettings_aggregate: TaskBoardSettings_aggregate_bool_exp
+  TaskDefinition: TaskDefinition_bool_exp
+  _and: [TaskBoard_bool_exp!]
+  _not: TaskBoard_bool_exp
+  _or: [TaskBoard_bool_exp!]
+  code: String_comparison_exp
+  createdAt: timestamp_comparison_exp
+  description: String_comparison_exp
+  icon: String_comparison_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  organizationId: Int_comparison_exp
+  projectId: Int_comparison_exp
+  taskDefinitionId: Int_comparison_exp
+  type: TaskBoardType_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  viewConfig: jsonb_comparison_exp
+  viewType: TaskBoardViewType_comparison_exp
+  visibility: Visibility_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "TaskBoard"
+"""
+enum TaskBoard_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  TaskBoard_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input TaskBoard_delete_at_path_input {
+  viewConfig: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input TaskBoard_delete_elem_input {
+  viewConfig: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input TaskBoard_delete_key_input {
+  viewConfig: String
+}
+
+"""
+input type for incrementing numeric columns in table "TaskBoard"
+"""
+input TaskBoard_inc_input {
+  id: Int
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+}
+
+"""
+input type for inserting data into table "TaskBoard"
+"""
+input TaskBoard_insert_input {
+  Organization: Organization_obj_rel_insert_input
+  Project: Project_obj_rel_insert_input
+  TaskBoardSettings: TaskBoardSettings_arr_rel_insert_input
+  TaskDefinition: TaskDefinition_obj_rel_insert_input
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+  type: TaskBoardType
+  updatedAt: timestamp
+  viewConfig: jsonb
+  viewType: TaskBoardViewType
+  visibility: Visibility
+}
+
+"""aggregate max on columns"""
+type TaskBoard_max_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+  type: TaskBoardType
+  updatedAt: timestamp
+  viewType: TaskBoardViewType
+  visibility: Visibility
+}
+
+"""
+order by max() on columns of table "TaskBoard"
+"""
+input TaskBoard_max_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+  type: order_by
+  updatedAt: order_by
+  viewType: order_by
+  visibility: order_by
+}
+
+"""aggregate min on columns"""
+type TaskBoard_min_fields {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+  type: TaskBoardType
+  updatedAt: timestamp
+  viewType: TaskBoardViewType
+  visibility: Visibility
+}
+
+"""
+order by min() on columns of table "TaskBoard"
+"""
+input TaskBoard_min_order_by {
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+  type: order_by
+  updatedAt: order_by
+  viewType: order_by
+  visibility: order_by
+}
+
+"""
+response of any mutation on the table "TaskBoard"
+"""
+type TaskBoard_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [TaskBoard!]!
+}
+
+"""
+input type for inserting object relation for remote table "TaskBoard"
+"""
+input TaskBoard_obj_rel_insert_input {
+  data: TaskBoard_insert_input!
+
+  """upsert condition"""
+  on_conflict: TaskBoard_on_conflict
+}
+
+"""
+on_conflict condition type for table "TaskBoard"
+"""
+input TaskBoard_on_conflict {
+  constraint: TaskBoard_constraint!
+  update_columns: [TaskBoard_update_column!]! = []
+  where: TaskBoard_bool_exp
+}
+
+"""Ordering options when selecting data from "TaskBoard"."""
+input TaskBoard_order_by {
+  Organization: Organization_order_by
+  Project: Project_order_by
+  TaskBoardSettings_aggregate: TaskBoardSettings_aggregate_order_by
+  TaskDefinition: TaskDefinition_order_by
+  code: order_by
+  createdAt: order_by
+  description: order_by
+  icon: order_by
+  id: order_by
+  name: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+  type: order_by
+  updatedAt: order_by
+  viewConfig: order_by
+  viewType: order_by
+  visibility: order_by
+}
+
+"""primary key columns input for table: TaskBoard"""
+input TaskBoard_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input TaskBoard_prepend_input {
+  viewConfig: jsonb
+}
+
+"""
+select columns of table "TaskBoard"
+"""
+enum TaskBoard_select_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  projectId
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  type
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  viewConfig
+
+  """column name"""
+  viewType
+
+  """column name"""
+  visibility
+}
+
+"""
+input type for updating data in table "TaskBoard"
+"""
+input TaskBoard_set_input {
+  code: String
+  createdAt: timestamp
+  description: String
+  icon: String
+  id: Int
+  name: String
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+  type: TaskBoardType
+  updatedAt: timestamp
+  viewConfig: jsonb
+  viewType: TaskBoardViewType
+  visibility: Visibility
+}
+
+"""aggregate stddev on columns"""
+type TaskBoard_stddev_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev() on columns of table "TaskBoard"
+"""
+input TaskBoard_stddev_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type TaskBoard_stddev_pop_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "TaskBoard"
+"""
+input TaskBoard_stddev_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type TaskBoard_stddev_samp_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "TaskBoard"
+"""
+input TaskBoard_stddev_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate sum on columns"""
+type TaskBoard_sum_fields {
+  id: Int
+  organizationId: Int
+  projectId: Int
+  taskDefinitionId: Int
+}
+
+"""
+order by sum() on columns of table "TaskBoard"
+"""
+input TaskBoard_sum_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+update columns of table "TaskBoard"
+"""
+enum TaskBoard_update_column {
+  """column name"""
+  code
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  description
+
+  """column name"""
+  icon
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  organizationId
+
+  """column name"""
+  projectId
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  type
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  viewConfig
+
+  """column name"""
+  viewType
+
+  """column name"""
+  visibility
+}
+
+input TaskBoard_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: TaskBoard_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: TaskBoard_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: TaskBoard_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: TaskBoard_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: TaskBoard_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: TaskBoard_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: TaskBoard_set_input
+  where: TaskBoard_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type TaskBoard_var_pop_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_pop() on columns of table "TaskBoard"
+"""
+input TaskBoard_var_pop_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type TaskBoard_var_samp_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_samp() on columns of table "TaskBoard"
+"""
+input TaskBoard_var_samp_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate variance on columns"""
+type TaskBoard_variance_fields {
+  id: Float
+  organizationId: Float
+  projectId: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by variance() on columns of table "TaskBoard"
+"""
+input TaskBoard_variance_order_by {
+  id: order_by
+  organizationId: order_by
+  projectId: order_by
+  taskDefinitionId: order_by
 }
 
 """
@@ -7001,6 +9969,112 @@ type TaskDefinition implements Node {
 
   """An object relationship"""
   Organization: Organization!
+
+  """An array relationship"""
+  Projects(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): [Project!]!
+
+  """An aggregate relationship"""
+  Projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): Project_aggregate!
+
+  """An array relationship connection"""
+  Projects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
+
+  """An array relationship"""
+  TaskBoards(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): [TaskBoard!]!
+
+  """An aggregate relationship"""
+  TaskBoards_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoard_aggregate!
+
+  """An array relationship connection"""
+  TaskBoards_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoardConnection!
 
   """An object relationship"""
   TaskDefinition: TaskDefinition
@@ -7654,8 +10728,6 @@ input TaskDefinitionActivityDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinitionActivityDefinition_set_input
-
-  """filter the rows which have to be updated"""
   where: TaskDefinitionActivityDefinition_bool_exp!
 }
 
@@ -7819,6 +10891,10 @@ Boolean expression to filter rows from the table "TaskDefinition". All fields ar
 input TaskDefinition_bool_exp {
   Form: Form_bool_exp
   Organization: Organization_bool_exp
+  Projects: Project_bool_exp
+  Projects_aggregate: Project_aggregate_bool_exp
+  TaskBoards: TaskBoard_bool_exp
+  TaskBoards_aggregate: TaskBoard_aggregate_bool_exp
   TaskDefinition: TaskDefinition_bool_exp
   TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_bool_exp
   TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_bool_exp
@@ -7924,6 +11000,8 @@ input type for inserting data into table "TaskDefinition"
 input TaskDefinition_insert_input {
   Form: Form_obj_rel_insert_input
   Organization: Organization_obj_rel_insert_input
+  Projects: Project_arr_rel_insert_input
+  TaskBoards: TaskBoard_arr_rel_insert_input
   TaskDefinition: TaskDefinition_obj_rel_insert_input
   TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_arr_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
@@ -8077,6 +11155,8 @@ input TaskDefinition_on_conflict {
 input TaskDefinition_order_by {
   Form: Form_order_by
   Organization: Organization_order_by
+  Projects_aggregate: Project_aggregate_order_by
+  TaskBoards_aggregate: TaskBoard_aggregate_order_by
   TaskDefinition: TaskDefinition_order_by
   TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_order_by
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
@@ -8415,8 +11495,6 @@ input TaskDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinition_set_input
-
-  """filter the rows which have to be updated"""
   where: TaskDefinition_bool_exp!
 }
 
@@ -8595,9 +11673,12 @@ type Task_avg_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -8608,9 +11689,12 @@ input Task_avg_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -8622,7 +11706,9 @@ input Task_bool_exp {
   Comments_aggregate: Comment_aggregate_bool_exp
   EventLogs: EventLog_bool_exp
   EventLogs_aggregate: EventLog_aggregate_bool_exp
+  Form: Form_bool_exp
   Organization: Organization_bool_exp
+  Project: Project_bool_exp
   Task: Task_bool_exp
   TaskDefinition: TaskDefinition_bool_exp
   Tasks: Task_bool_exp
@@ -8647,6 +11733,7 @@ input Task_bool_exp {
   descriptionTemplate: String_comparison_exp
   dueDate: timestamp_comparison_exp
   formConfig: jsonb_comparison_exp
+  formId: Int_comparison_exp
   id: Int_comparison_exp
   isActive: Boolean_comparison_exp
   key: String_comparison_exp
@@ -8657,7 +11744,9 @@ input Task_bool_exp {
   parentId: Int_comparison_exp
   priority: TaskPriority_comparison_exp
   processConfig: jsonb_comparison_exp
+  projectId: Int_comparison_exp
   properties: jsonb_comparison_exp
+  reporterId: Int_comparison_exp
   state: String_comparison_exp
   stateConfig: jsonb_comparison_exp
   stateName: String_comparison_exp
@@ -8675,6 +11764,7 @@ input Task_bool_exp {
   typeName: String_comparison_exp
   updatedAt: timestamp_comparison_exp
   userByCreatorid: User_bool_exp
+  userByReporterid: User_bool_exp
   values: jsonb_comparison_exp
 }
 
@@ -8746,9 +11836,12 @@ input Task_inc_input {
   assigneeId: Int
   creatorId: Int
   definitionId: Int
+  formId: Int
   id: Int
   organizationId: Int
   parentId: Int
+  projectId: Int
+  reporterId: Int
   teamId: Int
 }
 
@@ -8758,7 +11851,9 @@ input type for inserting data into table "Task"
 input Task_insert_input {
   Comments: Comment_arr_rel_insert_input
   EventLogs: EventLog_arr_rel_insert_input
+  Form: Form_obj_rel_insert_input
   Organization: Organization_obj_rel_insert_input
+  Project: Project_obj_rel_insert_input
   Task: Task_obj_rel_insert_input
   TaskDefinition: TaskDefinition_obj_rel_insert_input
   Tasks: Task_arr_rel_insert_input
@@ -8778,6 +11873,7 @@ input Task_insert_input {
   descriptionTemplate: String
   dueDate: timestamp
   formConfig: jsonb
+  formId: Int
   id: Int
   isActive: Boolean
   key: String
@@ -8788,7 +11884,9 @@ input Task_insert_input {
   parentId: Int
   priority: TaskPriority
   processConfig: jsonb
+  projectId: Int
   properties: jsonb
+  reporterId: Int
   state: String
   stateConfig: jsonb
   stateName: String
@@ -8806,6 +11904,7 @@ input Task_insert_input {
   typeName: String
   updatedAt: timestamp
   userByCreatorid: User_obj_rel_insert_input
+  userByReporterid: User_obj_rel_insert_input
   values: jsonb
 }
 
@@ -8821,12 +11920,15 @@ type Task_max_fields {
   description: String
   descriptionTemplate: String
   dueDate: timestamp
+  formId: Int
   id: Int
   key: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  projectId: Int
+  reporterId: Int
   state: String
   stateName: String
   stateTemplate: String
@@ -8856,12 +11958,15 @@ input Task_max_order_by {
   description: order_by
   descriptionTemplate: order_by
   dueDate: order_by
+  formId: order_by
   id: order_by
   key: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
+  projectId: order_by
+  reporterId: order_by
   state: order_by
   stateName: order_by
   stateTemplate: order_by
@@ -8889,12 +11994,15 @@ type Task_min_fields {
   description: String
   descriptionTemplate: String
   dueDate: timestamp
+  formId: Int
   id: Int
   key: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
   priority: TaskPriority
+  projectId: Int
+  reporterId: Int
   state: String
   stateName: String
   stateTemplate: String
@@ -8924,12 +12032,15 @@ input Task_min_order_by {
   description: order_by
   descriptionTemplate: order_by
   dueDate: order_by
+  formId: order_by
   id: order_by
   key: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
   priority: order_by
+  projectId: order_by
+  reporterId: order_by
   state: order_by
   stateName: order_by
   stateTemplate: order_by
@@ -8979,7 +12090,9 @@ input Task_on_conflict {
 input Task_order_by {
   Comments_aggregate: Comment_aggregate_order_by
   EventLogs_aggregate: EventLog_aggregate_order_by
+  Form: Form_order_by
   Organization: Organization_order_by
+  Project: Project_order_by
   Task: Task_order_by
   TaskDefinition: TaskDefinition_order_by
   Tasks_aggregate: Task_aggregate_order_by
@@ -8999,6 +12112,7 @@ input Task_order_by {
   descriptionTemplate: order_by
   dueDate: order_by
   formConfig: order_by
+  formId: order_by
   id: order_by
   isActive: order_by
   key: order_by
@@ -9009,7 +12123,9 @@ input Task_order_by {
   parentId: order_by
   priority: order_by
   processConfig: order_by
+  projectId: order_by
   properties: order_by
+  reporterId: order_by
   state: order_by
   stateConfig: order_by
   stateName: order_by
@@ -9027,6 +12143,7 @@ input Task_order_by {
   typeName: order_by
   updatedAt: order_by
   userByCreatorid: User_order_by
+  userByReporterid: User_order_by
   values: order_by
 }
 
@@ -9094,6 +12211,9 @@ enum Task_select_column {
   formConfig
 
   """column name"""
+  formId
+
+  """column name"""
   id
 
   """column name"""
@@ -9124,7 +12244,13 @@ enum Task_select_column {
   processConfig
 
   """column name"""
+  projectId
+
+  """column name"""
   properties
+
+  """column name"""
+  reporterId
 
   """column name"""
   state
@@ -9211,6 +12337,7 @@ input Task_set_input {
   descriptionTemplate: String
   dueDate: timestamp
   formConfig: jsonb
+  formId: Int
   id: Int
   isActive: Boolean
   key: String
@@ -9221,7 +12348,9 @@ input Task_set_input {
   parentId: Int
   priority: TaskPriority
   processConfig: jsonb
+  projectId: Int
   properties: jsonb
+  reporterId: Int
   state: String
   stateConfig: jsonb
   stateName: String
@@ -9246,9 +12375,12 @@ type Task_stddev_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9259,9 +12391,12 @@ input Task_stddev_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9270,9 +12405,12 @@ type Task_stddev_pop_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9283,9 +12421,12 @@ input Task_stddev_pop_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9294,9 +12435,12 @@ type Task_stddev_samp_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9307,9 +12451,12 @@ input Task_stddev_samp_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9318,9 +12465,12 @@ type Task_sum_fields {
   assigneeId: Int
   creatorId: Int
   definitionId: Int
+  formId: Int
   id: Int
   organizationId: Int
   parentId: Int
+  projectId: Int
+  reporterId: Int
   teamId: Int
 }
 
@@ -9331,9 +12481,12 @@ input Task_sum_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9381,6 +12534,9 @@ enum Task_update_column {
   formConfig
 
   """column name"""
+  formId
+
+  """column name"""
   id
 
   """column name"""
@@ -9411,7 +12567,13 @@ enum Task_update_column {
   processConfig
 
   """column name"""
+  projectId
+
+  """column name"""
   properties
+
+  """column name"""
+  reporterId
 
   """column name"""
   state
@@ -9492,8 +12654,6 @@ input Task_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Task_set_input
-
-  """filter the rows which have to be updated"""
   where: Task_bool_exp!
 }
 
@@ -9502,9 +12662,12 @@ type Task_var_pop_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9515,9 +12678,12 @@ input Task_var_pop_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9526,9 +12692,12 @@ type Task_var_samp_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9539,9 +12708,12 @@ input Task_var_samp_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -9550,9 +12722,12 @@ type Task_variance_fields {
   assigneeId: Float
   creatorId: Float
   definitionId: Float
+  formId: Float
   id: Float
   organizationId: Float
   parentId: Float
+  projectId: Float
+  reporterId: Float
   teamId: Float
 }
 
@@ -9563,9 +12738,12 @@ input Task_variance_order_by {
   assigneeId: order_by
   creatorId: order_by
   definitionId: order_by
+  formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
+  projectId: order_by
+  reporterId: order_by
   teamId: order_by
 }
 
@@ -10123,8 +13301,6 @@ input Team_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Team_set_input
-
-  """filter the rows which have to be updated"""
   where: Team_bool_exp!
 }
 
@@ -10678,8 +13854,6 @@ input Trigger_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Trigger_set_input
-
-  """filter the rows which have to be updated"""
   where: Trigger_bool_exp!
 }
 
@@ -10839,6 +14013,59 @@ type User implements Node {
   File: File
 
   """An array relationship"""
+  MemberOnProjects(
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): [MemberOnProjects!]!
+
+  """An aggregate relationship"""
+  MemberOnProjects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjects_aggregate!
+
+  """An array relationship connection"""
+  MemberOnProjects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjectsConnection!
+
+  """An array relationship"""
   MemberOnTeams(
     """distinct select on columns"""
     distinct_on: [MemberOnTeams_select_column!]
@@ -10946,6 +14173,59 @@ type User implements Node {
     """filter the rows returned"""
     where: Post_bool_exp
   ): PostConnection!
+
+  """An array relationship"""
+  Projects(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): [Project!]!
+
+  """An aggregate relationship"""
+  Projects_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): Project_aggregate!
+
+  """An array relationship connection"""
+  Projects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
 
   """An array relationship"""
   Tasks(
@@ -11105,6 +14385,59 @@ type User implements Node {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermissionConnection!
+
+  """An array relationship"""
+  UserSettings(
+    """distinct select on columns"""
+    distinct_on: [UserSetting_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserSetting_order_by!]
+
+    """filter the rows returned"""
+    where: UserSetting_bool_exp
+  ): [UserSetting!]!
+
+  """An aggregate relationship"""
+  UserSettings_aggregate(
+    """distinct select on columns"""
+    distinct_on: [UserSetting_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserSetting_order_by!]
+
+    """filter the rows returned"""
+    where: UserSetting_bool_exp
+  ): UserSetting_aggregate!
+
+  """An array relationship connection"""
+  UserSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [UserSetting_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserSetting_order_by!]
+
+    """filter the rows returned"""
+    where: UserSetting_bool_exp
+  ): UserSettingConnection!
   avatarId: Int
   createdAt: timestamp!
   email: String!
@@ -11113,6 +14446,112 @@ type User implements Node {
   lastname: String
   organizationId: Int!
   password: String!
+
+  """An array relationship"""
+  projectsByManagerid(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): [Project!]!
+
+  """An aggregate relationship"""
+  projectsByManagerid_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): Project_aggregate!
+
+  """An array relationship connection"""
+  projectsByManagerid_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
+
+  """An array relationship"""
+  projectsByReporterid(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): [Project!]!
+
+  """An aggregate relationship"""
+  projectsByReporterid_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): Project_aggregate!
+
+  """An array relationship connection"""
+  projectsByReporterid_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
   role: Role!
 
   """An array relationship"""
@@ -11153,6 +14592,59 @@ type User implements Node {
 
   """An array relationship connection"""
   tasksByCreatorid_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): TaskConnection!
+
+  """An array relationship"""
+  tasksByReporterid(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): [Task!]!
+
+  """An aggregate relationship"""
+  tasksByReporterid_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Task_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Task_order_by!]
+
+    """filter the rows returned"""
+    where: Task_bool_exp
+  ): Task_aggregate!
+
+  """An array relationship connection"""
+  tasksByReporterid_connection(
     after: String
     before: String
 
@@ -11574,8 +15066,6 @@ input UserPermission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: UserPermission_set_input
-
-  """filter the rows which have to be updated"""
   where: UserPermission_bool_exp!
 }
 
@@ -11624,6 +15114,453 @@ order by variance() on columns of table "UserPermission"
 input UserPermission_variance_order_by {
   id: order_by
   permissionId: order_by
+  userId: order_by
+}
+
+"""
+columns and relationships of "UserSetting"
+"""
+type UserSetting implements Node {
+  """An object relationship"""
+  User: User!
+  createdAt: timestamp!
+  id: ID!
+  key: String!
+  updatedAt: timestamp!
+  userId: Int!
+  value(
+    """JSON select path"""
+    path: String
+  ): jsonb!
+}
+
+"""
+A Relay connection object on "UserSetting"
+"""
+type UserSettingConnection {
+  edges: [UserSettingEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserSettingEdge {
+  cursor: String!
+  node: UserSetting!
+}
+
+"""
+aggregated selection of "UserSetting"
+"""
+type UserSetting_aggregate {
+  aggregate: UserSetting_aggregate_fields
+  nodes: [UserSetting!]!
+}
+
+input UserSetting_aggregate_bool_exp {
+  count: UserSetting_aggregate_bool_exp_count
+}
+
+input UserSetting_aggregate_bool_exp_count {
+  arguments: [UserSetting_select_column!]
+  distinct: Boolean
+  filter: UserSetting_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "UserSetting"
+"""
+type UserSetting_aggregate_fields {
+  avg: UserSetting_avg_fields
+  count(columns: [UserSetting_select_column!], distinct: Boolean): Int!
+  max: UserSetting_max_fields
+  min: UserSetting_min_fields
+  stddev: UserSetting_stddev_fields
+  stddev_pop: UserSetting_stddev_pop_fields
+  stddev_samp: UserSetting_stddev_samp_fields
+  sum: UserSetting_sum_fields
+  var_pop: UserSetting_var_pop_fields
+  var_samp: UserSetting_var_samp_fields
+  variance: UserSetting_variance_fields
+}
+
+"""
+order by aggregate values of table "UserSetting"
+"""
+input UserSetting_aggregate_order_by {
+  avg: UserSetting_avg_order_by
+  count: order_by
+  max: UserSetting_max_order_by
+  min: UserSetting_min_order_by
+  stddev: UserSetting_stddev_order_by
+  stddev_pop: UserSetting_stddev_pop_order_by
+  stddev_samp: UserSetting_stddev_samp_order_by
+  sum: UserSetting_sum_order_by
+  var_pop: UserSetting_var_pop_order_by
+  var_samp: UserSetting_var_samp_order_by
+  variance: UserSetting_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input UserSetting_append_input {
+  value: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "UserSetting"
+"""
+input UserSetting_arr_rel_insert_input {
+  data: [UserSetting_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: UserSetting_on_conflict
+}
+
+"""aggregate avg on columns"""
+type UserSetting_avg_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by avg() on columns of table "UserSetting"
+"""
+input UserSetting_avg_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "UserSetting". All fields are combined with a logical 'AND'.
+"""
+input UserSetting_bool_exp {
+  User: User_bool_exp
+  _and: [UserSetting_bool_exp!]
+  _not: UserSetting_bool_exp
+  _or: [UserSetting_bool_exp!]
+  createdAt: timestamp_comparison_exp
+  id: Int_comparison_exp
+  key: String_comparison_exp
+  updatedAt: timestamp_comparison_exp
+  userId: Int_comparison_exp
+  value: jsonb_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "UserSetting"
+"""
+enum UserSetting_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  UserSetting_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input UserSetting_delete_at_path_input {
+  value: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input UserSetting_delete_elem_input {
+  value: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input UserSetting_delete_key_input {
+  value: String
+}
+
+"""
+input type for incrementing numeric columns in table "UserSetting"
+"""
+input UserSetting_inc_input {
+  id: Int
+  userId: Int
+}
+
+"""
+input type for inserting data into table "UserSetting"
+"""
+input UserSetting_insert_input {
+  User: User_obj_rel_insert_input
+  createdAt: timestamp
+  id: Int
+  key: String
+  updatedAt: timestamp
+  userId: Int
+  value: jsonb
+}
+
+"""aggregate max on columns"""
+type UserSetting_max_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  updatedAt: timestamp
+  userId: Int
+}
+
+"""
+order by max() on columns of table "UserSetting"
+"""
+input UserSetting_max_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+"""aggregate min on columns"""
+type UserSetting_min_fields {
+  createdAt: timestamp
+  id: Int
+  key: String
+  updatedAt: timestamp
+  userId: Int
+}
+
+"""
+order by min() on columns of table "UserSetting"
+"""
+input UserSetting_min_order_by {
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+"""
+response of any mutation on the table "UserSetting"
+"""
+type UserSetting_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [UserSetting!]!
+}
+
+"""
+on_conflict condition type for table "UserSetting"
+"""
+input UserSetting_on_conflict {
+  constraint: UserSetting_constraint!
+  update_columns: [UserSetting_update_column!]! = []
+  where: UserSetting_bool_exp
+}
+
+"""Ordering options when selecting data from "UserSetting"."""
+input UserSetting_order_by {
+  User: User_order_by
+  createdAt: order_by
+  id: order_by
+  key: order_by
+  updatedAt: order_by
+  userId: order_by
+  value: order_by
+}
+
+"""primary key columns input for table: UserSetting"""
+input UserSetting_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input UserSetting_prepend_input {
+  value: jsonb
+}
+
+"""
+select columns of table "UserSetting"
+"""
+enum UserSetting_select_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  userId
+
+  """column name"""
+  value
+}
+
+"""
+input type for updating data in table "UserSetting"
+"""
+input UserSetting_set_input {
+  createdAt: timestamp
+  id: Int
+  key: String
+  updatedAt: timestamp
+  userId: Int
+  value: jsonb
+}
+
+"""aggregate stddev on columns"""
+type UserSetting_stddev_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev() on columns of table "UserSetting"
+"""
+input UserSetting_stddev_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type UserSetting_stddev_pop_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "UserSetting"
+"""
+input UserSetting_stddev_pop_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type UserSetting_stddev_samp_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "UserSetting"
+"""
+input UserSetting_stddev_samp_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate sum on columns"""
+type UserSetting_sum_fields {
+  id: Int
+  userId: Int
+}
+
+"""
+order by sum() on columns of table "UserSetting"
+"""
+input UserSetting_sum_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""
+update columns of table "UserSetting"
+"""
+enum UserSetting_update_column {
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  key
+
+  """column name"""
+  updatedAt
+
+  """column name"""
+  userId
+
+  """column name"""
+  value
+}
+
+input UserSetting_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: UserSetting_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: UserSetting_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: UserSetting_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: UserSetting_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: UserSetting_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: UserSetting_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: UserSetting_set_input
+  where: UserSetting_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type UserSetting_var_pop_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by var_pop() on columns of table "UserSetting"
+"""
+input UserSetting_var_pop_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type UserSetting_var_samp_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by var_samp() on columns of table "UserSetting"
+"""
+input UserSetting_var_samp_order_by {
+  id: order_by
+  userId: order_by
+}
+
+"""aggregate variance on columns"""
+type UserSetting_variance_fields {
+  id: Float
+  userId: Float
+}
+
+"""
+order by variance() on columns of table "UserSetting"
+"""
+input UserSetting_variance_order_by {
+  id: order_by
   userId: order_by
 }
 
@@ -11715,17 +15652,23 @@ input User_bool_exp {
   EventLogs: EventLog_bool_exp
   EventLogs_aggregate: EventLog_aggregate_bool_exp
   File: File_bool_exp
+  MemberOnProjects: MemberOnProjects_bool_exp
+  MemberOnProjects_aggregate: MemberOnProjects_aggregate_bool_exp
   MemberOnTeams: MemberOnTeams_bool_exp
   MemberOnTeams_aggregate: MemberOnTeams_aggregate_bool_exp
   Organization: Organization_bool_exp
   Posts: Post_bool_exp
   Posts_aggregate: Post_aggregate_bool_exp
+  Projects: Project_bool_exp
+  Projects_aggregate: Project_aggregate_bool_exp
   Tasks: Task_bool_exp
   Tasks_aggregate: Task_aggregate_bool_exp
   Teams: Team_bool_exp
   Teams_aggregate: Team_aggregate_bool_exp
   UserPermissions: UserPermission_bool_exp
   UserPermissions_aggregate: UserPermission_aggregate_bool_exp
+  UserSettings: UserSetting_bool_exp
+  UserSettings_aggregate: UserSetting_aggregate_bool_exp
   _and: [User_bool_exp!]
   _not: User_bool_exp
   _or: [User_bool_exp!]
@@ -11737,9 +15680,15 @@ input User_bool_exp {
   lastname: String_comparison_exp
   organizationId: Int_comparison_exp
   password: String_comparison_exp
+  projectsByManagerid: Project_bool_exp
+  projectsByManagerid_aggregate: Project_aggregate_bool_exp
+  projectsByReporterid: Project_bool_exp
+  projectsByReporterid_aggregate: Project_aggregate_bool_exp
   role: Role_comparison_exp
   tasksByCreatorid: Task_bool_exp
   tasksByCreatorid_aggregate: Task_aggregate_bool_exp
+  tasksByReporterid: Task_bool_exp
+  tasksByReporterid_aggregate: Task_aggregate_bool_exp
   teamsByManagerid: Team_bool_exp
   teamsByManagerid_aggregate: Team_aggregate_bool_exp
   updatedAt: timestamp_comparison_exp
@@ -11776,12 +15725,15 @@ input User_insert_input {
   Comments: Comment_arr_rel_insert_input
   EventLogs: EventLog_arr_rel_insert_input
   File: File_obj_rel_insert_input
+  MemberOnProjects: MemberOnProjects_arr_rel_insert_input
   MemberOnTeams: MemberOnTeams_arr_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   Posts: Post_arr_rel_insert_input
+  Projects: Project_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
   UserPermissions: UserPermission_arr_rel_insert_input
+  UserSettings: UserSetting_arr_rel_insert_input
   avatarId: Int
   createdAt: timestamp
   email: String
@@ -11790,8 +15742,11 @@ input User_insert_input {
   lastname: String
   organizationId: Int
   password: String
+  projectsByManagerid: Project_arr_rel_insert_input
+  projectsByReporterid: Project_arr_rel_insert_input
   role: Role
   tasksByCreatorid: Task_arr_rel_insert_input
+  tasksByReporterid: Task_arr_rel_insert_input
   teamsByManagerid: Team_arr_rel_insert_input
   updatedAt: timestamp
 }
@@ -11891,12 +15846,15 @@ input User_order_by {
   Comments_aggregate: Comment_aggregate_order_by
   EventLogs_aggregate: EventLog_aggregate_order_by
   File: File_order_by
+  MemberOnProjects_aggregate: MemberOnProjects_aggregate_order_by
   MemberOnTeams_aggregate: MemberOnTeams_aggregate_order_by
   Organization: Organization_order_by
   Posts_aggregate: Post_aggregate_order_by
+  Projects_aggregate: Project_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
   UserPermissions_aggregate: UserPermission_aggregate_order_by
+  UserSettings_aggregate: UserSetting_aggregate_order_by
   avatarId: order_by
   createdAt: order_by
   email: order_by
@@ -11905,8 +15863,11 @@ input User_order_by {
   lastname: order_by
   organizationId: order_by
   password: order_by
+  projectsByManagerid_aggregate: Project_aggregate_order_by
+  projectsByReporterid_aggregate: Project_aggregate_order_by
   role: order_by
   tasksByCreatorid_aggregate: Task_aggregate_order_by
+  tasksByReporterid_aggregate: Task_aggregate_order_by
   teamsByManagerid_aggregate: Team_aggregate_order_by
   updatedAt: order_by
 }
@@ -12072,8 +16033,6 @@ input User_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: User_set_input
-
-  """filter the rows which have to be updated"""
   where: User_bool_exp!
 }
 
@@ -12123,6 +16082,23 @@ input User_variance_order_by {
   avatarId: order_by
   id: order_by
   organizationId: order_by
+}
+
+scalar Visibility
+
+"""
+Boolean expression to compare columns of type "Visibility". All fields are combined with logical 'AND'.
+"""
+input Visibility_comparison_exp {
+  _eq: Visibility
+  _gt: Visibility
+  _gte: Visibility
+  _in: [Visibility!]
+  _is_null: Boolean
+  _lt: Visibility
+  _lte: Visibility
+  _neq: Visibility
+  _nin: [Visibility!]
 }
 
 """
@@ -12315,8 +16291,6 @@ input _prisma_migrations_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: _prisma_migrations_set_input
-
-  """filter the rows which have to be updated"""
   where: _prisma_migrations_bool_exp!
 }
 
@@ -12438,6 +16412,19 @@ type mutation_root {
   delete_Form_by_pk(id: Int!): Form
 
   """
+  delete data from the table: "MemberOnProjects"
+  """
+  delete_MemberOnProjects(
+    """filter the rows which have to be deleted"""
+    where: MemberOnProjects_bool_exp!
+  ): MemberOnProjects_mutation_response
+
+  """
+  delete single row from the table: "MemberOnProjects"
+  """
+  delete_MemberOnProjects_by_pk(projectId: Int!, userId: Int!): MemberOnProjects
+
+  """
   delete data from the table: "MemberOnTeams"
   """
   delete_MemberOnTeams(
@@ -12503,6 +16490,32 @@ type mutation_root {
   delete_Post_by_pk(id: Int!): Post
 
   """
+  delete data from the table: "Project"
+  """
+  delete_Project(
+    """filter the rows which have to be deleted"""
+    where: Project_bool_exp!
+  ): Project_mutation_response
+
+  """
+  delete data from the table: "ProjectSettings"
+  """
+  delete_ProjectSettings(
+    """filter the rows which have to be deleted"""
+    where: ProjectSettings_bool_exp!
+  ): ProjectSettings_mutation_response
+
+  """
+  delete single row from the table: "ProjectSettings"
+  """
+  delete_ProjectSettings_by_pk(id: Int!): ProjectSettings
+
+  """
+  delete single row from the table: "Project"
+  """
+  delete_Project_by_pk(id: Int!): Project
+
+  """
   delete data from the table: "Resource"
   """
   delete_Resource(
@@ -12548,6 +16561,32 @@ type mutation_root {
     """filter the rows which have to be deleted"""
     where: Task_bool_exp!
   ): Task_mutation_response
+
+  """
+  delete data from the table: "TaskBoard"
+  """
+  delete_TaskBoard(
+    """filter the rows which have to be deleted"""
+    where: TaskBoard_bool_exp!
+  ): TaskBoard_mutation_response
+
+  """
+  delete data from the table: "TaskBoardSettings"
+  """
+  delete_TaskBoardSettings(
+    """filter the rows which have to be deleted"""
+    where: TaskBoardSettings_bool_exp!
+  ): TaskBoardSettings_mutation_response
+
+  """
+  delete single row from the table: "TaskBoardSettings"
+  """
+  delete_TaskBoardSettings_by_pk(id: Int!): TaskBoardSettings
+
+  """
+  delete single row from the table: "TaskBoard"
+  """
+  delete_TaskBoard_by_pk(id: Int!): TaskBoard
 
   """
   delete data from the table: "TaskDefinition"
@@ -12626,6 +16665,19 @@ type mutation_root {
   delete single row from the table: "UserPermission"
   """
   delete_UserPermission_by_pk(id: Int!): UserPermission
+
+  """
+  delete data from the table: "UserSetting"
+  """
+  delete_UserSetting(
+    """filter the rows which have to be deleted"""
+    where: UserSetting_bool_exp!
+  ): UserSetting_mutation_response
+
+  """
+  delete single row from the table: "UserSetting"
+  """
+  delete_UserSetting_by_pk(id: Int!): UserSetting
 
   """
   delete single row from the table: "User"
@@ -12778,6 +16830,28 @@ type mutation_root {
   ): Form
 
   """
+  insert data into the table: "MemberOnProjects"
+  """
+  insert_MemberOnProjects(
+    """the rows to be inserted"""
+    objects: [MemberOnProjects_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: MemberOnProjects_on_conflict
+  ): MemberOnProjects_mutation_response
+
+  """
+  insert a single row into the table: "MemberOnProjects"
+  """
+  insert_MemberOnProjects_one(
+    """the row to be inserted"""
+    object: MemberOnProjects_insert_input!
+
+    """upsert condition"""
+    on_conflict: MemberOnProjects_on_conflict
+  ): MemberOnProjects
+
+  """
   insert data into the table: "MemberOnTeams"
   """
   insert_MemberOnTeams(
@@ -12888,6 +16962,50 @@ type mutation_root {
   ): Post
 
   """
+  insert data into the table: "Project"
+  """
+  insert_Project(
+    """the rows to be inserted"""
+    objects: [Project_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: Project_on_conflict
+  ): Project_mutation_response
+
+  """
+  insert data into the table: "ProjectSettings"
+  """
+  insert_ProjectSettings(
+    """the rows to be inserted"""
+    objects: [ProjectSettings_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: ProjectSettings_on_conflict
+  ): ProjectSettings_mutation_response
+
+  """
+  insert a single row into the table: "ProjectSettings"
+  """
+  insert_ProjectSettings_one(
+    """the row to be inserted"""
+    object: ProjectSettings_insert_input!
+
+    """upsert condition"""
+    on_conflict: ProjectSettings_on_conflict
+  ): ProjectSettings
+
+  """
+  insert a single row into the table: "Project"
+  """
+  insert_Project_one(
+    """the row to be inserted"""
+    object: Project_insert_input!
+
+    """upsert condition"""
+    on_conflict: Project_on_conflict
+  ): Project
+
+  """
   insert data into the table: "Resource"
   """
   insert_Resource(
@@ -12963,6 +17081,50 @@ type mutation_root {
     """upsert condition"""
     on_conflict: Task_on_conflict
   ): Task_mutation_response
+
+  """
+  insert data into the table: "TaskBoard"
+  """
+  insert_TaskBoard(
+    """the rows to be inserted"""
+    objects: [TaskBoard_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: TaskBoard_on_conflict
+  ): TaskBoard_mutation_response
+
+  """
+  insert data into the table: "TaskBoardSettings"
+  """
+  insert_TaskBoardSettings(
+    """the rows to be inserted"""
+    objects: [TaskBoardSettings_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: TaskBoardSettings_on_conflict
+  ): TaskBoardSettings_mutation_response
+
+  """
+  insert a single row into the table: "TaskBoardSettings"
+  """
+  insert_TaskBoardSettings_one(
+    """the row to be inserted"""
+    object: TaskBoardSettings_insert_input!
+
+    """upsert condition"""
+    on_conflict: TaskBoardSettings_on_conflict
+  ): TaskBoardSettings
+
+  """
+  insert a single row into the table: "TaskBoard"
+  """
+  insert_TaskBoard_one(
+    """the row to be inserted"""
+    object: TaskBoard_insert_input!
+
+    """upsert condition"""
+    on_conflict: TaskBoard_on_conflict
+  ): TaskBoard
 
   """
   insert data into the table: "TaskDefinition"
@@ -13097,6 +17259,28 @@ type mutation_root {
   ): UserPermission
 
   """
+  insert data into the table: "UserSetting"
+  """
+  insert_UserSetting(
+    """the rows to be inserted"""
+    objects: [UserSetting_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: UserSetting_on_conflict
+  ): UserSetting_mutation_response
+
+  """
+  insert a single row into the table: "UserSetting"
+  """
+  insert_UserSetting_one(
+    """the row to be inserted"""
+    object: UserSetting_insert_input!
+
+    """upsert condition"""
+    on_conflict: UserSetting_on_conflict
+  ): UserSetting
+
+  """
   insert a single row into the table: "User"
   """
   insert_User_one(
@@ -13129,6 +17313,7 @@ type mutation_root {
     on_conflict: _prisma_migrations_on_conflict
   ): _prisma_migrations
   signin(data: LoginInput!): LoginAuth!
+  submitTask(input: FormTriggerInput!): FormOutput!
 
   """
   update data of the table: "Action"
@@ -13419,6 +17604,40 @@ type mutation_root {
   ): [Form_mutation_response]
 
   """
+  update data of the table: "MemberOnProjects"
+  """
+  update_MemberOnProjects(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: MemberOnProjects_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: MemberOnProjects_set_input
+
+    """filter the rows which have to be updated"""
+    where: MemberOnProjects_bool_exp!
+  ): MemberOnProjects_mutation_response
+
+  """
+  update single row of the table: "MemberOnProjects"
+  """
+  update_MemberOnProjects_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: MemberOnProjects_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: MemberOnProjects_set_input
+    pk_columns: MemberOnProjects_pk_columns_input!
+  ): MemberOnProjects
+
+  """
+  update multiples rows of table: "MemberOnProjects"
+  """
+  update_MemberOnProjects_many(
+    """updates to execute, in order"""
+    updates: [MemberOnProjects_updates!]!
+  ): [MemberOnProjects_mutation_response]
+
+  """
   update data of the table: "MemberOnTeams"
   """
   update_MemberOnTeams(
@@ -13587,6 +17806,116 @@ type mutation_root {
     """updates to execute, in order"""
     updates: [Post_updates!]!
   ): [Post_mutation_response]
+
+  """
+  update data of the table: "Project"
+  """
+  update_Project(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Project_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Project_set_input
+
+    """filter the rows which have to be updated"""
+    where: Project_bool_exp!
+  ): Project_mutation_response
+
+  """
+  update data of the table: "ProjectSettings"
+  """
+  update_ProjectSettings(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: ProjectSettings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: ProjectSettings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: ProjectSettings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: ProjectSettings_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ProjectSettings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: ProjectSettings_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ProjectSettings_set_input
+
+    """filter the rows which have to be updated"""
+    where: ProjectSettings_bool_exp!
+  ): ProjectSettings_mutation_response
+
+  """
+  update single row of the table: "ProjectSettings"
+  """
+  update_ProjectSettings_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: ProjectSettings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: ProjectSettings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: ProjectSettings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: ProjectSettings_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: ProjectSettings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: ProjectSettings_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: ProjectSettings_set_input
+    pk_columns: ProjectSettings_pk_columns_input!
+  ): ProjectSettings
+
+  """
+  update multiples rows of table: "ProjectSettings"
+  """
+  update_ProjectSettings_many(
+    """updates to execute, in order"""
+    updates: [ProjectSettings_updates!]!
+  ): [ProjectSettings_mutation_response]
+
+  """
+  update single row of the table: "Project"
+  """
+  update_Project_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: Project_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: Project_set_input
+    pk_columns: Project_pk_columns_input!
+  ): Project
+
+  """
+  update multiples rows of table: "Project"
+  """
+  update_Project_many(
+    """updates to execute, in order"""
+    updates: [Project_updates!]!
+  ): [Project_mutation_response]
 
   """
   update data of the table: "Resource"
@@ -13766,6 +18095,158 @@ type mutation_root {
     """filter the rows which have to be updated"""
     where: Task_bool_exp!
   ): Task_mutation_response
+
+  """
+  update data of the table: "TaskBoard"
+  """
+  update_TaskBoard(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskBoard_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskBoard_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskBoard_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskBoard_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskBoard_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskBoard_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskBoard_set_input
+
+    """filter the rows which have to be updated"""
+    where: TaskBoard_bool_exp!
+  ): TaskBoard_mutation_response
+
+  """
+  update data of the table: "TaskBoardSettings"
+  """
+  update_TaskBoardSettings(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskBoardSettings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskBoardSettings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskBoardSettings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskBoardSettings_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskBoardSettings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskBoardSettings_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskBoardSettings_set_input
+
+    """filter the rows which have to be updated"""
+    where: TaskBoardSettings_bool_exp!
+  ): TaskBoardSettings_mutation_response
+
+  """
+  update single row of the table: "TaskBoardSettings"
+  """
+  update_TaskBoardSettings_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskBoardSettings_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskBoardSettings_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskBoardSettings_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskBoardSettings_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskBoardSettings_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskBoardSettings_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskBoardSettings_set_input
+    pk_columns: TaskBoardSettings_pk_columns_input!
+  ): TaskBoardSettings
+
+  """
+  update multiples rows of table: "TaskBoardSettings"
+  """
+  update_TaskBoardSettings_many(
+    """updates to execute, in order"""
+    updates: [TaskBoardSettings_updates!]!
+  ): [TaskBoardSettings_mutation_response]
+
+  """
+  update single row of the table: "TaskBoard"
+  """
+  update_TaskBoard_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskBoard_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskBoard_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskBoard_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskBoard_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskBoard_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskBoard_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskBoard_set_input
+    pk_columns: TaskBoard_pk_columns_input!
+  ): TaskBoard
+
+  """
+  update multiples rows of table: "TaskBoard"
+  """
+  update_TaskBoard_many(
+    """updates to execute, in order"""
+    updates: [TaskBoard_updates!]!
+  ): [TaskBoard_mutation_response]
 
   """
   update data of the table: "TaskDefinition"
@@ -14119,6 +18600,82 @@ type mutation_root {
   ): [UserPermission_mutation_response]
 
   """
+  update data of the table: "UserSetting"
+  """
+  update_UserSetting(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: UserSetting_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: UserSetting_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: UserSetting_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: UserSetting_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: UserSetting_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: UserSetting_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: UserSetting_set_input
+
+    """filter the rows which have to be updated"""
+    where: UserSetting_bool_exp!
+  ): UserSetting_mutation_response
+
+  """
+  update single row of the table: "UserSetting"
+  """
+  update_UserSetting_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: UserSetting_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: UserSetting_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: UserSetting_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: UserSetting_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: UserSetting_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: UserSetting_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: UserSetting_set_input
+    pk_columns: UserSetting_pk_columns_input!
+  ): UserSetting
+
+  """
+  update multiples rows of table: "UserSetting"
+  """
+  update_UserSetting_many(
+    """updates to execute, in order"""
+    updates: [UserSetting_updates!]!
+  ): [UserSetting_mutation_response]
+
+  """
   update single row of the table: "User"
   """
   update_User_by_pk(
@@ -14310,6 +18867,23 @@ type query_root {
   ): FormConnection!
 
   """An array relationship connection"""
+  MemberOnProjects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjectsConnection!
+
+  """An array relationship connection"""
   MemberOnTeams_connection(
     after: String
     before: String
@@ -14402,6 +18976,42 @@ type query_root {
     where: Post_bool_exp
   ): PostConnection!
 
+  """An array relationship connection"""
+  ProjectSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [ProjectSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectSettings_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectSettings_bool_exp
+  ): ProjectSettingsConnection!
+
+  """
+  fetch data from the table: "Project"
+  """
+  Project_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
+
   """
   fetch data from the table: "ResourceItem"
   """
@@ -14456,6 +19066,42 @@ type query_root {
     """filter the rows returned"""
     where: Settings_bool_exp
   ): SettingsConnection!
+
+  """An array relationship connection"""
+  TaskBoardSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoardSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoardSettings_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoardSettings_bool_exp
+  ): TaskBoardSettingsConnection!
+
+  """
+  fetch data from the table: "TaskBoard"
+  """
+  TaskBoard_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoardConnection!
 
   """
   fetch data from the table: "TaskDefinitionActivityDefinition"
@@ -14570,6 +19216,25 @@ type query_root {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermissionConnection!
+
+  """
+  fetch data from the table: "UserSetting"
+  """
+  UserSetting_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [UserSetting_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserSetting_order_by!]
+
+    """filter the rows returned"""
+    where: UserSetting_bool_exp
+  ): UserSettingConnection!
 
   """
   fetch data from the table: "User"
@@ -14730,6 +19395,23 @@ type subscription_root {
   ): FormConnection!
 
   """An array relationship connection"""
+  MemberOnProjects_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [MemberOnProjects_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [MemberOnProjects_order_by!]
+
+    """filter the rows returned"""
+    where: MemberOnProjects_bool_exp
+  ): MemberOnProjectsConnection!
+
+  """An array relationship connection"""
   MemberOnTeams_connection(
     after: String
     before: String
@@ -14822,6 +19504,42 @@ type subscription_root {
     where: Post_bool_exp
   ): PostConnection!
 
+  """An array relationship connection"""
+  ProjectSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [ProjectSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ProjectSettings_order_by!]
+
+    """filter the rows returned"""
+    where: ProjectSettings_bool_exp
+  ): ProjectSettingsConnection!
+
+  """
+  fetch data from the table: "Project"
+  """
+  Project_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Project_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Project_order_by!]
+
+    """filter the rows returned"""
+    where: Project_bool_exp
+  ): ProjectConnection!
+
   """
   fetch data from the table: "ResourceItem"
   """
@@ -14876,6 +19594,42 @@ type subscription_root {
     """filter the rows returned"""
     where: Settings_bool_exp
   ): SettingsConnection!
+
+  """An array relationship connection"""
+  TaskBoardSettings_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoardSettings_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoardSettings_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoardSettings_bool_exp
+  ): TaskBoardSettingsConnection!
+
+  """
+  fetch data from the table: "TaskBoard"
+  """
+  TaskBoard_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskBoard_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskBoard_order_by!]
+
+    """filter the rows returned"""
+    where: TaskBoard_bool_exp
+  ): TaskBoardConnection!
 
   """
   fetch data from the table: "TaskDefinitionActivityDefinition"
@@ -14990,6 +19744,25 @@ type subscription_root {
     """filter the rows returned"""
     where: UserPermission_bool_exp
   ): UserPermissionConnection!
+
+  """
+  fetch data from the table: "UserSetting"
+  """
+  UserSetting_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [UserSetting_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [UserSetting_order_by!]
+
+    """filter the rows returned"""
+    where: UserSetting_bool_exp
+  ): UserSettingConnection!
 
   """
   fetch data from the table: "User"
