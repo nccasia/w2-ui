@@ -22,7 +22,7 @@ export const schema = {
       uniforms: { index: 2 },
     },
   },
-  required: ["singlechoice", "reason"] as never[],
+  required: ["singlechoice", "reason"],
 };
 
 ajv.addVocabulary(["uniforms"]);

@@ -12,7 +12,9 @@ import {
 import { stringifyQs } from "@saleor/utils/urls";
 import urljoin from "url-join";
 
-export const taskSectionUrl = "/tasks";
+export const taskBoardSectionUrl = "/taskboard";
+
+export const taskSectionUrl = urljoin(taskBoardSectionUrl, "tasks");
 
 export const taskListPath = taskSectionUrl;
 type CreatetaskDialog = "create-task";
@@ -64,6 +66,8 @@ export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
     return urljoin(orderList, "?" + stringifyQs(params));
   }
 };
+
+export const taskDefinitionPath = (id) => urljoin(taskBoardSectionUrl, "settings");
 
 export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 

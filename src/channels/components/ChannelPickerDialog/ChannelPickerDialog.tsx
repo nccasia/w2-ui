@@ -6,7 +6,7 @@ import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
 import useModalDialogOpen from "@saleor/hooks/useModalDialogOpen";
 import useStateFromProps from "@saleor/hooks/useStateFromProps";
 import { Autocomplete, ConfirmButtonTransitionState } from "@saleor/macaw-ui";
-import { Task, TaskState, TaskStatus } from "@saleor/tasks/interface/Task";
+import { Task, TaskState, TaskStatus } from "@saleor/taskboard/interface/Task";
 import React, { useState } from "react";
 
 export interface ChannelPickerDialogProps {

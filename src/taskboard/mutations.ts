@@ -18,6 +18,7 @@ export const CreateTask = gql`
         creatorId: $creatorId
         assigneeId: $assigneeId
         title: $title
+        key: "",
         definitionId: $definitionId
         dueDate: $dueDate
         organizationId: $organizationId

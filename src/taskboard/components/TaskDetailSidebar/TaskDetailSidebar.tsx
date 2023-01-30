@@ -2,8 +2,8 @@ import { Card, CardContent } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import Hr from "@saleor/components/Hr";
 import { makeStyles } from "@saleor/macaw-ui";
-import { choices } from "@saleor/tasks/__mock__/Task";
-import { useMockAutocomplete } from "@saleor/tasks/utils";
+import { choices } from "@saleor/taskboard/__mock__/Task";
+import { useMockAutocomplete } from "@saleor/taskboard/utils";
 import React from "react";
 import { useIntl } from "react-intl";
 

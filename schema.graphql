@@ -275,17 +275,19 @@ input Action_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Action_set_input
+
+  """filter the rows which have to be updated"""
   where: Action_bool_exp!
 }
 
 """
-columns and relationships of "Activity"
+columns and relationships of "ActivityDefinition"
 """
-type Activity implements Node {
+type ActivityDefinition implements Node {
   """An array relationship"""
-  TaskDefinitions(
+  TaskDefinitionActivityDefinitions(
     """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
 
     """limit the number of rows returned"""
     limit: Int
@@ -294,16 +296,16 @@ type Activity implements Node {
     offset: Int
 
     """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
 
     """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): [TaskDefinitionActivityDefinition!]!
 
   """An aggregate relationship"""
-  TaskDefinitions_aggregate(
+  TaskDefinitionActivityDefinitions_aggregate(
     """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
 
     """limit the number of rows returned"""
     limit: Int
@@ -312,369 +314,209 @@ type Activity implements Node {
     offset: Int
 
     """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
 
     """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinition_aggregate!
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinition_aggregate!
 
   """An array relationship connection"""
-  TaskDefinitions_connection(
+  TaskDefinitionActivityDefinitions_connection(
     after: String
     before: String
 
     """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
     first: Int
     last: Int
 
     """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
 
     """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinitionConnection!
-
-  """An array relationship"""
-  Triggers(
-    """distinct select on columns"""
-    distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Trigger_order_by!]
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): [Trigger!]!
-
-  """An aggregate relationship"""
-  Triggers_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Trigger_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Trigger_order_by!]
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): Trigger_aggregate!
-
-  """An array relationship connection"""
-  Triggers_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Trigger_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Trigger_order_by!]
-
-    """filter the rows returned"""
-    where: Trigger_bool_exp
-  ): TriggerConnection!
-
-  """An object relationship"""
-  Workflow: Workflow!
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinitionConnection!
   config(
     """JSON select path"""
     path: String
-  ): jsonb!
+  ): jsonb
   createdAt: timestamp!
-  description: String!
+  description: String
   id: ID!
-  name: String!
+  initialValue(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  key: String!
+  name: String
+  synchronous: Boolean!
+  type: ActivityType!
   updatedAt: timestamp!
-  workflowId: Int!
 }
 
 """
-A Relay connection object on "Activity"
+A Relay connection object on "ActivityDefinition"
 """
-type ActivityConnection {
-  edges: [ActivityEdge!]!
+type ActivityDefinitionConnection {
+  edges: [ActivityDefinitionEdge!]!
   pageInfo: PageInfo!
 }
 
-type ActivityEdge {
+type ActivityDefinitionEdge {
   cursor: String!
-  node: Activity!
-}
-
-"""
-aggregated selection of "Activity"
-"""
-type Activity_aggregate {
-  aggregate: Activity_aggregate_fields
-  nodes: [Activity!]!
-}
-
-input Activity_aggregate_bool_exp {
-  count: Activity_aggregate_bool_exp_count
-}
-
-input Activity_aggregate_bool_exp_count {
-  arguments: [Activity_select_column!]
-  distinct: Boolean
-  filter: Activity_bool_exp
-  predicate: Int_comparison_exp!
-}
-
-"""
-aggregate fields of "Activity"
-"""
-type Activity_aggregate_fields {
-  avg: Activity_avg_fields
-  count(columns: [Activity_select_column!], distinct: Boolean): Int!
-  max: Activity_max_fields
-  min: Activity_min_fields
-  stddev: Activity_stddev_fields
-  stddev_pop: Activity_stddev_pop_fields
-  stddev_samp: Activity_stddev_samp_fields
-  sum: Activity_sum_fields
-  var_pop: Activity_var_pop_fields
-  var_samp: Activity_var_samp_fields
-  variance: Activity_variance_fields
-}
-
-"""
-order by aggregate values of table "Activity"
-"""
-input Activity_aggregate_order_by {
-  avg: Activity_avg_order_by
-  count: order_by
-  max: Activity_max_order_by
-  min: Activity_min_order_by
-  stddev: Activity_stddev_order_by
-  stddev_pop: Activity_stddev_pop_order_by
-  stddev_samp: Activity_stddev_samp_order_by
-  sum: Activity_sum_order_by
-  var_pop: Activity_var_pop_order_by
-  var_samp: Activity_var_samp_order_by
-  variance: Activity_variance_order_by
+  node: ActivityDefinition!
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
-input Activity_append_input {
+input ActivityDefinition_append_input {
   config: jsonb
+  initialValue: jsonb
 }
 
 """
-input type for inserting array relation for remote table "Activity"
+Boolean expression to filter rows from the table "ActivityDefinition". All fields are combined with a logical 'AND'.
 """
-input Activity_arr_rel_insert_input {
-  data: [Activity_insert_input!]!
-
-  """upsert condition"""
-  on_conflict: Activity_on_conflict
-}
-
-"""aggregate avg on columns"""
-type Activity_avg_fields {
-  id: Float
-  workflowId: Float
-}
-
-"""
-order by avg() on columns of table "Activity"
-"""
-input Activity_avg_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""
-Boolean expression to filter rows from the table "Activity". All fields are combined with a logical 'AND'.
-"""
-input Activity_bool_exp {
-  TaskDefinitions: TaskDefinition_bool_exp
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
-  Triggers: Trigger_bool_exp
-  Triggers_aggregate: Trigger_aggregate_bool_exp
-  Workflow: Workflow_bool_exp
-  _and: [Activity_bool_exp!]
-  _not: Activity_bool_exp
-  _or: [Activity_bool_exp!]
+input ActivityDefinition_bool_exp {
+  TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_bool_exp
+  TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_bool_exp
+  _and: [ActivityDefinition_bool_exp!]
+  _not: ActivityDefinition_bool_exp
+  _or: [ActivityDefinition_bool_exp!]
   config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
   id: Int_comparison_exp
+  initialValue: jsonb_comparison_exp
+  key: String_comparison_exp
   name: String_comparison_exp
+  synchronous: Boolean_comparison_exp
+  type: ActivityType_comparison_exp
   updatedAt: timestamp_comparison_exp
-  workflowId: Int_comparison_exp
 }
 
 """
-unique or primary key constraints on table "Activity"
+unique or primary key constraints on table "ActivityDefinition"
 """
-enum Activity_constraint {
+enum ActivityDefinition_constraint {
+  """
+  unique or primary key constraint on columns "key"
+  """
+  ActivityDefinition_key_key
+
   """
   unique or primary key constraint on columns "id"
   """
-  Activity_pkey
+  ActivityDefinition_pkey
 }
 
 """
 delete the field or element with specified path (for JSON arrays, negative integers count from the end)
 """
-input Activity_delete_at_path_input {
+input ActivityDefinition_delete_at_path_input {
   config: [String!]
+  initialValue: [String!]
 }
 
 """
 delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
 """
-input Activity_delete_elem_input {
+input ActivityDefinition_delete_elem_input {
   config: Int
+  initialValue: Int
 }
 
 """
 delete key/value pair or string element. key/value pairs are matched based on their key value
 """
-input Activity_delete_key_input {
+input ActivityDefinition_delete_key_input {
   config: String
+  initialValue: String
 }
 
 """
-input type for incrementing numeric columns in table "Activity"
+input type for incrementing numeric columns in table "ActivityDefinition"
 """
-input Activity_inc_input {
+input ActivityDefinition_inc_input {
   id: Int
-  workflowId: Int
 }
 
 """
-input type for inserting data into table "Activity"
+input type for inserting data into table "ActivityDefinition"
 """
-input Activity_insert_input {
-  TaskDefinitions: TaskDefinition_arr_rel_insert_input
-  Triggers: Trigger_arr_rel_insert_input
-  Workflow: Workflow_obj_rel_insert_input
+input ActivityDefinition_insert_input {
+  TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_arr_rel_insert_input
   config: jsonb
   createdAt: timestamp
   description: String
   id: Int
+  initialValue: jsonb
+  key: String
   name: String
+  synchronous: Boolean
+  type: ActivityType
   updatedAt: timestamp
-  workflowId: Int
-}
-
-"""aggregate max on columns"""
-type Activity_max_fields {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-  workflowId: Int
 }
 
 """
-order by max() on columns of table "Activity"
+response of any mutation on the table "ActivityDefinition"
 """
-input Activity_max_order_by {
-  createdAt: order_by
-  description: order_by
-  id: order_by
-  name: order_by
-  updatedAt: order_by
-  workflowId: order_by
-}
-
-"""aggregate min on columns"""
-type Activity_min_fields {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  updatedAt: timestamp
-  workflowId: Int
-}
-
-"""
-order by min() on columns of table "Activity"
-"""
-input Activity_min_order_by {
-  createdAt: order_by
-  description: order_by
-  id: order_by
-  name: order_by
-  updatedAt: order_by
-  workflowId: order_by
-}
-
-"""
-response of any mutation on the table "Activity"
-"""
-type Activity_mutation_response {
+type ActivityDefinition_mutation_response {
   """number of rows affected by the mutation"""
   affected_rows: Int!
 
   """data from the rows affected by the mutation"""
-  returning: [Activity!]!
+  returning: [ActivityDefinition!]!
 }
 
 """
-input type for inserting object relation for remote table "Activity"
+input type for inserting object relation for remote table "ActivityDefinition"
 """
-input Activity_obj_rel_insert_input {
-  data: Activity_insert_input!
+input ActivityDefinition_obj_rel_insert_input {
+  data: ActivityDefinition_insert_input!
 
   """upsert condition"""
-  on_conflict: Activity_on_conflict
+  on_conflict: ActivityDefinition_on_conflict
 }
 
 """
-on_conflict condition type for table "Activity"
+on_conflict condition type for table "ActivityDefinition"
 """
-input Activity_on_conflict {
-  constraint: Activity_constraint!
-  update_columns: [Activity_update_column!]! = []
-  where: Activity_bool_exp
+input ActivityDefinition_on_conflict {
+  constraint: ActivityDefinition_constraint!
+  update_columns: [ActivityDefinition_update_column!]! = []
+  where: ActivityDefinition_bool_exp
 }
 
-"""Ordering options when selecting data from "Activity"."""
-input Activity_order_by {
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
-  Triggers_aggregate: Trigger_aggregate_order_by
-  Workflow: Workflow_order_by
+"""Ordering options when selecting data from "ActivityDefinition"."""
+input ActivityDefinition_order_by {
+  TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_order_by
   config: order_by
   createdAt: order_by
   description: order_by
   id: order_by
+  initialValue: order_by
+  key: order_by
   name: order_by
+  synchronous: order_by
+  type: order_by
   updatedAt: order_by
-  workflowId: order_by
 }
 
-"""primary key columns input for table: Activity"""
-input Activity_pk_columns_input {
+"""primary key columns input for table: ActivityDefinition"""
+input ActivityDefinition_pk_columns_input {
   id: Int!
 }
 
 """prepend existing jsonb value of filtered columns with new jsonb value"""
-input Activity_prepend_input {
+input ActivityDefinition_prepend_input {
   config: jsonb
+  initialValue: jsonb
 }
 
 """
-select columns of table "Activity"
+select columns of table "ActivityDefinition"
 """
-enum Activity_select_column {
+enum ActivityDefinition_select_column {
   """column name"""
   config
 
@@ -688,88 +530,44 @@ enum Activity_select_column {
   id
 
   """column name"""
+  initialValue
+
+  """column name"""
+  key
+
+  """column name"""
   name
 
   """column name"""
-  updatedAt
+  synchronous
 
   """column name"""
-  workflowId
+  type
+
+  """column name"""
+  updatedAt
 }
 
 """
-input type for updating data in table "Activity"
+input type for updating data in table "ActivityDefinition"
 """
-input Activity_set_input {
+input ActivityDefinition_set_input {
   config: jsonb
   createdAt: timestamp
   description: String
   id: Int
+  initialValue: jsonb
+  key: String
   name: String
+  synchronous: Boolean
+  type: ActivityType
   updatedAt: timestamp
-  workflowId: Int
-}
-
-"""aggregate stddev on columns"""
-type Activity_stddev_fields {
-  id: Float
-  workflowId: Float
 }
 
 """
-order by stddev() on columns of table "Activity"
+update columns of table "ActivityDefinition"
 """
-input Activity_stddev_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""aggregate stddev_pop on columns"""
-type Activity_stddev_pop_fields {
-  id: Float
-  workflowId: Float
-}
-
-"""
-order by stddev_pop() on columns of table "Activity"
-"""
-input Activity_stddev_pop_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""aggregate stddev_samp on columns"""
-type Activity_stddev_samp_fields {
-  id: Float
-  workflowId: Float
-}
-
-"""
-order by stddev_samp() on columns of table "Activity"
-"""
-input Activity_stddev_samp_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""aggregate sum on columns"""
-type Activity_sum_fields {
-  id: Int
-  workflowId: Int
-}
-
-"""
-order by sum() on columns of table "Activity"
-"""
-input Activity_sum_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""
-update columns of table "Activity"
-"""
-enum Activity_update_column {
+enum ActivityDefinition_update_column {
   """column name"""
   config
 
@@ -783,85 +581,71 @@ enum Activity_update_column {
   id
 
   """column name"""
+  initialValue
+
+  """column name"""
+  key
+
+  """column name"""
   name
 
   """column name"""
-  updatedAt
+  synchronous
 
   """column name"""
-  workflowId
+  type
+
+  """column name"""
+  updatedAt
 }
 
-input Activity_updates {
+input ActivityDefinition_updates {
   """append existing jsonb value of filtered columns with new jsonb value"""
-  _append: Activity_append_input
+  _append: ActivityDefinition_append_input
 
   """
   delete the field or element with specified path (for JSON arrays, negative integers count from the end)
   """
-  _delete_at_path: Activity_delete_at_path_input
+  _delete_at_path: ActivityDefinition_delete_at_path_input
 
   """
   delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
   """
-  _delete_elem: Activity_delete_elem_input
+  _delete_elem: ActivityDefinition_delete_elem_input
 
   """
   delete key/value pair or string element. key/value pairs are matched based on their key value
   """
-  _delete_key: Activity_delete_key_input
+  _delete_key: ActivityDefinition_delete_key_input
 
   """increments the numeric columns with given value of the filtered values"""
-  _inc: Activity_inc_input
+  _inc: ActivityDefinition_inc_input
 
   """prepend existing jsonb value of filtered columns with new jsonb value"""
-  _prepend: Activity_prepend_input
+  _prepend: ActivityDefinition_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
-  _set: Activity_set_input
-  where: Activity_bool_exp!
+  _set: ActivityDefinition_set_input
+
+  """filter the rows which have to be updated"""
+  where: ActivityDefinition_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
-type Activity_var_pop_fields {
-  id: Float
-  workflowId: Float
-}
+scalar ActivityType
 
 """
-order by var_pop() on columns of table "Activity"
+Boolean expression to compare columns of type "ActivityType". All fields are combined with logical 'AND'.
 """
-input Activity_var_pop_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""aggregate var_samp on columns"""
-type Activity_var_samp_fields {
-  id: Float
-  workflowId: Float
-}
-
-"""
-order by var_samp() on columns of table "Activity"
-"""
-input Activity_var_samp_order_by {
-  id: order_by
-  workflowId: order_by
-}
-
-"""aggregate variance on columns"""
-type Activity_variance_fields {
-  id: Float
-  workflowId: Float
-}
-
-"""
-order by variance() on columns of table "Activity"
-"""
-input Activity_variance_order_by {
-  id: order_by
-  workflowId: order_by
+input ActivityType_comparison_exp {
+  _eq: ActivityType
+  _gt: ActivityType
+  _gte: ActivityType
+  _in: [ActivityType!]
+  _is_null: Boolean
+  _lt: ActivityType
+  _lte: ActivityType
+  _neq: ActivityType
+  _nin: [ActivityType!]
 }
 
 """
@@ -1247,6 +1031,8 @@ input Comment_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Comment_set_input
+
+  """filter the rows which have to be updated"""
   where: Comment_bool_exp!
 }
 
@@ -1700,6 +1486,8 @@ input EventLog_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: EventLog_set_input
+
+  """filter the rows which have to be updated"""
   where: EventLog_bool_exp!
 }
 
@@ -2392,6 +2180,8 @@ input File_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: File_set_input
+
+  """filter the rows which have to be updated"""
   where: File_bool_exp!
 }
 
@@ -2849,6 +2639,8 @@ input Form_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Form_set_input
+
+  """filter the rows which have to be updated"""
   where: Form_bool_exp!
 }
 
@@ -3216,6 +3008,8 @@ input MemberOnTeams_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: MemberOnTeams_set_input
+
+  """filter the rows which have to be updated"""
   where: MemberOnTeams_bool_exp!
 }
 
@@ -3800,59 +3594,6 @@ type Organization implements Node {
     """filter the rows returned"""
     where: User_bool_exp
   ): UserConnection!
-
-  """An array relationship"""
-  Workflows(
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): [Workflow!]!
-
-  """An aggregate relationship"""
-  Workflows_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): Workflow_aggregate!
-
-  """An array relationship connection"""
-  Workflows_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): WorkflowConnection!
   createdAt: timestamp!
   description: String!
   id: ID!
@@ -3897,8 +3638,6 @@ input Organization_bool_exp {
   Teams_aggregate: Team_aggregate_bool_exp
   Users: User_bool_exp
   Users_aggregate: User_aggregate_bool_exp
-  Workflows: Workflow_bool_exp
-  Workflows_aggregate: Workflow_aggregate_bool_exp
   _and: [Organization_bool_exp!]
   _not: Organization_bool_exp
   _or: [Organization_bool_exp!]
@@ -3940,7 +3679,6 @@ input Organization_insert_input {
   Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
   Users: User_arr_rel_insert_input
-  Workflows: Workflow_arr_rel_insert_input
   createdAt: timestamp
   description: String
   id: Int
@@ -3990,7 +3728,6 @@ input Organization_order_by {
   Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
   Users_aggregate: User_aggregate_order_by
-  Workflows_aggregate: Workflow_aggregate_order_by
   createdAt: order_by
   description: order_by
   id: order_by
@@ -4060,6 +3797,8 @@ input Organization_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Organization_set_input
+
+  """filter the rows which have to be updated"""
   where: Organization_bool_exp!
 }
 
@@ -4573,6 +4312,8 @@ input PermissionGroup_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: PermissionGroup_set_input
+
+  """filter the rows which have to be updated"""
   where: PermissionGroup_bool_exp!
 }
 
@@ -4998,6 +4739,8 @@ input Permission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Permission_set_input
+
+  """filter the rows which have to be updated"""
   where: Permission_bool_exp!
 }
 
@@ -5443,6 +5186,8 @@ input Post_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Post_set_input
+
+  """filter the rows which have to be updated"""
   where: Post_bool_exp!
 }
 
@@ -5951,6 +5696,8 @@ input ResourceItem_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ResourceItem_set_input
+
+  """filter the rows which have to be updated"""
   where: ResourceItem_bool_exp!
 }
 
@@ -6362,6 +6109,8 @@ input Resource_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Resource_set_input
+
+  """filter the rows which have to be updated"""
   where: Resource_bool_exp!
 }
 
@@ -6826,6 +6575,8 @@ input Settings_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Settings_set_input
+
+  """filter the rows which have to be updated"""
   where: Settings_bool_exp!
 }
 
@@ -7097,7 +6848,60 @@ type Task implements Node {
   ): TaskConnection!
 
   """An object relationship"""
-  Team: Team!
+  Team: Team
+
+  """An array relationship"""
+  Triggers(
+    """distinct select on columns"""
+    distinct_on: [Trigger_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Trigger_order_by!]
+
+    """filter the rows returned"""
+    where: Trigger_bool_exp
+  ): [Trigger!]!
+
+  """An aggregate relationship"""
+  Triggers_aggregate(
+    """distinct select on columns"""
+    distinct_on: [Trigger_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Trigger_order_by!]
+
+    """filter the rows returned"""
+    where: Trigger_bool_exp
+  ): Trigger_aggregate!
+
+  """An array relationship connection"""
+  Triggers_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [Trigger_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [Trigger_order_by!]
+
+    """filter the rows returned"""
+    where: Trigger_bool_exp
+  ): TriggerConnection!
 
   """An object relationship"""
   User: User
@@ -7119,8 +6923,17 @@ type Task implements Node {
   description: String!
   descriptionTemplate: String
   dueDate: timestamp
+  formConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   id: ID!
-  isActve: Boolean!
+  isActive: Boolean!
+  key: String!
+  machineConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   notificationConfig(
     """JSON select path"""
     path: String
@@ -7152,7 +6965,7 @@ type Task implements Node {
   ): jsonb
   statusName: String!
   statusTemplate: String
-  teamId: Int!
+  teamId: Int
   title: String!
   titleTemplate: String
   triggerConfig(
@@ -7184,9 +6997,6 @@ columns and relationships of "TaskDefinition"
 """
 type TaskDefinition implements Node {
   """An object relationship"""
-  Activity: Activity
-
-  """An object relationship"""
   Form: Form
 
   """An object relationship"""
@@ -7194,6 +7004,59 @@ type TaskDefinition implements Node {
 
   """An object relationship"""
   TaskDefinition: TaskDefinition
+
+  """An array relationship"""
+  TaskDefinitionActivityDefinitions(
+    """distinct select on columns"""
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): [TaskDefinitionActivityDefinition!]!
+
+  """An aggregate relationship"""
+  TaskDefinitionActivityDefinitions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinition_aggregate!
+
+  """An array relationship connection"""
+  TaskDefinitionActivityDefinitions_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinitionConnection!
 
   """An array relationship"""
   TaskDefinitions(
@@ -7300,10 +7163,6 @@ type TaskDefinition implements Node {
     """filter the rows returned"""
     where: Task_bool_exp
   ): TaskConnection!
-
-  """An object relationship"""
-  Workflow: Workflow
-  actvityId: Int
   config(
     """JSON select path"""
     path: String
@@ -7319,6 +7178,11 @@ type TaskDefinition implements Node {
   formId: Int
   icon: String!
   id: ID!
+  keyTemplate: String
+  machineConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   notificationConfig(
     """JSON select path"""
     path: String
@@ -7348,7 +7212,499 @@ type TaskDefinition implements Node {
     path: String
   ): jsonb
   updatedAt: timestamp!
-  workflowId: Int
+}
+
+"""
+columns and relationships of "TaskDefinitionActivityDefinition"
+"""
+type TaskDefinitionActivityDefinition implements Node {
+  """An object relationship"""
+  ActivityDefinition: ActivityDefinition!
+
+  """An object relationship"""
+  TaskDefinition: TaskDefinition!
+  activityDefinitionId: Int!
+  config(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  createdAt: timestamp!
+  id: ID!
+  initialValue(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  taskDefinitionId: Int!
+  updatedAt: timestamp!
+}
+
+"""
+A Relay connection object on "TaskDefinitionActivityDefinition"
+"""
+type TaskDefinitionActivityDefinitionConnection {
+  edges: [TaskDefinitionActivityDefinitionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type TaskDefinitionActivityDefinitionEdge {
+  cursor: String!
+  node: TaskDefinitionActivityDefinition!
+}
+
+"""
+aggregated selection of "TaskDefinitionActivityDefinition"
+"""
+type TaskDefinitionActivityDefinition_aggregate {
+  aggregate: TaskDefinitionActivityDefinition_aggregate_fields
+  nodes: [TaskDefinitionActivityDefinition!]!
+}
+
+input TaskDefinitionActivityDefinition_aggregate_bool_exp {
+  count: TaskDefinitionActivityDefinition_aggregate_bool_exp_count
+}
+
+input TaskDefinitionActivityDefinition_aggregate_bool_exp_count {
+  arguments: [TaskDefinitionActivityDefinition_select_column!]
+  distinct: Boolean
+  filter: TaskDefinitionActivityDefinition_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "TaskDefinitionActivityDefinition"
+"""
+type TaskDefinitionActivityDefinition_aggregate_fields {
+  avg: TaskDefinitionActivityDefinition_avg_fields
+  count(columns: [TaskDefinitionActivityDefinition_select_column!], distinct: Boolean): Int!
+  max: TaskDefinitionActivityDefinition_max_fields
+  min: TaskDefinitionActivityDefinition_min_fields
+  stddev: TaskDefinitionActivityDefinition_stddev_fields
+  stddev_pop: TaskDefinitionActivityDefinition_stddev_pop_fields
+  stddev_samp: TaskDefinitionActivityDefinition_stddev_samp_fields
+  sum: TaskDefinitionActivityDefinition_sum_fields
+  var_pop: TaskDefinitionActivityDefinition_var_pop_fields
+  var_samp: TaskDefinitionActivityDefinition_var_samp_fields
+  variance: TaskDefinitionActivityDefinition_variance_fields
+}
+
+"""
+order by aggregate values of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_aggregate_order_by {
+  avg: TaskDefinitionActivityDefinition_avg_order_by
+  count: order_by
+  max: TaskDefinitionActivityDefinition_max_order_by
+  min: TaskDefinitionActivityDefinition_min_order_by
+  stddev: TaskDefinitionActivityDefinition_stddev_order_by
+  stddev_pop: TaskDefinitionActivityDefinition_stddev_pop_order_by
+  stddev_samp: TaskDefinitionActivityDefinition_stddev_samp_order_by
+  sum: TaskDefinitionActivityDefinition_sum_order_by
+  var_pop: TaskDefinitionActivityDefinition_var_pop_order_by
+  var_samp: TaskDefinitionActivityDefinition_var_samp_order_by
+  variance: TaskDefinitionActivityDefinition_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input TaskDefinitionActivityDefinition_append_input {
+  config: jsonb
+  initialValue: jsonb
+}
+
+"""
+input type for inserting array relation for remote table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_arr_rel_insert_input {
+  data: [TaskDefinitionActivityDefinition_insert_input!]!
+
+  """upsert condition"""
+  on_conflict: TaskDefinitionActivityDefinition_on_conflict
+}
+
+"""aggregate avg on columns"""
+type TaskDefinitionActivityDefinition_avg_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by avg() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_avg_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "TaskDefinitionActivityDefinition". All fields are combined with a logical 'AND'.
+"""
+input TaskDefinitionActivityDefinition_bool_exp {
+  ActivityDefinition: ActivityDefinition_bool_exp
+  TaskDefinition: TaskDefinition_bool_exp
+  _and: [TaskDefinitionActivityDefinition_bool_exp!]
+  _not: TaskDefinitionActivityDefinition_bool_exp
+  _or: [TaskDefinitionActivityDefinition_bool_exp!]
+  activityDefinitionId: Int_comparison_exp
+  config: jsonb_comparison_exp
+  createdAt: timestamp_comparison_exp
+  id: Int_comparison_exp
+  initialValue: jsonb_comparison_exp
+  taskDefinitionId: Int_comparison_exp
+  updatedAt: timestamp_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "TaskDefinitionActivityDefinition"
+"""
+enum TaskDefinitionActivityDefinition_constraint {
+  """
+  unique or primary key constraint on columns "id"
+  """
+  TaskDefinitionActivityDefinition_pkey
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input TaskDefinitionActivityDefinition_delete_at_path_input {
+  config: [String!]
+  initialValue: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input TaskDefinitionActivityDefinition_delete_elem_input {
+  config: Int
+  initialValue: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input TaskDefinitionActivityDefinition_delete_key_input {
+  config: String
+  initialValue: String
+}
+
+"""
+input type for incrementing numeric columns in table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_inc_input {
+  activityDefinitionId: Int
+  id: Int
+  taskDefinitionId: Int
+}
+
+"""
+input type for inserting data into table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_insert_input {
+  ActivityDefinition: ActivityDefinition_obj_rel_insert_input
+  TaskDefinition: TaskDefinition_obj_rel_insert_input
+  activityDefinitionId: Int
+  config: jsonb
+  createdAt: timestamp
+  id: Int
+  initialValue: jsonb
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate max on columns"""
+type TaskDefinitionActivityDefinition_max_fields {
+  activityDefinitionId: Int
+  createdAt: timestamp
+  id: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by max() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_max_order_by {
+  activityDefinitionId: order_by
+  createdAt: order_by
+  id: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+}
+
+"""aggregate min on columns"""
+type TaskDefinitionActivityDefinition_min_fields {
+  activityDefinitionId: Int
+  createdAt: timestamp
+  id: Int
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""
+order by min() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_min_order_by {
+  activityDefinitionId: order_by
+  createdAt: order_by
+  id: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+}
+
+"""
+response of any mutation on the table "TaskDefinitionActivityDefinition"
+"""
+type TaskDefinitionActivityDefinition_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [TaskDefinitionActivityDefinition!]!
+}
+
+"""
+on_conflict condition type for table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_on_conflict {
+  constraint: TaskDefinitionActivityDefinition_constraint!
+  update_columns: [TaskDefinitionActivityDefinition_update_column!]! = []
+  where: TaskDefinitionActivityDefinition_bool_exp
+}
+
+"""
+Ordering options when selecting data from "TaskDefinitionActivityDefinition".
+"""
+input TaskDefinitionActivityDefinition_order_by {
+  ActivityDefinition: ActivityDefinition_order_by
+  TaskDefinition: TaskDefinition_order_by
+  activityDefinitionId: order_by
+  config: order_by
+  createdAt: order_by
+  id: order_by
+  initialValue: order_by
+  taskDefinitionId: order_by
+  updatedAt: order_by
+}
+
+"""primary key columns input for table: TaskDefinitionActivityDefinition"""
+input TaskDefinitionActivityDefinition_pk_columns_input {
+  id: Int!
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input TaskDefinitionActivityDefinition_prepend_input {
+  config: jsonb
+  initialValue: jsonb
+}
+
+"""
+select columns of table "TaskDefinitionActivityDefinition"
+"""
+enum TaskDefinitionActivityDefinition_select_column {
+  """column name"""
+  activityDefinitionId
+
+  """column name"""
+  config
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  initialValue
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  updatedAt
+}
+
+"""
+input type for updating data in table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_set_input {
+  activityDefinitionId: Int
+  config: jsonb
+  createdAt: timestamp
+  id: Int
+  initialValue: jsonb
+  taskDefinitionId: Int
+  updatedAt: timestamp
+}
+
+"""aggregate stddev on columns"""
+type TaskDefinitionActivityDefinition_stddev_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_stddev_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type TaskDefinitionActivityDefinition_stddev_pop_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_pop() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_stddev_pop_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type TaskDefinitionActivityDefinition_stddev_samp_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by stddev_samp() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_stddev_samp_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate sum on columns"""
+type TaskDefinitionActivityDefinition_sum_fields {
+  activityDefinitionId: Int
+  id: Int
+  taskDefinitionId: Int
+}
+
+"""
+order by sum() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_sum_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""
+update columns of table "TaskDefinitionActivityDefinition"
+"""
+enum TaskDefinitionActivityDefinition_update_column {
+  """column name"""
+  activityDefinitionId
+
+  """column name"""
+  config
+
+  """column name"""
+  createdAt
+
+  """column name"""
+  id
+
+  """column name"""
+  initialValue
+
+  """column name"""
+  taskDefinitionId
+
+  """column name"""
+  updatedAt
+}
+
+input TaskDefinitionActivityDefinition_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: TaskDefinitionActivityDefinition_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: TaskDefinitionActivityDefinition_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: TaskDefinitionActivityDefinition_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: TaskDefinitionActivityDefinition_delete_key_input
+
+  """increments the numeric columns with given value of the filtered values"""
+  _inc: TaskDefinitionActivityDefinition_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: TaskDefinitionActivityDefinition_prepend_input
+
+  """sets the columns of the filtered rows to the given values"""
+  _set: TaskDefinitionActivityDefinition_set_input
+
+  """filter the rows which have to be updated"""
+  where: TaskDefinitionActivityDefinition_bool_exp!
+}
+
+"""aggregate var_pop on columns"""
+type TaskDefinitionActivityDefinition_var_pop_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_pop() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_var_pop_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate var_samp on columns"""
+type TaskDefinitionActivityDefinition_var_samp_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by var_samp() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_var_samp_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
+}
+
+"""aggregate variance on columns"""
+type TaskDefinitionActivityDefinition_variance_fields {
+  activityDefinitionId: Float
+  id: Float
+  taskDefinitionId: Float
+}
+
+"""
+order by variance() on columns of table "TaskDefinitionActivityDefinition"
+"""
+input TaskDefinitionActivityDefinition_variance_order_by {
+  activityDefinitionId: order_by
+  id: order_by
+  taskDefinitionId: order_by
 }
 
 """
@@ -7421,6 +7777,7 @@ input TaskDefinition_aggregate_order_by {
 input TaskDefinition_append_input {
   config: jsonb
   ctaConfig: jsonb
+  machineConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
   stateConfig: jsonb
@@ -7440,43 +7797,38 @@ input TaskDefinition_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type TaskDefinition_avg_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by avg() on columns of table "TaskDefinition"
 """
 input TaskDefinition_avg_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """
 Boolean expression to filter rows from the table "TaskDefinition". All fields are combined with a logical 'AND'.
 """
 input TaskDefinition_bool_exp {
-  Activity: Activity_bool_exp
   Form: Form_bool_exp
   Organization: Organization_bool_exp
   TaskDefinition: TaskDefinition_bool_exp
+  TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_bool_exp
+  TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_bool_exp
   TaskDefinitions: TaskDefinition_bool_exp
   TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
   Tasks: Task_bool_exp
   Tasks_aggregate: Task_aggregate_bool_exp
-  Workflow: Workflow_bool_exp
   _and: [TaskDefinition_bool_exp!]
   _not: TaskDefinition_bool_exp
   _or: [TaskDefinition_bool_exp!]
-  actvityId: Int_comparison_exp
   config: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   ctaConfig: jsonb_comparison_exp
@@ -7486,6 +7838,8 @@ input TaskDefinition_bool_exp {
   formId: Int_comparison_exp
   icon: String_comparison_exp
   id: Int_comparison_exp
+  keyTemplate: String_comparison_exp
+  machineConfig: jsonb_comparison_exp
   notificationConfig: jsonb_comparison_exp
   notificationTemplate: String_comparison_exp
   organizationId: Int_comparison_exp
@@ -7500,7 +7854,6 @@ input TaskDefinition_bool_exp {
   titleTemplate: String_comparison_exp
   triggerConfig: jsonb_comparison_exp
   updatedAt: timestamp_comparison_exp
-  workflowId: Int_comparison_exp
 }
 
 """
@@ -7519,6 +7872,7 @@ delete the field or element with specified path (for JSON arrays, negative integ
 input TaskDefinition_delete_at_path_input {
   config: [String!]
   ctaConfig: [String!]
+  machineConfig: [String!]
   notificationConfig: [String!]
   processConfig: [String!]
   stateConfig: [String!]
@@ -7532,6 +7886,7 @@ delete the array element with specified index (negative integers count from the 
 input TaskDefinition_delete_elem_input {
   config: Int
   ctaConfig: Int
+  machineConfig: Int
   notificationConfig: Int
   processConfig: Int
   stateConfig: Int
@@ -7545,6 +7900,7 @@ delete key/value pair or string element. key/value pairs are matched based on th
 input TaskDefinition_delete_key_input {
   config: String
   ctaConfig: String
+  machineConfig: String
   notificationConfig: String
   processConfig: String
   stateConfig: String
@@ -7556,26 +7912,22 @@ input TaskDefinition_delete_key_input {
 input type for incrementing numeric columns in table "TaskDefinition"
 """
 input TaskDefinition_inc_input {
-  actvityId: Int
   formId: Int
   id: Int
   organizationId: Int
   parentId: Int
-  workflowId: Int
 }
 
 """
 input type for inserting data into table "TaskDefinition"
 """
 input TaskDefinition_insert_input {
-  Activity: Activity_obj_rel_insert_input
   Form: Form_obj_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   TaskDefinition: TaskDefinition_obj_rel_insert_input
+  TaskDefinitionActivityDefinitions: TaskDefinitionActivityDefinition_arr_rel_insert_input
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
-  Workflow: Workflow_obj_rel_insert_input
-  actvityId: Int
   config: jsonb
   createdAt: timestamp
   ctaConfig: jsonb
@@ -7585,6 +7937,8 @@ input TaskDefinition_insert_input {
   formId: Int
   icon: String
   id: Int
+  keyTemplate: String
+  machineConfig: jsonb
   notificationConfig: jsonb
   notificationTemplate: String
   organizationId: Int
@@ -7599,12 +7953,10 @@ input TaskDefinition_insert_input {
   titleTemplate: String
   triggerConfig: jsonb
   updatedAt: timestamp
-  workflowId: Int
 }
 
 """aggregate max on columns"""
 type TaskDefinition_max_fields {
-  actvityId: Int
   createdAt: timestamp
   ctaTemplate: String
   description: String
@@ -7612,6 +7964,7 @@ type TaskDefinition_max_fields {
   formId: Int
   icon: String
   id: Int
+  keyTemplate: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
@@ -7621,14 +7974,12 @@ type TaskDefinition_max_fields {
   title: String
   titleTemplate: String
   updatedAt: timestamp
-  workflowId: Int
 }
 
 """
 order by max() on columns of table "TaskDefinition"
 """
 input TaskDefinition_max_order_by {
-  actvityId: order_by
   createdAt: order_by
   ctaTemplate: order_by
   description: order_by
@@ -7636,6 +7987,7 @@ input TaskDefinition_max_order_by {
   formId: order_by
   icon: order_by
   id: order_by
+  keyTemplate: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
@@ -7645,12 +7997,10 @@ input TaskDefinition_max_order_by {
   title: order_by
   titleTemplate: order_by
   updatedAt: order_by
-  workflowId: order_by
 }
 
 """aggregate min on columns"""
 type TaskDefinition_min_fields {
-  actvityId: Int
   createdAt: timestamp
   ctaTemplate: String
   description: String
@@ -7658,6 +8008,7 @@ type TaskDefinition_min_fields {
   formId: Int
   icon: String
   id: Int
+  keyTemplate: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
@@ -7667,14 +8018,12 @@ type TaskDefinition_min_fields {
   title: String
   titleTemplate: String
   updatedAt: timestamp
-  workflowId: Int
 }
 
 """
 order by min() on columns of table "TaskDefinition"
 """
 input TaskDefinition_min_order_by {
-  actvityId: order_by
   createdAt: order_by
   ctaTemplate: order_by
   description: order_by
@@ -7682,6 +8031,7 @@ input TaskDefinition_min_order_by {
   formId: order_by
   icon: order_by
   id: order_by
+  keyTemplate: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
@@ -7691,7 +8041,6 @@ input TaskDefinition_min_order_by {
   title: order_by
   titleTemplate: order_by
   updatedAt: order_by
-  workflowId: order_by
 }
 
 """
@@ -7726,14 +8075,12 @@ input TaskDefinition_on_conflict {
 
 """Ordering options when selecting data from "TaskDefinition"."""
 input TaskDefinition_order_by {
-  Activity: Activity_order_by
   Form: Form_order_by
   Organization: Organization_order_by
   TaskDefinition: TaskDefinition_order_by
+  TaskDefinitionActivityDefinitions_aggregate: TaskDefinitionActivityDefinition_aggregate_order_by
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
-  Workflow: Workflow_order_by
-  actvityId: order_by
   config: order_by
   createdAt: order_by
   ctaConfig: order_by
@@ -7743,6 +8090,8 @@ input TaskDefinition_order_by {
   formId: order_by
   icon: order_by
   id: order_by
+  keyTemplate: order_by
+  machineConfig: order_by
   notificationConfig: order_by
   notificationTemplate: order_by
   organizationId: order_by
@@ -7757,7 +8106,6 @@ input TaskDefinition_order_by {
   titleTemplate: order_by
   triggerConfig: order_by
   updatedAt: order_by
-  workflowId: order_by
 }
 
 """primary key columns input for table: TaskDefinition"""
@@ -7769,6 +8117,7 @@ input TaskDefinition_pk_columns_input {
 input TaskDefinition_prepend_input {
   config: jsonb
   ctaConfig: jsonb
+  machineConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
   stateConfig: jsonb
@@ -7780,9 +8129,6 @@ input TaskDefinition_prepend_input {
 select columns of table "TaskDefinition"
 """
 enum TaskDefinition_select_column {
-  """column name"""
-  actvityId
-
   """column name"""
   config
 
@@ -7809,6 +8155,12 @@ enum TaskDefinition_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  keyTemplate
+
+  """column name"""
+  machineConfig
 
   """column name"""
   notificationConfig
@@ -7851,16 +8203,12 @@ enum TaskDefinition_select_column {
 
   """column name"""
   updatedAt
-
-  """column name"""
-  workflowId
 }
 
 """
 input type for updating data in table "TaskDefinition"
 """
 input TaskDefinition_set_input {
-  actvityId: Int
   config: jsonb
   createdAt: timestamp
   ctaConfig: jsonb
@@ -7870,6 +8218,8 @@ input TaskDefinition_set_input {
   formId: Int
   icon: String
   id: Int
+  keyTemplate: String
+  machineConfig: jsonb
   notificationConfig: jsonb
   notificationTemplate: String
   organizationId: Int
@@ -7884,104 +8234,84 @@ input TaskDefinition_set_input {
   titleTemplate: String
   triggerConfig: jsonb
   updatedAt: timestamp
-  workflowId: Int
 }
 
 """aggregate stddev on columns"""
 type TaskDefinition_stddev_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by stddev() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type TaskDefinition_stddev_pop_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by stddev_pop() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_pop_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type TaskDefinition_stddev_samp_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by stddev_samp() on columns of table "TaskDefinition"
 """
 input TaskDefinition_stddev_samp_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """aggregate sum on columns"""
 type TaskDefinition_sum_fields {
-  actvityId: Int
   formId: Int
   id: Int
   organizationId: Int
   parentId: Int
-  workflowId: Int
 }
 
 """
 order by sum() on columns of table "TaskDefinition"
 """
 input TaskDefinition_sum_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """
 update columns of table "TaskDefinition"
 """
 enum TaskDefinition_update_column {
-  """column name"""
-  actvityId
-
   """column name"""
   config
 
@@ -8008,6 +8338,12 @@ enum TaskDefinition_update_column {
 
   """column name"""
   id
+
+  """column name"""
+  keyTemplate
+
+  """column name"""
+  machineConfig
 
   """column name"""
   notificationConfig
@@ -8050,9 +8386,6 @@ enum TaskDefinition_update_column {
 
   """column name"""
   updatedAt
-
-  """column name"""
-  workflowId
 }
 
 input TaskDefinition_updates {
@@ -8082,73 +8415,63 @@ input TaskDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinition_set_input
+
+  """filter the rows which have to be updated"""
   where: TaskDefinition_bool_exp!
 }
 
 """aggregate var_pop on columns"""
 type TaskDefinition_var_pop_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by var_pop() on columns of table "TaskDefinition"
 """
 input TaskDefinition_var_pop_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """aggregate var_samp on columns"""
 type TaskDefinition_var_samp_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by var_samp() on columns of table "TaskDefinition"
 """
 input TaskDefinition_var_samp_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 """aggregate variance on columns"""
 type TaskDefinition_variance_fields {
-  actvityId: Float
   formId: Float
   id: Float
   organizationId: Float
   parentId: Float
-  workflowId: Float
 }
 
 """
 order by variance() on columns of table "TaskDefinition"
 """
 input TaskDefinition_variance_order_by {
-  actvityId: order_by
   formId: order_by
   id: order_by
   organizationId: order_by
   parentId: order_by
-  workflowId: order_by
 }
 
 type TaskEdge {
@@ -8246,6 +8569,8 @@ input Task_aggregate_order_by {
 input Task_append_input {
   config: jsonb
   ctaConfig: jsonb
+  formConfig: jsonb
+  machineConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
   properties: jsonb
@@ -8303,6 +8628,8 @@ input Task_bool_exp {
   Tasks: Task_bool_exp
   Tasks_aggregate: Task_aggregate_bool_exp
   Team: Team_bool_exp
+  Triggers: Trigger_bool_exp
+  Triggers_aggregate: Trigger_aggregate_bool_exp
   User: User_bool_exp
   _and: [Task_bool_exp!]
   _not: Task_bool_exp
@@ -8319,8 +8646,11 @@ input Task_bool_exp {
   description: String_comparison_exp
   descriptionTemplate: String_comparison_exp
   dueDate: timestamp_comparison_exp
+  formConfig: jsonb_comparison_exp
   id: Int_comparison_exp
-  isActve: Boolean_comparison_exp
+  isActive: Boolean_comparison_exp
+  key: String_comparison_exp
+  machineConfig: jsonb_comparison_exp
   notificationConfig: jsonb_comparison_exp
   notificationTemplate: String_comparison_exp
   organizationId: Int_comparison_exp
@@ -8364,6 +8694,8 @@ delete the field or element with specified path (for JSON arrays, negative integ
 input Task_delete_at_path_input {
   config: [String!]
   ctaConfig: [String!]
+  formConfig: [String!]
+  machineConfig: [String!]
   notificationConfig: [String!]
   processConfig: [String!]
   properties: [String!]
@@ -8379,6 +8711,8 @@ delete the array element with specified index (negative integers count from the 
 input Task_delete_elem_input {
   config: Int
   ctaConfig: Int
+  formConfig: Int
+  machineConfig: Int
   notificationConfig: Int
   processConfig: Int
   properties: Int
@@ -8394,6 +8728,8 @@ delete key/value pair or string element. key/value pairs are matched based on th
 input Task_delete_key_input {
   config: String
   ctaConfig: String
+  formConfig: String
+  machineConfig: String
   notificationConfig: String
   processConfig: String
   properties: String
@@ -8427,6 +8763,7 @@ input Task_insert_input {
   TaskDefinition: TaskDefinition_obj_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Team: Team_obj_rel_insert_input
+  Triggers: Trigger_arr_rel_insert_input
   User: User_obj_rel_insert_input
   assigneeId: Int
   config: jsonb
@@ -8440,8 +8777,11 @@ input Task_insert_input {
   description: String
   descriptionTemplate: String
   dueDate: timestamp
+  formConfig: jsonb
   id: Int
-  isActve: Boolean
+  isActive: Boolean
+  key: String
+  machineConfig: jsonb
   notificationConfig: jsonb
   notificationTemplate: String
   organizationId: Int
@@ -8482,6 +8822,7 @@ type Task_max_fields {
   descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  key: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
@@ -8516,6 +8857,7 @@ input Task_max_order_by {
   descriptionTemplate: order_by
   dueDate: order_by
   id: order_by
+  key: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
@@ -8548,6 +8890,7 @@ type Task_min_fields {
   descriptionTemplate: String
   dueDate: timestamp
   id: Int
+  key: String
   notificationTemplate: String
   organizationId: Int
   parentId: Int
@@ -8582,6 +8925,7 @@ input Task_min_order_by {
   descriptionTemplate: order_by
   dueDate: order_by
   id: order_by
+  key: order_by
   notificationTemplate: order_by
   organizationId: order_by
   parentId: order_by
@@ -8640,6 +8984,7 @@ input Task_order_by {
   TaskDefinition: TaskDefinition_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Team: Team_order_by
+  Triggers_aggregate: Trigger_aggregate_order_by
   User: User_order_by
   assigneeId: order_by
   config: order_by
@@ -8653,8 +8998,11 @@ input Task_order_by {
   description: order_by
   descriptionTemplate: order_by
   dueDate: order_by
+  formConfig: order_by
   id: order_by
-  isActve: order_by
+  isActive: order_by
+  key: order_by
+  machineConfig: order_by
   notificationConfig: order_by
   notificationTemplate: order_by
   organizationId: order_by
@@ -8691,6 +9039,8 @@ input Task_pk_columns_input {
 input Task_prepend_input {
   config: jsonb
   ctaConfig: jsonb
+  formConfig: jsonb
+  machineConfig: jsonb
   notificationConfig: jsonb
   processConfig: jsonb
   properties: jsonb
@@ -8741,10 +9091,19 @@ enum Task_select_column {
   dueDate
 
   """column name"""
+  formConfig
+
+  """column name"""
   id
 
   """column name"""
-  isActve
+  isActive
+
+  """column name"""
+  key
+
+  """column name"""
+  machineConfig
 
   """column name"""
   notificationConfig
@@ -8824,7 +9183,7 @@ select "Task_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Ta
 """
 enum Task_select_column_Task_aggregate_bool_exp_bool_and_arguments_columns {
   """column name"""
-  isActve
+  isActive
 }
 
 """
@@ -8832,7 +9191,7 @@ select "Task_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Tas
 """
 enum Task_select_column_Task_aggregate_bool_exp_bool_or_arguments_columns {
   """column name"""
-  isActve
+  isActive
 }
 
 """
@@ -8851,8 +9210,11 @@ input Task_set_input {
   description: String
   descriptionTemplate: String
   dueDate: timestamp
+  formConfig: jsonb
   id: Int
-  isActve: Boolean
+  isActive: Boolean
+  key: String
+  machineConfig: jsonb
   notificationConfig: jsonb
   notificationTemplate: String
   organizationId: Int
@@ -9016,10 +9378,19 @@ enum Task_update_column {
   dueDate
 
   """column name"""
+  formConfig
+
+  """column name"""
   id
 
   """column name"""
-  isActve
+  isActive
+
+  """column name"""
+  key
+
+  """column name"""
+  machineConfig
 
   """column name"""
   notificationConfig
@@ -9121,6 +9492,8 @@ input Task_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Task_set_input
+
+  """filter the rows which have to be updated"""
   where: Task_bool_exp!
 }
 
@@ -9750,6 +10123,8 @@ input Team_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Team_set_input
+
+  """filter the rows which have to be updated"""
   where: Team_bool_exp!
 }
 
@@ -9812,14 +10187,20 @@ columns and relationships of "Trigger"
 """
 type Trigger implements Node {
   """An object relationship"""
-  Activity: Activity!
-  activityId: Int!
+  Task: Task
   createdAt: timestamp!
-  description: String!
+  description: String
   id: ID!
-  name: String!
+  key: String!
+  name: String
+  status: TriggerStatus!
+  taskId: Int
   type: TriggerType!
   updatedAt: timestamp!
+  value(
+    """JSON select path"""
+    path: String
+  ): jsonb
 }
 
 """
@@ -9833,6 +10214,23 @@ type TriggerConnection {
 type TriggerEdge {
   cursor: String!
   node: Trigger!
+}
+
+scalar TriggerStatus
+
+"""
+Boolean expression to compare columns of type "TriggerStatus". All fields are combined with logical 'AND'.
+"""
+input TriggerStatus_comparison_exp {
+  _eq: TriggerStatus
+  _gt: TriggerStatus
+  _gte: TriggerStatus
+  _in: [TriggerStatus!]
+  _is_null: Boolean
+  _lt: TriggerStatus
+  _lte: TriggerStatus
+  _neq: TriggerStatus
+  _nin: [TriggerStatus!]
 }
 
 scalar TriggerType
@@ -9905,6 +10303,11 @@ input Trigger_aggregate_order_by {
   variance: Trigger_variance_order_by
 }
 
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input Trigger_append_input {
+  value: jsonb
+}
+
 """
 input type for inserting array relation for remote table "Trigger"
 """
@@ -9917,33 +10320,36 @@ input Trigger_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type Trigger_avg_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by avg() on columns of table "Trigger"
 """
 input Trigger_avg_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
 Boolean expression to filter rows from the table "Trigger". All fields are combined with a logical 'AND'.
 """
 input Trigger_bool_exp {
-  Activity: Activity_bool_exp
+  Task: Task_bool_exp
   _and: [Trigger_bool_exp!]
   _not: Trigger_bool_exp
   _or: [Trigger_bool_exp!]
-  activityId: Int_comparison_exp
   createdAt: timestamp_comparison_exp
   description: String_comparison_exp
   id: Int_comparison_exp
+  key: String_comparison_exp
   name: String_comparison_exp
+  status: TriggerStatus_comparison_exp
+  taskId: Int_comparison_exp
   type: TriggerType_comparison_exp
   updatedAt: timestamp_comparison_exp
+  value: jsonb_comparison_exp
 }
 
 """
@@ -9957,34 +10363,60 @@ enum Trigger_constraint {
 }
 
 """
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input Trigger_delete_at_path_input {
+  value: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input Trigger_delete_elem_input {
+  value: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input Trigger_delete_key_input {
+  value: String
+}
+
+"""
 input type for incrementing numeric columns in table "Trigger"
 """
 input Trigger_inc_input {
-  activityId: Int
   id: Int
+  taskId: Int
 }
 
 """
 input type for inserting data into table "Trigger"
 """
 input Trigger_insert_input {
-  Activity: Activity_obj_rel_insert_input
-  activityId: Int
+  Task: Task_obj_rel_insert_input
   createdAt: timestamp
   description: String
   id: Int
+  key: String
   name: String
+  status: TriggerStatus
+  taskId: Int
   type: TriggerType
   updatedAt: timestamp
+  value: jsonb
 }
 
 """aggregate max on columns"""
 type Trigger_max_fields {
-  activityId: Int
   createdAt: timestamp
   description: String
   id: Int
+  key: String
   name: String
+  status: TriggerStatus
+  taskId: Int
   type: TriggerType
   updatedAt: timestamp
 }
@@ -9993,22 +10425,26 @@ type Trigger_max_fields {
 order by max() on columns of table "Trigger"
 """
 input Trigger_max_order_by {
-  activityId: order_by
   createdAt: order_by
   description: order_by
   id: order_by
+  key: order_by
   name: order_by
+  status: order_by
+  taskId: order_by
   type: order_by
   updatedAt: order_by
 }
 
 """aggregate min on columns"""
 type Trigger_min_fields {
-  activityId: Int
   createdAt: timestamp
   description: String
   id: Int
+  key: String
   name: String
+  status: TriggerStatus
+  taskId: Int
   type: TriggerType
   updatedAt: timestamp
 }
@@ -10017,11 +10453,13 @@ type Trigger_min_fields {
 order by min() on columns of table "Trigger"
 """
 input Trigger_min_order_by {
-  activityId: order_by
   createdAt: order_by
   description: order_by
   id: order_by
+  key: order_by
   name: order_by
+  status: order_by
+  taskId: order_by
   type: order_by
   updatedAt: order_by
 }
@@ -10048,14 +10486,17 @@ input Trigger_on_conflict {
 
 """Ordering options when selecting data from "Trigger"."""
 input Trigger_order_by {
-  Activity: Activity_order_by
-  activityId: order_by
+  Task: Task_order_by
   createdAt: order_by
   description: order_by
   id: order_by
+  key: order_by
   name: order_by
+  status: order_by
+  taskId: order_by
   type: order_by
   updatedAt: order_by
+  value: order_by
 }
 
 """primary key columns input for table: Trigger"""
@@ -10063,13 +10504,15 @@ input Trigger_pk_columns_input {
   id: Int!
 }
 
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input Trigger_prepend_input {
+  value: jsonb
+}
+
 """
 select columns of table "Trigger"
 """
 enum Trigger_select_column {
-  """column name"""
-  activityId
-
   """column name"""
   createdAt
 
@@ -10080,82 +10523,97 @@ enum Trigger_select_column {
   id
 
   """column name"""
+  key
+
+  """column name"""
   name
+
+  """column name"""
+  status
+
+  """column name"""
+  taskId
 
   """column name"""
   type
 
   """column name"""
   updatedAt
+
+  """column name"""
+  value
 }
 
 """
 input type for updating data in table "Trigger"
 """
 input Trigger_set_input {
-  activityId: Int
   createdAt: timestamp
   description: String
   id: Int
+  key: String
   name: String
+  status: TriggerStatus
+  taskId: Int
   type: TriggerType
   updatedAt: timestamp
+  value: jsonb
 }
 
 """aggregate stddev on columns"""
 type Trigger_stddev_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by stddev() on columns of table "Trigger"
 """
 input Trigger_stddev_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type Trigger_stddev_pop_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by stddev_pop() on columns of table "Trigger"
 """
 input Trigger_stddev_pop_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type Trigger_stddev_samp_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by stddev_samp() on columns of table "Trigger"
 """
 input Trigger_stddev_samp_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate sum on columns"""
 type Trigger_sum_fields {
-  activityId: Int
   id: Int
+  taskId: Int
 }
 
 """
 order by sum() on columns of table "Trigger"
 """
 input Trigger_sum_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -10163,9 +10621,6 @@ update columns of table "Trigger"
 """
 enum Trigger_update_column {
   """column name"""
-  activityId
-
-  """column name"""
   createdAt
 
   """column name"""
@@ -10175,64 +10630,99 @@ enum Trigger_update_column {
   id
 
   """column name"""
+  key
+
+  """column name"""
   name
+
+  """column name"""
+  status
+
+  """column name"""
+  taskId
 
   """column name"""
   type
 
   """column name"""
   updatedAt
+
+  """column name"""
+  value
 }
 
 input Trigger_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: Trigger_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: Trigger_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: Trigger_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: Trigger_delete_key_input
+
   """increments the numeric columns with given value of the filtered values"""
   _inc: Trigger_inc_input
 
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: Trigger_prepend_input
+
   """sets the columns of the filtered rows to the given values"""
   _set: Trigger_set_input
+
+  """filter the rows which have to be updated"""
   where: Trigger_bool_exp!
 }
 
 """aggregate var_pop on columns"""
 type Trigger_var_pop_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by var_pop() on columns of table "Trigger"
 """
 input Trigger_var_pop_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate var_samp on columns"""
 type Trigger_var_samp_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by var_samp() on columns of table "Trigger"
 """
 input Trigger_var_samp_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """aggregate variance on columns"""
 type Trigger_variance_fields {
-  activityId: Float
   id: Float
+  taskId: Float
 }
 
 """
 order by variance() on columns of table "Trigger"
 """
 input Trigger_variance_order_by {
-  activityId: order_by
   id: order_by
+  taskId: order_by
 }
 
 """
@@ -11084,6 +11574,8 @@ input UserPermission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: UserPermission_set_input
+
+  """filter the rows which have to be updated"""
   where: UserPermission_bool_exp!
 }
 
@@ -11580,6 +12072,8 @@ input User_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: User_set_input
+
+  """filter the rows which have to be updated"""
   where: User_bool_exp!
 }
 
@@ -11627,592 +12121,6 @@ order by variance() on columns of table "User"
 """
 input User_variance_order_by {
   avatarId: order_by
-  id: order_by
-  organizationId: order_by
-}
-
-"""
-columns and relationships of "Workflow"
-"""
-type Workflow implements Node {
-  """An array relationship"""
-  Activities(
-    """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): [Activity!]!
-
-  """An aggregate relationship"""
-  Activities_aggregate(
-    """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): Activity_aggregate!
-
-  """An array relationship connection"""
-  Activities_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
-
-    """filter the rows returned"""
-    where: Activity_bool_exp
-  ): ActivityConnection!
-
-  """An object relationship"""
-  Organization: Organization!
-
-  """An array relationship"""
-  TaskDefinitions(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
-
-  """An aggregate relationship"""
-  TaskDefinitions_aggregate(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinition_aggregate!
-
-  """An array relationship connection"""
-  TaskDefinitions_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinitionConnection!
-  config(
-    """JSON select path"""
-    path: String
-  ): jsonb!
-  createdAt: timestamp!
-  description: String!
-  id: ID!
-  name: String!
-  organizationId: Int!
-  updatedAt: timestamp!
-}
-
-"""
-A Relay connection object on "Workflow"
-"""
-type WorkflowConnection {
-  edges: [WorkflowEdge!]!
-  pageInfo: PageInfo!
-}
-
-type WorkflowEdge {
-  cursor: String!
-  node: Workflow!
-}
-
-"""
-aggregated selection of "Workflow"
-"""
-type Workflow_aggregate {
-  aggregate: Workflow_aggregate_fields
-  nodes: [Workflow!]!
-}
-
-input Workflow_aggregate_bool_exp {
-  count: Workflow_aggregate_bool_exp_count
-}
-
-input Workflow_aggregate_bool_exp_count {
-  arguments: [Workflow_select_column!]
-  distinct: Boolean
-  filter: Workflow_bool_exp
-  predicate: Int_comparison_exp!
-}
-
-"""
-aggregate fields of "Workflow"
-"""
-type Workflow_aggregate_fields {
-  avg: Workflow_avg_fields
-  count(columns: [Workflow_select_column!], distinct: Boolean): Int!
-  max: Workflow_max_fields
-  min: Workflow_min_fields
-  stddev: Workflow_stddev_fields
-  stddev_pop: Workflow_stddev_pop_fields
-  stddev_samp: Workflow_stddev_samp_fields
-  sum: Workflow_sum_fields
-  var_pop: Workflow_var_pop_fields
-  var_samp: Workflow_var_samp_fields
-  variance: Workflow_variance_fields
-}
-
-"""
-order by aggregate values of table "Workflow"
-"""
-input Workflow_aggregate_order_by {
-  avg: Workflow_avg_order_by
-  count: order_by
-  max: Workflow_max_order_by
-  min: Workflow_min_order_by
-  stddev: Workflow_stddev_order_by
-  stddev_pop: Workflow_stddev_pop_order_by
-  stddev_samp: Workflow_stddev_samp_order_by
-  sum: Workflow_sum_order_by
-  var_pop: Workflow_var_pop_order_by
-  var_samp: Workflow_var_samp_order_by
-  variance: Workflow_variance_order_by
-}
-
-"""append existing jsonb value of filtered columns with new jsonb value"""
-input Workflow_append_input {
-  config: jsonb
-}
-
-"""
-input type for inserting array relation for remote table "Workflow"
-"""
-input Workflow_arr_rel_insert_input {
-  data: [Workflow_insert_input!]!
-
-  """upsert condition"""
-  on_conflict: Workflow_on_conflict
-}
-
-"""aggregate avg on columns"""
-type Workflow_avg_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by avg() on columns of table "Workflow"
-"""
-input Workflow_avg_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""
-Boolean expression to filter rows from the table "Workflow". All fields are combined with a logical 'AND'.
-"""
-input Workflow_bool_exp {
-  Activities: Activity_bool_exp
-  Activities_aggregate: Activity_aggregate_bool_exp
-  Organization: Organization_bool_exp
-  TaskDefinitions: TaskDefinition_bool_exp
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
-  _and: [Workflow_bool_exp!]
-  _not: Workflow_bool_exp
-  _or: [Workflow_bool_exp!]
-  config: jsonb_comparison_exp
-  createdAt: timestamp_comparison_exp
-  description: String_comparison_exp
-  id: Int_comparison_exp
-  name: String_comparison_exp
-  organizationId: Int_comparison_exp
-  updatedAt: timestamp_comparison_exp
-}
-
-"""
-unique or primary key constraints on table "Workflow"
-"""
-enum Workflow_constraint {
-  """
-  unique or primary key constraint on columns "id"
-  """
-  Workflow_pkey
-}
-
-"""
-delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-"""
-input Workflow_delete_at_path_input {
-  config: [String!]
-}
-
-"""
-delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-"""
-input Workflow_delete_elem_input {
-  config: Int
-}
-
-"""
-delete key/value pair or string element. key/value pairs are matched based on their key value
-"""
-input Workflow_delete_key_input {
-  config: String
-}
-
-"""
-input type for incrementing numeric columns in table "Workflow"
-"""
-input Workflow_inc_input {
-  id: Int
-  organizationId: Int
-}
-
-"""
-input type for inserting data into table "Workflow"
-"""
-input Workflow_insert_input {
-  Activities: Activity_arr_rel_insert_input
-  Organization: Organization_obj_rel_insert_input
-  TaskDefinitions: TaskDefinition_arr_rel_insert_input
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
-"""aggregate max on columns"""
-type Workflow_max_fields {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
-"""
-order by max() on columns of table "Workflow"
-"""
-input Workflow_max_order_by {
-  createdAt: order_by
-  description: order_by
-  id: order_by
-  name: order_by
-  organizationId: order_by
-  updatedAt: order_by
-}
-
-"""aggregate min on columns"""
-type Workflow_min_fields {
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
-"""
-order by min() on columns of table "Workflow"
-"""
-input Workflow_min_order_by {
-  createdAt: order_by
-  description: order_by
-  id: order_by
-  name: order_by
-  organizationId: order_by
-  updatedAt: order_by
-}
-
-"""
-response of any mutation on the table "Workflow"
-"""
-type Workflow_mutation_response {
-  """number of rows affected by the mutation"""
-  affected_rows: Int!
-
-  """data from the rows affected by the mutation"""
-  returning: [Workflow!]!
-}
-
-"""
-input type for inserting object relation for remote table "Workflow"
-"""
-input Workflow_obj_rel_insert_input {
-  data: Workflow_insert_input!
-
-  """upsert condition"""
-  on_conflict: Workflow_on_conflict
-}
-
-"""
-on_conflict condition type for table "Workflow"
-"""
-input Workflow_on_conflict {
-  constraint: Workflow_constraint!
-  update_columns: [Workflow_update_column!]! = []
-  where: Workflow_bool_exp
-}
-
-"""Ordering options when selecting data from "Workflow"."""
-input Workflow_order_by {
-  Activities_aggregate: Activity_aggregate_order_by
-  Organization: Organization_order_by
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
-  config: order_by
-  createdAt: order_by
-  description: order_by
-  id: order_by
-  name: order_by
-  organizationId: order_by
-  updatedAt: order_by
-}
-
-"""primary key columns input for table: Workflow"""
-input Workflow_pk_columns_input {
-  id: Int!
-}
-
-"""prepend existing jsonb value of filtered columns with new jsonb value"""
-input Workflow_prepend_input {
-  config: jsonb
-}
-
-"""
-select columns of table "Workflow"
-"""
-enum Workflow_select_column {
-  """column name"""
-  config
-
-  """column name"""
-  createdAt
-
-  """column name"""
-  description
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  organizationId
-
-  """column name"""
-  updatedAt
-}
-
-"""
-input type for updating data in table "Workflow"
-"""
-input Workflow_set_input {
-  config: jsonb
-  createdAt: timestamp
-  description: String
-  id: Int
-  name: String
-  organizationId: Int
-  updatedAt: timestamp
-}
-
-"""aggregate stddev on columns"""
-type Workflow_stddev_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by stddev() on columns of table "Workflow"
-"""
-input Workflow_stddev_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""aggregate stddev_pop on columns"""
-type Workflow_stddev_pop_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by stddev_pop() on columns of table "Workflow"
-"""
-input Workflow_stddev_pop_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""aggregate stddev_samp on columns"""
-type Workflow_stddev_samp_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by stddev_samp() on columns of table "Workflow"
-"""
-input Workflow_stddev_samp_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""aggregate sum on columns"""
-type Workflow_sum_fields {
-  id: Int
-  organizationId: Int
-}
-
-"""
-order by sum() on columns of table "Workflow"
-"""
-input Workflow_sum_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""
-update columns of table "Workflow"
-"""
-enum Workflow_update_column {
-  """column name"""
-  config
-
-  """column name"""
-  createdAt
-
-  """column name"""
-  description
-
-  """column name"""
-  id
-
-  """column name"""
-  name
-
-  """column name"""
-  organizationId
-
-  """column name"""
-  updatedAt
-}
-
-input Workflow_updates {
-  """append existing jsonb value of filtered columns with new jsonb value"""
-  _append: Workflow_append_input
-
-  """
-  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-  """
-  _delete_at_path: Workflow_delete_at_path_input
-
-  """
-  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-  """
-  _delete_elem: Workflow_delete_elem_input
-
-  """
-  delete key/value pair or string element. key/value pairs are matched based on their key value
-  """
-  _delete_key: Workflow_delete_key_input
-
-  """increments the numeric columns with given value of the filtered values"""
-  _inc: Workflow_inc_input
-
-  """prepend existing jsonb value of filtered columns with new jsonb value"""
-  _prepend: Workflow_prepend_input
-
-  """sets the columns of the filtered rows to the given values"""
-  _set: Workflow_set_input
-  where: Workflow_bool_exp!
-}
-
-"""aggregate var_pop on columns"""
-type Workflow_var_pop_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by var_pop() on columns of table "Workflow"
-"""
-input Workflow_var_pop_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""aggregate var_samp on columns"""
-type Workflow_var_samp_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by var_samp() on columns of table "Workflow"
-"""
-input Workflow_var_samp_order_by {
-  id: order_by
-  organizationId: order_by
-}
-
-"""aggregate variance on columns"""
-type Workflow_variance_fields {
-  id: Float
-  organizationId: Float
-}
-
-"""
-order by variance() on columns of table "Workflow"
-"""
-input Workflow_variance_order_by {
   id: order_by
   organizationId: order_by
 }
@@ -12407,6 +12315,8 @@ input _prisma_migrations_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: _prisma_migrations_set_input
+
+  """filter the rows which have to be updated"""
   where: _prisma_migrations_bool_exp!
 }
 
@@ -12463,17 +12373,17 @@ type mutation_root {
   delete_Action_by_pk(id: Int!): Action
 
   """
-  delete data from the table: "Activity"
+  delete data from the table: "ActivityDefinition"
   """
-  delete_Activity(
+  delete_ActivityDefinition(
     """filter the rows which have to be deleted"""
-    where: Activity_bool_exp!
-  ): Activity_mutation_response
+    where: ActivityDefinition_bool_exp!
+  ): ActivityDefinition_mutation_response
 
   """
-  delete single row from the table: "Activity"
+  delete single row from the table: "ActivityDefinition"
   """
-  delete_Activity_by_pk(id: Int!): Activity
+  delete_ActivityDefinition_by_pk(id: Int!): ActivityDefinition
 
   """
   delete data from the table: "Comment"
@@ -12648,6 +12558,19 @@ type mutation_root {
   ): TaskDefinition_mutation_response
 
   """
+  delete data from the table: "TaskDefinitionActivityDefinition"
+  """
+  delete_TaskDefinitionActivityDefinition(
+    """filter the rows which have to be deleted"""
+    where: TaskDefinitionActivityDefinition_bool_exp!
+  ): TaskDefinitionActivityDefinition_mutation_response
+
+  """
+  delete single row from the table: "TaskDefinitionActivityDefinition"
+  """
+  delete_TaskDefinitionActivityDefinition_by_pk(id: Int!): TaskDefinitionActivityDefinition
+
+  """
   delete single row from the table: "TaskDefinition"
   """
   delete_TaskDefinition_by_pk(id: Int!): TaskDefinition
@@ -12710,19 +12633,6 @@ type mutation_root {
   delete_User_by_pk(id: Int!): User
 
   """
-  delete data from the table: "Workflow"
-  """
-  delete_Workflow(
-    """filter the rows which have to be deleted"""
-    where: Workflow_bool_exp!
-  ): Workflow_mutation_response
-
-  """
-  delete single row from the table: "Workflow"
-  """
-  delete_Workflow_by_pk(id: Int!): Workflow
-
-  """
   delete data from the table: "_prisma_migrations"
   """
   delete__prisma_migrations(
@@ -12758,26 +12668,26 @@ type mutation_root {
   ): Action
 
   """
-  insert data into the table: "Activity"
+  insert data into the table: "ActivityDefinition"
   """
-  insert_Activity(
+  insert_ActivityDefinition(
     """the rows to be inserted"""
-    objects: [Activity_insert_input!]!
+    objects: [ActivityDefinition_insert_input!]!
 
     """upsert condition"""
-    on_conflict: Activity_on_conflict
-  ): Activity_mutation_response
+    on_conflict: ActivityDefinition_on_conflict
+  ): ActivityDefinition_mutation_response
 
   """
-  insert a single row into the table: "Activity"
+  insert a single row into the table: "ActivityDefinition"
   """
-  insert_Activity_one(
+  insert_ActivityDefinition_one(
     """the row to be inserted"""
-    object: Activity_insert_input!
+    object: ActivityDefinition_insert_input!
 
     """upsert condition"""
-    on_conflict: Activity_on_conflict
-  ): Activity
+    on_conflict: ActivityDefinition_on_conflict
+  ): ActivityDefinition
 
   """
   insert data into the table: "Comment"
@@ -13066,6 +12976,28 @@ type mutation_root {
   ): TaskDefinition_mutation_response
 
   """
+  insert data into the table: "TaskDefinitionActivityDefinition"
+  """
+  insert_TaskDefinitionActivityDefinition(
+    """the rows to be inserted"""
+    objects: [TaskDefinitionActivityDefinition_insert_input!]!
+
+    """upsert condition"""
+    on_conflict: TaskDefinitionActivityDefinition_on_conflict
+  ): TaskDefinitionActivityDefinition_mutation_response
+
+  """
+  insert a single row into the table: "TaskDefinitionActivityDefinition"
+  """
+  insert_TaskDefinitionActivityDefinition_one(
+    """the row to be inserted"""
+    object: TaskDefinitionActivityDefinition_insert_input!
+
+    """upsert condition"""
+    on_conflict: TaskDefinitionActivityDefinition_on_conflict
+  ): TaskDefinitionActivityDefinition
+
+  """
   insert a single row into the table: "TaskDefinition"
   """
   insert_TaskDefinition_one(
@@ -13176,28 +13108,6 @@ type mutation_root {
   ): User
 
   """
-  insert data into the table: "Workflow"
-  """
-  insert_Workflow(
-    """the rows to be inserted"""
-    objects: [Workflow_insert_input!]!
-
-    """upsert condition"""
-    on_conflict: Workflow_on_conflict
-  ): Workflow_mutation_response
-
-  """
-  insert a single row into the table: "Workflow"
-  """
-  insert_Workflow_one(
-    """the row to be inserted"""
-    object: Workflow_insert_input!
-
-    """upsert condition"""
-    on_conflict: Workflow_on_conflict
-  ): Workflow
-
-  """
   insert data into the table: "_prisma_migrations"
   """
   insert__prisma_migrations(
@@ -13255,80 +13165,80 @@ type mutation_root {
   ): [Action_mutation_response]
 
   """
-  update data of the table: "Activity"
+  update data of the table: "ActivityDefinition"
   """
-  update_Activity(
+  update_ActivityDefinition(
     """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Activity_append_input
+    _append: ActivityDefinition_append_input
 
     """
     delete the field or element with specified path (for JSON arrays, negative integers count from the end)
     """
-    _delete_at_path: Activity_delete_at_path_input
+    _delete_at_path: ActivityDefinition_delete_at_path_input
 
     """
     delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
     """
-    _delete_elem: Activity_delete_elem_input
+    _delete_elem: ActivityDefinition_delete_elem_input
 
     """
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
-    _delete_key: Activity_delete_key_input
+    _delete_key: ActivityDefinition_delete_key_input
 
     """increments the numeric columns with given value of the filtered values"""
-    _inc: Activity_inc_input
+    _inc: ActivityDefinition_inc_input
 
     """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Activity_prepend_input
+    _prepend: ActivityDefinition_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
-    _set: Activity_set_input
+    _set: ActivityDefinition_set_input
 
     """filter the rows which have to be updated"""
-    where: Activity_bool_exp!
-  ): Activity_mutation_response
+    where: ActivityDefinition_bool_exp!
+  ): ActivityDefinition_mutation_response
 
   """
-  update single row of the table: "Activity"
+  update single row of the table: "ActivityDefinition"
   """
-  update_Activity_by_pk(
+  update_ActivityDefinition_by_pk(
     """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Activity_append_input
+    _append: ActivityDefinition_append_input
 
     """
     delete the field or element with specified path (for JSON arrays, negative integers count from the end)
     """
-    _delete_at_path: Activity_delete_at_path_input
+    _delete_at_path: ActivityDefinition_delete_at_path_input
 
     """
     delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
     """
-    _delete_elem: Activity_delete_elem_input
+    _delete_elem: ActivityDefinition_delete_elem_input
 
     """
     delete key/value pair or string element. key/value pairs are matched based on their key value
     """
-    _delete_key: Activity_delete_key_input
+    _delete_key: ActivityDefinition_delete_key_input
 
     """increments the numeric columns with given value of the filtered values"""
-    _inc: Activity_inc_input
+    _inc: ActivityDefinition_inc_input
 
     """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Activity_prepend_input
+    _prepend: ActivityDefinition_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
-    _set: Activity_set_input
-    pk_columns: Activity_pk_columns_input!
-  ): Activity
+    _set: ActivityDefinition_set_input
+    pk_columns: ActivityDefinition_pk_columns_input!
+  ): ActivityDefinition
 
   """
-  update multiples rows of table: "Activity"
+  update multiples rows of table: "ActivityDefinition"
   """
-  update_Activity_many(
+  update_ActivityDefinition_many(
     """updates to execute, in order"""
-    updates: [Activity_updates!]!
-  ): [Activity_mutation_response]
+    updates: [ActivityDefinition_updates!]!
+  ): [ActivityDefinition_mutation_response]
 
   """
   update data of the table: "Comment"
@@ -13893,6 +13803,82 @@ type mutation_root {
   ): TaskDefinition_mutation_response
 
   """
+  update data of the table: "TaskDefinitionActivityDefinition"
+  """
+  update_TaskDefinitionActivityDefinition(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskDefinitionActivityDefinition_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskDefinitionActivityDefinition_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskDefinitionActivityDefinition_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskDefinitionActivityDefinition_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskDefinitionActivityDefinition_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskDefinitionActivityDefinition_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskDefinitionActivityDefinition_set_input
+
+    """filter the rows which have to be updated"""
+    where: TaskDefinitionActivityDefinition_bool_exp!
+  ): TaskDefinitionActivityDefinition_mutation_response
+
+  """
+  update single row of the table: "TaskDefinitionActivityDefinition"
+  """
+  update_TaskDefinitionActivityDefinition_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: TaskDefinitionActivityDefinition_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: TaskDefinitionActivityDefinition_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: TaskDefinitionActivityDefinition_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: TaskDefinitionActivityDefinition_delete_key_input
+
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: TaskDefinitionActivityDefinition_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: TaskDefinitionActivityDefinition_prepend_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: TaskDefinitionActivityDefinition_set_input
+    pk_columns: TaskDefinitionActivityDefinition_pk_columns_input!
+  ): TaskDefinitionActivityDefinition
+
+  """
+  update multiples rows of table: "TaskDefinitionActivityDefinition"
+  """
+  update_TaskDefinitionActivityDefinition_many(
+    """updates to execute, in order"""
+    updates: [TaskDefinitionActivityDefinition_updates!]!
+  ): [TaskDefinitionActivityDefinition_mutation_response]
+
+  """
   update single row of the table: "TaskDefinition"
   """
   update_TaskDefinition_by_pk(
@@ -14012,8 +13998,29 @@ type mutation_root {
   update data of the table: "Trigger"
   """
   update_Trigger(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Trigger_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Trigger_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Trigger_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Trigger_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Trigger_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Trigger_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Trigger_set_input
@@ -14026,8 +14033,29 @@ type mutation_root {
   update single row of the table: "Trigger"
   """
   update_Trigger_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: Trigger_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: Trigger_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: Trigger_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: Trigger_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: Trigger_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: Trigger_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: Trigger_set_input
@@ -14111,82 +14139,6 @@ type mutation_root {
   ): [User_mutation_response]
 
   """
-  update data of the table: "Workflow"
-  """
-  update_Workflow(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Workflow_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: Workflow_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: Workflow_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: Workflow_delete_key_input
-
-    """increments the numeric columns with given value of the filtered values"""
-    _inc: Workflow_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Workflow_prepend_input
-
-    """sets the columns of the filtered rows to the given values"""
-    _set: Workflow_set_input
-
-    """filter the rows which have to be updated"""
-    where: Workflow_bool_exp!
-  ): Workflow_mutation_response
-
-  """
-  update single row of the table: "Workflow"
-  """
-  update_Workflow_by_pk(
-    """append existing jsonb value of filtered columns with new jsonb value"""
-    _append: Workflow_append_input
-
-    """
-    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
-    """
-    _delete_at_path: Workflow_delete_at_path_input
-
-    """
-    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
-    """
-    _delete_elem: Workflow_delete_elem_input
-
-    """
-    delete key/value pair or string element. key/value pairs are matched based on their key value
-    """
-    _delete_key: Workflow_delete_key_input
-
-    """increments the numeric columns with given value of the filtered values"""
-    _inc: Workflow_inc_input
-
-    """prepend existing jsonb value of filtered columns with new jsonb value"""
-    _prepend: Workflow_prepend_input
-
-    """sets the columns of the filtered rows to the given values"""
-    _set: Workflow_set_input
-    pk_columns: Workflow_pk_columns_input!
-  ): Workflow
-
-  """
-  update multiples rows of table: "Workflow"
-  """
-  update_Workflow_many(
-    """updates to execute, in order"""
-    updates: [Workflow_updates!]!
-  ): [Workflow_mutation_response]
-
-  """
   update data of the table: "_prisma_migrations"
   """
   update__prisma_migrations(
@@ -14263,23 +14215,23 @@ type query_root {
   ): ActionConnection!
 
   """
-  fetch data from the table: "Activity"
+  fetch data from the table: "ActivityDefinition"
   """
-  Activity_connection(
+  ActivityDefinition_connection(
     after: String
     before: String
 
     """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
+    distinct_on: [ActivityDefinition_select_column!]
     first: Int
     last: Int
 
     """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
+    order_by: [ActivityDefinition_order_by!]
 
     """filter the rows returned"""
-    where: Activity_bool_exp
-  ): ActivityConnection!
+    where: ActivityDefinition_bool_exp
+  ): ActivityDefinitionConnection!
 
   """
   fetch data from the table: "Comment"
@@ -14506,6 +14458,25 @@ type query_root {
   ): SettingsConnection!
 
   """
+  fetch data from the table: "TaskDefinitionActivityDefinition"
+  """
+  TaskDefinitionActivityDefinition_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinitionConnection!
+
+  """
   fetch data from the table: "TaskDefinition"
   """
   TaskDefinition_connection(
@@ -14618,25 +14589,6 @@ type query_root {
     """filter the rows returned"""
     where: User_bool_exp
   ): UserConnection!
-
-  """
-  fetch data from the table: "Workflow"
-  """
-  Workflow_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): WorkflowConnection!
 
   """
   fetch data from the table: "_prisma_migrations"
@@ -14683,23 +14635,23 @@ type subscription_root {
   ): ActionConnection!
 
   """
-  fetch data from the table: "Activity"
+  fetch data from the table: "ActivityDefinition"
   """
-  Activity_connection(
+  ActivityDefinition_connection(
     after: String
     before: String
 
     """distinct select on columns"""
-    distinct_on: [Activity_select_column!]
+    distinct_on: [ActivityDefinition_select_column!]
     first: Int
     last: Int
 
     """sort the rows by one or more columns"""
-    order_by: [Activity_order_by!]
+    order_by: [ActivityDefinition_order_by!]
 
     """filter the rows returned"""
-    where: Activity_bool_exp
-  ): ActivityConnection!
+    where: ActivityDefinition_bool_exp
+  ): ActivityDefinitionConnection!
 
   """
   fetch data from the table: "Comment"
@@ -14926,6 +14878,25 @@ type subscription_root {
   ): SettingsConnection!
 
   """
+  fetch data from the table: "TaskDefinitionActivityDefinition"
+  """
+  TaskDefinitionActivityDefinition_connection(
+    after: String
+    before: String
+
+    """distinct select on columns"""
+    distinct_on: [TaskDefinitionActivityDefinition_select_column!]
+    first: Int
+    last: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [TaskDefinitionActivityDefinition_order_by!]
+
+    """filter the rows returned"""
+    where: TaskDefinitionActivityDefinition_bool_exp
+  ): TaskDefinitionActivityDefinitionConnection!
+
+  """
   fetch data from the table: "TaskDefinition"
   """
   TaskDefinition_connection(
@@ -15038,25 +15009,6 @@ type subscription_root {
     """filter the rows returned"""
     where: User_bool_exp
   ): UserConnection!
-
-  """
-  fetch data from the table: "Workflow"
-  """
-  Workflow_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Workflow_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Workflow_order_by!]
-
-    """filter the rows returned"""
-    where: Workflow_bool_exp
-  ): WorkflowConnection!
 
   """
   fetch data from the table: "_prisma_migrations"

@@ -9,7 +9,7 @@
   "possibleTypes": {
     "Node": [
       "Action",
-      "Activity",
+      "ActivityDefinition",
       "Comment",
       "EventLog",
       "File",
@@ -24,11 +24,11 @@
       "Settings",
       "Task",
       "TaskDefinition",
+      "TaskDefinitionActivityDefinition",
       "Team",
       "Trigger",
       "User",
       "UserPermission",
-      "Workflow",
       "_prisma_migrations"
     ]
   }
