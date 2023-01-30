@@ -12,11 +12,16 @@ export type Scalars = {
   Int: number;
   Float: number;
   ActionType: any;
+  ActivityType: any;
   FileType: any;
   JWT: any;
   Role: any;
+  TaskBoardType: any;
+  TaskBoardViewType: any;
   TaskPriority: any;
+  TriggerStatus: any;
   TriggerType: any;
+  Visibility: any;
   jsonb: any;
   timestamp: any;
   timestamptz: any;
@@ -160,170 +165,119 @@ export type Action_Updates = {
   where: Action_Bool_Exp;
 };
 
-export type Activity_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Activity_Aggregate_Bool_Exp_Count>;
-};
-
-export type Activity_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Activity_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-  filter?: InputMaybe<Activity_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** order by aggregate values of table "Activity" */
-export type Activity_Aggregate_Order_By = {
-  avg?: InputMaybe<Activity_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Activity_Max_Order_By>;
-  min?: InputMaybe<Activity_Min_Order_By>;
-  stddev?: InputMaybe<Activity_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Activity_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Activity_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Activity_Sum_Order_By>;
-  var_pop?: InputMaybe<Activity_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Activity_Var_Samp_Order_By>;
-  variance?: InputMaybe<Activity_Variance_Order_By>;
-};
-
 /** append existing jsonb value of filtered columns with new jsonb value */
-export type Activity_Append_Input = {
+export type ActivityDefinition_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
 };
 
-/** input type for inserting array relation for remote table "Activity" */
-export type Activity_Arr_Rel_Insert_Input = {
-  data: Array<Activity_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Activity_On_Conflict>;
-};
-
-/** order by avg() on columns of table "Activity" */
-export type Activity_Avg_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "Activity". All fields are combined with a logical 'AND'. */
-export type Activity_Bool_Exp = {
-  TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
-  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
-  Triggers?: InputMaybe<Trigger_Bool_Exp>;
-  Triggers_aggregate?: InputMaybe<Trigger_Aggregate_Bool_Exp>;
-  Workflow?: InputMaybe<Workflow_Bool_Exp>;
-  _and?: InputMaybe<Array<Activity_Bool_Exp>>;
-  _not?: InputMaybe<Activity_Bool_Exp>;
-  _or?: InputMaybe<Array<Activity_Bool_Exp>>;
+/** Boolean expression to filter rows from the table "ActivityDefinition". All fields are combined with a logical 'AND'. */
+export type ActivityDefinition_Bool_Exp = {
+  TaskDefinitionActivityDefinitions?: InputMaybe<TaskDefinitionActivityDefinition_Bool_Exp>;
+  TaskDefinitionActivityDefinitions_aggregate?: InputMaybe<TaskDefinitionActivityDefinition_Aggregate_Bool_Exp>;
+  _and?: InputMaybe<Array<ActivityDefinition_Bool_Exp>>;
+  _not?: InputMaybe<ActivityDefinition_Bool_Exp>;
+  _or?: InputMaybe<Array<ActivityDefinition_Bool_Exp>>;
   config?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  initialValue?: InputMaybe<Jsonb_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  synchronous?: InputMaybe<Boolean_Comparison_Exp>;
+  type?: InputMaybe<ActivityType_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  workflowId?: InputMaybe<Int_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "Activity" */
-export enum Activity_Constraint {
+/** unique or primary key constraints on table "ActivityDefinition" */
+export enum ActivityDefinition_Constraint {
+  /** unique or primary key constraint on columns "key" */
+  ACTIVITYDEFINITION_KEY_KEY = 'ActivityDefinition_key_key',
   /** unique or primary key constraint on columns "id" */
-  ACTIVITY_PKEY = 'Activity_pkey'
+  ACTIVITYDEFINITION_PKEY = 'ActivityDefinition_pkey'
 }
 
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Activity_Delete_At_Path_Input = {
+export type ActivityDefinition_Delete_At_Path_Input = {
   config?: InputMaybe<Array<Scalars['String']>>;
+  initialValue?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Activity_Delete_Elem_Input = {
+export type ActivityDefinition_Delete_Elem_Input = {
   config?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Activity_Delete_Key_Input = {
+export type ActivityDefinition_Delete_Key_Input = {
   config?: InputMaybe<Scalars['String']>;
+  initialValue?: InputMaybe<Scalars['String']>;
 };
 
-/** input type for incrementing numeric columns in table "Activity" */
-export type Activity_Inc_Input = {
+/** input type for incrementing numeric columns in table "ActivityDefinition" */
+export type ActivityDefinition_Inc_Input = {
   id?: InputMaybe<Scalars['Int']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
-/** input type for inserting data into table "Activity" */
-export type Activity_Insert_Input = {
-  TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
-  Triggers?: InputMaybe<Trigger_Arr_Rel_Insert_Input>;
-  Workflow?: InputMaybe<Workflow_Obj_Rel_Insert_Input>;
+/** input type for inserting data into table "ActivityDefinition" */
+export type ActivityDefinition_Insert_Input = {
+  TaskDefinitionActivityDefinitions?: InputMaybe<TaskDefinitionActivityDefinition_Arr_Rel_Insert_Input>;
   config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+  key?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  synchronous?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<Scalars['ActivityType']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
-/** order by max() on columns of table "Activity" */
-export type Activity_Max_Order_By = {
-  createdAt?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by min() on columns of table "Activity" */
-export type Activity_Min_Order_By = {
-  createdAt?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** input type for inserting object relation for remote table "Activity" */
-export type Activity_Obj_Rel_Insert_Input = {
-  data: Activity_Insert_Input;
+/** input type for inserting object relation for remote table "ActivityDefinition" */
+export type ActivityDefinition_Obj_Rel_Insert_Input = {
+  data: ActivityDefinition_Insert_Input;
   /** upsert condition */
-  on_conflict?: InputMaybe<Activity_On_Conflict>;
+  on_conflict?: InputMaybe<ActivityDefinition_On_Conflict>;
 };
 
-/** on_conflict condition type for table "Activity" */
-export type Activity_On_Conflict = {
-  constraint: Activity_Constraint;
-  update_columns?: Array<Activity_Update_Column>;
-  where?: InputMaybe<Activity_Bool_Exp>;
+/** on_conflict condition type for table "ActivityDefinition" */
+export type ActivityDefinition_On_Conflict = {
+  constraint: ActivityDefinition_Constraint;
+  update_columns?: Array<ActivityDefinition_Update_Column>;
+  where?: InputMaybe<ActivityDefinition_Bool_Exp>;
 };
 
-/** Ordering options when selecting data from "Activity". */
-export type Activity_Order_By = {
-  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
-  Triggers_aggregate?: InputMaybe<Trigger_Aggregate_Order_By>;
-  Workflow?: InputMaybe<Workflow_Order_By>;
+/** Ordering options when selecting data from "ActivityDefinition". */
+export type ActivityDefinition_Order_By = {
+  TaskDefinitionActivityDefinitions_aggregate?: InputMaybe<TaskDefinitionActivityDefinition_Aggregate_Order_By>;
   config?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  initialValue?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  synchronous?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
-/** primary key columns input for table: Activity */
-export type Activity_Pk_Columns_Input = {
+/** primary key columns input for table: ActivityDefinition */
+export type ActivityDefinition_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
 /** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Activity_Prepend_Input = {
+export type ActivityDefinition_Prepend_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
 };
 
-/** select columns of table "Activity" */
-export enum Activity_Select_Column {
+/** select columns of table "ActivityDefinition" */
+export enum ActivityDefinition_Select_Column {
   /** column name */
   CONFIG = 'config',
   /** column name */
@@ -333,50 +287,35 @@ export enum Activity_Select_Column {
   /** column name */
   ID = 'id',
   /** column name */
+  INITIALVALUE = 'initialValue',
+  /** column name */
+  KEY = 'key',
+  /** column name */
   NAME = 'name',
   /** column name */
-  UPDATEDAT = 'updatedAt',
+  SYNCHRONOUS = 'synchronous',
   /** column name */
-  WORKFLOWID = 'workflowId'
+  TYPE = 'type',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
 }
 
-/** input type for updating data in table "Activity" */
-export type Activity_Set_Input = {
+/** input type for updating data in table "ActivityDefinition" */
+export type ActivityDefinition_Set_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+  key?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  synchronous?: InputMaybe<Scalars['Boolean']>;
+  type?: InputMaybe<Scalars['ActivityType']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
-/** order by stddev() on columns of table "Activity" */
-export type Activity_Stddev_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_pop() on columns of table "Activity" */
-export type Activity_Stddev_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_samp() on columns of table "Activity" */
-export type Activity_Stddev_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by sum() on columns of table "Activity" */
-export type Activity_Sum_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** update columns of table "Activity" */
-export enum Activity_Update_Column {
+/** update columns of table "ActivityDefinition" */
+export enum ActivityDefinition_Update_Column {
   /** column name */
   CONFIG = 'config',
   /** column name */
@@ -386,47 +325,48 @@ export enum Activity_Update_Column {
   /** column name */
   ID = 'id',
   /** column name */
+  INITIALVALUE = 'initialValue',
+  /** column name */
+  KEY = 'key',
+  /** column name */
   NAME = 'name',
   /** column name */
-  UPDATEDAT = 'updatedAt',
+  SYNCHRONOUS = 'synchronous',
   /** column name */
-  WORKFLOWID = 'workflowId'
+  TYPE = 'type',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
 }
 
-export type Activity_Updates = {
+export type ActivityDefinition_Updates = {
   /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: InputMaybe<Activity_Append_Input>;
+  _append?: InputMaybe<ActivityDefinition_Append_Input>;
   /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: InputMaybe<Activity_Delete_At_Path_Input>;
+  _delete_at_path?: InputMaybe<ActivityDefinition_Delete_At_Path_Input>;
   /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: InputMaybe<Activity_Delete_Elem_Input>;
+  _delete_elem?: InputMaybe<ActivityDefinition_Delete_Elem_Input>;
   /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: InputMaybe<Activity_Delete_Key_Input>;
+  _delete_key?: InputMaybe<ActivityDefinition_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Activity_Inc_Input>;
+  _inc?: InputMaybe<ActivityDefinition_Inc_Input>;
   /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: InputMaybe<Activity_Prepend_Input>;
+  _prepend?: InputMaybe<ActivityDefinition_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Activity_Set_Input>;
-  where: Activity_Bool_Exp;
+  _set?: InputMaybe<ActivityDefinition_Set_Input>;
+  where: ActivityDefinition_Bool_Exp;
 };
 
-/** order by var_pop() on columns of table "Activity" */
-export type Activity_Var_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by var_samp() on columns of table "Activity" */
-export type Activity_Var_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
-};
-
-/** order by variance() on columns of table "Activity" */
-export type Activity_Variance_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
+/** Boolean expression to compare columns of type "ActivityType". All fields are combined with logical 'AND'. */
+export type ActivityType_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['ActivityType']>;
+  _gt?: InputMaybe<Scalars['ActivityType']>;
+  _gte?: InputMaybe<Scalars['ActivityType']>;
+  _in?: InputMaybe<Array<Scalars['ActivityType']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['ActivityType']>;
+  _lte?: InputMaybe<Scalars['ActivityType']>;
+  _neq?: InputMaybe<Scalars['ActivityType']>;
+  _nin?: InputMaybe<Array<Scalars['ActivityType']>>;
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
@@ -1243,6 +1183,12 @@ export type File_Variance_Order_By = {
   variantOfId?: InputMaybe<Order_By>;
 };
 
+export type FormTriggerInput = {
+  formId?: InputMaybe<Scalars['Int']>;
+  taskId?: InputMaybe<Scalars['Int']>;
+  value: Scalars['String'];
+};
+
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Form_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
@@ -1257,6 +1203,8 @@ export type Form_Append_Input = {
 export type Form_Bool_Exp = {
   TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
+  Tasks?: InputMaybe<Task_Bool_Exp>;
+  Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<Form_Bool_Exp>>;
   _not?: InputMaybe<Form_Bool_Exp>;
   _or?: InputMaybe<Array<Form_Bool_Exp>>;
@@ -1319,6 +1267,7 @@ export type Form_Inc_Input = {
 /** input type for inserting data into table "Form" */
 export type Form_Insert_Input = {
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
+  Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   code?: InputMaybe<Scalars['String']>;
   config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
@@ -1351,6 +1300,7 @@ export type Form_On_Conflict = {
 /** Ordering options when selecting data from "Form". */
 export type Form_Order_By = {
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
+  Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   code?: InputMaybe<Order_By>;
   config?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
@@ -1492,6 +1442,201 @@ export type Int_Comparison_Exp = {
 export type LoginInput = {
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+export type MemberOnProjects_Aggregate_Bool_Exp = {
+  count?: InputMaybe<MemberOnProjects_Aggregate_Bool_Exp_Count>;
+};
+
+export type MemberOnProjects_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<MemberOnProjects_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<MemberOnProjects_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "MemberOnProjects" */
+export type MemberOnProjects_Aggregate_Order_By = {
+  avg?: InputMaybe<MemberOnProjects_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<MemberOnProjects_Max_Order_By>;
+  min?: InputMaybe<MemberOnProjects_Min_Order_By>;
+  stddev?: InputMaybe<MemberOnProjects_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<MemberOnProjects_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<MemberOnProjects_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<MemberOnProjects_Sum_Order_By>;
+  var_pop?: InputMaybe<MemberOnProjects_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<MemberOnProjects_Var_Samp_Order_By>;
+  variance?: InputMaybe<MemberOnProjects_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "MemberOnProjects" */
+export type MemberOnProjects_Arr_Rel_Insert_Input = {
+  data: Array<MemberOnProjects_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<MemberOnProjects_On_Conflict>;
+};
+
+/** order by avg() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Avg_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "MemberOnProjects". All fields are combined with a logical 'AND'. */
+export type MemberOnProjects_Bool_Exp = {
+  Project?: InputMaybe<Project_Bool_Exp>;
+  User?: InputMaybe<User_Bool_Exp>;
+  _and?: InputMaybe<Array<MemberOnProjects_Bool_Exp>>;
+  _not?: InputMaybe<MemberOnProjects_Bool_Exp>;
+  _or?: InputMaybe<Array<MemberOnProjects_Bool_Exp>>;
+  assignedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  assignedBy?: InputMaybe<String_Comparison_Exp>;
+  projectId?: InputMaybe<Int_Comparison_Exp>;
+  userId?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "MemberOnProjects" */
+export enum MemberOnProjects_Constraint {
+  /** unique or primary key constraint on columns "projectId", "userId" */
+  MEMBERONPROJECTS_PKEY = 'MemberOnProjects_pkey'
+}
+
+/** input type for incrementing numeric columns in table "MemberOnProjects" */
+export type MemberOnProjects_Inc_Input = {
+  projectId?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "MemberOnProjects" */
+export type MemberOnProjects_Insert_Input = {
+  Project?: InputMaybe<Project_Obj_Rel_Insert_Input>;
+  User?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  assignedAt?: InputMaybe<Scalars['timestamp']>;
+  assignedBy?: InputMaybe<Scalars['String']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Max_Order_By = {
+  assignedAt?: InputMaybe<Order_By>;
+  assignedBy?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Min_Order_By = {
+  assignedAt?: InputMaybe<Order_By>;
+  assignedBy?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "MemberOnProjects" */
+export type MemberOnProjects_On_Conflict = {
+  constraint: MemberOnProjects_Constraint;
+  update_columns?: Array<MemberOnProjects_Update_Column>;
+  where?: InputMaybe<MemberOnProjects_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "MemberOnProjects". */
+export type MemberOnProjects_Order_By = {
+  Project?: InputMaybe<Project_Order_By>;
+  User?: InputMaybe<User_Order_By>;
+  assignedAt?: InputMaybe<Order_By>;
+  assignedBy?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: MemberOnProjects */
+export type MemberOnProjects_Pk_Columns_Input = {
+  projectId: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+/** select columns of table "MemberOnProjects" */
+export enum MemberOnProjects_Select_Column {
+  /** column name */
+  ASSIGNEDAT = 'assignedAt',
+  /** column name */
+  ASSIGNEDBY = 'assignedBy',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  USERID = 'userId'
+}
+
+/** input type for updating data in table "MemberOnProjects" */
+export type MemberOnProjects_Set_Input = {
+  assignedAt?: InputMaybe<Scalars['timestamp']>;
+  assignedBy?: InputMaybe<Scalars['String']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+/** order by stddev() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Stddev_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Stddev_Pop_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Stddev_Samp_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Sum_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "MemberOnProjects" */
+export enum MemberOnProjects_Update_Column {
+  /** column name */
+  ASSIGNEDAT = 'assignedAt',
+  /** column name */
+  ASSIGNEDBY = 'assignedBy',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  USERID = 'userId'
+}
+
+export type MemberOnProjects_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<MemberOnProjects_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MemberOnProjects_Set_Input>;
+  where: MemberOnProjects_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Var_Pop_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Var_Samp_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "MemberOnProjects" */
+export type MemberOnProjects_Variance_Order_By = {
+  projectId?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 export type MemberOnTeams_Aggregate_Bool_Exp = {
@@ -1699,10 +1844,14 @@ export type Organization_Bool_Exp = {
   PermissionGroups_aggregate?: InputMaybe<PermissionGroup_Aggregate_Bool_Exp>;
   Permissions?: InputMaybe<Permission_Bool_Exp>;
   Permissions_aggregate?: InputMaybe<Permission_Aggregate_Bool_Exp>;
+  Projects?: InputMaybe<Project_Bool_Exp>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
   Resources?: InputMaybe<Resource_Bool_Exp>;
   Resources_aggregate?: InputMaybe<Resource_Aggregate_Bool_Exp>;
   Settings?: InputMaybe<Settings_Bool_Exp>;
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Bool_Exp>;
+  TaskBoards?: InputMaybe<TaskBoard_Bool_Exp>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Bool_Exp>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
   Tasks?: InputMaybe<Task_Bool_Exp>;
@@ -1711,8 +1860,6 @@ export type Organization_Bool_Exp = {
   Teams_aggregate?: InputMaybe<Team_Aggregate_Bool_Exp>;
   Users?: InputMaybe<User_Bool_Exp>;
   Users_aggregate?: InputMaybe<User_Aggregate_Bool_Exp>;
-  Workflows?: InputMaybe<Workflow_Bool_Exp>;
-  Workflows_aggregate?: InputMaybe<Workflow_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<Organization_Bool_Exp>>;
   _not?: InputMaybe<Organization_Bool_Exp>;
   _or?: InputMaybe<Array<Organization_Bool_Exp>>;
@@ -1740,13 +1887,14 @@ export type Organization_Insert_Input = {
   Files?: InputMaybe<File_Arr_Rel_Insert_Input>;
   PermissionGroups?: InputMaybe<PermissionGroup_Arr_Rel_Insert_Input>;
   Permissions?: InputMaybe<Permission_Arr_Rel_Insert_Input>;
+  Projects?: InputMaybe<Project_Arr_Rel_Insert_Input>;
   Resources?: InputMaybe<Resource_Arr_Rel_Insert_Input>;
   Settings?: InputMaybe<Settings_Arr_Rel_Insert_Input>;
+  TaskBoards?: InputMaybe<TaskBoard_Arr_Rel_Insert_Input>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   Teams?: InputMaybe<Team_Arr_Rel_Insert_Input>;
   Users?: InputMaybe<User_Arr_Rel_Insert_Input>;
-  Workflows?: InputMaybe<Workflow_Arr_Rel_Insert_Input>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
@@ -1774,13 +1922,14 @@ export type Organization_Order_By = {
   Files_aggregate?: InputMaybe<File_Aggregate_Order_By>;
   PermissionGroups_aggregate?: InputMaybe<PermissionGroup_Aggregate_Order_By>;
   Permissions_aggregate?: InputMaybe<Permission_Aggregate_Order_By>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
   Resources_aggregate?: InputMaybe<Resource_Aggregate_Order_By>;
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Order_By>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Order_By>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   Teams_aggregate?: InputMaybe<Team_Aggregate_Order_By>;
   Users_aggregate?: InputMaybe<User_Aggregate_Order_By>;
-  Workflows_aggregate?: InputMaybe<Workflow_Aggregate_Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -2561,6 +2710,592 @@ export type Post_Variance_Order_By = {
   id?: InputMaybe<Order_By>;
 };
 
+export type ProjectSettings_Aggregate_Bool_Exp = {
+  count?: InputMaybe<ProjectSettings_Aggregate_Bool_Exp_Count>;
+};
+
+export type ProjectSettings_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<ProjectSettings_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<ProjectSettings_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "ProjectSettings" */
+export type ProjectSettings_Aggregate_Order_By = {
+  avg?: InputMaybe<ProjectSettings_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<ProjectSettings_Max_Order_By>;
+  min?: InputMaybe<ProjectSettings_Min_Order_By>;
+  stddev?: InputMaybe<ProjectSettings_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<ProjectSettings_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<ProjectSettings_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<ProjectSettings_Sum_Order_By>;
+  var_pop?: InputMaybe<ProjectSettings_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<ProjectSettings_Var_Samp_Order_By>;
+  variance?: InputMaybe<ProjectSettings_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type ProjectSettings_Append_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "ProjectSettings" */
+export type ProjectSettings_Arr_Rel_Insert_Input = {
+  data: Array<ProjectSettings_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<ProjectSettings_On_Conflict>;
+};
+
+/** order by avg() on columns of table "ProjectSettings" */
+export type ProjectSettings_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "ProjectSettings". All fields are combined with a logical 'AND'. */
+export type ProjectSettings_Bool_Exp = {
+  Project?: InputMaybe<Project_Bool_Exp>;
+  _and?: InputMaybe<Array<ProjectSettings_Bool_Exp>>;
+  _not?: InputMaybe<ProjectSettings_Bool_Exp>;
+  _or?: InputMaybe<Array<ProjectSettings_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
+  projectId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  value?: InputMaybe<Jsonb_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "ProjectSettings" */
+export enum ProjectSettings_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  PROJECTSETTINGS_PKEY = 'ProjectSettings_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type ProjectSettings_Delete_At_Path_Input = {
+  value?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type ProjectSettings_Delete_Elem_Input = {
+  value?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type ProjectSettings_Delete_Key_Input = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "ProjectSettings" */
+export type ProjectSettings_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "ProjectSettings" */
+export type ProjectSettings_Insert_Input = {
+  Project?: InputMaybe<Project_Obj_Rel_Insert_Input>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by max() on columns of table "ProjectSettings" */
+export type ProjectSettings_Max_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "ProjectSettings" */
+export type ProjectSettings_Min_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "ProjectSettings" */
+export type ProjectSettings_On_Conflict = {
+  constraint: ProjectSettings_Constraint;
+  update_columns?: Array<ProjectSettings_Update_Column>;
+  where?: InputMaybe<ProjectSettings_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "ProjectSettings". */
+export type ProjectSettings_Order_By = {
+  Project?: InputMaybe<Project_Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: ProjectSettings */
+export type ProjectSettings_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type ProjectSettings_Prepend_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "ProjectSettings" */
+export enum ProjectSettings_Select_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
+}
+
+/** input type for updating data in table "ProjectSettings" */
+export type ProjectSettings_Set_Input = {
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by stddev() on columns of table "ProjectSettings" */
+export type ProjectSettings_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "ProjectSettings" */
+export type ProjectSettings_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "ProjectSettings" */
+export type ProjectSettings_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "ProjectSettings" */
+export type ProjectSettings_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "ProjectSettings" */
+export enum ProjectSettings_Update_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
+}
+
+export type ProjectSettings_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<ProjectSettings_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<ProjectSettings_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<ProjectSettings_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<ProjectSettings_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<ProjectSettings_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<ProjectSettings_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ProjectSettings_Set_Input>;
+  where: ProjectSettings_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "ProjectSettings" */
+export type ProjectSettings_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "ProjectSettings" */
+export type ProjectSettings_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "ProjectSettings" */
+export type ProjectSettings_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+};
+
+export type Project_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Project_Aggregate_Bool_Exp_Count>;
+};
+
+export type Project_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Project_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Project_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "Project" */
+export type Project_Aggregate_Order_By = {
+  avg?: InputMaybe<Project_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Project_Max_Order_By>;
+  min?: InputMaybe<Project_Min_Order_By>;
+  stddev?: InputMaybe<Project_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Project_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Project_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Project_Sum_Order_By>;
+  var_pop?: InputMaybe<Project_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Project_Var_Samp_Order_By>;
+  variance?: InputMaybe<Project_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "Project" */
+export type Project_Arr_Rel_Insert_Input = {
+  data: Array<Project_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Project_On_Conflict>;
+};
+
+/** order by avg() on columns of table "Project" */
+export type Project_Avg_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "Project". All fields are combined with a logical 'AND'. */
+export type Project_Bool_Exp = {
+  MemberOnProjects?: InputMaybe<MemberOnProjects_Bool_Exp>;
+  MemberOnProjects_aggregate?: InputMaybe<MemberOnProjects_Aggregate_Bool_Exp>;
+  Organization?: InputMaybe<Organization_Bool_Exp>;
+  ProjectSettings?: InputMaybe<ProjectSettings_Bool_Exp>;
+  ProjectSettings_aggregate?: InputMaybe<ProjectSettings_Aggregate_Bool_Exp>;
+  TaskBoards?: InputMaybe<TaskBoard_Bool_Exp>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Bool_Exp>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Bool_Exp>;
+  Tasks?: InputMaybe<Task_Bool_Exp>;
+  Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
+  User?: InputMaybe<User_Bool_Exp>;
+  _and?: InputMaybe<Array<Project_Bool_Exp>>;
+  _not?: InputMaybe<Project_Bool_Exp>;
+  _or?: InputMaybe<Array<Project_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  creatorId?: InputMaybe<Int_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  icon?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  managerId?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  organizationId?: InputMaybe<Int_Comparison_Exp>;
+  reporterId?: InputMaybe<Int_Comparison_Exp>;
+  taskDefinitionId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  userByManagerid?: InputMaybe<User_Bool_Exp>;
+  userByReporterid?: InputMaybe<User_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "Project" */
+export enum Project_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  PROJECT_PKEY = 'Project_pkey'
+}
+
+/** input type for incrementing numeric columns in table "Project" */
+export type Project_Inc_Input = {
+  creatorId?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['Int']>;
+  managerId?: InputMaybe<Scalars['Int']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "Project" */
+export type Project_Insert_Input = {
+  MemberOnProjects?: InputMaybe<MemberOnProjects_Arr_Rel_Insert_Input>;
+  Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  ProjectSettings?: InputMaybe<ProjectSettings_Arr_Rel_Insert_Input>;
+  TaskBoards?: InputMaybe<TaskBoard_Arr_Rel_Insert_Input>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
+  Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
+  User?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  creatorId?: InputMaybe<Scalars['Int']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  managerId?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  userByManagerid?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  userByReporterid?: InputMaybe<User_Obj_Rel_Insert_Input>;
+};
+
+/** order by max() on columns of table "Project" */
+export type Project_Max_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  creatorId?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "Project" */
+export type Project_Min_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  creatorId?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** input type for inserting object relation for remote table "Project" */
+export type Project_Obj_Rel_Insert_Input = {
+  data: Project_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Project_On_Conflict>;
+};
+
+/** on_conflict condition type for table "Project" */
+export type Project_On_Conflict = {
+  constraint: Project_Constraint;
+  update_columns?: Array<Project_Update_Column>;
+  where?: InputMaybe<Project_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "Project". */
+export type Project_Order_By = {
+  MemberOnProjects_aggregate?: InputMaybe<MemberOnProjects_Aggregate_Order_By>;
+  Organization?: InputMaybe<Organization_Order_By>;
+  ProjectSettings_aggregate?: InputMaybe<ProjectSettings_Aggregate_Order_By>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Order_By>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
+  Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
+  User?: InputMaybe<User_Order_By>;
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  creatorId?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  userByManagerid?: InputMaybe<User_Order_By>;
+  userByReporterid?: InputMaybe<User_Order_By>;
+};
+
+/** primary key columns input for table: Project */
+export type Project_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "Project" */
+export enum Project_Select_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  CREATORID = 'creatorId',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  MANAGERID = 'managerId',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  REPORTERID = 'reporterId',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+/** input type for updating data in table "Project" */
+export type Project_Set_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  creatorId?: InputMaybe<Scalars['Int']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  managerId?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by stddev() on columns of table "Project" */
+export type Project_Stddev_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "Project" */
+export type Project_Stddev_Pop_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "Project" */
+export type Project_Stddev_Samp_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "Project" */
+export type Project_Sum_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "Project" */
+export enum Project_Update_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  CREATORID = 'creatorId',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  MANAGERID = 'managerId',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  REPORTERID = 'reporterId',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+export type Project_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Project_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Project_Set_Input>;
+  where: Project_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "Project" */
+export type Project_Var_Pop_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "Project" */
+export type Project_Var_Samp_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "Project" */
+export type Project_Variance_Order_By = {
+  creatorId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  managerId?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
 export type ResourceItem_Aggregate_Bool_Exp = {
   count?: InputMaybe<ResourceItem_Aggregate_Bool_Exp_Count>;
 };
@@ -3324,6 +4059,904 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type TaskBoardSettings_Aggregate_Bool_Exp = {
+  count?: InputMaybe<TaskBoardSettings_Aggregate_Bool_Exp_Count>;
+};
+
+export type TaskBoardSettings_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<TaskBoardSettings_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TaskBoardSettings_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "TaskBoardSettings" */
+export type TaskBoardSettings_Aggregate_Order_By = {
+  avg?: InputMaybe<TaskBoardSettings_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<TaskBoardSettings_Max_Order_By>;
+  min?: InputMaybe<TaskBoardSettings_Min_Order_By>;
+  stddev?: InputMaybe<TaskBoardSettings_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<TaskBoardSettings_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<TaskBoardSettings_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<TaskBoardSettings_Sum_Order_By>;
+  var_pop?: InputMaybe<TaskBoardSettings_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<TaskBoardSettings_Var_Samp_Order_By>;
+  variance?: InputMaybe<TaskBoardSettings_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TaskBoardSettings_Append_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "TaskBoardSettings" */
+export type TaskBoardSettings_Arr_Rel_Insert_Input = {
+  data: Array<TaskBoardSettings_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<TaskBoardSettings_On_Conflict>;
+};
+
+/** order by avg() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "TaskBoardSettings". All fields are combined with a logical 'AND'. */
+export type TaskBoardSettings_Bool_Exp = {
+  TaskBoard?: InputMaybe<TaskBoard_Bool_Exp>;
+  _and?: InputMaybe<Array<TaskBoardSettings_Bool_Exp>>;
+  _not?: InputMaybe<TaskBoardSettings_Bool_Exp>;
+  _or?: InputMaybe<Array<TaskBoardSettings_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
+  taskBoardId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  value?: InputMaybe<Jsonb_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "TaskBoardSettings" */
+export enum TaskBoardSettings_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TASKBOARDSETTINGS_PKEY = 'TaskBoardSettings_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TaskBoardSettings_Delete_At_Path_Input = {
+  value?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TaskBoardSettings_Delete_Elem_Input = {
+  value?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TaskBoardSettings_Delete_Key_Input = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "TaskBoardSettings" */
+export type TaskBoardSettings_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  taskBoardId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "TaskBoardSettings" */
+export type TaskBoardSettings_Insert_Input = {
+  TaskBoard?: InputMaybe<TaskBoard_Obj_Rel_Insert_Input>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  taskBoardId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by max() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Max_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Min_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "TaskBoardSettings" */
+export type TaskBoardSettings_On_Conflict = {
+  constraint: TaskBoardSettings_Constraint;
+  update_columns?: Array<TaskBoardSettings_Update_Column>;
+  where?: InputMaybe<TaskBoardSettings_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "TaskBoardSettings". */
+export type TaskBoardSettings_Order_By = {
+  TaskBoard?: InputMaybe<TaskBoard_Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: TaskBoardSettings */
+export type TaskBoardSettings_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TaskBoardSettings_Prepend_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "TaskBoardSettings" */
+export enum TaskBoardSettings_Select_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  TASKBOARDID = 'taskBoardId',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
+}
+
+/** input type for updating data in table "TaskBoardSettings" */
+export type TaskBoardSettings_Set_Input = {
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  taskBoardId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by stddev() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "TaskBoardSettings" */
+export enum TaskBoardSettings_Update_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  TASKBOARDID = 'taskBoardId',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
+}
+
+export type TaskBoardSettings_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<TaskBoardSettings_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<TaskBoardSettings_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<TaskBoardSettings_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<TaskBoardSettings_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<TaskBoardSettings_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<TaskBoardSettings_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TaskBoardSettings_Set_Input>;
+  where: TaskBoardSettings_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "TaskBoardSettings" */
+export type TaskBoardSettings_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  taskBoardId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to compare columns of type "TaskBoardType". All fields are combined with logical 'AND'. */
+export type TaskBoardType_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['TaskBoardType']>;
+  _gt?: InputMaybe<Scalars['TaskBoardType']>;
+  _gte?: InputMaybe<Scalars['TaskBoardType']>;
+  _in?: InputMaybe<Array<Scalars['TaskBoardType']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['TaskBoardType']>;
+  _lte?: InputMaybe<Scalars['TaskBoardType']>;
+  _neq?: InputMaybe<Scalars['TaskBoardType']>;
+  _nin?: InputMaybe<Array<Scalars['TaskBoardType']>>;
+};
+
+/** Boolean expression to compare columns of type "TaskBoardViewType". All fields are combined with logical 'AND'. */
+export type TaskBoardViewType_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _gt?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _gte?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _in?: InputMaybe<Array<Scalars['TaskBoardViewType']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _lte?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _neq?: InputMaybe<Scalars['TaskBoardViewType']>;
+  _nin?: InputMaybe<Array<Scalars['TaskBoardViewType']>>;
+};
+
+export type TaskBoard_Aggregate_Bool_Exp = {
+  count?: InputMaybe<TaskBoard_Aggregate_Bool_Exp_Count>;
+};
+
+export type TaskBoard_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<TaskBoard_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TaskBoard_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "TaskBoard" */
+export type TaskBoard_Aggregate_Order_By = {
+  avg?: InputMaybe<TaskBoard_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<TaskBoard_Max_Order_By>;
+  min?: InputMaybe<TaskBoard_Min_Order_By>;
+  stddev?: InputMaybe<TaskBoard_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<TaskBoard_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<TaskBoard_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<TaskBoard_Sum_Order_By>;
+  var_pop?: InputMaybe<TaskBoard_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<TaskBoard_Var_Samp_Order_By>;
+  variance?: InputMaybe<TaskBoard_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TaskBoard_Append_Input = {
+  viewConfig?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "TaskBoard" */
+export type TaskBoard_Arr_Rel_Insert_Input = {
+  data: Array<TaskBoard_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<TaskBoard_On_Conflict>;
+};
+
+/** order by avg() on columns of table "TaskBoard" */
+export type TaskBoard_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "TaskBoard". All fields are combined with a logical 'AND'. */
+export type TaskBoard_Bool_Exp = {
+  Organization?: InputMaybe<Organization_Bool_Exp>;
+  Project?: InputMaybe<Project_Bool_Exp>;
+  TaskBoardSettings?: InputMaybe<TaskBoardSettings_Bool_Exp>;
+  TaskBoardSettings_aggregate?: InputMaybe<TaskBoardSettings_Aggregate_Bool_Exp>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Bool_Exp>;
+  _and?: InputMaybe<Array<TaskBoard_Bool_Exp>>;
+  _not?: InputMaybe<TaskBoard_Bool_Exp>;
+  _or?: InputMaybe<Array<TaskBoard_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  icon?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  organizationId?: InputMaybe<Int_Comparison_Exp>;
+  projectId?: InputMaybe<Int_Comparison_Exp>;
+  taskDefinitionId?: InputMaybe<Int_Comparison_Exp>;
+  type?: InputMaybe<TaskBoardType_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  viewConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  viewType?: InputMaybe<TaskBoardViewType_Comparison_Exp>;
+  visibility?: InputMaybe<Visibility_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "TaskBoard" */
+export enum TaskBoard_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TASKBOARD_PKEY = 'TaskBoard_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TaskBoard_Delete_At_Path_Input = {
+  viewConfig?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TaskBoard_Delete_Elem_Input = {
+  viewConfig?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TaskBoard_Delete_Key_Input = {
+  viewConfig?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "TaskBoard" */
+export type TaskBoard_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "TaskBoard" */
+export type TaskBoard_Insert_Input = {
+  Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  Project?: InputMaybe<Project_Obj_Rel_Insert_Input>;
+  TaskBoardSettings?: InputMaybe<TaskBoardSettings_Arr_Rel_Insert_Input>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  type?: InputMaybe<Scalars['TaskBoardType']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  viewConfig?: InputMaybe<Scalars['jsonb']>;
+  viewType?: InputMaybe<Scalars['TaskBoardViewType']>;
+  visibility?: InputMaybe<Scalars['Visibility']>;
+};
+
+/** order by max() on columns of table "TaskBoard" */
+export type TaskBoard_Max_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  viewType?: InputMaybe<Order_By>;
+  visibility?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "TaskBoard" */
+export type TaskBoard_Min_Order_By = {
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  viewType?: InputMaybe<Order_By>;
+  visibility?: InputMaybe<Order_By>;
+};
+
+/** input type for inserting object relation for remote table "TaskBoard" */
+export type TaskBoard_Obj_Rel_Insert_Input = {
+  data: TaskBoard_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<TaskBoard_On_Conflict>;
+};
+
+/** on_conflict condition type for table "TaskBoard" */
+export type TaskBoard_On_Conflict = {
+  constraint: TaskBoard_Constraint;
+  update_columns?: Array<TaskBoard_Update_Column>;
+  where?: InputMaybe<TaskBoard_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "TaskBoard". */
+export type TaskBoard_Order_By = {
+  Organization?: InputMaybe<Organization_Order_By>;
+  Project?: InputMaybe<Project_Order_By>;
+  TaskBoardSettings_aggregate?: InputMaybe<TaskBoardSettings_Aggregate_Order_By>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
+  code?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  viewConfig?: InputMaybe<Order_By>;
+  viewType?: InputMaybe<Order_By>;
+  visibility?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: TaskBoard */
+export type TaskBoard_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TaskBoard_Prepend_Input = {
+  viewConfig?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "TaskBoard" */
+export enum TaskBoard_Select_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VIEWCONFIG = 'viewConfig',
+  /** column name */
+  VIEWTYPE = 'viewType',
+  /** column name */
+  VISIBILITY = 'visibility'
+}
+
+/** input type for updating data in table "TaskBoard" */
+export type TaskBoard_Set_Input = {
+  code?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  icon?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  type?: InputMaybe<Scalars['TaskBoardType']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  viewConfig?: InputMaybe<Scalars['jsonb']>;
+  viewType?: InputMaybe<Scalars['TaskBoardViewType']>;
+  visibility?: InputMaybe<Scalars['Visibility']>;
+};
+
+/** order by stddev() on columns of table "TaskBoard" */
+export type TaskBoard_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "TaskBoard" */
+export type TaskBoard_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "TaskBoard" */
+export type TaskBoard_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "TaskBoard" */
+export type TaskBoard_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "TaskBoard" */
+export enum TaskBoard_Update_Column {
+  /** column name */
+  CODE = 'code',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ICON = 'icon',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  ORGANIZATIONID = 'organizationId',
+  /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VIEWCONFIG = 'viewConfig',
+  /** column name */
+  VIEWTYPE = 'viewType',
+  /** column name */
+  VISIBILITY = 'visibility'
+}
+
+export type TaskBoard_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<TaskBoard_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<TaskBoard_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<TaskBoard_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<TaskBoard_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<TaskBoard_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<TaskBoard_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TaskBoard_Set_Input>;
+  where: TaskBoard_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "TaskBoard" */
+export type TaskBoard_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "TaskBoard" */
+export type TaskBoard_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "TaskBoard" */
+export type TaskBoard_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  organizationId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+export type TaskDefinitionActivityDefinition_Aggregate_Bool_Exp = {
+  count?: InputMaybe<TaskDefinitionActivityDefinition_Aggregate_Bool_Exp_Count>;
+};
+
+export type TaskDefinitionActivityDefinition_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<TaskDefinitionActivityDefinition_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<TaskDefinitionActivityDefinition_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Aggregate_Order_By = {
+  avg?: InputMaybe<TaskDefinitionActivityDefinition_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<TaskDefinitionActivityDefinition_Max_Order_By>;
+  min?: InputMaybe<TaskDefinitionActivityDefinition_Min_Order_By>;
+  stddev?: InputMaybe<TaskDefinitionActivityDefinition_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<TaskDefinitionActivityDefinition_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<TaskDefinitionActivityDefinition_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<TaskDefinitionActivityDefinition_Sum_Order_By>;
+  var_pop?: InputMaybe<TaskDefinitionActivityDefinition_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<TaskDefinitionActivityDefinition_Var_Samp_Order_By>;
+  variance?: InputMaybe<TaskDefinitionActivityDefinition_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type TaskDefinitionActivityDefinition_Append_Input = {
+  config?: InputMaybe<Scalars['jsonb']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Arr_Rel_Insert_Input = {
+  data: Array<TaskDefinitionActivityDefinition_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<TaskDefinitionActivityDefinition_On_Conflict>;
+};
+
+/** order by avg() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Avg_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "TaskDefinitionActivityDefinition". All fields are combined with a logical 'AND'. */
+export type TaskDefinitionActivityDefinition_Bool_Exp = {
+  ActivityDefinition?: InputMaybe<ActivityDefinition_Bool_Exp>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Bool_Exp>;
+  _and?: InputMaybe<Array<TaskDefinitionActivityDefinition_Bool_Exp>>;
+  _not?: InputMaybe<TaskDefinitionActivityDefinition_Bool_Exp>;
+  _or?: InputMaybe<Array<TaskDefinitionActivityDefinition_Bool_Exp>>;
+  activityDefinitionId?: InputMaybe<Int_Comparison_Exp>;
+  config?: InputMaybe<Jsonb_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  initialValue?: InputMaybe<Jsonb_Comparison_Exp>;
+  taskDefinitionId?: InputMaybe<Int_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "TaskDefinitionActivityDefinition" */
+export enum TaskDefinitionActivityDefinition_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TASKDEFINITIONACTIVITYDEFINITION_PKEY = 'TaskDefinitionActivityDefinition_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type TaskDefinitionActivityDefinition_Delete_At_Path_Input = {
+  config?: InputMaybe<Array<Scalars['String']>>;
+  initialValue?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type TaskDefinitionActivityDefinition_Delete_Elem_Input = {
+  config?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type TaskDefinitionActivityDefinition_Delete_Key_Input = {
+  config?: InputMaybe<Scalars['String']>;
+  initialValue?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Inc_Input = {
+  activityDefinitionId?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['Int']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Insert_Input = {
+  ActivityDefinition?: InputMaybe<ActivityDefinition_Obj_Rel_Insert_Input>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
+  activityDefinitionId?: InputMaybe<Scalars['Int']>;
+  config?: InputMaybe<Scalars['jsonb']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by max() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Max_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Min_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_On_Conflict = {
+  constraint: TaskDefinitionActivityDefinition_Constraint;
+  update_columns?: Array<TaskDefinitionActivityDefinition_Update_Column>;
+  where?: InputMaybe<TaskDefinitionActivityDefinition_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "TaskDefinitionActivityDefinition". */
+export type TaskDefinitionActivityDefinition_Order_By = {
+  ActivityDefinition?: InputMaybe<ActivityDefinition_Order_By>;
+  TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
+  activityDefinitionId?: InputMaybe<Order_By>;
+  config?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  initialValue?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: TaskDefinitionActivityDefinition */
+export type TaskDefinitionActivityDefinition_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type TaskDefinitionActivityDefinition_Prepend_Input = {
+  config?: InputMaybe<Scalars['jsonb']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "TaskDefinitionActivityDefinition" */
+export enum TaskDefinitionActivityDefinition_Select_Column {
+  /** column name */
+  ACTIVITYDEFINITIONID = 'activityDefinitionId',
+  /** column name */
+  CONFIG = 'config',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  INITIALVALUE = 'initialValue',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+/** input type for updating data in table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Set_Input = {
+  activityDefinitionId?: InputMaybe<Scalars['Int']>;
+  config?: InputMaybe<Scalars['jsonb']>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  initialValue?: InputMaybe<Scalars['jsonb']>;
+  taskDefinitionId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+};
+
+/** order by stddev() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Stddev_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Stddev_Pop_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Stddev_Samp_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Sum_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "TaskDefinitionActivityDefinition" */
+export enum TaskDefinitionActivityDefinition_Update_Column {
+  /** column name */
+  ACTIVITYDEFINITIONID = 'activityDefinitionId',
+  /** column name */
+  CONFIG = 'config',
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  INITIALVALUE = 'initialValue',
+  /** column name */
+  TASKDEFINITIONID = 'taskDefinitionId',
+  /** column name */
+  UPDATEDAT = 'updatedAt'
+}
+
+export type TaskDefinitionActivityDefinition_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<TaskDefinitionActivityDefinition_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<TaskDefinitionActivityDefinition_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<TaskDefinitionActivityDefinition_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<TaskDefinitionActivityDefinition_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<TaskDefinitionActivityDefinition_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<TaskDefinitionActivityDefinition_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<TaskDefinitionActivityDefinition_Set_Input>;
+  where: TaskDefinitionActivityDefinition_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Var_Pop_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Var_Samp_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "TaskDefinitionActivityDefinition" */
+export type TaskDefinitionActivityDefinition_Variance_Order_By = {
+  activityDefinitionId?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  taskDefinitionId?: InputMaybe<Order_By>;
+};
+
 export type TaskDefinition_Aggregate_Bool_Exp = {
   count?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp_Count>;
 };
@@ -3354,6 +4987,7 @@ export type TaskDefinition_Aggregate_Order_By = {
 export type TaskDefinition_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
   stateConfig?: InputMaybe<Scalars['jsonb']>;
@@ -3370,29 +5004,30 @@ export type TaskDefinition_Arr_Rel_Insert_Input = {
 
 /** order by avg() on columns of table "TaskDefinition" */
 export type TaskDefinition_Avg_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "TaskDefinition". All fields are combined with a logical 'AND'. */
 export type TaskDefinition_Bool_Exp = {
-  Activity?: InputMaybe<Activity_Bool_Exp>;
   Form?: InputMaybe<Form_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
+  Projects?: InputMaybe<Project_Bool_Exp>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
+  TaskBoards?: InputMaybe<TaskBoard_Bool_Exp>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Bool_Exp>;
   TaskDefinition?: InputMaybe<TaskDefinition_Bool_Exp>;
+  TaskDefinitionActivityDefinitions?: InputMaybe<TaskDefinitionActivityDefinition_Bool_Exp>;
+  TaskDefinitionActivityDefinitions_aggregate?: InputMaybe<TaskDefinitionActivityDefinition_Aggregate_Bool_Exp>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
   Tasks?: InputMaybe<Task_Bool_Exp>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
-  Workflow?: InputMaybe<Workflow_Bool_Exp>;
   _and?: InputMaybe<Array<TaskDefinition_Bool_Exp>>;
   _not?: InputMaybe<TaskDefinition_Bool_Exp>;
   _or?: InputMaybe<Array<TaskDefinition_Bool_Exp>>;
-  actvityId?: InputMaybe<Int_Comparison_Exp>;
   config?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   ctaConfig?: InputMaybe<Jsonb_Comparison_Exp>;
@@ -3402,6 +5037,8 @@ export type TaskDefinition_Bool_Exp = {
   formId?: InputMaybe<Int_Comparison_Exp>;
   icon?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  keyTemplate?: InputMaybe<String_Comparison_Exp>;
+  machineConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   notificationConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   notificationTemplate?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
@@ -3416,7 +5053,6 @@ export type TaskDefinition_Bool_Exp = {
   titleTemplate?: InputMaybe<String_Comparison_Exp>;
   triggerConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  workflowId?: InputMaybe<Int_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "TaskDefinition" */
@@ -3429,6 +5065,7 @@ export enum TaskDefinition_Constraint {
 export type TaskDefinition_Delete_At_Path_Input = {
   config?: InputMaybe<Array<Scalars['String']>>;
   ctaConfig?: InputMaybe<Array<Scalars['String']>>;
+  machineConfig?: InputMaybe<Array<Scalars['String']>>;
   notificationConfig?: InputMaybe<Array<Scalars['String']>>;
   processConfig?: InputMaybe<Array<Scalars['String']>>;
   stateConfig?: InputMaybe<Array<Scalars['String']>>;
@@ -3440,6 +5077,7 @@ export type TaskDefinition_Delete_At_Path_Input = {
 export type TaskDefinition_Delete_Elem_Input = {
   config?: InputMaybe<Scalars['Int']>;
   ctaConfig?: InputMaybe<Scalars['Int']>;
+  machineConfig?: InputMaybe<Scalars['Int']>;
   notificationConfig?: InputMaybe<Scalars['Int']>;
   processConfig?: InputMaybe<Scalars['Int']>;
   stateConfig?: InputMaybe<Scalars['Int']>;
@@ -3451,6 +5089,7 @@ export type TaskDefinition_Delete_Elem_Input = {
 export type TaskDefinition_Delete_Key_Input = {
   config?: InputMaybe<Scalars['String']>;
   ctaConfig?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['String']>;
   notificationConfig?: InputMaybe<Scalars['String']>;
   processConfig?: InputMaybe<Scalars['String']>;
   stateConfig?: InputMaybe<Scalars['String']>;
@@ -3460,24 +5099,22 @@ export type TaskDefinition_Delete_Key_Input = {
 
 /** input type for incrementing numeric columns in table "TaskDefinition" */
 export type TaskDefinition_Inc_Input = {
-  actvityId?: InputMaybe<Scalars['Int']>;
   formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "TaskDefinition" */
 export type TaskDefinition_Insert_Input = {
-  Activity?: InputMaybe<Activity_Obj_Rel_Insert_Input>;
   Form?: InputMaybe<Form_Obj_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  Projects?: InputMaybe<Project_Arr_Rel_Insert_Input>;
+  TaskBoards?: InputMaybe<TaskBoard_Arr_Rel_Insert_Input>;
   TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
+  TaskDefinitionActivityDefinitions?: InputMaybe<TaskDefinitionActivityDefinition_Arr_Rel_Insert_Input>;
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
-  Workflow?: InputMaybe<Workflow_Obj_Rel_Insert_Input>;
-  actvityId?: InputMaybe<Scalars['Int']>;
   config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
@@ -3487,6 +5124,8 @@ export type TaskDefinition_Insert_Input = {
   formId?: InputMaybe<Scalars['Int']>;
   icon?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  keyTemplate?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
@@ -3501,12 +5140,10 @@ export type TaskDefinition_Insert_Input = {
   titleTemplate?: InputMaybe<Scalars['String']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "TaskDefinition" */
 export type TaskDefinition_Max_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   ctaTemplate?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
@@ -3514,6 +5151,7 @@ export type TaskDefinition_Max_Order_By = {
   formId?: InputMaybe<Order_By>;
   icon?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  keyTemplate?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
@@ -3523,12 +5161,10 @@ export type TaskDefinition_Max_Order_By = {
   title?: InputMaybe<Order_By>;
   titleTemplate?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by min() on columns of table "TaskDefinition" */
 export type TaskDefinition_Min_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   ctaTemplate?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
@@ -3536,6 +5172,7 @@ export type TaskDefinition_Min_Order_By = {
   formId?: InputMaybe<Order_By>;
   icon?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  keyTemplate?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
@@ -3545,7 +5182,6 @@ export type TaskDefinition_Min_Order_By = {
   title?: InputMaybe<Order_By>;
   titleTemplate?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** input type for inserting object relation for remote table "TaskDefinition" */
@@ -3564,14 +5200,14 @@ export type TaskDefinition_On_Conflict = {
 
 /** Ordering options when selecting data from "TaskDefinition". */
 export type TaskDefinition_Order_By = {
-  Activity?: InputMaybe<Activity_Order_By>;
   Form?: InputMaybe<Form_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
+  TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Order_By>;
   TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
+  TaskDefinitionActivityDefinitions_aggregate?: InputMaybe<TaskDefinitionActivityDefinition_Aggregate_Order_By>;
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
-  Workflow?: InputMaybe<Workflow_Order_By>;
-  actvityId?: InputMaybe<Order_By>;
   config?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   ctaConfig?: InputMaybe<Order_By>;
@@ -3581,6 +5217,8 @@ export type TaskDefinition_Order_By = {
   formId?: InputMaybe<Order_By>;
   icon?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  keyTemplate?: InputMaybe<Order_By>;
+  machineConfig?: InputMaybe<Order_By>;
   notificationConfig?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
@@ -3595,7 +5233,6 @@ export type TaskDefinition_Order_By = {
   titleTemplate?: InputMaybe<Order_By>;
   triggerConfig?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: TaskDefinition */
@@ -3607,6 +5244,7 @@ export type TaskDefinition_Pk_Columns_Input = {
 export type TaskDefinition_Prepend_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
   stateConfig?: InputMaybe<Scalars['jsonb']>;
@@ -3616,8 +5254,6 @@ export type TaskDefinition_Prepend_Input = {
 
 /** select columns of table "TaskDefinition" */
 export enum TaskDefinition_Select_Column {
-  /** column name */
-  ACTVITYID = 'actvityId',
   /** column name */
   CONFIG = 'config',
   /** column name */
@@ -3636,6 +5272,10 @@ export enum TaskDefinition_Select_Column {
   ICON = 'icon',
   /** column name */
   ID = 'id',
+  /** column name */
+  KEYTEMPLATE = 'keyTemplate',
+  /** column name */
+  MACHINECONFIG = 'machineConfig',
   /** column name */
   NOTIFICATIONCONFIG = 'notificationConfig',
   /** column name */
@@ -3663,14 +5303,11 @@ export enum TaskDefinition_Select_Column {
   /** column name */
   TRIGGERCONFIG = 'triggerConfig',
   /** column name */
-  UPDATEDAT = 'updatedAt',
-  /** column name */
-  WORKFLOWID = 'workflowId'
+  UPDATEDAT = 'updatedAt'
 }
 
 /** input type for updating data in table "TaskDefinition" */
 export type TaskDefinition_Set_Input = {
-  actvityId?: InputMaybe<Scalars['Int']>;
   config?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
@@ -3680,6 +5317,8 @@ export type TaskDefinition_Set_Input = {
   formId?: InputMaybe<Scalars['Int']>;
   icon?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  keyTemplate?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
@@ -3694,53 +5333,42 @@ export type TaskDefinition_Set_Input = {
   titleTemplate?: InputMaybe<Scalars['String']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
-  workflowId?: InputMaybe<Scalars['Int']>;
 };
 
 /** order by stddev() on columns of table "TaskDefinition" */
 export type TaskDefinition_Stddev_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "TaskDefinition" */
 export type TaskDefinition_Stddev_Pop_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "TaskDefinition" */
 export type TaskDefinition_Stddev_Samp_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by sum() on columns of table "TaskDefinition" */
 export type TaskDefinition_Sum_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "TaskDefinition" */
 export enum TaskDefinition_Update_Column {
-  /** column name */
-  ACTVITYID = 'actvityId',
   /** column name */
   CONFIG = 'config',
   /** column name */
@@ -3759,6 +5387,10 @@ export enum TaskDefinition_Update_Column {
   ICON = 'icon',
   /** column name */
   ID = 'id',
+  /** column name */
+  KEYTEMPLATE = 'keyTemplate',
+  /** column name */
+  MACHINECONFIG = 'machineConfig',
   /** column name */
   NOTIFICATIONCONFIG = 'notificationConfig',
   /** column name */
@@ -3786,9 +5418,7 @@ export enum TaskDefinition_Update_Column {
   /** column name */
   TRIGGERCONFIG = 'triggerConfig',
   /** column name */
-  UPDATEDAT = 'updatedAt',
-  /** column name */
-  WORKFLOWID = 'workflowId'
+  UPDATEDAT = 'updatedAt'
 }
 
 export type TaskDefinition_Updates = {
@@ -3811,32 +5441,26 @@ export type TaskDefinition_Updates = {
 
 /** order by var_pop() on columns of table "TaskDefinition" */
 export type TaskDefinition_Var_Pop_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "TaskDefinition" */
 export type TaskDefinition_Var_Samp_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "TaskDefinition" */
 export type TaskDefinition_Variance_Order_By = {
-  actvityId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
-  workflowId?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to compare columns of type "TaskPriority". All fields are combined with logical 'AND'. */
@@ -3898,6 +5522,8 @@ export type Task_Aggregate_Order_By = {
 export type Task_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  formConfig?: InputMaybe<Scalars['jsonb']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
   properties?: InputMaybe<Scalars['jsonb']>;
@@ -3919,9 +5545,12 @@ export type Task_Avg_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -3931,12 +5560,16 @@ export type Task_Bool_Exp = {
   Comments_aggregate?: InputMaybe<Comment_Aggregate_Bool_Exp>;
   EventLogs?: InputMaybe<EventLog_Bool_Exp>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Bool_Exp>;
+  Form?: InputMaybe<Form_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
+  Project?: InputMaybe<Project_Bool_Exp>;
   Task?: InputMaybe<Task_Bool_Exp>;
   TaskDefinition?: InputMaybe<TaskDefinition_Bool_Exp>;
   Tasks?: InputMaybe<Task_Bool_Exp>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
   Team?: InputMaybe<Team_Bool_Exp>;
+  Triggers?: InputMaybe<Trigger_Bool_Exp>;
+  Triggers_aggregate?: InputMaybe<Trigger_Aggregate_Bool_Exp>;
   User?: InputMaybe<User_Bool_Exp>;
   _and?: InputMaybe<Array<Task_Bool_Exp>>;
   _not?: InputMaybe<Task_Bool_Exp>;
@@ -3953,15 +5586,21 @@ export type Task_Bool_Exp = {
   description?: InputMaybe<String_Comparison_Exp>;
   descriptionTemplate?: InputMaybe<String_Comparison_Exp>;
   dueDate?: InputMaybe<Timestamp_Comparison_Exp>;
+  formConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  formId?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
-  isActve?: InputMaybe<Boolean_Comparison_Exp>;
+  isActive?: InputMaybe<Boolean_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
+  machineConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   notificationConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   notificationTemplate?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   parentId?: InputMaybe<Int_Comparison_Exp>;
   priority?: InputMaybe<TaskPriority_Comparison_Exp>;
   processConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  projectId?: InputMaybe<Int_Comparison_Exp>;
   properties?: InputMaybe<Jsonb_Comparison_Exp>;
+  reporterId?: InputMaybe<Int_Comparison_Exp>;
   state?: InputMaybe<String_Comparison_Exp>;
   stateConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   stateName?: InputMaybe<String_Comparison_Exp>;
@@ -3979,6 +5618,7 @@ export type Task_Bool_Exp = {
   typeName?: InputMaybe<String_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
   userByCreatorid?: InputMaybe<User_Bool_Exp>;
+  userByReporterid?: InputMaybe<User_Bool_Exp>;
   values?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
@@ -3992,6 +5632,8 @@ export enum Task_Constraint {
 export type Task_Delete_At_Path_Input = {
   config?: InputMaybe<Array<Scalars['String']>>;
   ctaConfig?: InputMaybe<Array<Scalars['String']>>;
+  formConfig?: InputMaybe<Array<Scalars['String']>>;
+  machineConfig?: InputMaybe<Array<Scalars['String']>>;
   notificationConfig?: InputMaybe<Array<Scalars['String']>>;
   processConfig?: InputMaybe<Array<Scalars['String']>>;
   properties?: InputMaybe<Array<Scalars['String']>>;
@@ -4005,6 +5647,8 @@ export type Task_Delete_At_Path_Input = {
 export type Task_Delete_Elem_Input = {
   config?: InputMaybe<Scalars['Int']>;
   ctaConfig?: InputMaybe<Scalars['Int']>;
+  formConfig?: InputMaybe<Scalars['Int']>;
+  machineConfig?: InputMaybe<Scalars['Int']>;
   notificationConfig?: InputMaybe<Scalars['Int']>;
   processConfig?: InputMaybe<Scalars['Int']>;
   properties?: InputMaybe<Scalars['Int']>;
@@ -4018,6 +5662,8 @@ export type Task_Delete_Elem_Input = {
 export type Task_Delete_Key_Input = {
   config?: InputMaybe<Scalars['String']>;
   ctaConfig?: InputMaybe<Scalars['String']>;
+  formConfig?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['String']>;
   notificationConfig?: InputMaybe<Scalars['String']>;
   processConfig?: InputMaybe<Scalars['String']>;
   properties?: InputMaybe<Scalars['String']>;
@@ -4032,9 +5678,12 @@ export type Task_Inc_Input = {
   assigneeId?: InputMaybe<Scalars['Int']>;
   creatorId?: InputMaybe<Scalars['Int']>;
   definitionId?: InputMaybe<Scalars['Int']>;
+  formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
+  projectId?: InputMaybe<Scalars['Int']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
   teamId?: InputMaybe<Scalars['Int']>;
 };
 
@@ -4042,11 +5691,14 @@ export type Task_Inc_Input = {
 export type Task_Insert_Input = {
   Comments?: InputMaybe<Comment_Arr_Rel_Insert_Input>;
   EventLogs?: InputMaybe<EventLog_Arr_Rel_Insert_Input>;
+  Form?: InputMaybe<Form_Obj_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
+  Project?: InputMaybe<Project_Obj_Rel_Insert_Input>;
   Task?: InputMaybe<Task_Obj_Rel_Insert_Input>;
   TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   Team?: InputMaybe<Team_Obj_Rel_Insert_Input>;
+  Triggers?: InputMaybe<Trigger_Arr_Rel_Insert_Input>;
   User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   assigneeId?: InputMaybe<Scalars['Int']>;
   config?: InputMaybe<Scalars['jsonb']>;
@@ -4060,15 +5712,21 @@ export type Task_Insert_Input = {
   description?: InputMaybe<Scalars['String']>;
   descriptionTemplate?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['timestamp']>;
+  formConfig?: InputMaybe<Scalars['jsonb']>;
+  formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
-  isActve?: InputMaybe<Scalars['Boolean']>;
+  isActive?: InputMaybe<Scalars['Boolean']>;
+  key?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   priority?: InputMaybe<Scalars['TaskPriority']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
+  projectId?: InputMaybe<Scalars['Int']>;
   properties?: InputMaybe<Scalars['jsonb']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
   state?: InputMaybe<Scalars['String']>;
   stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateName?: InputMaybe<Scalars['String']>;
@@ -4086,6 +5744,7 @@ export type Task_Insert_Input = {
   typeName?: InputMaybe<Scalars['String']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   userByCreatorid?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  userByReporterid?: InputMaybe<User_Obj_Rel_Insert_Input>;
   values?: InputMaybe<Scalars['jsonb']>;
 };
 
@@ -4101,11 +5760,15 @@ export type Task_Max_Order_By = {
   description?: InputMaybe<Order_By>;
   descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   state?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
   stateTemplate?: InputMaybe<Order_By>;
@@ -4133,11 +5796,15 @@ export type Task_Min_Order_By = {
   description?: InputMaybe<Order_By>;
   descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   state?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
   stateTemplate?: InputMaybe<Order_By>;
@@ -4171,11 +5838,14 @@ export type Task_On_Conflict = {
 export type Task_Order_By = {
   Comments_aggregate?: InputMaybe<Comment_Aggregate_Order_By>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Order_By>;
+  Form?: InputMaybe<Form_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
+  Project?: InputMaybe<Project_Order_By>;
   Task?: InputMaybe<Task_Order_By>;
   TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   Team?: InputMaybe<Team_Order_By>;
+  Triggers_aggregate?: InputMaybe<Trigger_Aggregate_Order_By>;
   User?: InputMaybe<User_Order_By>;
   assigneeId?: InputMaybe<Order_By>;
   config?: InputMaybe<Order_By>;
@@ -4189,15 +5859,21 @@ export type Task_Order_By = {
   description?: InputMaybe<Order_By>;
   descriptionTemplate?: InputMaybe<Order_By>;
   dueDate?: InputMaybe<Order_By>;
+  formConfig?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  isActve?: InputMaybe<Order_By>;
+  isActive?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  machineConfig?: InputMaybe<Order_By>;
   notificationConfig?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   priority?: InputMaybe<Order_By>;
   processConfig?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
   properties?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   state?: InputMaybe<Order_By>;
   stateConfig?: InputMaybe<Order_By>;
   stateName?: InputMaybe<Order_By>;
@@ -4215,6 +5891,7 @@ export type Task_Order_By = {
   typeName?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
   userByCreatorid?: InputMaybe<User_Order_By>;
+  userByReporterid?: InputMaybe<User_Order_By>;
   values?: InputMaybe<Order_By>;
 };
 
@@ -4227,6 +5904,8 @@ export type Task_Pk_Columns_Input = {
 export type Task_Prepend_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
+  formConfig?: InputMaybe<Scalars['jsonb']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
   properties?: InputMaybe<Scalars['jsonb']>;
@@ -4263,9 +5942,17 @@ export enum Task_Select_Column {
   /** column name */
   DUEDATE = 'dueDate',
   /** column name */
+  FORMCONFIG = 'formConfig',
+  /** column name */
+  FORMID = 'formId',
+  /** column name */
   ID = 'id',
   /** column name */
-  ISACTVE = 'isActve',
+  ISACTIVE = 'isActive',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  MACHINECONFIG = 'machineConfig',
   /** column name */
   NOTIFICATIONCONFIG = 'notificationConfig',
   /** column name */
@@ -4279,7 +5966,11 @@ export enum Task_Select_Column {
   /** column name */
   PROCESSCONFIG = 'processConfig',
   /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
   PROPERTIES = 'properties',
+  /** column name */
+  REPORTERID = 'reporterId',
   /** column name */
   STATE = 'state',
   /** column name */
@@ -4319,13 +6010,13 @@ export enum Task_Select_Column {
 /** select "Task_aggregate_bool_exp_bool_and_arguments_columns" columns of table "Task" */
 export enum Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
   /** column name */
-  ISACTVE = 'isActve'
+  ISACTIVE = 'isActive'
 }
 
 /** select "Task_aggregate_bool_exp_bool_or_arguments_columns" columns of table "Task" */
 export enum Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
   /** column name */
-  ISACTVE = 'isActve'
+  ISACTIVE = 'isActive'
 }
 
 /** input type for updating data in table "Task" */
@@ -4342,15 +6033,21 @@ export type Task_Set_Input = {
   description?: InputMaybe<Scalars['String']>;
   descriptionTemplate?: InputMaybe<Scalars['String']>;
   dueDate?: InputMaybe<Scalars['timestamp']>;
+  formConfig?: InputMaybe<Scalars['jsonb']>;
+  formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
-  isActve?: InputMaybe<Scalars['Boolean']>;
+  isActive?: InputMaybe<Scalars['Boolean']>;
+  key?: InputMaybe<Scalars['String']>;
+  machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   priority?: InputMaybe<Scalars['TaskPriority']>;
   processConfig?: InputMaybe<Scalars['jsonb']>;
+  projectId?: InputMaybe<Scalars['Int']>;
   properties?: InputMaybe<Scalars['jsonb']>;
+  reporterId?: InputMaybe<Scalars['Int']>;
   state?: InputMaybe<Scalars['String']>;
   stateConfig?: InputMaybe<Scalars['jsonb']>;
   stateName?: InputMaybe<Scalars['String']>;
@@ -4375,9 +6072,12 @@ export type Task_Stddev_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4386,9 +6086,12 @@ export type Task_Stddev_Pop_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4397,9 +6100,12 @@ export type Task_Stddev_Samp_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4408,9 +6114,12 @@ export type Task_Sum_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4441,9 +6150,17 @@ export enum Task_Update_Column {
   /** column name */
   DUEDATE = 'dueDate',
   /** column name */
+  FORMCONFIG = 'formConfig',
+  /** column name */
+  FORMID = 'formId',
+  /** column name */
   ID = 'id',
   /** column name */
-  ISACTVE = 'isActve',
+  ISACTIVE = 'isActive',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  MACHINECONFIG = 'machineConfig',
   /** column name */
   NOTIFICATIONCONFIG = 'notificationConfig',
   /** column name */
@@ -4457,7 +6174,11 @@ export enum Task_Update_Column {
   /** column name */
   PROCESSCONFIG = 'processConfig',
   /** column name */
+  PROJECTID = 'projectId',
+  /** column name */
   PROPERTIES = 'properties',
+  /** column name */
+  REPORTERID = 'reporterId',
   /** column name */
   STATE = 'state',
   /** column name */
@@ -4517,9 +6238,12 @@ export type Task_Var_Pop_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4528,9 +6252,12 @@ export type Task_Var_Samp_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4539,9 +6266,12 @@ export type Task_Variance_Order_By = {
   assigneeId?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   definitionId?: InputMaybe<Order_By>;
+  formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
+  projectId?: InputMaybe<Order_By>;
+  reporterId?: InputMaybe<Order_By>;
   teamId?: InputMaybe<Order_By>;
 };
 
@@ -4825,6 +6555,19 @@ export type Team_Variance_Order_By = {
   organizationId?: InputMaybe<Order_By>;
 };
 
+/** Boolean expression to compare columns of type "TriggerStatus". All fields are combined with logical 'AND'. */
+export type TriggerStatus_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['TriggerStatus']>;
+  _gt?: InputMaybe<Scalars['TriggerStatus']>;
+  _gte?: InputMaybe<Scalars['TriggerStatus']>;
+  _in?: InputMaybe<Array<Scalars['TriggerStatus']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['TriggerStatus']>;
+  _lte?: InputMaybe<Scalars['TriggerStatus']>;
+  _neq?: InputMaybe<Scalars['TriggerStatus']>;
+  _nin?: InputMaybe<Array<Scalars['TriggerStatus']>>;
+};
+
 /** Boolean expression to compare columns of type "TriggerType". All fields are combined with logical 'AND'. */
 export type TriggerType_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['TriggerType']>;
@@ -4864,6 +6607,11 @@ export type Trigger_Aggregate_Order_By = {
   variance?: InputMaybe<Trigger_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Trigger_Append_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "Trigger" */
 export type Trigger_Arr_Rel_Insert_Input = {
   data: Array<Trigger_Insert_Input>;
@@ -4873,23 +6621,26 @@ export type Trigger_Arr_Rel_Insert_Input = {
 
 /** order by avg() on columns of table "Trigger" */
 export type Trigger_Avg_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "Trigger". All fields are combined with a logical 'AND'. */
 export type Trigger_Bool_Exp = {
-  Activity?: InputMaybe<Activity_Bool_Exp>;
+  Task?: InputMaybe<Task_Bool_Exp>;
   _and?: InputMaybe<Array<Trigger_Bool_Exp>>;
   _not?: InputMaybe<Trigger_Bool_Exp>;
   _or?: InputMaybe<Array<Trigger_Bool_Exp>>;
-  activityId?: InputMaybe<Int_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<TriggerStatus_Comparison_Exp>;
+  taskId?: InputMaybe<Int_Comparison_Exp>;
   type?: InputMaybe<TriggerType_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  value?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "Trigger" */
@@ -4898,42 +6649,64 @@ export enum Trigger_Constraint {
   TRIGGER_PKEY = 'Trigger_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Trigger_Delete_At_Path_Input = {
+  value?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Trigger_Delete_Elem_Input = {
+  value?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Trigger_Delete_Key_Input = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "Trigger" */
 export type Trigger_Inc_Input = {
-  activityId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
+  taskId?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "Trigger" */
 export type Trigger_Insert_Input = {
-  Activity?: InputMaybe<Activity_Obj_Rel_Insert_Input>;
-  activityId?: InputMaybe<Scalars['Int']>;
+  Task?: InputMaybe<Task_Obj_Rel_Insert_Input>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['TriggerStatus']>;
+  taskId?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<Scalars['TriggerType']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** order by max() on columns of table "Trigger" */
 export type Trigger_Max_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
 
 /** order by min() on columns of table "Trigger" */
 export type Trigger_Min_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
@@ -4947,14 +6720,17 @@ export type Trigger_On_Conflict = {
 
 /** Ordering options when selecting data from "Trigger". */
 export type Trigger_Order_By = {
-  Activity?: InputMaybe<Activity_Order_By>;
-  activityId?: InputMaybe<Order_By>;
+  Task?: InputMaybe<Task_Order_By>;
   createdAt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
+  value?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: Trigger */
@@ -4962,10 +6738,13 @@ export type Trigger_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Trigger_Prepend_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "Trigger" */
 export enum Trigger_Select_Column {
-  /** column name */
-  ACTIVITYID = 'activityId',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -4973,69 +6752,96 @@ export enum Trigger_Select_Column {
   /** column name */
   ID = 'id',
   /** column name */
+  KEY = 'key',
+  /** column name */
   NAME = 'name',
+  /** column name */
+  STATUS = 'status',
+  /** column name */
+  TASKID = 'taskId',
   /** column name */
   TYPE = 'type',
   /** column name */
-  UPDATEDAT = 'updatedAt'
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
 }
 
 /** input type for updating data in table "Trigger" */
 export type Trigger_Set_Input = {
-  activityId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   description?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['TriggerStatus']>;
+  taskId?: InputMaybe<Scalars['Int']>;
   type?: InputMaybe<Scalars['TriggerType']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
+  value?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** order by stddev() on columns of table "Trigger" */
 export type Trigger_Stddev_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "Trigger" */
 export type Trigger_Stddev_Pop_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "Trigger" */
 export type Trigger_Stddev_Samp_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** order by sum() on columns of table "Trigger" */
 export type Trigger_Sum_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "Trigger" */
 export enum Trigger_Update_Column {
   /** column name */
-  ACTIVITYID = 'activityId',
-  /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
   DESCRIPTION = 'description',
   /** column name */
   ID = 'id',
   /** column name */
+  KEY = 'key',
+  /** column name */
   NAME = 'name',
+  /** column name */
+  STATUS = 'status',
+  /** column name */
+  TASKID = 'taskId',
   /** column name */
   TYPE = 'type',
   /** column name */
-  UPDATEDAT = 'updatedAt'
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  VALUE = 'value'
 }
 
 export type Trigger_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Trigger_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Trigger_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Trigger_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Trigger_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Trigger_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Trigger_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Trigger_Set_Input>;
   where: Trigger_Bool_Exp;
@@ -5043,20 +6849,20 @@ export type Trigger_Updates = {
 
 /** order by var_pop() on columns of table "Trigger" */
 export type Trigger_Var_Pop_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "Trigger" */
 export type Trigger_Var_Samp_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "Trigger" */
 export type Trigger_Variance_Order_By = {
-  activityId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  taskId?: InputMaybe<Order_By>;
 };
 
 export type UserPermission_Aggregate_Bool_Exp = {
@@ -5262,6 +7068,250 @@ export type UserPermission_Variance_Order_By = {
   userId?: InputMaybe<Order_By>;
 };
 
+export type UserSetting_Aggregate_Bool_Exp = {
+  count?: InputMaybe<UserSetting_Aggregate_Bool_Exp_Count>;
+};
+
+export type UserSetting_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<UserSetting_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<UserSetting_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** order by aggregate values of table "UserSetting" */
+export type UserSetting_Aggregate_Order_By = {
+  avg?: InputMaybe<UserSetting_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<UserSetting_Max_Order_By>;
+  min?: InputMaybe<UserSetting_Min_Order_By>;
+  stddev?: InputMaybe<UserSetting_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<UserSetting_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<UserSetting_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<UserSetting_Sum_Order_By>;
+  var_pop?: InputMaybe<UserSetting_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<UserSetting_Var_Samp_Order_By>;
+  variance?: InputMaybe<UserSetting_Variance_Order_By>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type UserSetting_Append_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "UserSetting" */
+export type UserSetting_Arr_Rel_Insert_Input = {
+  data: Array<UserSetting_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<UserSetting_On_Conflict>;
+};
+
+/** order by avg() on columns of table "UserSetting" */
+export type UserSetting_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "UserSetting". All fields are combined with a logical 'AND'. */
+export type UserSetting_Bool_Exp = {
+  User?: InputMaybe<User_Bool_Exp>;
+  _and?: InputMaybe<Array<UserSetting_Bool_Exp>>;
+  _not?: InputMaybe<UserSetting_Bool_Exp>;
+  _or?: InputMaybe<Array<UserSetting_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  key?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  userId?: InputMaybe<Int_Comparison_Exp>;
+  value?: InputMaybe<Jsonb_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "UserSetting" */
+export enum UserSetting_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  USERSETTING_PKEY = 'UserSetting_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type UserSetting_Delete_At_Path_Input = {
+  value?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type UserSetting_Delete_Elem_Input = {
+  value?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type UserSetting_Delete_Key_Input = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "UserSetting" */
+export type UserSetting_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "UserSetting" */
+export type UserSetting_Insert_Input = {
+  User?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  userId?: InputMaybe<Scalars['Int']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by max() on columns of table "UserSetting" */
+export type UserSetting_Max_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "UserSetting" */
+export type UserSetting_Min_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** on_conflict condition type for table "UserSetting" */
+export type UserSetting_On_Conflict = {
+  constraint: UserSetting_Constraint;
+  update_columns?: Array<UserSetting_Update_Column>;
+  where?: InputMaybe<UserSetting_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "UserSetting". */
+export type UserSetting_Order_By = {
+  User?: InputMaybe<User_Order_By>;
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  key?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+  value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: UserSetting */
+export type UserSetting_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type UserSetting_Prepend_Input = {
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** select columns of table "UserSetting" */
+export enum UserSetting_Select_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  USERID = 'userId',
+  /** column name */
+  VALUE = 'value'
+}
+
+/** input type for updating data in table "UserSetting" */
+export type UserSetting_Set_Input = {
+  createdAt?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  key?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamp']>;
+  userId?: InputMaybe<Scalars['Int']>;
+  value?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** order by stddev() on columns of table "UserSetting" */
+export type UserSetting_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "UserSetting" */
+export type UserSetting_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "UserSetting" */
+export type UserSetting_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by sum() on columns of table "UserSetting" */
+export type UserSetting_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "UserSetting" */
+export enum UserSetting_Update_Column {
+  /** column name */
+  CREATEDAT = 'createdAt',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  KEY = 'key',
+  /** column name */
+  UPDATEDAT = 'updatedAt',
+  /** column name */
+  USERID = 'userId',
+  /** column name */
+  VALUE = 'value'
+}
+
+export type UserSetting_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<UserSetting_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<UserSetting_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<UserSetting_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<UserSetting_Delete_Key_Input>;
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<UserSetting_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<UserSetting_Prepend_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<UserSetting_Set_Input>;
+  where: UserSetting_Bool_Exp;
+};
+
+/** order by var_pop() on columns of table "UserSetting" */
+export type UserSetting_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "UserSetting" */
+export type UserSetting_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "UserSetting" */
+export type UserSetting_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+};
+
 export type User_Aggregate_Bool_Exp = {
   count?: InputMaybe<User_Aggregate_Bool_Exp_Count>;
 };
@@ -5309,17 +7359,23 @@ export type User_Bool_Exp = {
   EventLogs?: InputMaybe<EventLog_Bool_Exp>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Bool_Exp>;
   File?: InputMaybe<File_Bool_Exp>;
+  MemberOnProjects?: InputMaybe<MemberOnProjects_Bool_Exp>;
+  MemberOnProjects_aggregate?: InputMaybe<MemberOnProjects_Aggregate_Bool_Exp>;
   MemberOnTeams?: InputMaybe<MemberOnTeams_Bool_Exp>;
   MemberOnTeams_aggregate?: InputMaybe<MemberOnTeams_Aggregate_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
   Posts?: InputMaybe<Post_Bool_Exp>;
   Posts_aggregate?: InputMaybe<Post_Aggregate_Bool_Exp>;
+  Projects?: InputMaybe<Project_Bool_Exp>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
   Tasks?: InputMaybe<Task_Bool_Exp>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
   Teams?: InputMaybe<Team_Bool_Exp>;
   Teams_aggregate?: InputMaybe<Team_Aggregate_Bool_Exp>;
   UserPermissions?: InputMaybe<UserPermission_Bool_Exp>;
   UserPermissions_aggregate?: InputMaybe<UserPermission_Aggregate_Bool_Exp>;
+  UserSettings?: InputMaybe<UserSetting_Bool_Exp>;
+  UserSettings_aggregate?: InputMaybe<UserSetting_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<User_Bool_Exp>>;
   _not?: InputMaybe<User_Bool_Exp>;
   _or?: InputMaybe<Array<User_Bool_Exp>>;
@@ -5331,9 +7387,15 @@ export type User_Bool_Exp = {
   lastname?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   password?: InputMaybe<String_Comparison_Exp>;
+  projectsByManagerid?: InputMaybe<Project_Bool_Exp>;
+  projectsByManagerid_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
+  projectsByReporterid?: InputMaybe<Project_Bool_Exp>;
+  projectsByReporterid_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
   role?: InputMaybe<Role_Comparison_Exp>;
   tasksByCreatorid?: InputMaybe<Task_Bool_Exp>;
   tasksByCreatorid_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
+  tasksByReporterid?: InputMaybe<Task_Bool_Exp>;
+  tasksByReporterid_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
   teamsByManagerid?: InputMaybe<Team_Bool_Exp>;
   teamsByManagerid_aggregate?: InputMaybe<Team_Aggregate_Bool_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
@@ -5359,12 +7421,15 @@ export type User_Insert_Input = {
   Comments?: InputMaybe<Comment_Arr_Rel_Insert_Input>;
   EventLogs?: InputMaybe<EventLog_Arr_Rel_Insert_Input>;
   File?: InputMaybe<File_Obj_Rel_Insert_Input>;
+  MemberOnProjects?: InputMaybe<MemberOnProjects_Arr_Rel_Insert_Input>;
   MemberOnTeams?: InputMaybe<MemberOnTeams_Arr_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
   Posts?: InputMaybe<Post_Arr_Rel_Insert_Input>;
+  Projects?: InputMaybe<Project_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   Teams?: InputMaybe<Team_Arr_Rel_Insert_Input>;
   UserPermissions?: InputMaybe<UserPermission_Arr_Rel_Insert_Input>;
+  UserSettings?: InputMaybe<UserSetting_Arr_Rel_Insert_Input>;
   avatarId?: InputMaybe<Scalars['Int']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
@@ -5373,8 +7438,11 @@ export type User_Insert_Input = {
   lastname?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   password?: InputMaybe<Scalars['String']>;
+  projectsByManagerid?: InputMaybe<Project_Arr_Rel_Insert_Input>;
+  projectsByReporterid?: InputMaybe<Project_Arr_Rel_Insert_Input>;
   role?: InputMaybe<Scalars['Role']>;
   tasksByCreatorid?: InputMaybe<Task_Arr_Rel_Insert_Input>;
+  tasksByReporterid?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   teamsByManagerid?: InputMaybe<Team_Arr_Rel_Insert_Input>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
 };
@@ -5426,12 +7494,15 @@ export type User_Order_By = {
   Comments_aggregate?: InputMaybe<Comment_Aggregate_Order_By>;
   EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Order_By>;
   File?: InputMaybe<File_Order_By>;
+  MemberOnProjects_aggregate?: InputMaybe<MemberOnProjects_Aggregate_Order_By>;
   MemberOnTeams_aggregate?: InputMaybe<MemberOnTeams_Aggregate_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
   Posts_aggregate?: InputMaybe<Post_Aggregate_Order_By>;
+  Projects_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   Teams_aggregate?: InputMaybe<Team_Aggregate_Order_By>;
   UserPermissions_aggregate?: InputMaybe<UserPermission_Aggregate_Order_By>;
+  UserSettings_aggregate?: InputMaybe<UserSetting_Aggregate_Order_By>;
   avatarId?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
@@ -5440,8 +7511,11 @@ export type User_Order_By = {
   lastname?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
+  projectsByManagerid_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
+  projectsByReporterid_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
   role?: InputMaybe<Order_By>;
   tasksByCreatorid_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
+  tasksByReporterid_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   teamsByManagerid_aggregate?: InputMaybe<Team_Aggregate_Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
@@ -5570,273 +7644,17 @@ export type User_Variance_Order_By = {
   organizationId?: InputMaybe<Order_By>;
 };
 
-export type Workflow_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Workflow_Aggregate_Bool_Exp_Count>;
-};
-
-export type Workflow_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Workflow_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-  filter?: InputMaybe<Workflow_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
-/** order by aggregate values of table "Workflow" */
-export type Workflow_Aggregate_Order_By = {
-  avg?: InputMaybe<Workflow_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Workflow_Max_Order_By>;
-  min?: InputMaybe<Workflow_Min_Order_By>;
-  stddev?: InputMaybe<Workflow_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Workflow_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Workflow_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Workflow_Sum_Order_By>;
-  var_pop?: InputMaybe<Workflow_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Workflow_Var_Samp_Order_By>;
-  variance?: InputMaybe<Workflow_Variance_Order_By>;
-};
-
-/** append existing jsonb value of filtered columns with new jsonb value */
-export type Workflow_Append_Input = {
-  config?: InputMaybe<Scalars['jsonb']>;
-};
-
-/** input type for inserting array relation for remote table "Workflow" */
-export type Workflow_Arr_Rel_Insert_Input = {
-  data: Array<Workflow_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Workflow_On_Conflict>;
-};
-
-/** order by avg() on columns of table "Workflow" */
-export type Workflow_Avg_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** Boolean expression to filter rows from the table "Workflow". All fields are combined with a logical 'AND'. */
-export type Workflow_Bool_Exp = {
-  Activities?: InputMaybe<Activity_Bool_Exp>;
-  Activities_aggregate?: InputMaybe<Activity_Aggregate_Bool_Exp>;
-  Organization?: InputMaybe<Organization_Bool_Exp>;
-  TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
-  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
-  _and?: InputMaybe<Array<Workflow_Bool_Exp>>;
-  _not?: InputMaybe<Workflow_Bool_Exp>;
-  _or?: InputMaybe<Array<Workflow_Bool_Exp>>;
-  config?: InputMaybe<Jsonb_Comparison_Exp>;
-  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  description?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Int_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-  organizationId?: InputMaybe<Int_Comparison_Exp>;
-  updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "Workflow" */
-export enum Workflow_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  WORKFLOW_PKEY = 'Workflow_pkey'
-}
-
-/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-export type Workflow_Delete_At_Path_Input = {
-  config?: InputMaybe<Array<Scalars['String']>>;
-};
-
-/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-export type Workflow_Delete_Elem_Input = {
-  config?: InputMaybe<Scalars['Int']>;
-};
-
-/** delete key/value pair or string element. key/value pairs are matched based on their key value */
-export type Workflow_Delete_Key_Input = {
-  config?: InputMaybe<Scalars['String']>;
-};
-
-/** input type for incrementing numeric columns in table "Workflow" */
-export type Workflow_Inc_Input = {
-  id?: InputMaybe<Scalars['Int']>;
-  organizationId?: InputMaybe<Scalars['Int']>;
-};
-
-/** input type for inserting data into table "Workflow" */
-export type Workflow_Insert_Input = {
-  Activities?: InputMaybe<Activity_Arr_Rel_Insert_Input>;
-  Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
-  TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
-  config?: InputMaybe<Scalars['jsonb']>;
-  createdAt?: InputMaybe<Scalars['timestamp']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  organizationId?: InputMaybe<Scalars['Int']>;
-  updatedAt?: InputMaybe<Scalars['timestamp']>;
-};
-
-/** order by max() on columns of table "Workflow" */
-export type Workflow_Max_Order_By = {
-  createdAt?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-  updatedAt?: InputMaybe<Order_By>;
-};
-
-/** order by min() on columns of table "Workflow" */
-export type Workflow_Min_Order_By = {
-  createdAt?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-  updatedAt?: InputMaybe<Order_By>;
-};
-
-/** input type for inserting object relation for remote table "Workflow" */
-export type Workflow_Obj_Rel_Insert_Input = {
-  data: Workflow_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Workflow_On_Conflict>;
-};
-
-/** on_conflict condition type for table "Workflow" */
-export type Workflow_On_Conflict = {
-  constraint: Workflow_Constraint;
-  update_columns?: Array<Workflow_Update_Column>;
-  where?: InputMaybe<Workflow_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "Workflow". */
-export type Workflow_Order_By = {
-  Activities_aggregate?: InputMaybe<Activity_Aggregate_Order_By>;
-  Organization?: InputMaybe<Organization_Order_By>;
-  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
-  config?: InputMaybe<Order_By>;
-  createdAt?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-  updatedAt?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: Workflow */
-export type Workflow_Pk_Columns_Input = {
-  id: Scalars['Int'];
-};
-
-/** prepend existing jsonb value of filtered columns with new jsonb value */
-export type Workflow_Prepend_Input = {
-  config?: InputMaybe<Scalars['jsonb']>;
-};
-
-/** select columns of table "Workflow" */
-export enum Workflow_Select_Column {
-  /** column name */
-  CONFIG = 'config',
-  /** column name */
-  CREATEDAT = 'createdAt',
-  /** column name */
-  DESCRIPTION = 'description',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  ORGANIZATIONID = 'organizationId',
-  /** column name */
-  UPDATEDAT = 'updatedAt'
-}
-
-/** input type for updating data in table "Workflow" */
-export type Workflow_Set_Input = {
-  config?: InputMaybe<Scalars['jsonb']>;
-  createdAt?: InputMaybe<Scalars['timestamp']>;
-  description?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  organizationId?: InputMaybe<Scalars['Int']>;
-  updatedAt?: InputMaybe<Scalars['timestamp']>;
-};
-
-/** order by stddev() on columns of table "Workflow" */
-export type Workflow_Stddev_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_pop() on columns of table "Workflow" */
-export type Workflow_Stddev_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** order by stddev_samp() on columns of table "Workflow" */
-export type Workflow_Stddev_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** order by sum() on columns of table "Workflow" */
-export type Workflow_Sum_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** update columns of table "Workflow" */
-export enum Workflow_Update_Column {
-  /** column name */
-  CONFIG = 'config',
-  /** column name */
-  CREATEDAT = 'createdAt',
-  /** column name */
-  DESCRIPTION = 'description',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  NAME = 'name',
-  /** column name */
-  ORGANIZATIONID = 'organizationId',
-  /** column name */
-  UPDATEDAT = 'updatedAt'
-}
-
-export type Workflow_Updates = {
-  /** append existing jsonb value of filtered columns with new jsonb value */
-  _append?: InputMaybe<Workflow_Append_Input>;
-  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
-  _delete_at_path?: InputMaybe<Workflow_Delete_At_Path_Input>;
-  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
-  _delete_elem?: InputMaybe<Workflow_Delete_Elem_Input>;
-  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
-  _delete_key?: InputMaybe<Workflow_Delete_Key_Input>;
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Workflow_Inc_Input>;
-  /** prepend existing jsonb value of filtered columns with new jsonb value */
-  _prepend?: InputMaybe<Workflow_Prepend_Input>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Workflow_Set_Input>;
-  where: Workflow_Bool_Exp;
-};
-
-/** order by var_pop() on columns of table "Workflow" */
-export type Workflow_Var_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** order by var_samp() on columns of table "Workflow" */
-export type Workflow_Var_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
-};
-
-/** order by variance() on columns of table "Workflow" */
-export type Workflow_Variance_Order_By = {
-  id?: InputMaybe<Order_By>;
-  organizationId?: InputMaybe<Order_By>;
+/** Boolean expression to compare columns of type "Visibility". All fields are combined with logical 'AND'. */
+export type Visibility_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Visibility']>;
+  _gt?: InputMaybe<Scalars['Visibility']>;
+  _gte?: InputMaybe<Scalars['Visibility']>;
+  _in?: InputMaybe<Array<Scalars['Visibility']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Visibility']>;
+  _lte?: InputMaybe<Scalars['Visibility']>;
+  _neq?: InputMaybe<Scalars['Visibility']>;
+  _nin?: InputMaybe<Array<Scalars['Visibility']>>;
 };
 
 /** Boolean expression to filter rows from the table "_prisma_migrations". All fields are combined with a logical 'AND'. */
@@ -6053,14 +7871,14 @@ export type UserByPkQueryVariables = Exact<{
 }>;
 
 
-export type UserByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, role: any, lastname: string | null, firstname: string | null, organizationId: number, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: string, name: string, description: string, organizationId: number }, User: { __typename: 'User', id: string } }>, Organization: { __typename: 'Organization', id: string, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: string, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: string, code: string, permissionGroupId: number } }> } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type UserByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, role: any, lastname: string | null, firstname: string | null, organizationId: number, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: string, name: string, description: string, organizationId: number }, User: { __typename: 'User', id: string } }>, Organization: { __typename: 'Organization', id: string, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: string, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: string, code: string, permissionGroupId: number } }> } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type GetInformationUserQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetInformationUserQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type GetInformationUserQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type CreateTaskMutationVariables = Exact<{
   values?: InputMaybe<Scalars['jsonb']>;
@@ -6085,6 +7903,15 @@ export type InsertCommentMutationVariables = Exact<{
 
 export type InsertCommentMutation = { __typename: 'mutation_root', insert_Comment: { __typename: 'Comment_mutation_response', returning: Array<{ __typename: 'Comment', id: string, taskId: number, content: string, creatorId: number }> } | null };
 
+export type UpdateTaskMutationVariables = Exact<{
+  value?: InputMaybe<Scalars['String']>;
+  formId: Scalars['Int'];
+  taskId: Scalars['Int'];
+}>;
+
+
+export type UpdateTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'FormOutput', id: string } };
+
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6093,14 +7920,14 @@ export type GetEventLogsQuery = { __typename: 'query_root', EventLog_connection:
 export type GetTaskDefinitionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition_connection: { __typename: 'TaskDefinitionConnection', edges: Array<{ __typename: 'TaskDefinitionEdge', node: { __typename: 'TaskDefinition', id: string, parentId: number | null, organizationId: number, title: string, titleTemplate: string | null, description: string, createdAt: any, Form: { __typename: 'Form', id: string } | null } }> } };
+export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition_connection: { __typename: 'TaskDefinitionConnection', edges: Array<{ __typename: 'TaskDefinitionEdge', node: { __typename: 'TaskDefinition', id: string, organizationId: number, title: string, titleTemplate: string | null, description: string, createdAt: any, Form: { __typename: 'Form', id: string } | null } }> } };
 
 export type GetFormSchemaQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetFormSchemaQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form', id: string, name: string, schema: any, code: string } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type GetFormSchemaQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form', id: string, name: string, schema: any, code: string } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type GetResourceQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6112,23 +7939,23 @@ export type GetResourceItemsQueryVariables = Exact<{
 }>;
 
 
-export type GetResourceItemsQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource', id: string, name: string, organizationId: number, description: string, code: string, ResourceItems: Array<{ __typename: 'ResourceItem', id: string, name: string, description: string, code: string }> } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type GetResourceItemsQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource', id: string, name: string, organizationId: number, description: string, code: string, ResourceItems: Array<{ __typename: 'ResourceItem', id: string, name: string, description: string, code: string }> } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type ResourceItemFragmentFragment = { __typename: 'ResourceItem', id: string, name: string, description: string, code: string };
 
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number, title: string, stateName: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, stateName: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
 
 export type TaskByPkQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'Activity' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number, title: string, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'Workflow' } | { __typename: '_prisma_migrations' } | null };
+export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, title: string, isActive: boolean, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
-export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number, title: string, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } };
+export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, title: string, isActive: boolean, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } };
 
 export type GetCommentQueryVariables = Exact<{ [key: string]: never; }>;
 

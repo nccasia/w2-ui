@@ -29,9 +29,9 @@ const useStyles = makeStyles(
       margin: `auto ${theme.spacing(1)} auto auto`,
     },
     cardHeader: {
-      fontSize: "24px",
+      fontSize: "21px",
       fontWeight: 500,
-      lineHeight: "29px",
+      lineHeight: "24px",
       letterSpacing: "0.02em",
       textAlign: "left",
     },

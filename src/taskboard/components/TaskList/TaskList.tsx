@@ -13,8 +13,8 @@ import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
-import { Task } from "@saleor/tasks/model/Task";
-import { taskUrl } from "@saleor/tasks/urls";
+import { Task } from "@saleor/taskboard/model/Task";
+import { taskUrl } from "@saleor/taskboard/urls";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 

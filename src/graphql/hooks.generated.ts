@@ -27,6 +27,7 @@ export const TaskFragmentFragmentDoc = gql`
   values
   teamId
   title
+  isActive
   TaskDefinition {
     Form {
       id
@@ -226,7 +227,7 @@ export type GetInformationUserQueryResult = Apollo.QueryResult<Types.GetInformat
 export const CreateTaskDocument = gql`
     mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!, $title: String!) {
   insert_Task(
-    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
+    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, key: "", definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
   ) {
     returning {
       id
@@ -309,6 +310,41 @@ export function useInsertCommentMutation(baseOptions?: ApolloReactHooks.Mutation
 export type InsertCommentMutationHookResult = ReturnType<typeof useInsertCommentMutation>;
 export type InsertCommentMutationResult = Apollo.MutationResult<Types.InsertCommentMutation>;
 export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<Types.InsertCommentMutation, Types.InsertCommentMutationVariables>;
+export const UpdateTaskDocument = gql`
+    mutation UpdateTask($value: String = "", $formId: Int!, $taskId: Int!) {
+  submitTask(input: {value: $value, taskId: $taskId, formId: $formId}) {
+    id
+  }
+}
+    `;
+export type UpdateTaskMutationFn = Apollo.MutationFunction<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>;
+
+/**
+ * __useUpdateTaskMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaskMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaskMutation, { data, loading, error }] = useUpdateTaskMutation({
+ *   variables: {
+ *      value: // value for 'value'
+ *      formId: // value for 'formId'
+ *      taskId: // value for 'taskId'
+ *   },
+ * });
+ */
+export function useUpdateTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>(UpdateTaskDocument, options);
+      }
+export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
+export type UpdateTaskMutationResult = Apollo.MutationResult<Types.UpdateTaskMutation>;
+export type UpdateTaskMutationOptions = Apollo.BaseMutationOptions<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>;
 export const GetEventLogsDocument = gql`
     query getEventLogs {
   EventLog_connection(last: 10) {
@@ -366,14 +402,13 @@ export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsL
 export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
 export const GetTaskDefinitionDocument = gql`
     query GetTaskDefinition {
-  TaskDefinition_connection {
+  TaskDefinition_connection(where: {parentId: {_is_null: true}}) {
     edges {
       node {
         id
         Form {
           id
         }
-        parentId
         organizationId
         title
         titleTemplate
@@ -539,7 +574,7 @@ export type GetResourceItemsLazyQueryHookResult = ReturnType<typeof useGetResour
 export type GetResourceItemsQueryResult = Apollo.QueryResult<Types.GetResourceItemsQuery, Types.GetResourceItemsQueryVariables>;
 export const GetTasksDocument = gql`
     query GetTasks {
-  Task_connection {
+  Task_connection(where: {parentId: {_is_null: true}}) {
     edges {
       node {
         id

@@ -11,7 +11,7 @@ import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal } from "@saleor/styles/modal";
-import { taskUrl } from "@saleor/tasks/urls";
+import { taskUrl } from "@saleor/taskboard/urls";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
@@ -53,7 +53,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
   const { user } = useUser();
 
   const selectedType = useMemo(() => {
-    return data?.find?.(item => item.Form.id === typeTask);
+    return data?.find?.(item => item?.Form?.id === typeTask);
   }, [data, typeTask]);
 
   const selectTeam = useMemo(

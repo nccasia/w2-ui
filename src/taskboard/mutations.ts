@@ -18,6 +18,7 @@ export const CreateTask = gql`
         creatorId: $creatorId
         assigneeId: $assigneeId
         title: $title
+        key: ""
         definitionId: $definitionId
         dueDate: $dueDate
         organizationId: $organizationId
@@ -42,6 +43,14 @@ export const InsertComment = gql`
         content
         creatorId
       }
+    }
+  }
+`;
+
+export const UpdateTask = gql`
+  mutation UpdateTask($value: String = "", $formId: Int!, $taskId: Int!) {
+    submitTask(input: { value: $value, taskId: $taskId, formId: $formId }) {
+      id
     }
   }
 `;

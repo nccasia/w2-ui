@@ -1,12 +1,12 @@
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
-import TaskCreation from "@saleor/tasks/components/TaskCreation/TaskCreation";
-import TaskListPage from "@saleor/tasks/components/TaskListPage";
+import TaskCreation from "@saleor/taskboard/components/TaskCreation/TaskCreation";
+import TaskListPage from "@saleor/taskboard/components/TaskListPage";
 import {
   orderListUrl,
   TaskListUrlDialog,
   TaskListUrlQueryParams,
-} from "@saleor/tasks/urls";
+} from "@saleor/taskboard/urls";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import React from "react";
 

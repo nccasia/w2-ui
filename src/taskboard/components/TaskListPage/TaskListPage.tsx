@@ -6,6 +6,7 @@ import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import { useGetTasksQuery } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
+import { Button } from "@saleor/macaw-ui";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -23,14 +24,21 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
+        <Button variant="primary">
+          <FormattedMessage
+            id="cF1/Vc"
+            defaultMessage="Workflow"
+            description="button"
+          />
+        </Button>
         <ButtonWithSelect
           options={[]}
           data-test-id="create-task-button"
           onClick={onAdd}
         >
           <FormattedMessage
-            id="K0G7T1"
-            defaultMessage="Create task"
+            id="y26e0U"
+            defaultMessage="New task"
             description="button"
           />
         </ButtonWithSelect>

@@ -30,14 +30,13 @@ export const getEventLogs = gql`
 
 export const getTaskDefinition = gql`
   query GetTaskDefinition {
-    TaskDefinition_connection {
+    TaskDefinition_connection(where: { parentId: { _is_null: true } }) {
       edges {
         node {
           id
           Form {
             id
           }
-          parentId
           organizationId
           title
           titleTemplate
@@ -106,7 +105,7 @@ export const ResourceItemFragment = gql`
 
 export const getTasks = gql`
   query GetTasks {
-    Task_connection {
+    Task_connection(where: { parentId: { _is_null: true } }) {
       edges {
         node {
           id
@@ -187,6 +186,7 @@ export const TaskFragment = gql`
     values
     teamId
     title
+    isActive
     TaskDefinition {
       Form {
         id
