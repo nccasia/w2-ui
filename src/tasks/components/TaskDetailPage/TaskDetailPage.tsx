@@ -22,7 +22,7 @@ import { sectionNames } from "@saleor/intl";
 import { SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
 import { histories } from "@saleor/tasks/__mock__/Task";
 import { taskListUrl } from "@saleor/tasks/urls";
-import { bridge, schema } from "@saleor/utils/schema";
+import { bridge } from "@saleor/utils/schema";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { AutoForm } from "uniforms-material";
@@ -84,8 +84,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
     return active;
   }, [taskDetail]);
 
-  console.log(JSON.stringify(schema));
-
   return (
     <Form confirmLeave initial={initial}>
       {({ submit }) => {
@@ -110,7 +108,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
               <Typography variant="body2">
                 <DateTime date={taskDetail.dueDate} />
               </Typography>
-              {/* <Skeleton style={{ width: "10em" }} /> */}
             </div>
             <Grid>
               <div>
@@ -162,7 +159,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                   {active === "1" ? (
                     <TaskHistory history={histories} />
                   ) : (
-                    <TaskComment />
+                    <TaskComment task={taskDetail} />
                   )}
                 </div>
               </div>

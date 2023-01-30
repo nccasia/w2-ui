@@ -30,3 +30,18 @@ export const CreateTask = gql`
     }
   }
 `;
+
+export const InsertComment = gql`
+  mutation InsertComment($content: String!, $taskId: Int!, $creatorId: Int!) {
+    insert_Comment(
+      objects: { content: $content, taskId: $taskId, creatorId: $creatorId }
+    ) {
+      returning {
+        id
+        taskId
+        content
+        creatorId
+      }
+    }
+  }
+`;

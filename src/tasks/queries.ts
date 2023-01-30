@@ -194,3 +194,30 @@ export const TaskFragment = gql`
     }
   }
 `;
+
+export const getComment = gql`
+  query GetComment {
+    Comment_connection {
+      edges {
+        node {
+          id
+          taskId
+          creatorId
+          content
+          User {
+            id
+            email
+            lastname
+            firstname
+            avatarId
+          }
+          Task {
+            id
+          }
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;

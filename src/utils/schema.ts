@@ -3,7 +3,6 @@ import JSONSchemaBridge from "uniforms-bridge-json-schema";
 
 const ajv = new Ajv({
   allErrors: true,
-  formats: { date: true },
   useDefaults: true,
 });
 

@@ -12,6 +12,7 @@ const useStyles = makeStyles(
       display: "flex",
       alignItems: "center",
       padding: "8px 12px",
+      boxShadow: "0 0 3px 1px #888",
     },
   }),
   { name: "FormCreatedTaskDetail" },
@@ -50,10 +51,24 @@ const CustomAvatar = ({ id }: CustomAvatarProps): JSX.Element => {
                   src="https://upload.wikimedia.org/wikipedia/commons/e/e1/%ED%88%AC%EB%AA%85%ED%95%9C_%ED%94%BC%EB%B6%80%EB%A5%BC_%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94_%EC%9C%A4%EC%95%84%28YOONA%29%EC%9D%98_%ED%94%BC%EB%B6%80_%EA%B4%80%EB%A6%AC_%EB%B9%84%EA%B2%B0%EC%9D%80_%281%29.jpg"
                   sizes="xl"
                 />
-                <Typography style={{ padding: "0px 10px" }}>
-                  {/* @ts-ignore */}
-                  {data?.node?.email}
-                </Typography>
+                <Box>
+                  <Typography
+                    style={{
+                      padding: "0px 10px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <b>
+                      {/* @ts-ignore */}
+                      {`${data?.node?.lastname} ${data?.node?.firstname}`}
+                    </b>
+                    <span>
+                      {/* @ts-ignore */}
+                      Email: {data?.node?.email}
+                    </span>
+                  </Typography>
+                </Box>
               </div>
             </Box>
           </Popper>

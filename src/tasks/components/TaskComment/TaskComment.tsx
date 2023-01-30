@@ -1,6 +1,13 @@
-import { Card, TextField, Typography } from "@material-ui/core";
+import { Avatar, Button, Card, TextField, Typography } from "@material-ui/core";
+import SendIcon from "@material-ui/icons/Send";
+import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import { useGetCommentQuery, useInsertCommentMutation } from "@saleor/graphql";
+import useNotifier from "@saleor/hooks/useNotifier";
+import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
-import React from "react";
+import { mapEdgesToItems } from "@saleor/utils/maps";
+import React, { useCallback, useMemo, useState } from "react";
+import { useIntl } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -30,68 +37,130 @@ const useStyles = makeStyles(
     },
     inputAddComment: {
       width: "100%",
+    },
+    addComment: {
+      display: "flex",
       marginBottom: theme.spacing(4),
     },
   }),
   { name: "TaskComment" },
 );
 
-const TaskComment = () => {
+interface Props {
+  task: any;
+}
+
+const TaskComment: React.FC<Props> = ({ task }) => {
   const classes = useStyles();
+  const notify = useNotifier();
+  const intl = useIntl();
+  const [textCommentField, setTextCommentField] = useState<string>("");
+
+  const { data, refetch } = useGetCommentQuery();
+
+  const mapEdgesToComments = useMemo(
+    () => mapEdgesToItems(data?.Comment_connection),
+    [data?.Comment_connection],
+  );
+
+  const decodedStringIdTask = atob(task.id);
+  const [insertCommentMutation] = useInsertCommentMutation({
+    onCompleted: () => {
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.commentSuccess),
+      });
+      refetch();
+    },
+  });
+
+  const handleCommentTask = useCallback(
+    (text: string) => {
+      if (!text) {
+        return notify({
+          status: "error",
+          text: intl.formatMessage(commonMessages.commentError),
+        });
+      }
+      insertCommentMutation({
+        variables: {
+          content: text,
+          taskId: JSON.parse(decodedStringIdTask)[3],
+          creatorId: task.creatorId,
+        },
+      });
+      setTextCommentField("");
+    },
+    [decodedStringIdTask, insertCommentMutation, intl, notify, task.creatorId],
+  );
+
   return (
     <Card className={classes.root}>
-      <AddComment />
-      <Comment />
-      <Comment />
+      <AddComment
+        onCommentTask={handleCommentTask}
+        setTextCommentField={setTextCommentField}
+        textCommentField={textCommentField}
+      />
+      {mapEdgesToComments?.map?.(item =>
+        task.id === item.Task.id ? (
+          <Comment key={item.id} comments={item} />
+        ) : (
+          <></>
+        ),
+      )}
     </Card>
   );
 };
 
-const Comment = () => {
+const Comment = ({ comments }) => {
   const classes = useStyles();
+
   return (
     <div className={classes.container}>
-      <div style={{ width: "8%" }}>
-        <img
-          className={classes.avatar}
-          src="https://images.pexels.com/photos/14769547/pexels-photo-14769547.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-          alt="avatar"
-        />
+      <div style={{ width: "8%", cursor: "pointer" }}>
+        <Avatar>
+          <CustomAvatar id={comments.creatorId} />
+        </Avatar>
       </div>
       <div style={{ width: "92%" }}>
         <div className={classes.commentInfo}>
           <Typography variant="subtitle1" className={classes.username}>
-            Trong Son
+            {`${comments.User.lastname} ${comments.User.firstname}`}
           </Typography>
-          <Typography variant="subtitle2">
-            {String(new Date().toLocaleString())}
-          </Typography>
+          <Typography variant="subtitle2">{`${comments.updatedAt}`}</Typography>
         </div>
         <div>
-          <Typography variant="body2">
-            Duis sit sunt cillum in pariatur irure consectetur. Labore voluptate
-            aliqua non magna aliquip esse Lorem officia esse labore qui amet est
-            amet. Proident duis aliquip laborum officia deserunt Lorem magna
-            anim. Ex ullamco adipisicing labore consectetur sint. Consequat in
-            veniam id sint eiusmod. Ut occaecat ullamco tempor aliqua id id
-            excepteur nisi esse ut.
-          </Typography>
+          <Typography variant="body2">{comments.content}</Typography>
         </div>
       </div>
     </div>
   );
 };
 
-const AddComment = () => {
+const AddComment = ({
+  onCommentTask,
+  textCommentField,
+  setTextCommentField,
+}) => {
   const classes = useStyles();
+
   return (
-    <>
+    <div className={classes.addComment}>
       <TextField
         className={classes.inputAddComment}
         label={"Comment"}
         placeholder={"Enter the comment..."}
+        value={textCommentField}
+        onChange={e => setTextCommentField(e.target.value)}
       />
-    </>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => onCommentTask(textCommentField)}
+      >
+        <SendIcon />
+      </Button>
+    </div>
   );
 };
 
