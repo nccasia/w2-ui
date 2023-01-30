@@ -27,7 +27,10 @@ export const TaskFragmentFragmentDoc = gql`
   values
   teamId
   title
+  isActive
   TaskDefinition {
+    id
+    formId
     Form {
       id
     }
@@ -226,7 +229,7 @@ export type GetInformationUserQueryResult = Apollo.QueryResult<Types.GetInformat
 export const CreateTaskDocument = gql`
     mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!, $title: String!) {
   insert_Task(
-    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
+    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, key: "", definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
   ) {
     returning {
       id
@@ -324,14 +327,13 @@ export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsL
 export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
 export const GetTaskDefinitionDocument = gql`
     query GetTaskDefinition {
-  TaskDefinition_connection {
+  TaskDefinition_connection(where: {parentId: {_is_null: true}}) {
     edges {
       node {
         id
         Form {
           id
         }
-        parentId
         organizationId
         title
         titleTemplate
@@ -497,7 +499,7 @@ export type GetResourceItemsLazyQueryHookResult = ReturnType<typeof useGetResour
 export type GetResourceItemsQueryResult = Apollo.QueryResult<Types.GetResourceItemsQuery, Types.GetResourceItemsQueryVariables>;
 export const GetTasksDocument = gql`
     query GetTasks {
-  Task_connection {
+  Task_connection(where: {parentId: {_is_null: true}}) {
     edges {
       node {
         id

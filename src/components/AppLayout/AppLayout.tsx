@@ -170,6 +170,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({
             onMenuItemClick={handleMenuItemClick}
             linkComponent={SidebarLink}
             logoHref="/"
+            // @ts-ignore
+            popover={false}
             logo={logoSidebar}
             onExpand={onExpand}
           />

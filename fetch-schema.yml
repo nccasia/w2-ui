@@ -1,4 +1,4 @@
-schema: http://10.10.30.16:8080/v1beta1/relay
+schema: http://localhost:8080/v1beta1/relay
 generates:
   ./introspection.json:
     plugins:

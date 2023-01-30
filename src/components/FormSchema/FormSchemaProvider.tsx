@@ -3,8 +3,10 @@ import { AutoField } from "uniforms-material";
 
 import CustomDateField from "../CustomDataField/CustomDateField";
 import QuillEditorField from "../QuillEditor/QuillEditorField";
+import RadioConfirmSubtask from "../RadioConfirmSubtask/RadioConfirmSubtask";
 import SelectResourceField from "../SelectResourceField/SelectResourceField";
 import TestField from "../TestField/TestField";
+
 const FormSchemaProvider: React.FC = ({ children }) => {
   const value = useCallback((props, uniforms) => {
     if (props.uiComponent === "SelectResourceField") {
@@ -18,6 +20,9 @@ const FormSchemaProvider: React.FC = ({ children }) => {
     }
     if (props.field.format === "date") {
       return CustomDateField;
+    }
+    if (props.uiComponent === "SinglechoiceField") {
+      return RadioConfirmSubtask;
     }
     return AutoField.defaultComponentDetector(props, uniforms);
   }, []);

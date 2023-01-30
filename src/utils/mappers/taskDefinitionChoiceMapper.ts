@@ -10,7 +10,7 @@ export function taskDefinitionChoiceMapper(
   const choiceType = data?.map(item => {
     const result = {
       // @ts-ignore
-      value: item.Form.id,
+      value: item?.Form?.id ?? '',
       label: item.title,
     };
     return result;

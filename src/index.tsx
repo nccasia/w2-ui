@@ -38,7 +38,7 @@ import PermissionGroupSection from "./permissionGroups";
 import errorTracker from "./services/errorTracking";
 import SiteSettingsSection from "./siteSettings";
 import StaffSection from "./staff";
-import TasksSection from "./tasks";
+import TaskBoardSection from "./taskboard";
 import themeOverrides from "./themeOverrides";
 
 if (process.env.GTM_ID) {
@@ -125,8 +125,8 @@ const Routes: React.FC = () => {
               <SectionRoute exact path="/" component={HomePage} />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
-                path="/tasks"
-                component={TasksSection}
+                path="/taskboard"
+                component={TaskBoardSection}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_STAFF]}
