@@ -7,6 +7,7 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
+import { useStyles } from "@saleor/apps/styles";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
@@ -20,19 +21,18 @@ import { Savebar } from "@saleor/components/Savebar";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import { SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
-import { histories } from "@saleor/tasks/__mock__/Task";
-import { taskListUrl } from "@saleor/tasks/urls";
+import { histories } from "@saleor/taskboard/__mock__/Task";
+import TaskComment from "@saleor/taskboard/components/TaskComment";
+import TaskDetailSidebar from "@saleor/taskboard/components/TaskDetailSidebar";
+import TaskHistory from "@saleor/taskboard/components/TaskHistory";
+import { taskListUrl } from "@saleor/taskboard/urls";
 import { bridge } from "@saleor/utils/schema";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 import { AutoForm } from "uniforms-material";
 
-import SubTask from "../SubTask";
-import Task from "../Task";
-import TaskComment from "../TaskComment";
-import TaskDetailSidebar from "../TaskDetailSidebar";
-import TaskHistory from "../TaskHistory";
-import { useStyles } from "./style";
+import SubTask from "../SubTask/SubTask";
+import Task from "../Task/Task";
 import Title from "./Title";
 
 interface SwitchSelectorButtonOptions {

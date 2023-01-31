@@ -7,11 +7,11 @@ import {
   TaskFragmentFragment,
   useGetTaskDefinitionQuery,
 } from "@saleor/graphql";
+import EditQuillEditor from "@saleor/taskboard/components/EditQuillEditor";
+import TaskTitle from "@saleor/taskboard/components/TaskTitle";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 
-import EditQuillEditor from "../EditQuillEditor";
-import TaskTitle from "../TaskTitle";
 const useStyles = makeStyles(
   () => ({
     root: {

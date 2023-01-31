@@ -4,7 +4,6 @@ import { makeStyles } from "@saleor/macaw-ui";
 import React, { useState } from "react";
 
 import EditQuillEditor from "../EditQuillEditor";
-import TaskTitle from "../TaskTitle";
 
 const useStyles = makeStyles(
   () => ({

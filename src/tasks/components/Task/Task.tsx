@@ -1,10 +1,9 @@
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
+import EditQuillEditor from "@saleor/taskboard/components/EditQuillEditor";
+import TaskTitle from "@saleor/taskboard/components/TaskTitle";
 import React, { useState } from "react";
-
-import EditQuillEditor from "../EditQuillEditor";
-import TaskTitle from "../TaskTitle";
 
 const useStyles = makeStyles(
   () => ({

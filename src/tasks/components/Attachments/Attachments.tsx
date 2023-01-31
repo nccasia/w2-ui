@@ -1,8 +1,8 @@
 import { Typography } from "@material-ui/core";
+import { useStyles } from "@saleor/apps/styles";
 import Attachment from "@saleor/components/Attachment";
 import React from "react";
 
-import { useStyles } from "../TaskDetailPage/style";
 const Attachments = (): JSX.Element => {
   const classes = useStyles();
   return (

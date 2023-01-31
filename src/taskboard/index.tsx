@@ -29,7 +29,6 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location }) => {
   return <TaskListComponent params={params} />;
 };
 
-
 const TaskDetails: React.FC<RouteComponentProps<any>> = ({
   location,
   match,
@@ -47,7 +46,9 @@ const TaskDefinition: React.FC<RouteComponentProps<any>> = ({
   const qs = parseQs(location.search.substr(1));
   const params: any = qs;
   const id = match.params.id;
-  return <TaskDefinitionComponent id={decodeURIComponent(id)} params={params} />;
+  return (
+    <TaskDefinitionComponent id={decodeURIComponent(id)} params={params} />
+  );
 };
 
 const Component = () => {
