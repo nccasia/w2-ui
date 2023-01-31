@@ -1567,7 +1567,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -3453,7 +3453,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -6101,7 +6101,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -9093,7 +9093,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -13751,7 +13751,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -15059,113 +15059,6 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Form",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "FormOutput",
-        "description": null,
-        "fields": [
-          {
-            "name": "code",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "config",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "description",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "displayTemplate",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "name",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               }
             },
@@ -16998,7 +16891,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -19322,7 +19215,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -21542,7 +21435,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -27108,7 +27001,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -30337,7 +30230,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -32969,7 +32862,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -35681,7 +35574,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -39840,7 +39733,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -43552,7 +43445,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -47038,7 +46931,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -49502,7 +49395,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -52179,7 +52072,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -52660,6 +52553,88 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubmitTask",
+        "description": null,
+        "fields": [
+          {
+            "name": "code",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubmitTaskOutput",
+        "description": null,
+        "fields": [
+          {
+            "name": "submitTask",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubmitTask",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -57797,7 +57772,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -61670,7 +61645,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -66778,7 +66753,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -72047,7 +72022,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -80698,7 +80673,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -85155,7 +85130,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -88597,7 +88572,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -95869,7 +95844,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -98473,7 +98448,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -101999,7 +101974,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -103483,7 +103458,7 @@
           },
           {
             "name": "where",
-            "description": null,
+            "description": "filter the rows which have to be updated",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -107998,7 +107973,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "FormOutput",
+                "name": "SubmitTaskOutput",
                 "ofType": null
               }
             },

@@ -50,7 +50,9 @@ export const InsertComment = gql`
 export const UpdateTask = gql`
   mutation UpdateTask($value: String = "", $formId: Int!, $taskId: Int!) {
     submitTask(input: { value: $value, taskId: $taskId, formId: $formId }) {
-      id
+      submitTask {
+        id
+      }
     }
   }
 `;

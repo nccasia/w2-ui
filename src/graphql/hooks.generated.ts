@@ -313,7 +313,9 @@ export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<Types.Inse
 export const UpdateTaskDocument = gql`
     mutation UpdateTask($value: String = "", $formId: Int!, $taskId: Int!) {
   submitTask(input: {value: $value, taskId: $taskId, formId: $formId}) {
-    id
+    submitTask {
+      id
+    }
   }
 }
     `;

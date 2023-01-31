@@ -67,7 +67,8 @@ export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
   }
 };
 
-export const taskDefinitionPath = (id) => urljoin(taskBoardSectionUrl, "settings");
+export const taskDefinitionPath = (_id: string) =>
+  urljoin(taskBoardSectionUrl, "settings");
 
 export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 

@@ -472,15 +472,6 @@ export type FormEdgeFieldPolicy = {
 	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FormOutputKeySpecifier = ('code' | 'config' | 'description' | 'displayTemplate' | 'id' | 'name' | FormOutputKeySpecifier)[];
-export type FormOutputFieldPolicy = {
-	code?: FieldPolicy<any> | FieldReadFunction<any>,
-	config?: FieldPolicy<any> | FieldReadFunction<any>,
-	description?: FieldPolicy<any> | FieldReadFunction<any>,
-	displayTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	name?: FieldPolicy<any> | FieldReadFunction<any>
-};
 export type Form_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | Form_mutation_responseKeySpecifier)[];
 export type Form_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1679,6 +1670,17 @@ export type Settings_variance_fieldsKeySpecifier = ('id' | 'organizationId' | Se
 export type Settings_variance_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SubmitTaskKeySpecifier = ('code' | 'description' | 'id' | 'name' | SubmitTaskKeySpecifier)[];
+export type SubmitTaskFieldPolicy = {
+	code?: FieldPolicy<any> | FieldReadFunction<any>,
+	description?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type SubmitTaskOutputKeySpecifier = ('submitTask' | SubmitTaskOutputKeySpecifier)[];
+export type SubmitTaskOutputFieldPolicy = {
+	submitTask?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaConfig' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'processConfig' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateConfig' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusConfig' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'triggerConfig' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
 export type TaskFieldPolicy = {
@@ -3635,10 +3637,6 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | FormEdgeKeySpecifier | (() => undefined | FormEdgeKeySpecifier),
 		fields?: FormEdgeFieldPolicy,
 	},
-	FormOutput?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | FormOutputKeySpecifier | (() => undefined | FormOutputKeySpecifier),
-		fields?: FormOutputFieldPolicy,
-	},
 	Form_mutation_response?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | Form_mutation_responseKeySpecifier | (() => undefined | Form_mutation_responseKeySpecifier),
 		fields?: Form_mutation_responseFieldPolicy,
@@ -4314,6 +4312,14 @@ export type StrictTypedTypePolicies = {
 	Settings_variance_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | Settings_variance_fieldsKeySpecifier | (() => undefined | Settings_variance_fieldsKeySpecifier),
 		fields?: Settings_variance_fieldsFieldPolicy,
+	},
+	SubmitTask?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SubmitTaskKeySpecifier | (() => undefined | SubmitTaskKeySpecifier),
+		fields?: SubmitTaskFieldPolicy,
+	},
+	SubmitTaskOutput?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | SubmitTaskOutputKeySpecifier | (() => undefined | SubmitTaskOutputKeySpecifier),
+		fields?: SubmitTaskOutputFieldPolicy,
 	},
 	Task?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TaskKeySpecifier | (() => undefined | TaskKeySpecifier),

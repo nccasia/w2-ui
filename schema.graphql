@@ -275,6 +275,8 @@ input Action_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Action_set_input
+
+  """filter the rows which have to be updated"""
   where: Action_bool_exp!
 }
 
@@ -624,6 +626,8 @@ input ActivityDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ActivityDefinition_set_input
+
+  """filter the rows which have to be updated"""
   where: ActivityDefinition_bool_exp!
 }
 
@@ -1027,6 +1031,8 @@ input Comment_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Comment_set_input
+
+  """filter the rows which have to be updated"""
   where: Comment_bool_exp!
 }
 
@@ -1480,6 +1486,8 @@ input EventLog_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: EventLog_set_input
+
+  """filter the rows which have to be updated"""
   where: EventLog_bool_exp!
 }
 
@@ -2172,6 +2180,8 @@ input File_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: File_set_input
+
+  """filter the rows which have to be updated"""
   where: File_bool_exp!
 }
 
@@ -2376,15 +2386,6 @@ type FormConnection {
 type FormEdge {
   cursor: String!
   node: Form!
-}
-
-type FormOutput {
-  code: String!
-  config: String!
-  description: String!
-  displayTemplate: String!
-  id: ID!
-  name: String!
 }
 
 input FormTriggerInput {
@@ -2701,6 +2702,8 @@ input Form_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Form_set_input
+
+  """filter the rows which have to be updated"""
   where: Form_bool_exp!
 }
 
@@ -3068,6 +3071,8 @@ input MemberOnProjects_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: MemberOnProjects_set_input
+
+  """filter the rows which have to be updated"""
   where: MemberOnProjects_bool_exp!
 }
 
@@ -3442,6 +3447,8 @@ input MemberOnTeams_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: MemberOnTeams_set_input
+
+  """filter the rows which have to be updated"""
   where: MemberOnTeams_bool_exp!
 }
 
@@ -4343,6 +4350,8 @@ input Organization_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Organization_set_input
+
+  """filter the rows which have to be updated"""
   where: Organization_bool_exp!
 }
 
@@ -4856,6 +4865,8 @@ input PermissionGroup_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: PermissionGroup_set_input
+
+  """filter the rows which have to be updated"""
   where: PermissionGroup_bool_exp!
 }
 
@@ -5281,6 +5292,8 @@ input Permission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Permission_set_input
+
+  """filter the rows which have to be updated"""
   where: Permission_bool_exp!
 }
 
@@ -5726,6 +5739,8 @@ input Post_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Post_set_input
+
+  """filter the rows which have to be updated"""
   where: Post_bool_exp!
 }
 
@@ -6430,6 +6445,8 @@ input ProjectSettings_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ProjectSettings_set_input
+
+  """filter the rows which have to be updated"""
   where: ProjectSettings_bool_exp!
 }
 
@@ -6965,6 +6982,8 @@ input Project_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Project_set_input
+
+  """filter the rows which have to be updated"""
   where: Project_bool_exp!
 }
 
@@ -7497,6 +7516,8 @@ input ResourceItem_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: ResourceItem_set_input
+
+  """filter the rows which have to be updated"""
   where: ResourceItem_bool_exp!
 }
 
@@ -7908,6 +7929,8 @@ input Resource_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Resource_set_input
+
+  """filter the rows which have to be updated"""
   where: Resource_bool_exp!
 }
 
@@ -8372,6 +8395,8 @@ input Settings_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Settings_set_input
+
+  """filter the rows which have to be updated"""
   where: Settings_bool_exp!
 }
 
@@ -8468,6 +8493,17 @@ input String_comparison_exp {
 
   """does the column match the given SQL regular expression"""
   _similar: String
+}
+
+type SubmitTask {
+  code: String
+  description: String
+  id: String
+  name: String
+}
+
+type SubmitTaskOutput {
+  submitTask: SubmitTask
 }
 
 """
@@ -9290,6 +9326,8 @@ input TaskBoardSettings_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskBoardSettings_set_input
+
+  """filter the rows which have to be updated"""
   where: TaskBoardSettings_bool_exp!
 }
 
@@ -9895,6 +9933,8 @@ input TaskBoard_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskBoard_set_input
+
+  """filter the rows which have to be updated"""
   where: TaskBoard_bool_exp!
 }
 
@@ -10728,6 +10768,8 @@ input TaskDefinitionActivityDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinitionActivityDefinition_set_input
+
+  """filter the rows which have to be updated"""
   where: TaskDefinitionActivityDefinition_bool_exp!
 }
 
@@ -11495,6 +11537,8 @@ input TaskDefinition_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: TaskDefinition_set_input
+
+  """filter the rows which have to be updated"""
   where: TaskDefinition_bool_exp!
 }
 
@@ -12654,6 +12698,8 @@ input Task_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Task_set_input
+
+  """filter the rows which have to be updated"""
   where: Task_bool_exp!
 }
 
@@ -13301,6 +13347,8 @@ input Team_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Team_set_input
+
+  """filter the rows which have to be updated"""
   where: Team_bool_exp!
 }
 
@@ -13854,6 +13902,8 @@ input Trigger_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: Trigger_set_input
+
+  """filter the rows which have to be updated"""
   where: Trigger_bool_exp!
 }
 
@@ -15066,6 +15116,8 @@ input UserPermission_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: UserPermission_set_input
+
+  """filter the rows which have to be updated"""
   where: UserPermission_bool_exp!
 }
 
@@ -15519,6 +15571,8 @@ input UserSetting_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: UserSetting_set_input
+
+  """filter the rows which have to be updated"""
   where: UserSetting_bool_exp!
 }
 
@@ -16033,6 +16087,8 @@ input User_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: User_set_input
+
+  """filter the rows which have to be updated"""
   where: User_bool_exp!
 }
 
@@ -16291,6 +16347,8 @@ input _prisma_migrations_updates {
 
   """sets the columns of the filtered rows to the given values"""
   _set: _prisma_migrations_set_input
+
+  """filter the rows which have to be updated"""
   where: _prisma_migrations_bool_exp!
 }
 
@@ -17313,7 +17371,7 @@ type mutation_root {
     on_conflict: _prisma_migrations_on_conflict
   ): _prisma_migrations
   signin(data: LoginInput!): LoginAuth!
-  submitTask(input: FormTriggerInput!): FormOutput!
+  submitTask(input: FormTriggerInput!): SubmitTaskOutput!
 
   """
   update data of the table: "Action"

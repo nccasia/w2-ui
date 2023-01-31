@@ -162,6 +162,7 @@ export type Action_Updates = {
   _inc?: InputMaybe<Action_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Action_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Action_Bool_Exp;
 };
 
@@ -353,6 +354,7 @@ export type ActivityDefinition_Updates = {
   _prepend?: InputMaybe<ActivityDefinition_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<ActivityDefinition_Set_Input>;
+  /** filter the rows which have to be updated */
   where: ActivityDefinition_Bool_Exp;
 };
 
@@ -581,6 +583,7 @@ export type Comment_Updates = {
   _inc?: InputMaybe<Comment_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Comment_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Comment_Bool_Exp;
 };
 
@@ -822,6 +825,7 @@ export type EventLog_Updates = {
   _inc?: InputMaybe<EventLog_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<EventLog_Set_Input>;
+  /** filter the rows which have to be updated */
   where: EventLog_Bool_Exp;
 };
 
@@ -1159,6 +1163,7 @@ export type File_Updates = {
   _inc?: InputMaybe<File_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<File_Set_Input>;
+  /** filter the rows which have to be updated */
   where: File_Bool_Exp;
 };
 
@@ -1423,6 +1428,7 @@ export type Form_Updates = {
   _prepend?: InputMaybe<Form_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Form_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Form_Bool_Exp;
 };
 
@@ -1618,6 +1624,7 @@ export type MemberOnProjects_Updates = {
   _inc?: InputMaybe<MemberOnProjects_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<MemberOnProjects_Set_Input>;
+  /** filter the rows which have to be updated */
   where: MemberOnProjects_Bool_Exp;
 };
 
@@ -1813,6 +1820,7 @@ export type MemberOnTeams_Updates = {
   _inc?: InputMaybe<MemberOnTeams_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<MemberOnTeams_Set_Input>;
+  /** filter the rows which have to be updated */
   where: MemberOnTeams_Bool_Exp;
 };
 
@@ -1984,6 +1992,7 @@ export type Organization_Updates = {
   _inc?: InputMaybe<Organization_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Organization_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Organization_Bool_Exp;
 };
 
@@ -2188,6 +2197,7 @@ export type PermissionGroup_Updates = {
   _inc?: InputMaybe<PermissionGroup_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<PermissionGroup_Set_Input>;
+  /** filter the rows which have to be updated */
   where: PermissionGroup_Bool_Exp;
 };
 
@@ -2439,6 +2449,7 @@ export type Permission_Updates = {
   _inc?: InputMaybe<Permission_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Permission_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Permission_Bool_Exp;
 };
 
@@ -2689,6 +2700,7 @@ export type Post_Updates = {
   _inc?: InputMaybe<Post_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Post_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Post_Bool_Exp;
 };
 
@@ -2933,6 +2945,7 @@ export type ProjectSettings_Updates = {
   _prepend?: InputMaybe<ProjectSettings_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<ProjectSettings_Set_Input>;
+  /** filter the rows which have to be updated */
   where: ProjectSettings_Bool_Exp;
 };
 
@@ -3263,6 +3276,7 @@ export type Project_Updates = {
   _inc?: InputMaybe<Project_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Project_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Project_Bool_Exp;
 };
 
@@ -3506,6 +3520,7 @@ export type ResourceItem_Updates = {
   _inc?: InputMaybe<ResourceItem_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<ResourceItem_Set_Input>;
+  /** filter the rows which have to be updated */
   where: ResourceItem_Bool_Exp;
 };
 
@@ -3748,6 +3763,7 @@ export type Resource_Updates = {
   _inc?: InputMaybe<Resource_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Resource_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Resource_Bool_Exp;
 };
 
@@ -4005,6 +4021,7 @@ export type Settings_Updates = {
   _prepend?: InputMaybe<Settings_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Settings_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Settings_Bool_Exp;
 };
 
@@ -4282,6 +4299,7 @@ export type TaskBoardSettings_Updates = {
   _prepend?: InputMaybe<TaskBoardSettings_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TaskBoardSettings_Set_Input>;
+  /** filter the rows which have to be updated */
   where: TaskBoardSettings_Bool_Exp;
 };
 
@@ -4661,6 +4679,7 @@ export type TaskBoard_Updates = {
   _prepend?: InputMaybe<TaskBoard_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TaskBoard_Set_Input>;
+  /** filter the rows which have to be updated */
   where: TaskBoard_Bool_Exp;
 };
 
@@ -4933,6 +4952,7 @@ export type TaskDefinitionActivityDefinition_Updates = {
   _prepend?: InputMaybe<TaskDefinitionActivityDefinition_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TaskDefinitionActivityDefinition_Set_Input>;
+  /** filter the rows which have to be updated */
   where: TaskDefinitionActivityDefinition_Bool_Exp;
 };
 
@@ -5436,6 +5456,7 @@ export type TaskDefinition_Updates = {
   _prepend?: InputMaybe<TaskDefinition_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<TaskDefinition_Set_Input>;
+  /** filter the rows which have to be updated */
   where: TaskDefinition_Bool_Exp;
 };
 
@@ -6230,6 +6251,7 @@ export type Task_Updates = {
   _prepend?: InputMaybe<Task_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Task_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Task_Bool_Exp;
 };
 
@@ -6528,6 +6550,7 @@ export type Team_Updates = {
   _inc?: InputMaybe<Team_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Team_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Team_Bool_Exp;
 };
 
@@ -6844,6 +6867,7 @@ export type Trigger_Updates = {
   _prepend?: InputMaybe<Trigger_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Trigger_Set_Input>;
+  /** filter the rows which have to be updated */
   where: Trigger_Bool_Exp;
 };
 
@@ -7044,6 +7068,7 @@ export type UserPermission_Updates = {
   _inc?: InputMaybe<UserPermission_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<UserPermission_Set_Input>;
+  /** filter the rows which have to be updated */
   where: UserPermission_Bool_Exp;
 };
 
@@ -7291,6 +7316,7 @@ export type UserSetting_Updates = {
   _prepend?: InputMaybe<UserSetting_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<UserSetting_Set_Input>;
+  /** filter the rows which have to be updated */
   where: UserSetting_Bool_Exp;
 };
 
@@ -7620,6 +7646,7 @@ export type User_Updates = {
   _inc?: InputMaybe<User_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<User_Set_Input>;
+  /** filter the rows which have to be updated */
   where: User_Bool_Exp;
 };
 
@@ -7776,6 +7803,7 @@ export type _Prisma_Migrations_Updates = {
   _inc?: InputMaybe<_Prisma_Migrations_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<_Prisma_Migrations_Set_Input>;
+  /** filter the rows which have to be updated */
   where: _Prisma_Migrations_Bool_Exp;
 };
 
@@ -7910,7 +7938,7 @@ export type UpdateTaskMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'FormOutput', id: string } };
+export type UpdateTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'SubmitTaskOutput', submitTask: { __typename: 'SubmitTask', id: string | null } | null } };
 
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
