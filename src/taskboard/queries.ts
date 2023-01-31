@@ -30,9 +30,9 @@ export const getEventLogs = gql`
 
 export const getTaskDefinition = gql`
   query GetTaskDefinition {
-    TaskDefinition_connection(where: { parentId: { _is_null: true }}) {
+    TaskDefinition_connection(where: { parentId: { _is_null: true } }) {
       edges {
-        node  {
+        node {
           id
           Form {
             id
@@ -105,7 +105,7 @@ export const ResourceItemFragment = gql`
 
 export const getTasks = gql`
   query GetTasks {
-    Task_connection(where: { parentId: { _is_null: true }}) {
+    Task_connection(where: { parentId: { _is_null: true } }) {
       edges {
         node {
           id
@@ -186,12 +186,40 @@ export const TaskFragment = gql`
     values
     teamId
     title
-    isActive,
+    isActive
+    Task {
+      id
+    }
     TaskDefinition {
-      id,
-      formId,
       Form {
         id
+      }
+    }
+  }
+`;
+
+export const getComment = gql`
+  query GetComment {
+    Comment_connection {
+      edges {
+        node {
+          id
+          taskId
+          creatorId
+          content
+          User {
+            id
+            email
+            lastname
+            firstname
+            avatarId
+          }
+          Task {
+            id
+          }
+          createdAt
+          updatedAt
+        }
       }
     }
   }

@@ -18,12 +18,17 @@ const useStyles = makeStyles(
         paddingTop: "25px!important",
         paddingBottom: "10px!important",
       },
-      "& .MuiButtonBase-root": {
+      "& .MuiButton-contained": {
         float: "right",
         background: "#333",
         border: "none",
         color: "#fff",
         marginTop: 60,
+      },
+      "& .MuiButtonBase-root": {
+        background: "#333",
+        border: "none",
+        color: "#fff",
       },
       "& .MuiListSubheader-root": {
         fontSize: 16,

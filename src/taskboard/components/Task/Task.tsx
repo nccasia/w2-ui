@@ -1,10 +1,9 @@
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
-import React, { useState } from "react";
-
-import EditQuillEditor from "../EditQuillEditor";
-import TaskTitle from "../TaskTitle";
+import { bridge } from "@saleor/utils/schema";
+import React from "react";
+import { AutoForm } from "uniforms-material";
 
 const useStyles = makeStyles(
   () => ({
@@ -23,45 +22,12 @@ interface TaskType {
 }
 const Task = ({ task }: TaskType) => {
   const classes = useStyles();
-  const [modules, setModules] = useState({ toolbar: false });
-  const [edit, setEdit] = useState<boolean>(true);
-  const [key, setKey] = useState(1);
-
-  const handleEdit = () => {
-    setModules({ toolbar: true });
-    setEdit(false);
-    setKey(key => key + 1);
-  };
-
-  const handleCancel = () => {
-    setModules({ toolbar: false });
-    setEdit(true);
-    setKey(key => key + 1);
-  };
-
-  const handleSave = () => {
-    setModules({ toolbar: false });
-    setEdit(true);
-    setKey(key => key + 1);
-  };
 
   return (
     <Card className={classes.container}>
       {/* <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" /> */}
       <div className={classes.editor}>
-        {false && (
-          <EditQuillEditor
-            key={key}
-            readonly={edit}
-            modules={modules}
-            onChange={() => true}
-            handleCancel={handleCancel}
-            handleEdit={handleEdit}
-            handleSave={handleSave}
-            title={"Description"}
-            value={"s"}
-          />
-        )}
+        {false && <AutoForm schema={bridge} />}
         {task.definitionId && (
           <>
             <FormSchema

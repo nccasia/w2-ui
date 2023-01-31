@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   Avatar,
   List,
@@ -10,18 +9,21 @@ import {
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
-import CustomModal from "@saleor/components/CustomModal/CustomModal";
 import { DateTime } from "@saleor/components/Date";
+import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
 import { sectionNames } from "@saleor/intl";
-import { SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
+import {
+  Accordion,
+  AccordionSummary,
+  SwitchSelector,
+  SwitchSelectorButton,
+} from "@saleor/macaw-ui";
 import { histories } from "@saleor/taskboard/__mock__/Task";
 import { taskListUrl } from "@saleor/taskboard/urls";
-import { bridge } from "@saleor/utils/schema";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
-import { AutoForm } from "uniforms-material";
 
 import SubTask from "../SubTask";
 import Task from "../Task";
@@ -42,7 +44,7 @@ interface ITaskDetailProps {
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   const [active, setActive] = useState<string>("1");
-  const [openModalSubtask, setOpenModalSubtask] = useState<boolean>(false);
+  const [dataModalSubtask, setDataModalSubtask] = useState(null);
   const intl = useIntl();
   const classes = useStyles();
 
@@ -61,13 +63,10 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
     setActive(value);
   };
 
-  const handleOpenModal = () => {
-    setOpenModalSubtask(true);
+  const handleShowSubTask = id => {
+    const dataSubtask = taskDetail?.Tasks?.find(e => e.id === id);
+    setDataModalSubtask(dataSubtask);
   };
-
-  // const handleCloseModal = () => {
-  //   setOpenModal(false);
-  // };
 
   const activeTask = useMemo(() => {
     const active = taskDetail?.Tasks?.find(e => e.isActive);
@@ -105,35 +104,31 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
           {activeTask && <SubTask task={activeTask}></SubTask>}
           <List>
             <h2>Sub Tasks</h2>
-            {taskDetail?.Tasks.map(e => {
+            {taskDetail?.Tasks?.map(e => {
               return (
-                <ListItem
-                  button
-                  key={e.id}
-                  className={classes.subTaskItem}
-                  onClick={handleOpenModal}
-                >
-                  <ListItemText primary={""} />
-                  <ListItemText primary={e.title} />
-                  <ListItemText primary={e.state} />
-                  <ListItemText primary={e.status} />
-                  <ListItemAvatar>
-                    <Avatar>
-                      <CustomAvatar id={taskDetail.creatorId} />
-                    </Avatar>
-                  </ListItemAvatar>
-                </ListItem>
+                <Accordion>
+                  <AccordionSummary className={classes.subTaskItem} key={e.id}>
+                    <ListItem onClick={() => handleShowSubTask(e.id)}>
+                      <ListItemAvatar>
+                        <Avatar>
+                          <CustomAvatar id={taskDetail.creatorId} />
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={e.title} />
+                      <ListItemText primary={e.state} />
+                      <ListItemText primary={e.status} />
+                      <ListItemText primary={e.priority} />
+                    </ListItem>
+                  </AccordionSummary>
+                  <FormSchema
+                    formId={dataModalSubtask?.TaskDefinition?.Form?.id}
+                    readonly={false}
+                  />
+                </Accordion>
               );
             })}
           </List>
-          <div className={classes.attach}>
-            <CustomModal
-              openModal={openModalSubtask}
-              setOpenModal={setOpenModalSubtask}
-            >
-              <AutoForm schema={bridge} onSubmit={console.log} />
-            </CustomModal>
-          </div>
+          <div className={classes.attach}></div>
           <div className={classes.activities}>
             <SwitchSelector>
               {OPTIONS.map(({ label, value }) => (
@@ -149,7 +144,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
             {active === "1" ? (
               <TaskHistory history={histories} />
             ) : (
-              <TaskComment />
+              <TaskComment task={taskDetail} />
             )}
           </div>
         </div>

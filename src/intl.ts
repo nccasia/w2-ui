@@ -118,6 +118,14 @@ export const commonMessages = defineMessages({
     id: "anuM+d",
     defaultMessage: "Saved Task Success",
   },
+  commentSuccess: {
+    id: "8/lMQF",
+    defaultMessage: "Comment Task Success",
+  },
+  commentError: {
+    id: "aXCniL",
+    defaultMessage: "Please receive information to comment !",
+  },
   savedfaild: {
     id: "0Bgf0g",
     defaultMessage: "Please feel free to enter information",

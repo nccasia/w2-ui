@@ -1,6 +1,7 @@
 import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
-import React, { useEffect, useMemo, useState } from "react";
+import clsx from "clsx";
+import React, { useMemo } from "react";
 import { AutoForm } from "uniforms-material";
 
 interface PropsFormSchema {
@@ -49,7 +50,6 @@ const useStyles = makeStyles(
 
 export function FormSchema(props: PropsFormSchema) {
   const classes = useStyles();
-  const [classForm, setClassForm] = useState(null);
   const { bridge } = useFormSchema(props.formId);
   const model = useMemo(() => {
     if (props.modelData) {
@@ -59,12 +59,8 @@ export function FormSchema(props: PropsFormSchema) {
     }
   }, [props]);
 
-  useEffect(() => {
-    setClassForm(props.readonly ? classes.root : "");
-  }, [classes.root, props.readonly]);
-
   return (
-    <div className={classForm}>
+    <div className={clsx({ [classes.root]: props.readonly })}>
       {bridge && (
         <AutoForm
           schema={bridge}
