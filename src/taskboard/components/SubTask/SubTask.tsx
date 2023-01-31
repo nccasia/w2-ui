@@ -4,9 +4,9 @@ import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
 import { TaskFragmentFragment, useUpdateTaskMutation } from "@saleor/graphql";
+import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import React, { useState } from "react";
 
-import EditQuillEditor from "../EditQuillEditor";
 import TaskTitle from "../TaskTitle";
 const useStyles = makeStyles(
   () => ({
@@ -30,44 +30,33 @@ interface SubTaskType {
 }
 const SubTask = ({ task }: SubTaskType): JSX.Element => {
   const classes = useStyles();
-  const [modules, setModules] = useState({ toolbar: false });
-  const [edit, setEdit] = useState<boolean>(true);
-  const [key, setKey] = useState(1);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const [updateTaskMutation] = useUpdateTaskMutation();
-
-  const handleEdit = () => {
-    setModules({ toolbar: true });
-    setEdit(false);
-    setKey(key => key + 1);
-  };
-
-  const handleCancel = () => {
-    setModules({ toolbar: false });
-    setEdit(true);
-    setKey(key => key + 1);
-  };
-
-  const handleSave = () => {
-    setModules({ toolbar: false });
-    setEdit(true);
-    setKey(key => key + 1);
-  };
+  const [updateTaskMutation] = useUpdateTaskMutation({
+    onCompleted: () => {
+      alertConfirmSubTask("success", "Submit Success!");
+    },
+  });
 
   const handleConfirm = async event => {
     const decodedStringFormId = atob(task.TaskDefinition.Form.id);
     const decodedStringTaskId = atob(task.id);
-    updateTaskMutation({
-      variables: {
-        value: JSON.stringify(event),
-        formId: JSON.parse(decodedStringFormId)[3],
-        taskId: JSON.parse(decodedStringTaskId)[3],
-      },
-    });
+    setLoading(true);
+    setTimeout(() => {
+      updateTaskMutation({
+        variables: {
+          value: JSON.stringify(event),
+          formId: JSON.parse(decodedStringFormId)[3],
+          taskId: JSON.parse(decodedStringTaskId)[3],
+        },
+      });
+      setLoading(false);
+    }, 2000);
   };
+
   return (
     <Card>
-      <Modal open={false}>
+      <Modal open={loading}>
         <Loading />
       </Modal>
       <TaskTitle
@@ -77,19 +66,6 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
       />
       <Hr />
       <CardContent style={{ paddingBottom: "47px" }}>
-        {false && (
-          <EditQuillEditor
-            key={key}
-            readonly={edit}
-            modules={modules}
-            onChange={() => true}
-            handleCancel={handleCancel}
-            handleEdit={handleEdit}
-            handleSave={handleSave}
-            title={"Description"}
-            value={task.description}
-          />
-        )}
         <div className={classes.root}>
           <FormSchema
             formId={task.TaskDefinition.Form.id}

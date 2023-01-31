@@ -1,7 +1,8 @@
-import { Box } from "@material-ui/core";
+import { Box, Modal } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CloseIcon from "@material-ui/icons/Close";
 import { useUser } from "@saleor/auth";
+import Loading from "@saleor/components/Loading";
 import {
   useCreateTaskMutation,
   useGetTaskDefinitionQuery,
@@ -27,13 +28,19 @@ interface Props {
 const FormCreateTask: React.FC<Props> = ({ onClose }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [createTaskMutation] = useCreateTaskMutation({
     onCompleted: data => {
-      notify({
-        status: "success",
-        text: intl.formatMessage(commonMessages.savedChanges),
-      });
-      navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
+      setLoading(true);
+      setTimeout(() => {
+        notify({
+          status: "success",
+          text: intl.formatMessage(commonMessages.savedChanges),
+        });
+        navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
+        setLoading(false);
+      }, 6000);
     },
   });
   const TaskDefinitionQuery = useGetTaskDefinitionQuery();
@@ -80,6 +87,9 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
 
   return (
     <>
+      <Modal open={loading}>
+        <Loading />
+      </Modal>
       <Box sx={iconModal}>
         {typeTask ? (
           <ArrowBackIcon style={iconClose} onClick={() => setTypeTask("")} />

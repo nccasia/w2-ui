@@ -19,7 +19,13 @@ function createValidator(schema: object) {
   };
 }
 
-ajv.addVocabulary(["uniforms", "formats"]);
+ajv.addVocabulary([
+  "uniforms",
+  "label",
+  "allowedValues",
+  "checkboxes",
+  "formats",
+]);
 
 export function useFormSchema(formId: string) {
   const { data } = useGetFormSchemaQuery({

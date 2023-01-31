@@ -47,12 +47,11 @@ export function alertConfirmSubTask(
   return Swal.fire({
     icon,
     title,
-    text: "Something went wrong!",
+    text: "Task has been submit!",
     confirmButtonText: "Next task",
-    denyButtonText: `Cancle`,
   }).then(result => {
     if (result.isConfirmed) {
-      Swal.fire("Saved!", "", "success");
+      location.reload();
     } else if (result.isDenied) {
       Swal.fire("Changes are not saved", "", "info");
     }

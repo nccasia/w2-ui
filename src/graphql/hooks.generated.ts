@@ -28,6 +28,9 @@ export const TaskFragmentFragmentDoc = gql`
   teamId
   title
   isActive
+  Task {
+    id
+  }
   TaskDefinition {
     Form {
       id
@@ -311,9 +314,14 @@ export type InsertCommentMutationHookResult = ReturnType<typeof useInsertComment
 export type InsertCommentMutationResult = Apollo.MutationResult<Types.InsertCommentMutation>;
 export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<Types.InsertCommentMutation, Types.InsertCommentMutationVariables>;
 export const UpdateTaskDocument = gql`
-    mutation UpdateTask($value: String = "", $formId: Int!, $taskId: Int!) {
+    mutation UpdateTask($value: String!, $formId: Int!, $taskId: Int!) {
   submitTask(input: {value: $value, taskId: $taskId, formId: $formId}) {
-    id
+    submitTask {
+      id
+      name
+      code
+      description
+    }
   }
 }
     `;

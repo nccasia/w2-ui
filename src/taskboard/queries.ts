@@ -187,6 +187,9 @@ export const TaskFragment = gql`
     teamId
     title
     isActive
+    Task {
+      id
+    }
     TaskDefinition {
       Form {
         id

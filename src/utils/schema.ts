@@ -13,7 +13,11 @@ export const schema = {
     singlechoice: {
       type: "string",
       nullable: true,
-      uniforms: { uiComponent: "SinglechoiceField", index: 1 },
+      allowedValues: ["Approve", "Reject"],
+      uniforms: {
+        index: 1,
+        checkboxes: true,
+      },
     },
     reason: {
       type: "string",
@@ -24,7 +28,7 @@ export const schema = {
   required: ["singlechoice", "reason"] as never[],
 };
 
-ajv.addVocabulary(["uniforms"]);
+ajv.addVocabulary(["uniforms", "allowedValues", "checkboxes"]);
 
 function createValidator(schema: any) {
   const validator = ajv.compile(schema);
