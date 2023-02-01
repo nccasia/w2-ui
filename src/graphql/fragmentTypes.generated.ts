@@ -8,7 +8,6 @@
       const result: PossibleTypesResultData = {
   "possibleTypes": {
     "Node": [
-      "Action",
       "ActivityDefinition",
       "Comment",
       "EventLog",

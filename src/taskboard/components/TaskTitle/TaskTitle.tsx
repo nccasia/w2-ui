@@ -72,7 +72,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
               <Pill
                 className={classes.cardPill}
                 label={"WAIT_PM_APPROVE"}
-                color="warning"
+                color="success"
               />
             </Typography>
           </div>

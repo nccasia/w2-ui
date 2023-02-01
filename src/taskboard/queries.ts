@@ -4,15 +4,11 @@ export const getEventLogs = gql`
     EventLog_connection(last: 10) {
       edges {
         node {
-          actionId
           createdAt
           id
           organizationId
           userId
           taskId
-          Action {
-            content
-          }
           User {
             email
           }
@@ -185,10 +181,15 @@ export const TaskFragment = gql`
     priority
     values
     teamId
+    formId
+    parentId
     title
     isActive
     Task {
       id
+    }
+    Form {
+      values
     }
     TaskDefinition {
       Form {
