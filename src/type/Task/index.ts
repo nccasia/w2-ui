@@ -1,13 +1,10 @@
 export interface IEventLog {
-  actionId: number;
   createdAt: string;
   id: number;
   organizationId: number;
   userId: number;
   taskId: number;
-  Action: {
-    content: string;
-  };
+  content: string;
   User: {
     email: string;
     avatar?: string;

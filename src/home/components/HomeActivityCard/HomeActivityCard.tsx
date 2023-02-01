@@ -70,7 +70,7 @@ const HomeActivityCard: React.FC<HomeActivityCardProps> = props => {
               className={classes.listItemText}
               primary={
                 <Typography>
-                  {event.User.email} {event.Action.content}
+                  {event.User.email} {event.content}
                   <Link to="/tasks" className={classes.linkContentColor}>
                     {" "}
                     {event.Task.title}

@@ -14,273 +14,6 @@ directive @cached(
 ) on QUERY
 
 """
-columns and relationships of "Action"
-"""
-type Action implements Node {
-  """An array relationship"""
-  EventLogs(
-    """distinct select on columns"""
-    distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [EventLog_order_by!]
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): [EventLog!]!
-
-  """An aggregate relationship"""
-  EventLogs_aggregate(
-    """distinct select on columns"""
-    distinct_on: [EventLog_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [EventLog_order_by!]
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): EventLog_aggregate!
-
-  """An array relationship connection"""
-  EventLogs_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [EventLog_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [EventLog_order_by!]
-
-    """filter the rows returned"""
-    where: EventLog_bool_exp
-  ): EventLogConnection!
-  action: String!
-  content: String!
-  createdAt: timestamp!
-  domain: String!
-  id: ID!
-  intent: String!
-  type: ActionType!
-}
-
-"""
-A Relay connection object on "Action"
-"""
-type ActionConnection {
-  edges: [ActionEdge!]!
-  pageInfo: PageInfo!
-}
-
-type ActionEdge {
-  cursor: String!
-  node: Action!
-}
-
-scalar ActionType
-
-"""
-Boolean expression to compare columns of type "ActionType". All fields are combined with logical 'AND'.
-"""
-input ActionType_comparison_exp {
-  _eq: ActionType
-  _gt: ActionType
-  _gte: ActionType
-  _in: [ActionType!]
-  _is_null: Boolean
-  _lt: ActionType
-  _lte: ActionType
-  _neq: ActionType
-  _nin: [ActionType!]
-}
-
-"""
-Boolean expression to filter rows from the table "Action". All fields are combined with a logical 'AND'.
-"""
-input Action_bool_exp {
-  EventLogs: EventLog_bool_exp
-  EventLogs_aggregate: EventLog_aggregate_bool_exp
-  _and: [Action_bool_exp!]
-  _not: Action_bool_exp
-  _or: [Action_bool_exp!]
-  action: String_comparison_exp
-  content: String_comparison_exp
-  createdAt: timestamp_comparison_exp
-  domain: String_comparison_exp
-  id: Int_comparison_exp
-  intent: String_comparison_exp
-  type: ActionType_comparison_exp
-}
-
-"""
-unique or primary key constraints on table "Action"
-"""
-enum Action_constraint {
-  """
-  unique or primary key constraint on columns "id"
-  """
-  Action_pkey
-}
-
-"""
-input type for incrementing numeric columns in table "Action"
-"""
-input Action_inc_input {
-  id: Int
-}
-
-"""
-input type for inserting data into table "Action"
-"""
-input Action_insert_input {
-  EventLogs: EventLog_arr_rel_insert_input
-  action: String
-  content: String
-  createdAt: timestamp
-  domain: String
-  id: Int
-  intent: String
-  type: ActionType
-}
-
-"""
-response of any mutation on the table "Action"
-"""
-type Action_mutation_response {
-  """number of rows affected by the mutation"""
-  affected_rows: Int!
-
-  """data from the rows affected by the mutation"""
-  returning: [Action!]!
-}
-
-"""
-input type for inserting object relation for remote table "Action"
-"""
-input Action_obj_rel_insert_input {
-  data: Action_insert_input!
-
-  """upsert condition"""
-  on_conflict: Action_on_conflict
-}
-
-"""
-on_conflict condition type for table "Action"
-"""
-input Action_on_conflict {
-  constraint: Action_constraint!
-  update_columns: [Action_update_column!]! = []
-  where: Action_bool_exp
-}
-
-"""Ordering options when selecting data from "Action"."""
-input Action_order_by {
-  EventLogs_aggregate: EventLog_aggregate_order_by
-  action: order_by
-  content: order_by
-  createdAt: order_by
-  domain: order_by
-  id: order_by
-  intent: order_by
-  type: order_by
-}
-
-"""primary key columns input for table: Action"""
-input Action_pk_columns_input {
-  id: Int!
-}
-
-"""
-select columns of table "Action"
-"""
-enum Action_select_column {
-  """column name"""
-  action
-
-  """column name"""
-  content
-
-  """column name"""
-  createdAt
-
-  """column name"""
-  domain
-
-  """column name"""
-  id
-
-  """column name"""
-  intent
-
-  """column name"""
-  type
-}
-
-"""
-input type for updating data in table "Action"
-"""
-input Action_set_input {
-  action: String
-  content: String
-  createdAt: timestamp
-  domain: String
-  id: Int
-  intent: String
-  type: ActionType
-}
-
-"""
-update columns of table "Action"
-"""
-enum Action_update_column {
-  """column name"""
-  action
-
-  """column name"""
-  content
-
-  """column name"""
-  createdAt
-
-  """column name"""
-  domain
-
-  """column name"""
-  id
-
-  """column name"""
-  intent
-
-  """column name"""
-  type
-}
-
-input Action_updates {
-  """increments the numeric columns with given value of the filtered values"""
-  _inc: Action_inc_input
-
-  """sets the columns of the filtered rows to the given values"""
-  _set: Action_set_input
-
-  """filter the rows which have to be updated"""
-  where: Action_bool_exp!
-}
-
-"""
 columns and relationships of "ActivityDefinition"
 """
 type ActivityDefinition implements Node {
@@ -1089,9 +822,6 @@ columns and relationships of "EventLog"
 """
 type EventLog implements Node {
   """An object relationship"""
-  Action: Action!
-
-  """An object relationship"""
   Organization: Organization!
 
   """An object relationship"""
@@ -1099,9 +829,16 @@ type EventLog implements Node {
 
   """An object relationship"""
   User: User
-  actionId: Int!
+  action: String
+  content: String
+  context(
+    """JSON select path"""
+    path: String
+  ): jsonb
   createdAt: timestamp!
+  domain: String
   id: ID!
+  intent: String
   organizationId: Int!
   taskId: Int
   userId: Int
@@ -1173,6 +910,11 @@ input EventLog_aggregate_order_by {
   variance: EventLog_variance_order_by
 }
 
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input EventLog_append_input {
+  context: jsonb
+}
+
 """
 input type for inserting array relation for remote table "EventLog"
 """
@@ -1185,7 +927,6 @@ input EventLog_arr_rel_insert_input {
 
 """aggregate avg on columns"""
 type EventLog_avg_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1196,7 +937,6 @@ type EventLog_avg_fields {
 order by avg() on columns of table "EventLog"
 """
 input EventLog_avg_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1207,16 +947,19 @@ input EventLog_avg_order_by {
 Boolean expression to filter rows from the table "EventLog". All fields are combined with a logical 'AND'.
 """
 input EventLog_bool_exp {
-  Action: Action_bool_exp
   Organization: Organization_bool_exp
   Task: Task_bool_exp
   User: User_bool_exp
   _and: [EventLog_bool_exp!]
   _not: EventLog_bool_exp
   _or: [EventLog_bool_exp!]
-  actionId: Int_comparison_exp
+  action: String_comparison_exp
+  content: String_comparison_exp
+  context: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
+  domain: String_comparison_exp
   id: Int_comparison_exp
+  intent: String_comparison_exp
   organizationId: Int_comparison_exp
   taskId: Int_comparison_exp
   userId: Int_comparison_exp
@@ -1233,10 +976,30 @@ enum EventLog_constraint {
 }
 
 """
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input EventLog_delete_at_path_input {
+  context: [String!]
+}
+
+"""
+delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+"""
+input EventLog_delete_elem_input {
+  context: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input EventLog_delete_key_input {
+  context: String
+}
+
+"""
 input type for incrementing numeric columns in table "EventLog"
 """
 input EventLog_inc_input {
-  actionId: Int
   id: Int
   organizationId: Int
   taskId: Int
@@ -1247,13 +1010,16 @@ input EventLog_inc_input {
 input type for inserting data into table "EventLog"
 """
 input EventLog_insert_input {
-  Action: Action_obj_rel_insert_input
   Organization: Organization_obj_rel_insert_input
   Task: Task_obj_rel_insert_input
   User: User_obj_rel_insert_input
-  actionId: Int
+  action: String
+  content: String
+  context: jsonb
   createdAt: timestamp
+  domain: String
   id: Int
+  intent: String
   organizationId: Int
   taskId: Int
   userId: Int
@@ -1261,9 +1027,12 @@ input EventLog_insert_input {
 
 """aggregate max on columns"""
 type EventLog_max_fields {
-  actionId: Int
+  action: String
+  content: String
   createdAt: timestamp
+  domain: String
   id: Int
+  intent: String
   organizationId: Int
   taskId: Int
   userId: Int
@@ -1273,9 +1042,12 @@ type EventLog_max_fields {
 order by max() on columns of table "EventLog"
 """
 input EventLog_max_order_by {
-  actionId: order_by
+  action: order_by
+  content: order_by
   createdAt: order_by
+  domain: order_by
   id: order_by
+  intent: order_by
   organizationId: order_by
   taskId: order_by
   userId: order_by
@@ -1283,9 +1055,12 @@ input EventLog_max_order_by {
 
 """aggregate min on columns"""
 type EventLog_min_fields {
-  actionId: Int
+  action: String
+  content: String
   createdAt: timestamp
+  domain: String
   id: Int
+  intent: String
   organizationId: Int
   taskId: Int
   userId: Int
@@ -1295,9 +1070,12 @@ type EventLog_min_fields {
 order by min() on columns of table "EventLog"
 """
 input EventLog_min_order_by {
-  actionId: order_by
+  action: order_by
+  content: order_by
   createdAt: order_by
+  domain: order_by
   id: order_by
+  intent: order_by
   organizationId: order_by
   taskId: order_by
   userId: order_by
@@ -1325,13 +1103,16 @@ input EventLog_on_conflict {
 
 """Ordering options when selecting data from "EventLog"."""
 input EventLog_order_by {
-  Action: Action_order_by
   Organization: Organization_order_by
   Task: Task_order_by
   User: User_order_by
-  actionId: order_by
+  action: order_by
+  content: order_by
+  context: order_by
   createdAt: order_by
+  domain: order_by
   id: order_by
+  intent: order_by
   organizationId: order_by
   taskId: order_by
   userId: order_by
@@ -1342,18 +1123,35 @@ input EventLog_pk_columns_input {
   id: Int!
 }
 
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input EventLog_prepend_input {
+  context: jsonb
+}
+
 """
 select columns of table "EventLog"
 """
 enum EventLog_select_column {
   """column name"""
-  actionId
+  action
+
+  """column name"""
+  content
+
+  """column name"""
+  context
 
   """column name"""
   createdAt
 
   """column name"""
+  domain
+
+  """column name"""
   id
+
+  """column name"""
+  intent
 
   """column name"""
   organizationId
@@ -1369,9 +1167,13 @@ enum EventLog_select_column {
 input type for updating data in table "EventLog"
 """
 input EventLog_set_input {
-  actionId: Int
+  action: String
+  content: String
+  context: jsonb
   createdAt: timestamp
+  domain: String
   id: Int
+  intent: String
   organizationId: Int
   taskId: Int
   userId: Int
@@ -1379,7 +1181,6 @@ input EventLog_set_input {
 
 """aggregate stddev on columns"""
 type EventLog_stddev_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1390,7 +1191,6 @@ type EventLog_stddev_fields {
 order by stddev() on columns of table "EventLog"
 """
 input EventLog_stddev_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1399,7 +1199,6 @@ input EventLog_stddev_order_by {
 
 """aggregate stddev_pop on columns"""
 type EventLog_stddev_pop_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1410,7 +1209,6 @@ type EventLog_stddev_pop_fields {
 order by stddev_pop() on columns of table "EventLog"
 """
 input EventLog_stddev_pop_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1419,7 +1217,6 @@ input EventLog_stddev_pop_order_by {
 
 """aggregate stddev_samp on columns"""
 type EventLog_stddev_samp_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1430,7 +1227,6 @@ type EventLog_stddev_samp_fields {
 order by stddev_samp() on columns of table "EventLog"
 """
 input EventLog_stddev_samp_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1439,7 +1235,6 @@ input EventLog_stddev_samp_order_by {
 
 """aggregate sum on columns"""
 type EventLog_sum_fields {
-  actionId: Int
   id: Int
   organizationId: Int
   taskId: Int
@@ -1450,7 +1245,6 @@ type EventLog_sum_fields {
 order by sum() on columns of table "EventLog"
 """
 input EventLog_sum_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1462,13 +1256,25 @@ update columns of table "EventLog"
 """
 enum EventLog_update_column {
   """column name"""
-  actionId
+  action
+
+  """column name"""
+  content
+
+  """column name"""
+  context
 
   """column name"""
   createdAt
 
   """column name"""
+  domain
+
+  """column name"""
   id
+
+  """column name"""
+  intent
 
   """column name"""
   organizationId
@@ -1481,8 +1287,29 @@ enum EventLog_update_column {
 }
 
 input EventLog_updates {
+  """append existing jsonb value of filtered columns with new jsonb value"""
+  _append: EventLog_append_input
+
+  """
+  delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+  """
+  _delete_at_path: EventLog_delete_at_path_input
+
+  """
+  delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+  """
+  _delete_elem: EventLog_delete_elem_input
+
+  """
+  delete key/value pair or string element. key/value pairs are matched based on their key value
+  """
+  _delete_key: EventLog_delete_key_input
+
   """increments the numeric columns with given value of the filtered values"""
   _inc: EventLog_inc_input
+
+  """prepend existing jsonb value of filtered columns with new jsonb value"""
+  _prepend: EventLog_prepend_input
 
   """sets the columns of the filtered rows to the given values"""
   _set: EventLog_set_input
@@ -1493,7 +1320,6 @@ input EventLog_updates {
 
 """aggregate var_pop on columns"""
 type EventLog_var_pop_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1504,7 +1330,6 @@ type EventLog_var_pop_fields {
 order by var_pop() on columns of table "EventLog"
 """
 input EventLog_var_pop_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1513,7 +1338,6 @@ input EventLog_var_pop_order_by {
 
 """aggregate var_samp on columns"""
 type EventLog_var_samp_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1524,7 +1348,6 @@ type EventLog_var_samp_fields {
 order by var_samp() on columns of table "EventLog"
 """
 input EventLog_var_samp_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -1533,7 +1356,6 @@ input EventLog_var_samp_order_by {
 
 """aggregate variance on columns"""
 type EventLog_variance_fields {
-  actionId: Float
   id: Float
   organizationId: Float
   taskId: Float
@@ -1544,7 +1366,6 @@ type EventLog_variance_fields {
 order by variance() on columns of table "EventLog"
 """
 input EventLog_variance_order_by {
-  actionId: order_by
   id: order_by
   organizationId: order_by
   taskId: order_by
@@ -2373,6 +2194,10 @@ type Form implements Node {
     """JSON select path"""
     path: String
   ): jsonb!
+  values(
+    """JSON select path"""
+    path: String
+  ): jsonb
 }
 
 """
@@ -2402,6 +2227,7 @@ input Form_append_input {
   serializerConfig: jsonb
   triggerConfig: jsonb
   validationConfig: jsonb
+  values: jsonb
 }
 
 """
@@ -2428,6 +2254,7 @@ input Form_bool_exp {
   triggerConfig: jsonb_comparison_exp
   updatedAt: timestamp_comparison_exp
   validationConfig: jsonb_comparison_exp
+  values: jsonb_comparison_exp
 }
 
 """
@@ -2450,6 +2277,7 @@ input Form_delete_at_path_input {
   serializerConfig: [String!]
   triggerConfig: [String!]
   validationConfig: [String!]
+  values: [String!]
 }
 
 """
@@ -2462,6 +2290,7 @@ input Form_delete_elem_input {
   serializerConfig: Int
   triggerConfig: Int
   validationConfig: Int
+  values: Int
 }
 
 """
@@ -2474,6 +2303,7 @@ input Form_delete_key_input {
   serializerConfig: String
   triggerConfig: String
   validationConfig: String
+  values: String
 }
 
 """
@@ -2502,6 +2332,7 @@ input Form_insert_input {
   triggerConfig: jsonb
   updatedAt: timestamp
   validationConfig: jsonb
+  values: jsonb
 }
 
 """
@@ -2551,6 +2382,7 @@ input Form_order_by {
   triggerConfig: order_by
   updatedAt: order_by
   validationConfig: order_by
+  values: order_by
 }
 
 """primary key columns input for table: Form"""
@@ -2566,6 +2398,7 @@ input Form_prepend_input {
   serializerConfig: jsonb
   triggerConfig: jsonb
   validationConfig: jsonb
+  values: jsonb
 }
 
 """
@@ -2610,6 +2443,9 @@ enum Form_select_column {
 
   """column name"""
   validationConfig
+
+  """column name"""
+  values
 }
 
 """
@@ -2629,6 +2465,7 @@ input Form_set_input {
   triggerConfig: jsonb
   updatedAt: timestamp
   validationConfig: jsonb
+  values: jsonb
 }
 
 """
@@ -2673,6 +2510,9 @@ enum Form_update_column {
 
   """column name"""
   validationConfig
+
+  """column name"""
+  values
 }
 
 input Form_updates {
@@ -16394,19 +16234,6 @@ input jsonb_comparison_exp {
 """mutation root"""
 type mutation_root {
   """
-  delete data from the table: "Action"
-  """
-  delete_Action(
-    """filter the rows which have to be deleted"""
-    where: Action_bool_exp!
-  ): Action_mutation_response
-
-  """
-  delete single row from the table: "Action"
-  """
-  delete_Action_by_pk(id: Int!): Action
-
-  """
   delete data from the table: "ActivityDefinition"
   """
   delete_ActivityDefinition(
@@ -16756,28 +16583,6 @@ type mutation_root {
   delete single row from the table: "_prisma_migrations"
   """
   delete__prisma_migrations_by_pk(id: String!): _prisma_migrations
-
-  """
-  insert data into the table: "Action"
-  """
-  insert_Action(
-    """the rows to be inserted"""
-    objects: [Action_insert_input!]!
-
-    """upsert condition"""
-    on_conflict: Action_on_conflict
-  ): Action_mutation_response
-
-  """
-  insert a single row into the table: "Action"
-  """
-  insert_Action_one(
-    """the row to be inserted"""
-    object: Action_insert_input!
-
-    """upsert condition"""
-    on_conflict: Action_on_conflict
-  ): Action
 
   """
   insert data into the table: "ActivityDefinition"
@@ -17376,40 +17181,6 @@ type mutation_root {
   submitTask(input: FormTriggerInput!): SubmitTaskOutput!
 
   """
-  update data of the table: "Action"
-  """
-  update_Action(
-    """increments the numeric columns with given value of the filtered values"""
-    _inc: Action_inc_input
-
-    """sets the columns of the filtered rows to the given values"""
-    _set: Action_set_input
-
-    """filter the rows which have to be updated"""
-    where: Action_bool_exp!
-  ): Action_mutation_response
-
-  """
-  update single row of the table: "Action"
-  """
-  update_Action_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
-    _inc: Action_inc_input
-
-    """sets the columns of the filtered rows to the given values"""
-    _set: Action_set_input
-    pk_columns: Action_pk_columns_input!
-  ): Action
-
-  """
-  update multiples rows of table: "Action"
-  """
-  update_Action_many(
-    """updates to execute, in order"""
-    updates: [Action_updates!]!
-  ): [Action_mutation_response]
-
-  """
   update data of the table: "ActivityDefinition"
   """
   update_ActivityDefinition(
@@ -17523,8 +17294,29 @@ type mutation_root {
   update data of the table: "EventLog"
   """
   update_EventLog(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: EventLog_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: EventLog_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: EventLog_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: EventLog_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: EventLog_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: EventLog_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: EventLog_set_input
@@ -17537,8 +17329,29 @@ type mutation_root {
   update single row of the table: "EventLog"
   """
   update_EventLog_by_pk(
+    """append existing jsonb value of filtered columns with new jsonb value"""
+    _append: EventLog_append_input
+
+    """
+    delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    """
+    _delete_at_path: EventLog_delete_at_path_input
+
+    """
+    delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array
+    """
+    _delete_elem: EventLog_delete_elem_input
+
+    """
+    delete key/value pair or string element. key/value pairs are matched based on their key value
+    """
+    _delete_key: EventLog_delete_key_input
+
     """increments the numeric columns with given value of the filtered values"""
     _inc: EventLog_inc_input
+
+    """prepend existing jsonb value of filtered columns with new jsonb value"""
+    _prepend: EventLog_prepend_input
 
     """sets the columns of the filtered rows to the given values"""
     _set: EventLog_set_input
@@ -18813,25 +18626,6 @@ enum order_by {
 
 type query_root {
   """
-  fetch data from the table: "Action"
-  """
-  Action_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Action_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Action_order_by!]
-
-    """filter the rows returned"""
-    where: Action_bool_exp
-  ): ActionConnection!
-
-  """
   fetch data from the table: "ActivityDefinition"
   """
   ActivityDefinition_connection(
@@ -19340,25 +19134,6 @@ type query_root {
 }
 
 type subscription_root {
-  """
-  fetch data from the table: "Action"
-  """
-  Action_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [Action_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [Action_order_by!]
-
-    """filter the rows returned"""
-    where: Action_bool_exp
-  ): ActionConnection!
-
   """
   fetch data from the table: "ActivityDefinition"
   """

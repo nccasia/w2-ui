@@ -360,15 +360,15 @@ export const GetEventLogsDocument = gql`
   EventLog_connection(last: 10) {
     edges {
       node {
-        actionId
         createdAt
         id
         organizationId
         userId
         taskId
-        Action {
-          content
-        }
+        content
+        intent
+        domain
+        action
         User {
           email
         }

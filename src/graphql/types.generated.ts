@@ -11,7 +11,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  ActionType: any;
   ActivityType: any;
   FileType: any;
   JWT: any;
@@ -26,145 +25,6 @@ export type Scalars = {
   jsonb: any;
   timestamp: any;
   timestamptz: any;
-};
-
-/** Boolean expression to compare columns of type "ActionType". All fields are combined with logical 'AND'. */
-export type ActionType_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['ActionType']>;
-  _gt?: InputMaybe<Scalars['ActionType']>;
-  _gte?: InputMaybe<Scalars['ActionType']>;
-  _in?: InputMaybe<Array<Scalars['ActionType']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['ActionType']>;
-  _lte?: InputMaybe<Scalars['ActionType']>;
-  _neq?: InputMaybe<Scalars['ActionType']>;
-  _nin?: InputMaybe<Array<Scalars['ActionType']>>;
-};
-
-/** Boolean expression to filter rows from the table "Action". All fields are combined with a logical 'AND'. */
-export type Action_Bool_Exp = {
-  EventLogs?: InputMaybe<EventLog_Bool_Exp>;
-  EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Bool_Exp>;
-  _and?: InputMaybe<Array<Action_Bool_Exp>>;
-  _not?: InputMaybe<Action_Bool_Exp>;
-  _or?: InputMaybe<Array<Action_Bool_Exp>>;
-  action?: InputMaybe<String_Comparison_Exp>;
-  content?: InputMaybe<String_Comparison_Exp>;
-  createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
-  domain?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Int_Comparison_Exp>;
-  intent?: InputMaybe<String_Comparison_Exp>;
-  type?: InputMaybe<ActionType_Comparison_Exp>;
-};
-
-/** unique or primary key constraints on table "Action" */
-export enum Action_Constraint {
-  /** unique or primary key constraint on columns "id" */
-  ACTION_PKEY = 'Action_pkey'
-}
-
-/** input type for incrementing numeric columns in table "Action" */
-export type Action_Inc_Input = {
-  id?: InputMaybe<Scalars['Int']>;
-};
-
-/** input type for inserting data into table "Action" */
-export type Action_Insert_Input = {
-  EventLogs?: InputMaybe<EventLog_Arr_Rel_Insert_Input>;
-  action?: InputMaybe<Scalars['String']>;
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['timestamp']>;
-  domain?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  intent?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['ActionType']>;
-};
-
-/** input type for inserting object relation for remote table "Action" */
-export type Action_Obj_Rel_Insert_Input = {
-  data: Action_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Action_On_Conflict>;
-};
-
-/** on_conflict condition type for table "Action" */
-export type Action_On_Conflict = {
-  constraint: Action_Constraint;
-  update_columns?: Array<Action_Update_Column>;
-  where?: InputMaybe<Action_Bool_Exp>;
-};
-
-/** Ordering options when selecting data from "Action". */
-export type Action_Order_By = {
-  EventLogs_aggregate?: InputMaybe<EventLog_Aggregate_Order_By>;
-  action?: InputMaybe<Order_By>;
-  content?: InputMaybe<Order_By>;
-  createdAt?: InputMaybe<Order_By>;
-  domain?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  intent?: InputMaybe<Order_By>;
-  type?: InputMaybe<Order_By>;
-};
-
-/** primary key columns input for table: Action */
-export type Action_Pk_Columns_Input = {
-  id: Scalars['Int'];
-};
-
-/** select columns of table "Action" */
-export enum Action_Select_Column {
-  /** column name */
-  ACTION = 'action',
-  /** column name */
-  CONTENT = 'content',
-  /** column name */
-  CREATEDAT = 'createdAt',
-  /** column name */
-  DOMAIN = 'domain',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INTENT = 'intent',
-  /** column name */
-  TYPE = 'type'
-}
-
-/** input type for updating data in table "Action" */
-export type Action_Set_Input = {
-  action?: InputMaybe<Scalars['String']>;
-  content?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['timestamp']>;
-  domain?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  intent?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['ActionType']>;
-};
-
-/** update columns of table "Action" */
-export enum Action_Update_Column {
-  /** column name */
-  ACTION = 'action',
-  /** column name */
-  CONTENT = 'content',
-  /** column name */
-  CREATEDAT = 'createdAt',
-  /** column name */
-  DOMAIN = 'domain',
-  /** column name */
-  ID = 'id',
-  /** column name */
-  INTENT = 'intent',
-  /** column name */
-  TYPE = 'type'
-}
-
-export type Action_Updates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Action_Inc_Input>;
-  /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Action_Set_Input>;
-  /** filter the rows which have to be updated */
-  where: Action_Bool_Exp;
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -635,6 +495,11 @@ export type EventLog_Aggregate_Order_By = {
   variance?: InputMaybe<EventLog_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type EventLog_Append_Input = {
+  context?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "EventLog" */
 export type EventLog_Arr_Rel_Insert_Input = {
   data: Array<EventLog_Insert_Input>;
@@ -644,7 +509,6 @@ export type EventLog_Arr_Rel_Insert_Input = {
 
 /** order by avg() on columns of table "EventLog" */
 export type EventLog_Avg_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -653,16 +517,19 @@ export type EventLog_Avg_Order_By = {
 
 /** Boolean expression to filter rows from the table "EventLog". All fields are combined with a logical 'AND'. */
 export type EventLog_Bool_Exp = {
-  Action?: InputMaybe<Action_Bool_Exp>;
   Organization?: InputMaybe<Organization_Bool_Exp>;
   Task?: InputMaybe<Task_Bool_Exp>;
   User?: InputMaybe<User_Bool_Exp>;
   _and?: InputMaybe<Array<EventLog_Bool_Exp>>;
   _not?: InputMaybe<EventLog_Bool_Exp>;
   _or?: InputMaybe<Array<EventLog_Bool_Exp>>;
-  actionId?: InputMaybe<Int_Comparison_Exp>;
+  action?: InputMaybe<String_Comparison_Exp>;
+  content?: InputMaybe<String_Comparison_Exp>;
+  context?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
+  domain?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  intent?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
   taskId?: InputMaybe<Int_Comparison_Exp>;
   userId?: InputMaybe<Int_Comparison_Exp>;
@@ -674,9 +541,23 @@ export enum EventLog_Constraint {
   EVENTLOG_PKEY = 'EventLog_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type EventLog_Delete_At_Path_Input = {
+  context?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type EventLog_Delete_Elem_Input = {
+  context?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type EventLog_Delete_Key_Input = {
+  context?: InputMaybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "EventLog" */
 export type EventLog_Inc_Input = {
-  actionId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   taskId?: InputMaybe<Scalars['Int']>;
@@ -685,13 +566,16 @@ export type EventLog_Inc_Input = {
 
 /** input type for inserting data into table "EventLog" */
 export type EventLog_Insert_Input = {
-  Action?: InputMaybe<Action_Obj_Rel_Insert_Input>;
   Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
   Task?: InputMaybe<Task_Obj_Rel_Insert_Input>;
   User?: InputMaybe<User_Obj_Rel_Insert_Input>;
-  actionId?: InputMaybe<Scalars['Int']>;
+  action?: InputMaybe<Scalars['String']>;
+  content?: InputMaybe<Scalars['String']>;
+  context?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
+  domain?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  intent?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   taskId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
@@ -699,9 +583,12 @@ export type EventLog_Insert_Input = {
 
 /** order by max() on columns of table "EventLog" */
 export type EventLog_Max_Order_By = {
-  actionId?: InputMaybe<Order_By>;
+  action?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
+  domain?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  intent?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
@@ -709,9 +596,12 @@ export type EventLog_Max_Order_By = {
 
 /** order by min() on columns of table "EventLog" */
 export type EventLog_Min_Order_By = {
-  actionId?: InputMaybe<Order_By>;
+  action?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
+  domain?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  intent?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
@@ -726,13 +616,16 @@ export type EventLog_On_Conflict = {
 
 /** Ordering options when selecting data from "EventLog". */
 export type EventLog_Order_By = {
-  Action?: InputMaybe<Action_Order_By>;
   Organization?: InputMaybe<Organization_Order_By>;
   Task?: InputMaybe<Task_Order_By>;
   User?: InputMaybe<User_Order_By>;
-  actionId?: InputMaybe<Order_By>;
+  action?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
+  context?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
+  domain?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  intent?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
@@ -743,14 +636,27 @@ export type EventLog_Pk_Columns_Input = {
   id: Scalars['Int'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type EventLog_Prepend_Input = {
+  context?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "EventLog" */
 export enum EventLog_Select_Column {
   /** column name */
-  ACTIONID = 'actionId',
+  ACTION = 'action',
+  /** column name */
+  CONTENT = 'content',
+  /** column name */
+  CONTEXT = 'context',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
+  DOMAIN = 'domain',
+  /** column name */
   ID = 'id',
+  /** column name */
+  INTENT = 'intent',
   /** column name */
   ORGANIZATIONID = 'organizationId',
   /** column name */
@@ -761,9 +667,13 @@ export enum EventLog_Select_Column {
 
 /** input type for updating data in table "EventLog" */
 export type EventLog_Set_Input = {
-  actionId?: InputMaybe<Scalars['Int']>;
+  action?: InputMaybe<Scalars['String']>;
+  content?: InputMaybe<Scalars['String']>;
+  context?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
+  domain?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
+  intent?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   taskId?: InputMaybe<Scalars['Int']>;
   userId?: InputMaybe<Scalars['Int']>;
@@ -771,7 +681,6 @@ export type EventLog_Set_Input = {
 
 /** order by stddev() on columns of table "EventLog" */
 export type EventLog_Stddev_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -780,7 +689,6 @@ export type EventLog_Stddev_Order_By = {
 
 /** order by stddev_pop() on columns of table "EventLog" */
 export type EventLog_Stddev_Pop_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -789,7 +697,6 @@ export type EventLog_Stddev_Pop_Order_By = {
 
 /** order by stddev_samp() on columns of table "EventLog" */
 export type EventLog_Stddev_Samp_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -798,7 +705,6 @@ export type EventLog_Stddev_Samp_Order_By = {
 
 /** order by sum() on columns of table "EventLog" */
 export type EventLog_Sum_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -808,11 +714,19 @@ export type EventLog_Sum_Order_By = {
 /** update columns of table "EventLog" */
 export enum EventLog_Update_Column {
   /** column name */
-  ACTIONID = 'actionId',
+  ACTION = 'action',
+  /** column name */
+  CONTENT = 'content',
+  /** column name */
+  CONTEXT = 'context',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
+  DOMAIN = 'domain',
+  /** column name */
   ID = 'id',
+  /** column name */
+  INTENT = 'intent',
   /** column name */
   ORGANIZATIONID = 'organizationId',
   /** column name */
@@ -822,8 +736,18 @@ export enum EventLog_Update_Column {
 }
 
 export type EventLog_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<EventLog_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<EventLog_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<EventLog_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<EventLog_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<EventLog_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<EventLog_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<EventLog_Set_Input>;
   /** filter the rows which have to be updated */
@@ -832,7 +756,6 @@ export type EventLog_Updates = {
 
 /** order by var_pop() on columns of table "EventLog" */
 export type EventLog_Var_Pop_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -841,7 +764,6 @@ export type EventLog_Var_Pop_Order_By = {
 
 /** order by var_samp() on columns of table "EventLog" */
 export type EventLog_Var_Samp_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -850,7 +772,6 @@ export type EventLog_Var_Samp_Order_By = {
 
 /** order by variance() on columns of table "EventLog" */
 export type EventLog_Variance_Order_By = {
-  actionId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   taskId?: InputMaybe<Order_By>;
@@ -1203,6 +1124,7 @@ export type Form_Append_Input = {
   serializerConfig?: InputMaybe<Scalars['jsonb']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   validationConfig?: InputMaybe<Scalars['jsonb']>;
+  values?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** Boolean expression to filter rows from the table "Form". All fields are combined with a logical 'AND'. */
@@ -1227,6 +1149,7 @@ export type Form_Bool_Exp = {
   triggerConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   updatedAt?: InputMaybe<Timestamp_Comparison_Exp>;
   validationConfig?: InputMaybe<Jsonb_Comparison_Exp>;
+  values?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "Form" */
@@ -1243,6 +1166,7 @@ export type Form_Delete_At_Path_Input = {
   serializerConfig?: InputMaybe<Array<Scalars['String']>>;
   triggerConfig?: InputMaybe<Array<Scalars['String']>>;
   validationConfig?: InputMaybe<Array<Scalars['String']>>;
+  values?: InputMaybe<Array<Scalars['String']>>;
 };
 
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
@@ -1253,6 +1177,7 @@ export type Form_Delete_Elem_Input = {
   serializerConfig?: InputMaybe<Scalars['Int']>;
   triggerConfig?: InputMaybe<Scalars['Int']>;
   validationConfig?: InputMaybe<Scalars['Int']>;
+  values?: InputMaybe<Scalars['Int']>;
 };
 
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
@@ -1263,6 +1188,7 @@ export type Form_Delete_Key_Input = {
   serializerConfig?: InputMaybe<Scalars['String']>;
   triggerConfig?: InputMaybe<Scalars['String']>;
   validationConfig?: InputMaybe<Scalars['String']>;
+  values?: InputMaybe<Scalars['String']>;
 };
 
 /** input type for incrementing numeric columns in table "Form" */
@@ -1287,6 +1213,7 @@ export type Form_Insert_Input = {
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   validationConfig?: InputMaybe<Scalars['jsonb']>;
+  values?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** input type for inserting object relation for remote table "Form" */
@@ -1320,6 +1247,7 @@ export type Form_Order_By = {
   triggerConfig?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
   validationConfig?: InputMaybe<Order_By>;
+  values?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: Form */
@@ -1335,6 +1263,7 @@ export type Form_Prepend_Input = {
   serializerConfig?: InputMaybe<Scalars['jsonb']>;
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   validationConfig?: InputMaybe<Scalars['jsonb']>;
+  values?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "Form" */
@@ -1364,7 +1293,9 @@ export enum Form_Select_Column {
   /** column name */
   UPDATEDAT = 'updatedAt',
   /** column name */
-  VALIDATIONCONFIG = 'validationConfig'
+  VALIDATIONCONFIG = 'validationConfig',
+  /** column name */
+  VALUES = 'values'
 }
 
 /** input type for updating data in table "Form" */
@@ -1382,6 +1313,7 @@ export type Form_Set_Input = {
   triggerConfig?: InputMaybe<Scalars['jsonb']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   validationConfig?: InputMaybe<Scalars['jsonb']>;
+  values?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** update columns of table "Form" */
@@ -1411,7 +1343,9 @@ export enum Form_Update_Column {
   /** column name */
   UPDATEDAT = 'updatedAt',
   /** column name */
-  VALIDATIONCONFIG = 'validationConfig'
+  VALIDATIONCONFIG = 'validationConfig',
+  /** column name */
+  VALUES = 'values'
 }
 
 export type Form_Updates = {
@@ -7900,14 +7834,14 @@ export type UserByPkQueryVariables = Exact<{
 }>;
 
 
-export type UserByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, role: any, lastname: string | null, firstname: string | null, organizationId: number, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: string, name: string, description: string, organizationId: number }, User: { __typename: 'User', id: string } }>, Organization: { __typename: 'Organization', id: string, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: string, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: string, code: string, permissionGroupId: number } }> } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type UserByPkQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, role: any, lastname: string | null, firstname: string | null, organizationId: number, MemberOnTeams: Array<{ __typename: 'MemberOnTeams', teamId: number, userId: number, Team: { __typename: 'Team', id: string, name: string, description: string, organizationId: number }, User: { __typename: 'User', id: string } }>, Organization: { __typename: 'Organization', id: string, name: string, description: string }, UserPermissions: Array<{ __typename: 'UserPermission', id: string, permissionId: number, userId: number, Permission: { __typename: 'Permission', id: string, code: string, permissionGroupId: number } }> } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type GetInformationUserQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetInformationUserQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type GetInformationUserQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type CreateTaskMutationVariables = Exact<{
   values?: InputMaybe<Scalars['jsonb']>;
@@ -7944,7 +7878,7 @@ export type SubmitTaskMutation = { __typename: 'mutation_root', submitTask: { __
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetEventLogsQuery = { __typename: 'query_root', EventLog_connection: { __typename: 'EventLogConnection', edges: Array<{ __typename: 'EventLogEdge', node: { __typename: 'EventLog', actionId: number, createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, Action: { __typename: 'Action', content: string }, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null } }> } };
+export type GetEventLogsQuery = { __typename: 'query_root', EventLog_connection: { __typename: 'EventLogConnection', edges: Array<{ __typename: 'EventLogEdge', node: { __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string }, Task: { __typename: 'Task', title: string } | null } }> } };
 
 export type GetTaskDefinitionQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7956,7 +7890,7 @@ export type GetFormSchemaQueryVariables = Exact<{
 }>;
 
 
-export type GetFormSchemaQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form', id: string, name: string, schema: any, code: string } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type GetFormSchemaQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form', id: string, name: string, schema: any, code: string } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type GetResourceQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7968,7 +7902,7 @@ export type GetResourceItemsQueryVariables = Exact<{
 }>;
 
 
-export type GetResourceItemsQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource', id: string, name: string, organizationId: number, description: string, code: string, ResourceItems: Array<{ __typename: 'ResourceItem', id: string, name: string, description: string, code: string }> } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type GetResourceItemsQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource', id: string, name: string, organizationId: number, description: string, code: string, ResourceItems: Array<{ __typename: 'ResourceItem', id: string, name: string, description: string, code: string }> } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type ResourceItemFragmentFragment = { __typename: 'ResourceItem', id: string, name: string, description: string, code: string };
 
@@ -7982,7 +7916,7 @@ export type TaskByPkQueryVariables = Exact<{
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
 export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } };
 
