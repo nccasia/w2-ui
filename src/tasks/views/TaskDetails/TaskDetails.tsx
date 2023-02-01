@@ -9,18 +9,19 @@ interface TaskDetailsProps {
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({ id }) => {
-  const { data, loading, refetch } = useTaskByPkQuery({
+  const { data, loading } = useTaskByPkQuery({
     variables: {
       id,
     },
   });
+
   if (loading) {
     return <LoginLoading />;
   }
   return (
     <>
       {data?.node && data.node.__typename === "Task" && (
-        <TaskDetailPage taskDetail={data?.node} refetch={refetch} />
+        <TaskDetailPage taskDetail={data?.node} />
       )}
     </>
   );

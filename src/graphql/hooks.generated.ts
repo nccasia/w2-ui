@@ -5,6 +5,14 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import * as ApolloReactHooks from '@saleor/hooks/graphql';
 const defaultOptions = {} as const;
+export const FormFragmentFragmentDoc = gql`
+    fragment FormFragment on Form {
+  id
+  name
+  schema
+  code
+}
+    `;
 export const ResourceItemFragmentFragmentDoc = gql`
     fragment ResourceItemFragment on ResourceItem {
   id
@@ -26,6 +34,7 @@ export const TaskFragmentFragmentDoc = gql`
   priority
   values
   teamId
+  state
   formId
   parentId
   title
@@ -34,15 +43,67 @@ export const TaskFragmentFragmentDoc = gql`
     id
   }
   Form {
+    id
     values
-  }
-  TaskDefinition {
-    Form {
-      id
-    }
   }
 }
     `;
+export const TaskEventLogFragmentFragmentDoc = gql`
+    fragment TaskEventLogFragment on EventLog {
+  createdAt
+  id
+  organizationId
+  userId
+  taskId
+  content
+  intent
+  domain
+  action
+  createdAt
+  User {
+    email
+  }
+}
+    `;
+export const TaskDetailFragmemtFragmentDoc = gql`
+    fragment TaskDetailFragmemt on Task {
+  id
+  creatorId
+  definitionId
+  description
+  dueDate
+  organizationId
+  status
+  teamId
+  title
+  values
+  parentId
+  priority
+  state
+  userByCreatorid {
+    id
+    email
+    firstname
+    lastname
+    organizationId
+    role
+  }
+  Tasks {
+    ...TaskFragment
+  }
+  priority
+  Form {
+    id
+  }
+  TaskDefinition {
+    id
+  }
+  EventLogs {
+    ...TaskEventLogFragment
+  }
+}
+    ${TaskFragmentFragmentDoc}
+${TaskEventLogFragmentFragmentDoc}`;
 export const SigninDocument = gql`
     mutation Signin($email: String = "", $password: String = "") {
   signin(data: {email: $email, password: $password}) {
@@ -232,6 +293,58 @@ export function useGetInformationUserLazyQuery(baseOptions?: ApolloReactHooks.La
 export type GetInformationUserQueryHookResult = ReturnType<typeof useGetInformationUserQuery>;
 export type GetInformationUserLazyQueryHookResult = ReturnType<typeof useGetInformationUserLazyQuery>;
 export type GetInformationUserQueryResult = Apollo.QueryResult<Types.GetInformationUserQuery, Types.GetInformationUserQueryVariables>;
+export const GetEventLogsDocument = gql`
+    query getEventLogs {
+  EventLog_connection(last: 99) {
+    edges {
+      node {
+        createdAt
+        id
+        organizationId
+        userId
+        taskId
+        content
+        intent
+        domain
+        action
+        User {
+          email
+        }
+        Organization {
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetEventLogsQuery__
+ *
+ * To run a query within a React component, call `useGetEventLogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEventLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetEventLogsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetEventLogsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>(GetEventLogsDocument, options);
+      }
+export function useGetEventLogsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>(GetEventLogsDocument, options);
+        }
+export type GetEventLogsQueryHookResult = ReturnType<typeof useGetEventLogsQuery>;
+export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsLazyQuery>;
+export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
 export const CreateTaskDocument = gql`
     mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!, $title: String!) {
   insert_Task(
@@ -358,57 +471,6 @@ export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
 export type SubmitTaskMutationResult = Apollo.MutationResult<Types.SubmitTaskMutation>;
 export type SubmitTaskMutationOptions = Apollo.BaseMutationOptions<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>;
-export const GetEventLogsDocument = gql`
-    query getEventLogs {
-  EventLog_connection(last: 10) {
-    edges {
-      node {
-        createdAt
-        id
-        organizationId
-        userId
-        taskId
-        User {
-          email
-        }
-        Organization {
-          name
-        }
-        Task {
-          title
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetEventLogsQuery__
- *
- * To run a query within a React component, call `useGetEventLogsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEventLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetEventLogsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetEventLogsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useQuery<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>(GetEventLogsDocument, options);
-      }
-export function useGetEventLogsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return ApolloReactHooks.useLazyQuery<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>(GetEventLogsDocument, options);
-        }
-export type GetEventLogsQueryHookResult = ReturnType<typeof useGetEventLogsQuery>;
-export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsLazyQuery>;
-export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
 export const GetTaskDefinitionDocument = gql`
     query GetTaskDefinition {
   TaskDefinition_connection(where: {parentId: {_is_null: true}}) {
@@ -458,15 +520,10 @@ export type GetTaskDefinitionQueryResult = Apollo.QueryResult<Types.GetTaskDefin
 export const GetFormSchemaDocument = gql`
     query GetFormSchema($id: ID!) {
   node(id: $id) {
-    ... on Form {
-      id
-      name
-      schema
-      code
-    }
+    ...FormFragment
   }
 }
-    `;
+    ${FormFragmentFragmentDoc}`;
 
 /**
  * __useGetFormSchemaQuery__
@@ -641,40 +698,10 @@ export type GetTasksQueryResult = Apollo.QueryResult<Types.GetTasksQuery, Types.
 export const TaskByPkDocument = gql`
     query TaskByPk($id: ID!) {
   node(id: $id) {
-    ... on Task {
-      id
-      creatorId
-      definitionId
-      description
-      dueDate
-      organizationId
-      status
-      teamId
-      title
-      values
-      parentId
-      priority
-      userByCreatorid {
-        id
-        email
-        firstname
-        lastname
-        organizationId
-        role
-      }
-      Tasks {
-        ...TaskFragment
-      }
-      priority
-      TaskDefinition {
-        Form {
-          id
-        }
-      }
-    }
+    ...TaskDetailFragmemt
   }
 }
-    ${TaskFragmentFragmentDoc}`;
+    ${TaskDetailFragmemtFragmentDoc}`;
 
 /**
  * __useTaskByPkQuery__

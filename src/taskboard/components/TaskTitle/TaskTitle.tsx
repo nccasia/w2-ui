@@ -54,9 +54,16 @@ interface TaskTitleProps {
   creatorId?: number;
   avatar?: string;
   title?: string;
+  state?: string;
+  status?: string;
 }
 
-const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
+const TaskTitle: React.FC<TaskTitleProps> = ({
+  creatorId,
+  title,
+  state,
+  status,
+}) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -71,7 +78,12 @@ const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
               {title}
               <Pill
                 className={classes.cardPill}
-                label={"WAIT_PM_APPROVE"}
+                label={state}
+                color="warning"
+              />
+              <Pill
+                className={classes.cardPill}
+                label={status}
                 color="success"
               />
             </Typography>

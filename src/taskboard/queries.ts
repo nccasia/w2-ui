@@ -1,25 +1,19 @@
 import { gql } from "@apollo/client";
-export const getEventLogs = gql`
-  query getEventLogs {
-    EventLog_connection(last: 10) {
-      edges {
-        node {
-          createdAt
-          id
-          organizationId
-          userId
-          taskId
-          User {
-            email
-          }
-          Organization {
-            name
-          }
-          Task {
-            title
-          }
-        }
-      }
+
+export const TaskEventLogFragment = gql`
+  fragment TaskEventLogFragment on EventLog {
+    createdAt
+    id
+    organizationId
+    userId
+    taskId
+    content
+    intent
+    domain
+    action
+    createdAt
+    User {
+      email
     }
   }
 `;
@@ -44,15 +38,19 @@ export const getTaskDefinition = gql`
   }
 `;
 
+export const FormFragment = gql`
+  fragment FormFragment on Form {
+    id
+    name
+    schema
+    code
+  }
+`;
+
 export const getFormSchema = gql`
   query GetFormSchema($id: ID!) {
     node(id: $id) {
-      ... on Form {
-        id
-        name
-        schema
-        code
-      }
+      ...FormFragment
     }
   }
 `;
@@ -130,40 +128,49 @@ export const getTasks = gql`
   }
 `;
 
+export const TaskDetailFragmemt = gql`
+  fragment TaskDetailFragmemt on Task {
+    id
+    creatorId
+    definitionId
+    description
+    dueDate
+    organizationId
+    status
+    teamId
+    title
+    values
+    parentId
+    priority
+    state
+    userByCreatorid {
+      id
+      email
+      firstname
+      lastname
+      organizationId
+      role
+    }
+    Tasks {
+      ...TaskFragment
+    }
+    priority
+    Form {
+      id
+    }
+    TaskDefinition {
+      id
+    }
+    EventLogs {
+      ...TaskEventLogFragment
+    }
+  }
+`;
+
 export const getTaskDetail = gql`
   query TaskByPk($id: ID!) {
     node(id: $id) {
-      ... on Task {
-        id
-        creatorId
-        definitionId
-        description
-        dueDate
-        organizationId
-        status
-        teamId
-        title
-        values
-        parentId
-        priority
-        userByCreatorid {
-          id
-          email
-          firstname
-          lastname
-          organizationId
-          role
-        }
-        Tasks {
-          ...TaskFragment
-        }
-        priority
-        TaskDefinition {
-          Form {
-            id
-          }
-        }
-      }
+      ...TaskDetailFragmemt
     }
   }
 `;
@@ -181,6 +188,7 @@ export const TaskFragment = gql`
     priority
     values
     teamId
+    state
     formId
     parentId
     title
@@ -189,12 +197,8 @@ export const TaskFragment = gql`
       id
     }
     Form {
+      id
       values
-    }
-    TaskDefinition {
-      Form {
-        id
-      }
     }
   }
 `;

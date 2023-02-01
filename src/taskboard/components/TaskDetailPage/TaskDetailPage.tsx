@@ -18,7 +18,6 @@ import {
   SwitchSelector,
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
-import { histories } from "@saleor/taskboard/__mock__/Task";
 import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
@@ -159,7 +158,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
               ))}
             </SwitchSelector>
             {active === "1" ? (
-              <TaskHistory history={histories} />
+              <TaskHistory history={taskDetail.EventLogs} />
             ) : (
               <TaskComment task={taskDetail} />
             )}
