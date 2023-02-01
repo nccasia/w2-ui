@@ -4,13 +4,13 @@ import Skeleton from "@saleor/components/Skeleton";
 import {
   Timeline,
   TimelineAddNote,
-  TimelineEvent,
+  // TimelineEvent,
 } from "@saleor/components/Timeline";
-import { TaskEventLogFragmentFragment } from "@saleor/graphql";
+import { History } from "@saleor/taskboard/model/Task";
 import React from "react";
 
 interface TaskHistoryProps {
-  history: TaskEventLogFragmentFragment[];
+  history: History[];
 }
 
 const TaskHistory: React.FC<TaskHistoryProps> = props => {
@@ -31,9 +31,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = props => {
               />
             )}
           </Form>
-          {history.map(({ id, createdAt, content }) => (
+          {/* {history.map(({ id, createdAt, content }) => (
             <TimelineEvent key={id} title={content} date={createdAt} />
-          ))}
+          ))} */}
         </Timeline>
       ) : (
         <Skeleton />
