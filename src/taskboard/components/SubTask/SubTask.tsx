@@ -66,7 +66,7 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
       <CardContent style={{ paddingBottom: "47px" }}>
         <div className={classes.root}>
           <FormSchema
-            formId={task.TaskDefinition.Form.id}
+            formId={task.Form.id}
             onSubmit={data => handleConfirm(data)}
           />
         </div>

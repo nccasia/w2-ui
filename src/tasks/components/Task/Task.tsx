@@ -67,7 +67,7 @@ const Task = ({ task }: TaskType) => {
         {task.definitionId && (
           <>
             <FormSchema
-              formId={task.TaskDefinition.Form.id}
+              formId={task.Form.id}
               readonly={true}
               modelData={task.values}
             />
