@@ -2391,7 +2391,7 @@ type FormEdge {
 input FormTriggerInput {
   formId: Int
   taskId: Int
-  value: String!
+  value: json!
 }
 
 """append existing jsonb value of filtered columns with new jsonb value"""
@@ -16351,6 +16351,8 @@ input _prisma_migrations_updates {
   """filter the rows which have to be updated"""
   where: _prisma_migrations_bool_exp!
 }
+
+scalar json
 
 scalar jsonb
 

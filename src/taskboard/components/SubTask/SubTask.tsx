@@ -3,7 +3,7 @@ import { Card, CardContent, makeStyles, Modal } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
-import { TaskFragmentFragment, useUpdateTaskMutation } from "@saleor/graphql";
+import { TaskFragmentFragment, useSubmitTaskMutation } from "@saleor/graphql";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import React, { useState } from "react";
 
@@ -32,22 +32,20 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
   const classes = useStyles();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [updateTaskMutation] = useUpdateTaskMutation({
+  const [submitTaskMutation] = useSubmitTaskMutation({
     onCompleted: () => {
       alertConfirmSubTask("success", "Submit Success!");
     },
   });
 
-  const handleConfirm = async event => {
-    const decodedStringFormId = atob(task.TaskDefinition.Form.id);
-    const decodedStringTaskId = atob(task.id);
+  const handleConfirm = async formValue => {
     setLoading(true);
     setTimeout(() => {
-      updateTaskMutation({
+      submitTaskMutation({
         variables: {
-          value: JSON.stringify(event),
-          formId: JSON.parse(decodedStringFormId)[3],
-          taskId: JSON.parse(decodedStringTaskId)[3],
+          value: formValue,
+          formId: task.formId,
+          taskId: task.parentId,
         },
       });
       setLoading(false);

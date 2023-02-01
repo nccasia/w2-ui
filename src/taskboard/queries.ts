@@ -185,6 +185,8 @@ export const TaskFragment = gql`
     priority
     values
     teamId
+    formId
+    parentId
     title
     isActive
     Task {

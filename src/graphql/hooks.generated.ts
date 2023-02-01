@@ -26,6 +26,8 @@ export const TaskFragmentFragmentDoc = gql`
   priority
   values
   teamId
+  formId
+  parentId
   title
   isActive
   Task {
@@ -313,8 +315,8 @@ export function useInsertCommentMutation(baseOptions?: ApolloReactHooks.Mutation
 export type InsertCommentMutationHookResult = ReturnType<typeof useInsertCommentMutation>;
 export type InsertCommentMutationResult = Apollo.MutationResult<Types.InsertCommentMutation>;
 export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<Types.InsertCommentMutation, Types.InsertCommentMutationVariables>;
-export const UpdateTaskDocument = gql`
-    mutation UpdateTask($value: String!, $formId: Int!, $taskId: Int!) {
+export const SubmitTaskDocument = gql`
+    mutation SubmitTask($value: json!, $formId: Int!, $taskId: Int!) {
   submitTask(input: {value: $value, taskId: $taskId, formId: $formId}) {
     submitTask {
       id
@@ -325,20 +327,20 @@ export const UpdateTaskDocument = gql`
   }
 }
     `;
-export type UpdateTaskMutationFn = Apollo.MutationFunction<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>;
+export type SubmitTaskMutationFn = Apollo.MutationFunction<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>;
 
 /**
- * __useUpdateTaskMutation__
+ * __useSubmitTaskMutation__
  *
- * To run a mutation, you first call `useUpdateTaskMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTaskMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useSubmitTaskMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitTaskMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateTaskMutation, { data, loading, error }] = useUpdateTaskMutation({
+ * const [submitTaskMutation, { data, loading, error }] = useSubmitTaskMutation({
  *   variables: {
  *      value: // value for 'value'
  *      formId: // value for 'formId'
@@ -346,13 +348,13 @@ export type UpdateTaskMutationFn = Apollo.MutationFunction<Types.UpdateTaskMutat
  *   },
  * });
  */
-export function useUpdateTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>) {
+export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useMutation<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>(UpdateTaskDocument, options);
+        return ApolloReactHooks.useMutation<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>(SubmitTaskDocument, options);
       }
-export type UpdateTaskMutationHookResult = ReturnType<typeof useUpdateTaskMutation>;
-export type UpdateTaskMutationResult = Apollo.MutationResult<Types.UpdateTaskMutation>;
-export type UpdateTaskMutationOptions = Apollo.BaseMutationOptions<Types.UpdateTaskMutation, Types.UpdateTaskMutationVariables>;
+export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
+export type SubmitTaskMutationResult = Apollo.MutationResult<Types.SubmitTaskMutation>;
+export type SubmitTaskMutationOptions = Apollo.BaseMutationOptions<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>;
 export const GetEventLogsDocument = gql`
     query getEventLogs {
   EventLog_connection(last: 10) {

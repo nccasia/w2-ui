@@ -22,6 +22,7 @@ import {
 } from "@saleor/macaw-ui";
 import { histories } from "@saleor/taskboard/__mock__/Task";
 import { taskListUrl } from "@saleor/taskboard/urls";
+import { createRelayId } from "@saleor/utils/createRelayId";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -44,7 +45,6 @@ interface ITaskDetailProps {
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
   const [active, setActive] = useState<string>("1");
-  const [dataModalSubtask, setDataModalSubtask] = useState(null);
   const intl = useIntl();
   const classes = useStyles();
 
@@ -61,11 +61,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
 
   const handleChooseActivity = value => {
     setActive(value);
-  };
-
-  const handleShowSubTask = id => {
-    const dataSubtask = taskDetail?.Tasks?.find(e => e.id === id);
-    setDataModalSubtask(dataSubtask);
   };
 
   const activeTask = useMemo(() => {
@@ -104,25 +99,33 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
           {activeTask && <SubTask task={activeTask}></SubTask>}
           <List>
             <h2>Sub Tasks</h2>
-            {taskDetail?.Tasks?.map(e => {
+            {taskDetail?.Tasks?.map(subtask => {
               return (
                 <Accordion>
-                  <AccordionSummary className={classes.subTaskItem} key={e.id}>
-                    <ListItem onClick={() => handleShowSubTask(e.id)}>
+                  <AccordionSummary
+                    className={classes.subTaskItem}
+                    key={subtask.id}
+                  >
+                    <ListItem>
                       <ListItemAvatar>
                         <Avatar>
                           <CustomAvatar id={taskDetail.creatorId} />
                         </Avatar>
                       </ListItemAvatar>
-                      <ListItemText primary={e.title} />
-                      <ListItemText primary={e.state} />
-                      <ListItemText primary={e.status} />
-                      <ListItemText primary={e.priority} />
+                      <ListItemText primary={subtask.title} />
+                      <ListItemText primary={subtask.state} />
+                      <ListItemText primary={subtask.status} />
+                      <ListItemText primary={subtask.priority} />
                     </ListItem>
                   </AccordionSummary>
                   <FormSchema
-                    formId={dataModalSubtask?.TaskDefinition?.Form?.id}
-                    readonly={false}
+                    formId={createRelayId([
+                      1,
+                      "public",
+                      "Form",
+                      subtask.formId,
+                    ])}
+                    readonly={true}
                   />
                 </Accordion>
               );

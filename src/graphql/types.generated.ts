@@ -22,6 +22,7 @@ export type Scalars = {
   TriggerStatus: any;
   TriggerType: any;
   Visibility: any;
+  json: any;
   jsonb: any;
   timestamp: any;
   timestamptz: any;
@@ -1191,7 +1192,7 @@ export type File_Variance_Order_By = {
 export type FormTriggerInput = {
   formId?: InputMaybe<Scalars['Int']>;
   taskId?: InputMaybe<Scalars['Int']>;
-  value: Scalars['String'];
+  value: Scalars['json'];
 };
 
 /** append existing jsonb value of filtered columns with new jsonb value */
@@ -7931,14 +7932,14 @@ export type InsertCommentMutationVariables = Exact<{
 
 export type InsertCommentMutation = { __typename: 'mutation_root', insert_Comment: { __typename: 'Comment_mutation_response', returning: Array<{ __typename: 'Comment', id: string, taskId: number, content: string, creatorId: number }> } | null };
 
-export type UpdateTaskMutationVariables = Exact<{
-  value: Scalars['String'];
+export type SubmitTaskMutationVariables = Exact<{
+  value: Scalars['json'];
   formId: Scalars['Int'];
   taskId: Scalars['Int'];
 }>;
 
 
-export type UpdateTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'SubmitTaskOutput', submitTask: { __typename: 'SubmitTask', id: string | null, name: string | null, code: string | null, description: string | null } | null } };
+export type SubmitTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'SubmitTaskOutput', submitTask: { __typename: 'SubmitTask', id: string | null, name: string | null, code: string | null, description: string | null } | null } };
 
 export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7981,9 +7982,9 @@ export type TaskByPkQueryVariables = Exact<{
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Action' } | { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } }>, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
-export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } };
+export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', Form: { __typename: 'Form', id: string } | null } };
 
 export type GetCommentQueryVariables = Exact<{ [key: string]: never; }>;
 
