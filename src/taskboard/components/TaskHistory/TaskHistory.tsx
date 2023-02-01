@@ -6,12 +6,11 @@ import {
   TimelineAddNote,
   TimelineEvent,
 } from "@saleor/components/Timeline";
+import { TaskEventLogFragmentFragment } from "@saleor/graphql";
 import React from "react";
 
-import { History } from "../../model/Task";
-
 interface TaskHistoryProps {
-  history: History[];
+  history: TaskEventLogFragmentFragment[];
 }
 
 const TaskHistory: React.FC<TaskHistoryProps> = props => {
@@ -32,13 +31,9 @@ const TaskHistory: React.FC<TaskHistoryProps> = props => {
               />
             )}
           </Form>
-          {history
-            .slice()
-            .reverse()
-            .map(event => {
-              const { id, date, message } = event;
-              return <TimelineEvent key={id} title={message} date={date} />;
-            })}
+          {history.map(({ id, createdAt, content }) => (
+            <TimelineEvent key={id} title={content} date={createdAt} />
+          ))}
         </Timeline>
       ) : (
         <Skeleton />

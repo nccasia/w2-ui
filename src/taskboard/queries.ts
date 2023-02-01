@@ -1,27 +1,19 @@
 import { gql } from "@apollo/client";
 
-export const getTaskEventLogs = gql`
-  query getTaskEventLogs($taskId: Int!) {
-    EventLog_connection(last: 99, where: { taskId: { _eq: $taskId } }) {
-      edges {
-        node {
-          createdAt
-          id
-          organizationId
-          userId
-          taskId
-          content
-          intent
-          domain
-          action
-          User {
-            email
-          }
-          Organization {
-            name
-          }
-        }
-      }
+export const TaskEventLogFragment = gql`
+  fragment TaskEventLogFragment on EventLog {
+    createdAt
+    id
+    organizationId
+    userId
+    taskId
+    content
+    intent
+    domain
+    action
+    createdAt
+    User {
+      email
     }
   }
 `;
@@ -167,6 +159,9 @@ export const TaskDetailFragmemt = gql`
     }
     TaskDefinition {
       id
+    }
+    EventLogs {
+      ...TaskEventLogFragment
     }
   }
 `;

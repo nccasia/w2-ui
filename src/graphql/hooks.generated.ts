@@ -47,6 +47,23 @@ export const TaskFragmentFragmentDoc = gql`
   }
 }
     `;
+export const TaskEventLogFragmentFragmentDoc = gql`
+    fragment TaskEventLogFragment on EventLog {
+  createdAt
+  id
+  organizationId
+  userId
+  taskId
+  content
+  intent
+  domain
+  action
+  createdAt
+  User {
+    email
+  }
+}
+    `;
 export const TaskDetailFragmemtFragmentDoc = gql`
     fragment TaskDetailFragmemt on Task {
   id
@@ -79,8 +96,12 @@ export const TaskDetailFragmemtFragmentDoc = gql`
   TaskDefinition {
     id
   }
+  EventLogs {
+    ...TaskEventLogFragment
+  }
 }
-    ${TaskFragmentFragmentDoc}`;
+    ${TaskFragmentFragmentDoc}
+${TaskEventLogFragmentFragmentDoc}`;
 export const SigninDocument = gql`
     mutation Signin($email: String = "", $password: String = "") {
   signin(data: {email: $email, password: $password}) {
@@ -448,59 +469,6 @@ export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
 export type SubmitTaskMutationResult = Apollo.MutationResult<Types.SubmitTaskMutation>;
 export type SubmitTaskMutationOptions = Apollo.BaseMutationOptions<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>;
-export const GetTaskEventLogsDocument = gql`
-    query getTaskEventLogs($taskId: Int!) {
-  EventLog_connection(last: 99, where: {taskId: {_eq: $taskId}}) {
-    edges {
-      node {
-        createdAt
-        id
-        organizationId
-        userId
-        taskId
-        content
-        intent
-        domain
-        action
-        User {
-          email
-        }
-        Organization {
-          name
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetTaskEventLogsQuery__
- *
- * To run a query within a React component, call `useGetTaskEventLogsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTaskEventLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTaskEventLogsQuery({
- *   variables: {
- *      taskId: // value for 'taskId'
- *   },
- * });
- */
-export function useGetTaskEventLogsQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetTaskEventLogsQuery, Types.GetTaskEventLogsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useQuery<Types.GetTaskEventLogsQuery, Types.GetTaskEventLogsQueryVariables>(GetTaskEventLogsDocument, options);
-      }
-export function useGetTaskEventLogsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetTaskEventLogsQuery, Types.GetTaskEventLogsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return ApolloReactHooks.useLazyQuery<Types.GetTaskEventLogsQuery, Types.GetTaskEventLogsQueryVariables>(GetTaskEventLogsDocument, options);
-        }
-export type GetTaskEventLogsQueryHookResult = ReturnType<typeof useGetTaskEventLogsQuery>;
-export type GetTaskEventLogsLazyQueryHookResult = ReturnType<typeof useGetTaskEventLogsLazyQuery>;
-export type GetTaskEventLogsQueryResult = Apollo.QueryResult<Types.GetTaskEventLogsQuery, Types.GetTaskEventLogsQueryVariables>;
 export const GetTaskDefinitionDocument = gql`
     query GetTaskDefinition {
   TaskDefinition_connection(where: {parentId: {_is_null: true}}) {
