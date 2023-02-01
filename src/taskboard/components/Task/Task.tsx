@@ -1,5 +1,6 @@
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
+import { TaskDetailFragmemtFragment } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import { bridge } from "@saleor/utils/schema";
 import React from "react";
@@ -18,7 +19,7 @@ const useStyles = makeStyles(
   { name: "Task" },
 );
 interface TaskType {
-  task: any;
+  task: TaskDetailFragmemtFragment;
 }
 const Task = ({ task }: TaskType) => {
   const classes = useStyles();
@@ -31,7 +32,7 @@ const Task = ({ task }: TaskType) => {
         {task.definitionId && (
           <>
             <FormSchema
-              formId={task.TaskDefinition.Form.id}
+              formId={task.Form.id}
               readonly={true}
               modelData={task.values}
             />

@@ -13,6 +13,7 @@ import { DateTime } from "@saleor/components/Date";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Grid from "@saleor/components/Grid";
 import PageHeader from "@saleor/components/PageHeader";
+import { TaskDetailFragmemtFragment } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import {
   Accordion,
@@ -40,7 +41,7 @@ interface SwitchSelectorButtonOptions {
 }
 
 interface ITaskDetailProps {
-  taskDetail: any;
+  taskDetail: TaskDetailFragmemtFragment;
 }
 
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
