@@ -14,17 +14,20 @@ interface PropsFormSchema {
 const useStyles = makeStyles(
   () => ({
     root: {
-      "& .MuiButtonBase-root": {
+      "& form>.MuiButtonBase-root": {
+        display: "none",
+      },
+      "& .MuiListSubheader-root": {
         display: "none",
       },
       "& .MuiInputBase-root:hover": {
         boxShadow: "none",
       },
+      "& .ql-editor": {
+        maxHeight: 600,
+      },
       "& .ql-toolbar": {
         display: "none",
-      },
-      "& .quill": {
-        maxHeight: 50,
       },
       "& .ql-container": {
         border: "none",
@@ -33,15 +36,24 @@ const useStyles = makeStyles(
         paddingTop: "25px!important",
         paddingBottom: "10px!important",
       },
-      "& .MuiOutlinedInput-notchedOutline": {
+      "& .MuiListItem-root>.MuiFormControl-root": {
+        display: "flex",
+        flexDirection: "inherit !important",
+      },
+      "& form>.MuiFormControl-root": {
+        display: "inline-flex",
+      },
+      "& form>.MuiFormControl-root>.MuiInputBase-root>fieldset": {
         border: "none",
       },
-      "& .QuillEditor-root-323": {
-        border: "none",
+      "& .MuiFormControl-root>.MuiButtonBase-root": {
+        display: "none",
       },
-      "& .MuiFormControl-root": {
-        display: "inline-block",
-        width: "50% !important",
+      "& .MuiListItem-root>.MuiButtonBase-root ": {
+        display: "none",
+      },
+      "& .MuiInputBase-root>.MuiSvgIcon-root ": {
+        display: "none",
       },
     },
   }),

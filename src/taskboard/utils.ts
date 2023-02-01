@@ -51,7 +51,7 @@ export function alertConfirmSubTask(
     confirmButtonText: "Next task",
   }).then(result => {
     if (result.isConfirmed) {
-      location.reload();
+      // window.location.reload();
     } else if (result.isDenied) {
       Swal.fire("Changes are not saved", "", "info");
     }

@@ -6,6 +6,8 @@ import { bridge } from "@saleor/utils/schema";
 import React from "react";
 import { AutoForm } from "uniforms-material";
 
+import TaskTitle from "../TaskTitle";
+
 const useStyles = makeStyles(
   () => ({
     container: {
@@ -22,11 +24,19 @@ interface TaskType {
   task: TaskDetailFragmemtFragment;
 }
 const Task = ({ task }: TaskType) => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: Task.tsx:27 ~ Task ~ task", task);
   const classes = useStyles();
 
   return (
     <Card className={classes.container}>
-      {/* <TaskTitle avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d" /> */}
+      <TaskTitle
+        creatorId={task.creatorId}
+        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
+        title={task.title}
+        state={task.state}
+        status={task.status}
+      />
       <div className={classes.editor}>
         {false && <AutoForm schema={bridge} />}
         {task.definitionId && (

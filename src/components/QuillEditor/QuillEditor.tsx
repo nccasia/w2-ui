@@ -8,11 +8,9 @@ const useStyles = makeStyles(
   () => ({
     root: {
       width: "100%",
-      maxHeight: "200px",
+      maxHeight: "600px",
     },
-    quillEditor: {
-      height: "200px",
-    },
+    quillEditor: {},
   }),
   { name: "QuillEditor" },
 );
@@ -45,6 +43,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         className={classes.quillEditor}
         onChange={onChange}
         scrollingContainer="#scrolling-container"
+        placeholder="Description..."
       />
     </div>
   );

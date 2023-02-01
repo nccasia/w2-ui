@@ -4,16 +4,13 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography,
 } from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
-import { DateTime } from "@saleor/components/Date";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Grid from "@saleor/components/Grid";
-import PageHeader from "@saleor/components/PageHeader";
-import { TaskDetailFragmemtFragment } from "@saleor/graphql";
+import { useSubmitTaskMutation } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import {
   Accordion,
@@ -22,6 +19,7 @@ import {
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
 import { taskListUrl } from "@saleor/taskboard/urls";
+import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
@@ -32,7 +30,6 @@ import TaskComment from "../TaskComment";
 import TaskDetailSidebar from "../TaskDetailSidebar";
 import TaskHistory from "../TaskHistory";
 import { useStyles } from "./style";
-import Title from "./Title";
 
 interface SwitchSelectorButtonOptions {
   label: string | React.ReactNode;
@@ -40,13 +37,24 @@ interface SwitchSelectorButtonOptions {
 }
 
 interface ITaskDetailProps {
-  taskDetail: TaskDetailFragmemtFragment;
+  taskDetail: any;
+  refetch: () => void;
 }
 
-const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
+const TaskDetailPage: React.FC<ITaskDetailProps> = ({
+  taskDetail,
+  refetch,
+}) => {
   const [active, setActive] = useState<string>("1");
   const intl = useIntl();
   const classes = useStyles();
+
+  const [submitTaskMutation] = useSubmitTaskMutation({
+    onCompleted: () => {
+      alertConfirmSubTask("success", "Submit Success!");
+      refetch();
+    },
+  });
 
   const OPTIONS: SwitchSelectorButtonOptions[] = [
     {
@@ -73,7 +81,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
       <Backlink href={taskListUrl()}>
         {intl.formatMessage(sectionNames.tasks)}
       </Backlink>
-      <PageHeader
+      {/* <PageHeader
         className={classes.header}
         inline
         title={
@@ -90,22 +98,26 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
         <Typography variant="body2">
           <DateTime date={taskDetail.dueDate} />
         </Typography>
-        {/* <Skeleton style={{ width: "10em" }} /> */}
-      </div>
+      </div> */}
       <Grid>
         <div>
           <Task task={taskDetail} />
           {/* <Attachments /> */}
-          {activeTask && <SubTask task={activeTask}></SubTask>}
+          {activeTask && (
+            <SubTask
+              task={activeTask}
+              submitTaskMutation={submitTaskMutation}
+            ></SubTask>
+          )}
           <List>
             <h2>Sub Tasks</h2>
             {taskDetail?.Tasks?.map(subtask => {
               return (
-                <Accordion>
-                  <AccordionSummary
-                    className={classes.subTaskItem}
-                    key={subtask.id}
-                  >
+                <Accordion
+                  className={classes.subTaskItem}
+                  style={{ boxShadow: "0 0 2px 1px #999" }}
+                >
+                  <AccordionSummary key={subtask.id}>
                     <ListItem>
                       <ListItemAvatar>
                         <Avatar>
@@ -126,6 +138,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({ taskDetail }) => {
                       subtask.formId,
                     ])}
                     readonly={true}
+                    modelData={subtask?.Form?.values}
                   />
                 </Accordion>
               );

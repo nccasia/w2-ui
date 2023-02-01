@@ -142,6 +142,7 @@ export const TaskDetailFragmemt = gql`
     values
     parentId
     priority
+    state
     userByCreatorid {
       id
       email
@@ -197,6 +198,7 @@ export const TaskFragment = gql`
     }
     Form {
       id
+      values
     }
   }
 `;
