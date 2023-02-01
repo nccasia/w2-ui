@@ -61,6 +61,7 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
         creatorId={task.creatorId}
         avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
         title={task.title}
+        state={task.state}
       />
       <Hr />
       <CardContent style={{ paddingBottom: "47px" }}>
