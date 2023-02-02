@@ -7930,3 +7930,10 @@ export type GetCommentQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCommentQuery = { __typename: 'query_root', Comment_connection: { __typename: 'CommentConnection', edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, taskId: number, creatorId: number, content: string, createdAt: any, updatedAt: any, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null }, Task: { __typename: 'Task', id: string } } }> } };
+
+export type GetMyTasksQueryVariables = Exact<{
+  _eq: Scalars['Int'];
+}>;
+
+
+export type GetMyTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, stateName: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };

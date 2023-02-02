@@ -72,6 +72,8 @@ export const taskDefinitionPath = () =>
 
 export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 
+export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
+
 export const taskListUrl = (params?: any): string => {
   const taskList = taskListPath;
   if (params === undefined) {

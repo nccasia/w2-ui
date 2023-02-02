@@ -12,9 +12,10 @@ import React from "react";
 
 interface TaskListProps {
   params: TaskListUrlQueryParams;
+  id: string;
 }
 
-export const TaskList: React.FC<TaskListProps> = ({ params }) => {
+export const TaskList: React.FC<TaskListProps> = ({ params, id }) => {
   const navigate = useNavigator();
   const { channel } = {
     channel: undefined,
@@ -45,7 +46,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params }) => {
   return (
     <>
       <PaginatorContext.Provider value={paginationValues}>
-        <TaskListPage onAdd={() => openModal("create-task")} />
+        <TaskListPage onAdd={() => openModal("create-task")} id={id} />
         {!noTaskType && (
           <TaskCreation
             open={params.action === "create-task"}

@@ -1,6 +1,7 @@
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import tasksIcon from "@assets/images/tasks-icon.svg";
 import { useExtensions } from "@saleor/apps/useExtensions";
+import { useUser } from "@saleor/auth";
 import { sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
@@ -25,6 +26,9 @@ function useMenuStructure(
       return;
     }
   };
+  const users = useUser();
+  // eslint-disable-next-line no-console
+  console.log("22222", users.user.userId);
 
   const menuItems: FilterableMenuItem[] = [
     {
@@ -39,7 +43,7 @@ function useMenuStructure(
       iconSrc: tasksIcon,
       label: "My Tasks",
       id: "tasks",
-      url: "/taskboard",
+      url: `/taskboard/${users.user.userId}`,
     },
     {
       ariaLabel: "Works & Projects",
@@ -53,86 +57,10 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "WFH request",
           id: "wfhRequest",
-          url: "/taskboard",
+          url: "/taskboard/wfh-request",
         },
       ],
     },
-    // {
-    //   ariaLabel: "Project Management",
-    //   iconSrc: tasksIcon,
-    //   label: "Project Management",
-    //   id: "project",
-    //   url: "/taskboard",
-    //   children: [
-    //     {
-    //       ariaLabel: "Weekly Report",
-    //       iconSrc: tasksIcon,
-    //       label: "Weekly Report",
-    //       id: "weeklyreport",
-    //       url: "/taskboard",
-    //     },
-    //     {
-    //       ariaLabel: "Weekly Meeting",
-    //       iconSrc: tasksIcon,
-    //       label: "Weekly Meeting",
-    //       id: "weeklymeeting",
-    //       url: "/taskboard",
-    //     },
-    //     {
-    //       ariaLabel: "Retrospective",
-    //       iconSrc: tasksIcon,
-    //       label: "Retrospective",
-    //       id: "retrospective",
-    //       url: "/taskboard",
-    //     },
-    //   ],
-    // },
-    // {
-    //   ariaLabel: "Training & Development",
-    //   iconSrc: tasksIcon,
-    //   label: "Training & Development",
-    //   id: "training",
-    //   url: "/taskboard",
-    //   children: [
-    //     {
-    //       ariaLabel: "Review Intern",
-    //       iconSrc: tasksIcon,
-    //       label: "Review Intern",
-    //       id: "reviewintern",
-    //       url: "/taskboard",
-    //     },
-    //   ],
-    // },
-    // {
-    //   ariaLabel: "Company Activities",
-    //   iconSrc: tasksIcon,
-    //   label: "Company Activities",
-    //   id: "general",
-    //   url: "/taskboard",
-    //   children: [
-    //     {
-    //       ariaLabel: "Đăng ký Open Tasks",
-    //       iconSrc: tasksIcon,
-    //       label: "Open tasks",
-    //       id: "opentalks",
-    //       url: "/taskboard",
-    //     },
-    //   ],
-    // },
-    // {
-    //   ariaLabel: "NCC8 Producer",
-    //   iconSrc: tasksIcon,
-    //   label: "NCC8 Producer",
-    //   id: "ncc8",
-    //   url: "/taskboard",
-    // },
-    // {
-    //   ariaLabel: "Finance",
-    //   iconSrc: tasksIcon,
-    //   label: "Finance",
-    //   id: "finance",
-    //   url: "/taskboard",
-    // },
     {
       ariaLabel: "Office",
       iconSrc: tasksIcon,
@@ -149,36 +77,6 @@ function useMenuStructure(
         },
       ],
     },
-    // {
-    //   ariaLabel: "Sale & marketing",
-    //   iconSrc: tasksIcon,
-    //   label: "Sale & marketing",
-    //   id: "sale",
-    //   url: "/taskboard",
-    //   children: [
-    //     {
-    //       ariaLabel: "Estimate - Quotation",
-    //       iconSrc: tasksIcon,
-    //       label: "Estimate - Quotation",
-    //       id: "estimate",
-    //       url: "/taskboard",
-    //     },
-    //     {
-    //       ariaLabel: "Bid & Inteview",
-    //       iconSrc: tasksIcon,
-    //       label: "Bid & Inteview",
-    //       id: "bid",
-    //       url: "/taskboard",
-    //     },
-    //   ],
-    // },
-    // {
-    //   ariaLabel: "Sipdo",
-    //   iconSrc: tasksIcon,
-    //   label: "Sipdo",
-    //   id: "sipdo",
-    //   url: "/taskboard",
-    // },
     {
       ariaLabel: "Asset & Facility",
       iconSrc: tasksIcon,
@@ -195,36 +93,6 @@ function useMenuStructure(
         },
       ],
     },
-    // {
-    //   ariaLabel: "Human Resource",
-    //   iconSrc: tasksIcon,
-    //   label: "Human Resource",
-    //   id: "hr",
-    //   url: "/taskboard",
-    //   children: [
-    //     {
-    //       ariaLabel: "Interview",
-    //       iconSrc: tasksIcon,
-    //       label: "Interview",
-    //       id: "interview",
-    //       url: "/taskboard",
-    //     },
-    //     {
-    //       ariaLabel: "Onboarding",
-    //       iconSrc: tasksIcon,
-    //       label: "Onboarding",
-    //       id: "onboarding",
-    //       url: "/taskboard",
-    //     },
-    //     {
-    //       ariaLabel: "Offboarding",
-    //       iconSrc: tasksIcon,
-    //       label: "Offboarding",
-    //       id: "offboarding",
-    //       url: "/taskboard",
-    //     },
-    //   ],
-    // },
   ];
 
   const isMenuItemPermitted = (menuItem: FilterableMenuItem) => {

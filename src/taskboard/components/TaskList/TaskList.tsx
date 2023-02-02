@@ -5,7 +5,7 @@ import {
   TableHead,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { CSSProperties } from "@material-ui/styles";
+// import { CSSProperties } from "@material-ui/styles";
 import Container from "@saleor/components/Container";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
@@ -19,55 +19,43 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
-  theme => {
-    const overflowing: CSSProperties = {
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    };
-
-    return {
-      [theme.breakpoints.up("lg")]: {
-        colUser: {
-          width: 220,
-        },
-        colTask: {
-          width: 230,
-        },
-        colID: {
-          width: 120,
-        },
-        colStatus: {
-          width: 220,
-        },
-        colType: {},
-        colDate: {},
-        colPriority: {},
-        colState: {},
-        colRow: {
-          cursor: "pointer",
-        },
-      },
-      pill: {
-        maxWidth: "100%",
-        ...overflowing,
-      },
-      colUser: overflowing,
-      colPriority: {},
-      colID: {},
-      colStatus: {},
-      priority: {
-        display: "flex",
-        padding: "0 !important",
-        alignItems: "center",
-      },
-      colDate: {
-        textAlign: "right",
-      },
-      link: {
-        cursor: "pointer",
-      },
-    };
-  },
+  () => ({
+    colUser: {
+      width: "20%",
+    },
+    colTask: {
+      width: 230,
+    },
+    colTitle: {
+      width: "40%",
+    },
+    colID: {
+      width: 120,
+    },
+    colStatus: {
+      width: "20%",
+    },
+    colType: {},
+    colDate: {},
+    colPriority: {
+      width: "20%",
+    },
+    colState: {},
+    colRow: {
+      cursor: "pointer",
+    },
+    pill: {
+      maxWidth: "100%",
+    },
+    priority: {
+      display: "flex",
+      padding: "0 !important",
+      alignItems: "center",
+    },
+    link: {
+      cursor: "pointer",
+    },
+  }),
   { name: "TaskList" },
 );
 
@@ -86,7 +74,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     <ResponsiveTable>
       <TableHead>
         <TableRowLink>
-          <TableCellHeader className={classes.colTask}>
+          <TableCellHeader className={classes.colTitle}>
             <FormattedMessage id="9a9+ww" defaultMessage="Title" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
@@ -119,7 +107,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
               href={task && taskUrl(`${task.id}`)}
               className={classes.colRow}
             >
-              <TableCell className={classes.colTask}>
+              <TableCell className={classes.colTitle}>
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colUser}>
