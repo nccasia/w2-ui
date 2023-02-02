@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { MutationFunction } from "@apollo/client/react/types/types";
 import { Card, CardContent, makeStyles, Modal } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
@@ -29,7 +28,7 @@ const useStyles = makeStyles(
       "& .MuiFormGroup-root>label": {
         padding: "0 10px 0 0",
         borderRadius: "4px",
-        boxShadow: "0 0 2px 1px #999",
+        border: "1px solid rgba(37, 41, 41, 0.1)",
       },
     },
   }),
@@ -70,8 +69,7 @@ const SubTask = ({ task, submitTaskMutation }: SubTaskType): JSX.Element => {
         <Loading />
       </Modal>
       <TaskTitle
-        creatorId={task.creatorId}
-        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
+        user={task.userByCreatorid}
         title={task.title}
         state={task.state}
       />

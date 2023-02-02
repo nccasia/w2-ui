@@ -78,7 +78,7 @@ export const useStyles = makeStyles(
       "& .MuiFormGroup-root label": {
         padding: "0 10px 0 0",
         borderRadius: "4px",
-        boxShadow: "0 0 2px 1px #999",
+        border: "1px solid rgba(37, 41, 41, 0.1)",
       },
       "& .MuiFormControl-root>.MuiFormGroup-root": {
         justifyContent: "space-around !important",

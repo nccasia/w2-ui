@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import DefaultCardTitle from "@saleor/components/CardTitle";
-import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import UserChip from "@saleor/components/UserChip";
 import { CircleIndicator, makeStyles, Pill } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -51,18 +51,17 @@ const useStyles = makeStyles(
 );
 
 interface TaskTitleProps {
-  creatorId?: number;
-  avatar?: string;
+  user?: any;
   title?: string;
   state?: string;
   status?: string;
 }
 
 const TaskTitle: React.FC<TaskTitleProps> = ({
-  creatorId,
   title,
   state,
   status,
+  user,
 }) => {
   const classes = useStyles();
   return (
@@ -92,7 +91,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
       />
       <div className={classes.avatar}>
         <Avatar>
-          <CustomAvatar id={creatorId} />
+          <UserChip user={user} />
         </Avatar>
       </div>
     </div>

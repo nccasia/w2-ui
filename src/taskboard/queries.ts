@@ -13,7 +13,11 @@ export const TaskEventLogFragment = gql`
     action
     createdAt
     User {
+      id
       email
+      lastname
+      firstname
+      avatarId
     }
   }
 `;
@@ -199,6 +203,29 @@ export const TaskFragment = gql`
     Form {
       id
       values
+    }
+    userByCreatorid {
+      id
+      email
+      firstname
+      lastname
+      organizationId
+      role
+    }
+    userByReporterid {
+      id
+      email
+      firstname
+      lastname
+      organizationId
+      role
+    }
+    User {
+      id
+      firstname
+      lastname
+      email
+      avatarId
     }
   }
 `;

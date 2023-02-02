@@ -7,9 +7,9 @@ import {
 } from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
-import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Grid from "@saleor/components/Grid";
+import UserChip from "@saleor/components/UserChip";
 import { useSubmitTaskMutation } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import {
@@ -81,24 +81,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
       <Backlink href={taskListUrl()}>
         {intl.formatMessage(sectionNames.tasks)}
       </Backlink>
-      {/* <PageHeader
-        className={classes.header}
-        inline
-        title={
-          <Title
-            props={{
-              title: taskDetail.title,
-              status: taskDetail.status,
-            }}
-          />
-        }
-        // cardMenu={<RightMenu />}
-      />
-      <div className={classes.date}>
-        <Typography variant="body2">
-          <DateTime date={taskDetail.dueDate} />
-        </Typography>
-      </div> */}
       <Grid>
         <div>
           <Task task={taskDetail} />
@@ -115,19 +97,22 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
               return (
                 <Accordion
                   className={classes.subTaskItem}
-                  style={{ boxShadow: "0 0 2px 1px #999" }}
+                  style={{
+                    border: "1px solid rgba(37, 41, 41, 0.1)",
+                    borderRadius: 6,
+                  }}
                 >
                   <AccordionSummary key={subtask.id}>
                     <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <CustomAvatar id={taskDetail.creatorId} />
-                        </Avatar>
-                      </ListItemAvatar>
                       <ListItemText primary={subtask.title} />
                       <ListItemText primary={subtask.state} />
                       <ListItemText primary={subtask.status} />
                       <ListItemText primary={subtask.priority} />
+                      <ListItemAvatar>
+                        <Avatar>
+                          <UserChip user={taskDetail.userByCreatorid} />
+                        </Avatar>
+                      </ListItemAvatar>
                     </ListItem>
                   </AccordionSummary>
                   <FormSchema

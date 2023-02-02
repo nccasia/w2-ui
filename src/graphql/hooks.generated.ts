@@ -46,6 +46,29 @@ export const TaskFragmentFragmentDoc = gql`
     id
     values
   }
+  userByCreatorid {
+    id
+    email
+    firstname
+    lastname
+    organizationId
+    role
+  }
+  userByReporterid {
+    id
+    email
+    firstname
+    lastname
+    organizationId
+    role
+  }
+  User {
+    id
+    firstname
+    lastname
+    email
+    avatarId
+  }
 }
     `;
 export const TaskEventLogFragmentFragmentDoc = gql`
@@ -61,7 +84,11 @@ export const TaskEventLogFragmentFragmentDoc = gql`
   action
   createdAt
   User {
+    id
     email
+    lastname
+    firstname
+    avatarId
   }
 }
     `;

@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import Hr from "@saleor/components/Hr";
-import { makeStyles } from "@saleor/macaw-ui";
 import { choices } from "@saleor/taskboard/__mock__/Task";
 import { useMockAutocomplete } from "@saleor/taskboard/utils";
 import React from "react";
@@ -11,19 +10,19 @@ import CardContentItemInput from "./components/CardContentItemInput";
 import CardContentItemMultipleChoice from "./components/CardContentItemMultipleChoice";
 import CardContentItemSingleChoice from "./components/CardContentItemSingleChoice";
 
-const useStyles = makeStyles(
-  theme => ({
-    range: {
-      marginTop: theme.spacing(5),
-    },
-  }),
-  { name: "TaskDetailSidebar" },
-);
+// const useStyles = makeStyles(
+//   theme => ({
+//     range: {
+//       marginTop: theme.spacing(5),
+//     },
+//   }),
+//   { name: "TaskDetailSidebar" },
+// );
 
 const TaskDetailSidebar = () => {
   const intl = useIntl();
   const { results, search } = useMockAutocomplete(choices);
-  const classes = useStyles();
+  // const classes = useStyles();
   return (
     <React.Fragment>
       <Card>
@@ -59,7 +58,7 @@ const TaskDetailSidebar = () => {
           <CardContentItemInput value="2d 4h" title="Original estimate" />
         </CardContent>
       </Card>
-      <Card className={classes.range}>
+      {/* <Card className={classes.range}>
         <CardTitle
           title={intl.formatMessage({
             id: "YAruc9",
@@ -81,7 +80,7 @@ const TaskDetailSidebar = () => {
           />
           <CardContentItemInput title="Original estimate" />
         </CardContent>
-      </Card>
+      </Card> */}
     </React.Fragment>
   );
 };
