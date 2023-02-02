@@ -31,18 +31,17 @@ const Task = ({ task }: TaskType) => {
   return (
     <Card className={classes.container}>
       <TaskTitle
-        creatorId={task.creatorId}
-        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
+        user={task.userByCreatorid}
         title={task.title}
-        state={task.state}
-        status={task.status}
+        state={task?.state}
+        status={task?.status}
       />
       <div className={classes.editor}>
         {false && <AutoForm schema={bridge} />}
         {task.definitionId && (
           <>
             <FormSchema
-              formId={task.Form.id}
+              formId={task?.Form?.id}
               readonly={true}
               modelData={task.values}
             />
