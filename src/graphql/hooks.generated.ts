@@ -44,6 +44,30 @@ export const TaskFragmentFragmentDoc = gql`
   }
   Form {
     id
+    values
+  }
+  userByCreatorid {
+    id
+    email
+    firstname
+    lastname
+    organizationId
+    role
+  }
+  userByReporterid {
+    id
+    email
+    firstname
+    lastname
+    organizationId
+    role
+  }
+  User {
+    id
+    firstname
+    lastname
+    email
+    avatarId
   }
 }
     `;
@@ -60,7 +84,11 @@ export const TaskEventLogFragmentFragmentDoc = gql`
   action
   createdAt
   User {
+    id
     email
+    lastname
+    firstname
+    avatarId
   }
 }
     `;
@@ -78,6 +106,7 @@ export const TaskDetailFragmemtFragmentDoc = gql`
   values
   parentId
   priority
+  state
   userByCreatorid {
     id
     email

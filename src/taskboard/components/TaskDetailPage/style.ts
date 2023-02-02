@@ -66,7 +66,24 @@ export const useStyles = makeStyles(
       cursor: "pointer",
     },
     subTaskItem: {
-      boxShadow: "0 0 2px 1px #999",
+      "& form": {
+        padding: 20,
+      },
+      "& form>.MuiButtonBase-root": {
+        display: "none",
+      },
+      "& form>.MuiFormControl-root": {
+        maxWidth: "100% !important",
+      },
+      "& .MuiFormGroup-root label": {
+        padding: "0 10px 0 0",
+        borderRadius: "4px",
+        border: "1px solid rgba(37, 41, 41, 0.1)",
+      },
+      "& .MuiFormControl-root>.MuiFormGroup-root": {
+        justifyContent: "space-around !important",
+        flexDirection: "initial !important",
+      },
       marginBottom: 10,
       "& .MuiAvatar-root": {
         "& :hover": {

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useGetOfficeList } from "@saleor/hooks/useGetOfficeList";
 import React from "react";
 import { AutoFieldProps, SelectField } from "uniforms-material";

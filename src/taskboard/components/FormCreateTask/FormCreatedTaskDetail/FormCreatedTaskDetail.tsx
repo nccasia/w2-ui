@@ -23,7 +23,7 @@ const useStyles = makeStyles(
         background: "#333",
         border: "none",
         color: "#fff",
-        marginTop: 60,
+        marginTop: 20,
       },
       "& .MuiButtonBase-root": {
         background: "#333",

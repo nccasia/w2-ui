@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import DefaultCardTitle from "@saleor/components/CardTitle";
-import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import UserChip from "@saleor/components/UserChip";
 import { CircleIndicator, makeStyles, Pill } from "@saleor/macaw-ui";
 import React from "react";
 
@@ -51,12 +51,18 @@ const useStyles = makeStyles(
 );
 
 interface TaskTitleProps {
-  creatorId?: number;
-  avatar?: string;
+  user?: any;
   title?: string;
+  state?: string;
+  status?: string;
 }
 
-const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
+const TaskTitle: React.FC<TaskTitleProps> = ({
+  title,
+  state,
+  status,
+  user,
+}) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -71,8 +77,13 @@ const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
               {title}
               <Pill
                 className={classes.cardPill}
-                label={"WAIT_PM_APPROVE"}
+                label={state}
                 color="warning"
+              />
+              <Pill
+                className={classes.cardPill}
+                label={status}
+                color="success"
               />
             </Typography>
           </div>
@@ -80,7 +91,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({ creatorId, title }) => {
       />
       <div className={classes.avatar}>
         <Avatar>
-          <CustomAvatar id={creatorId} />
+          <UserChip user={user} />
         </Avatar>
       </div>
     </div>

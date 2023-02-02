@@ -1,13 +1,12 @@
 import { Avatar, Button, Card, TextField, Typography } from "@material-ui/core";
-import SendIcon from "@material-ui/icons/Send";
-import CustomAvatar from "@saleor/components/CustomAvatar/CustomAvatar";
+import UserChip from "@saleor/components/UserChip";
 import { useGetCommentQuery, useInsertCommentMutation } from "@saleor/graphql";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useCallback, useMemo, useState } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 const useStyles = makeStyles(
   theme => ({
@@ -35,12 +34,27 @@ const useStyles = makeStyles(
       color: "#516079",
       marginRight: theme.spacing(2),
     },
-    inputAddComment: {
-      width: "100%",
-    },
     addComment: {
       display: "flex",
       marginBottom: theme.spacing(4),
+    },
+    button: {
+      zIndex: 2,
+      padding: `7px`,
+      borderTopLeftRadius: 0,
+      borderBottomLeftRadius: 0,
+    },
+    input: {
+      "& > div": {
+        padding: "0 0 0 14px",
+      },
+      "& textarea": {
+        "&::placeholder": {
+          opacity: [[1], "!important"] as any,
+        },
+        zIndex: 2,
+      },
+      background: theme.palette.background.paper,
     },
   }),
   { name: "TaskComment" },
@@ -119,7 +133,7 @@ const Comment = ({ comments }) => {
     <div className={classes.container}>
       <div style={{ width: "8%", cursor: "pointer" }}>
         <Avatar>
-          <CustomAvatar id={comments.creatorId} />
+          <UserChip user={comments.User} />
         </Avatar>
       </div>
       <div style={{ width: "92%" }}>
@@ -143,23 +157,33 @@ const AddComment = ({
   setTextCommentField,
 }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
   return (
     <div className={classes.addComment}>
       <TextField
-        className={classes.inputAddComment}
-        label={"Comment"}
-        placeholder={"Enter the comment..."}
-        value={textCommentField}
+        className={classes.input}
+        placeholder={intl.formatMessage({
+          id: "xgPyKg",
+          defaultMessage: "Enter the comment...",
+        })}
         onChange={e => setTextCommentField(e.target.value)}
+        value={textCommentField}
+        name="message"
+        fullWidth
+        multiline
+        InputProps={{
+          endAdornment: (
+            <Button
+              className={classes.button}
+              onClick={() => onCommentTask(textCommentField)}
+            >
+              <FormattedMessage id="9WRlF4" defaultMessage="Send" />
+            </Button>
+          ),
+        }}
+        variant="outlined"
       />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => onCommentTask(textCommentField)}
-      >
-        <SendIcon />
-      </Button>
     </div>
   );
 };

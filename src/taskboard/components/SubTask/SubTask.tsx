@@ -1,10 +1,10 @@
-/* eslint-disable no-console */
+import { MutationFunction } from "@apollo/client/react/types/types";
 import { Card, CardContent, makeStyles, Modal } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
-import { TaskFragmentFragment, useSubmitTaskMutation } from "@saleor/graphql";
-import { alertConfirmSubTask } from "@saleor/taskboard/utils";
+import { SubmitTaskMutation, TaskFragmentFragment } from "@saleor/graphql";
+import { Exact } from "@saleor/sdk/dist/apollo/types";
 import React, { useState } from "react";
 
 import TaskTitle from "../TaskTitle";
@@ -21,22 +21,33 @@ const useStyles = makeStyles(
         paddingTop: "25px!important",
         paddingBottom: "10px!important",
       },
+      "& .MuiFormControl-root>.MuiFormGroup-root": {
+        justifyContent: "space-around",
+        flexDirection: "initial !important",
+      },
+      "& .MuiFormGroup-root>label": {
+        padding: "0 10px 0 0",
+        borderRadius: "4px",
+        border: "1px solid rgba(37, 41, 41, 0.1)",
+      },
     },
   }),
   { name: "SubTask" },
 );
 interface SubTaskType {
   task: TaskFragmentFragment;
+  submitTaskMutation: MutationFunction<
+    SubmitTaskMutation,
+    Exact<{
+      value: any;
+      formId: number;
+      taskId: number;
+    }>
+  >;
 }
-const SubTask = ({ task }: SubTaskType): JSX.Element => {
+const SubTask = ({ task, submitTaskMutation }: SubTaskType): JSX.Element => {
   const classes = useStyles();
   const [loading, setLoading] = useState<boolean>(false);
-
-  const [submitTaskMutation] = useSubmitTaskMutation({
-    onCompleted: () => {
-      alertConfirmSubTask("success", "Submit Success!");
-    },
-  });
 
   const handleConfirm = async formValue => {
     setLoading(true);
@@ -58,9 +69,9 @@ const SubTask = ({ task }: SubTaskType): JSX.Element => {
         <Loading />
       </Modal>
       <TaskTitle
-        creatorId={task.creatorId}
-        avatar="https://c.wallhere.com/images/9f/27/449bb23063f3cf8d8f7fbcf13a6e-1519917.jpg!d"
+        user={task.userByCreatorid}
         title={task.title}
+        state={task.state}
       />
       <Hr />
       <CardContent style={{ paddingBottom: "47px" }}>
