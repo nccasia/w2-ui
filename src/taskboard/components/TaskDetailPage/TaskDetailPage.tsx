@@ -150,7 +150,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
           </div>
         </div>
         <div>
-          <TaskDetailSidebar />
+          <TaskDetailSidebar task={taskDetail} />
         </div>
       </Grid>
     </Container>

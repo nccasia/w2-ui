@@ -19,7 +19,11 @@ import CardContentItemSingleChoice from "./components/CardContentItemSingleChoic
 //   { name: "TaskDetailSidebar" },
 // );
 
-const TaskDetailSidebar = () => {
+interface Props {
+  task: any;
+}
+
+const TaskDetailSidebar: React.FC<Props> = () => {
   const intl = useIntl();
   const { results, search } = useMockAutocomplete(choices);
   // const classes = useStyles();
@@ -35,7 +39,7 @@ const TaskDetailSidebar = () => {
         />
         <Hr />
         <CardContent>
-          <CardContentItemMultipleChoice
+          <CardContentItemSingleChoice
             results={results}
             search={search}
             title={"Requester"}
@@ -45,7 +49,7 @@ const TaskDetailSidebar = () => {
             search={search}
             title={"Assignee"}
           />
-          <CardContentItemMultipleChoice
+          {/* <CardContentItemMultipleChoice
             results={results}
             search={search}
             title={"Reporter"}
@@ -54,7 +58,7 @@ const TaskDetailSidebar = () => {
             results={results}
             search={search}
             title={"Labels"}
-          />
+          /> */}
           <CardContentItemInput value="2d 4h" title="Original estimate" />
         </CardContent>
       </Card>
