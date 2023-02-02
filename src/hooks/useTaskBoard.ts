@@ -1,9 +1,7 @@
 import { useGetMyTasksQuery, useGetTasksQuery } from "@saleor/graphql";
 import { useMemo } from "react";
 export function useTaskBoard(id: string) {
-  const { data } = useGetTasksQuery({
-    variables: {},
-  });
+  const { data } = useGetTasksQuery();
   const myTasks = useGetMyTasksQuery({
     variables: {
       _eq: +id,

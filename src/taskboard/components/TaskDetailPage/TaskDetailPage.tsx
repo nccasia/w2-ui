@@ -21,6 +21,7 @@ import {
 import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
+import clsx from "clsx";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -96,11 +97,10 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
             {taskDetail?.Tasks?.map(subtask => {
               return (
                 <Accordion
-                  className={classes.subTaskItem}
-                  style={{
-                    border: "1px solid rgba(37, 41, 41, 0.1)",
-                    borderRadius: 6,
-                  }}
+                  className={clsx([
+                    classes.subTaskItem,
+                    classes.subTaskContainer,
+                  ])}
                 >
                   <AccordionSummary key={subtask.id}>
                     <ListItem>
