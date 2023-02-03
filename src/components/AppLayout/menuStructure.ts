@@ -27,8 +27,6 @@ function useMenuStructure(
     }
   };
   const users = useUser();
-  // eslint-disable-next-line no-console
-  console.log("22222", users.user.userId);
 
   const menuItems: FilterableMenuItem[] = [
     {
@@ -73,7 +71,7 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "Change office request",
           id: "changeOfficeRequest",
-          url: "/taskboard",
+          url: "/taskboard/change-office-request",
         },
       ],
     },
@@ -89,7 +87,7 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "Device requests",
           id: "devicerequests",
-          url: "/taskboard",
+          url: "/taskboard/device-request",
         },
       ],
     },

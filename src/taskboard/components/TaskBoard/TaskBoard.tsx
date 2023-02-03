@@ -3,48 +3,58 @@ import Board from "react-trello";
 interface TaskBoardProps {
   data: any;
 }
+const test = {
+  data: [
+    {
+      id: "COR555",
+      title: "Change Office Request",
+      description: "Change Office Request",
+      label: "30 mins",
+      status: "Done",
+      draggable: false,
+    },
+    {
+      id: "COR11",
+      title: "Change",
+      description: "Change Office Request",
+      label: "30 mins",
+      status: "Request",
+      draggable: false,
+    },
+  ],
+};
 export const TaskBoard: React.FC<TaskBoardProps> = ({ data }) => {
+  // const { data } = useGetTasksQueryLazy();
   const convertData = useMemo(() => {
-    // eslint-disable-next-line no-console
-    console.log("===", data);
     let result;
-    if (data.Task_connection.edges) {
+    if (data?.viewConfig) {
       result = {
-        lanes: data.Task_connection.edges.map(item => {
+        lanes: data?.viewConfig.map(e => {
           return {
-            id: `${item.node.id}`,
-            title: `${item.node.title}`,
+            id: e,
+            title: e,
             label: "2/2",
-            cards: [
-              {
-                id: `${item.node.id}card1`,
-                title: "Write Blog",
-                description: "Can AI make memes",
-                label: "30 mins",
-                draggable: false,
-              },
-              {
-                id: `${item.node.id}card2`,
-                title: "Pay Rent",
-                description: "Transfer via NEFT",
-                label: "5 mins",
-                metadata: { sha: "be312a1" },
-              },
-            ],
+            cards: test.data.filter(item => {
+              if (item.status === e) {
+                return {
+                  id: item.id,
+                  title: item.title,
+                  description: item.description,
+                  label: "30 mins",
+                  draggable: false,
+                };
+              }
+            }),
           };
         }),
       };
-      // eslint-disable-next-line no-console
-      console.log("===333333333333", result);
       return result;
     }
   }, [data]);
-  // eslint-disable-next-line no-console
-  console.log("1-------", convertData);
 
   return (
     <>
-      <Board data={convertData} />
+      <Board data={convertData} style={{ backgroundColor: "transparent" }} />
     </>
   );
 };

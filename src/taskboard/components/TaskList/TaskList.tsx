@@ -5,17 +5,17 @@ import {
   TableHead,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-// import { CSSProperties } from "@material-ui/styles";
 import Container from "@saleor/components/Container";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
+import { useGetMyTasksQuery } from "@saleor/graphql";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
-import { Task } from "@saleor/taskboard/model/Task";
 import { taskUrl } from "@saleor/taskboard/urls";
-import React from "react";
+import { mapEdgesToItems } from "@saleor/utils/maps";
+import React, { useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
@@ -60,14 +60,25 @@ const useStyles = makeStyles(
 );
 
 interface TaskListProps {
-  tasks: Task[] | [];
+  id: string;
 }
 
 const numberOfColumns = 8;
 
-export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+export const TaskList: React.FC<TaskListProps> = ({ id }) => {
   const classes = useStyles();
-
+  const { data, loading } = useGetMyTasksQuery({
+    variables: {
+      _eq: +id,
+    },
+  });
+  const getTaskList = useMemo(() => {
+    if (loading) {
+      return;
+    } else {
+      return mapEdgesToItems(data?.Task_connection);
+    }
+  }, [data]);
   const onUpdateListSettings = (_key: any, _value: any) => null;
 
   return (
@@ -100,7 +111,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
       </TableFooter>
       <TableBody>
         {renderCollection(
-          tasks,
+          getTaskList,
           task => (
             <TableRowLink
               hover={!!task}

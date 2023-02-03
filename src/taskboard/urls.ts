@@ -74,11 +74,18 @@ export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 
 export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
 
-export const taskListUrl = (params?: any): string => {
-  const taskList = taskListPath;
+export const taskListUrl = (params?: any, id?: string): string => {
+  let taskList = "/taskboard";
+  if (id) {
+    taskList = urljoin(taskList, `/${id}`);
+    // eslint-disable-next-line no-console
+    console.log(444444444, taskList);
+  }
   if (params === undefined) {
     return taskList;
   } else {
+    // eslint-disable-next-line no-console
+    console.log(222222222111, params);
     return urljoin(taskList, "?" + stringifyQs(params));
   }
 };

@@ -1,14 +1,13 @@
 import Card from "@material-ui/core/Card/Card";
+import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
 import { FilterElement } from "@saleor/components/Filter";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
-import { useGetTasksQuery } from "@saleor/graphql";
 import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import { sectionNames } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
-import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
@@ -20,13 +19,12 @@ export interface TaskListPageProps {
 }
 
 const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
-  const { data } = useGetTasksQuery();
+  const user = useUser();
   const intl = useIntl();
-  const dataa = useTaskBoard(id);
-  // eslint-disable-next-line no-console
-  console.log("ddddd", data);
+  const data = useTaskBoard(id);
+
   // const dataBoard = useConfigTaskList(id);
-  const resultMapsEdges = mapEdgesToItems(dataa.data?.Task_connection);
+
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
@@ -49,8 +47,8 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
           />
         </ButtonWithSelect>
       </PageHeader>
-      {dataa.type === "board" && <TaskBoard data={dataa.data}></TaskBoard>}
-      {dataa.type !== "board" && (
+      {data.type === "board" && <TaskBoard data={data}></TaskBoard>}
+      {data.type === "list" && (
         <>
           <Card>
             <FilterBar
@@ -89,7 +87,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
               }}
             />
           </Card>
-          <TaskList tasks={resultMapsEdges} />
+          <TaskList id={user.user.userId} />
         </>
       )}
     </Container>

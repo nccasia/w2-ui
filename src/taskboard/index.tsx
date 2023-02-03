@@ -28,8 +28,6 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
     false,
   );
   const id = match.params.id;
-  // eslint-disable-next-line no-console
-  console.log("2->", id);
   return <TaskListComponent params={params} id={id} />;
 };
 
