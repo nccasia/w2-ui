@@ -1,10 +1,9 @@
-import Card from "@material-ui/core/Card/Card";
+import SettingsIcon from "@material-ui/icons/Settings";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
-import { FilterElement } from "@saleor/components/Filter";
-import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import { useGetTasksQuery } from "@saleor/graphql";
+import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
 import { mapEdgesToItems } from "@saleor/utils/maps";
@@ -19,18 +18,12 @@ export interface TaskListPageProps {
 
 const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
   const { data } = useGetTasksQuery();
+  const navigate = useNavigator();
   const resultMapsEdges = mapEdgesToItems(data?.Task_connection);
   const intl = useIntl();
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
-        <Button variant="primary">
-          <FormattedMessage
-            id="cF1/Vc"
-            defaultMessage="Workflow"
-            description="button"
-          />
-        </Button>
         <ButtonWithSelect
           options={[]}
           data-test-id="create-task-button"
@@ -42,8 +35,15 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
             description="button"
           />
         </ButtonWithSelect>
+        <Button
+          variant="primary"
+          style={{ marginLeft: 20, padding: 8 }}
+          onClick={() => navigate(`/taskboard/workflow`)}
+        >
+          <SettingsIcon />
+        </Button>
       </PageHeader>
-      <Card>
+      {/* <Card>
         <FilterBar
           searchPlaceholder={intl.formatMessage({
             id: "Ut9v0j",
@@ -79,7 +79,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
             throw new Error("Function not implemented.");
           }}
         />
-      </Card>
+      </Card> */}
       <TaskList tasks={resultMapsEdges} />
     </Container>
   );

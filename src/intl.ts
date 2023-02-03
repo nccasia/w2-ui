@@ -377,6 +377,11 @@ export const sectionNames = defineMessages({
     defaultMessage: "Tasks",
     description: "tasks section name",
   },
+  workFlow: {
+    id: "y5vPWi",
+    defaultMessage: "WorkFlow",
+    description: "workFlow section name",
+  },
   channels: {
     id: "NlSJMM",
     defaultMessage: "Channels",

@@ -15,8 +15,10 @@ import urljoin from "url-join";
 export const taskBoardSectionUrl = "/taskboard";
 
 export const taskSectionUrl = urljoin(taskBoardSectionUrl, "tasks");
+export const workFlowSectionUrl = urljoin(taskBoardSectionUrl, "workflow");
 
 export const taskListPath = taskSectionUrl;
+export const workFlowPath = workFlowSectionUrl;
 type CreatetaskDialog = "create-task";
 
 export enum TaskListUrlFiltersEnum {
@@ -58,6 +60,13 @@ export type TaskListUrlQueryParams = BulkAction &
   TaskListUrlSort &
   Pagination &
   ActiveTab;
+
+export const taskDefinitionPath = () =>
+  urljoin(taskBoardSectionUrl, "settings");
+
+export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
+export const workFlowPathUrl = (id: string) => urljoin(workFlowSectionUrl, id);
+
 export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
   const orderList = taskListPath;
   if (params === undefined) {
@@ -66,11 +75,6 @@ export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
     return urljoin(orderList, "?" + stringifyQs(params));
   }
 };
-
-export const taskDefinitionPath = () =>
-  urljoin(taskBoardSectionUrl, "settings");
-
-export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 
 export const taskListUrl = (params?: any): string => {
   const taskList = taskListPath;
@@ -81,5 +85,16 @@ export const taskListUrl = (params?: any): string => {
   }
 };
 
+export const workUrl = (params?: any): string => {
+  const workFlowList = workFlowPath;
+  if (params === undefined) {
+    return workFlowList;
+  } else {
+    return urljoin(workFlowList, "?" + stringifyQs(params));
+  }
+};
+
 export const taskUrl = (id: string, params?: any) =>
   taskPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
+export const workFlowUrl = (id: string, params?: any) =>
+  workFlowPathUrl(encodeURIComponent(id)) + "?" + stringifyQs(params);

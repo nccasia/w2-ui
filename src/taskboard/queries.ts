@@ -117,7 +117,8 @@ export const getTasks = gql`
           status
           teamId
           title
-          stateName
+          assigneeId
+          state
           User {
             id
             firstname

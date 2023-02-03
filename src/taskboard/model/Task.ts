@@ -56,6 +56,7 @@ export interface Task {
   teamId: number;
   title: string;
   User: User;
+  state: string;
   __typename?: string;
 }
 

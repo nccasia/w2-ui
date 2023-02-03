@@ -36,6 +36,22 @@ interface ITaskDetailProps {
   refetch: () => void;
 }
 
+export interface IFormSubTaskApprove {
+  approval: string;
+  reason: string;
+}
+
+const OPTIONS: SwitchSelectorButtonOptions[] = [
+  {
+    label: "Task History",
+    value: "1",
+  },
+  {
+    label: "Task Comment",
+    value: "2",
+  },
+];
+
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   taskDetail,
   refetch,
@@ -45,22 +61,28 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   const classes = useStyles();
 
   const [submitTaskMutation] = useSubmitTaskMutation({
-    onCompleted: () => {
-      alertConfirmSubTask("success", "Submit Success!");
+    onCompleted: async () => {
+      await alertConfirmSubTask("success", "Submit Success!");
       refetch();
     },
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const OPTIONS: SwitchSelectorButtonOptions[] = [
-    {
-      label: "Task History",
-      value: "1",
-    },
-    {
-      label: "Task Comment",
-      value: "2",
-    },
-  ];
+  const handleConfirm = async (
+    formValue: IFormSubTaskApprove,
+    formId: number,
+    taskId: number,
+  ) => {
+    setLoading(true);
+    await submitTaskMutation({
+      variables: {
+        value: formValue,
+        formId,
+        taskId,
+      },
+    });
+    setLoading(false);
+  };
 
   const handleChooseActivity = value => {
     setActive(value);
@@ -83,7 +105,8 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
           {activeTask && (
             <SubTask
               task={activeTask}
-              submitTaskMutation={submitTaskMutation}
+              submitTaskMutation={handleConfirm}
+              loading={loading}
             ></SubTask>
           )}
           <List>
