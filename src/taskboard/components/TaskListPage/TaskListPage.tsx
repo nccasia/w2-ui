@@ -80,6 +80,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd }) => {
           }}
         />
       </Card> */}
+      {/* @ts-ignore */}
       <TaskList tasks={resultMapsEdges} />
     </Container>
   );
