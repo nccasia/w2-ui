@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import { Avatar, List, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
@@ -21,6 +15,7 @@ import {
 import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
+import clsx from "clsx";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -96,24 +91,21 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
             {taskDetail?.Tasks?.map(subtask => {
               return (
                 <Accordion
-                  className={classes.subTaskItem}
-                  style={{
-                    border: "1px solid rgba(37, 41, 41, 0.1)",
-                    borderRadius: 6,
-                  }}
+                  className={clsx([
+                    classes.subTaskItem,
+                    classes.subTaskContainer,
+                  ])}
                 >
                   <AccordionSummary key={subtask.id}>
-                    <ListItem>
-                      <ListItemText primary={subtask.title} />
-                      <ListItemText primary={subtask.state} />
-                      <ListItemText primary={subtask.status} />
-                      <ListItemText primary={subtask.priority} />
-                      <ListItemAvatar>
-                        <Avatar>
-                          <UserChip user={taskDetail.userByCreatorid} />
-                        </Avatar>
-                      </ListItemAvatar>
-                    </ListItem>
+                    <ListItemText primary={subtask.title} />
+                    <ListItemText primary={subtask.state} />
+                    <ListItemText primary={subtask.status} />
+                    <ListItemText primary={subtask.priority} />
+                    <ListItemAvatar>
+                      <Avatar>
+                        <UserChip user={taskDetail.userByCreatorid} />
+                      </Avatar>
+                    </ListItemAvatar>
                   </AccordionSummary>
                   <FormSchema
                     formId={createRelayId([
