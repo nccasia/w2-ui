@@ -1,10 +1,12 @@
 import Card from "@material-ui/core/Card/Card";
+import SettingsIcon from "@material-ui/icons/Settings";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
 import { FilterElement } from "@saleor/components/Filter";
 import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
+import useNavigator from "@saleor/hooks/useNavigator";
 import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import { sectionNames } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
@@ -21,6 +23,7 @@ export interface TaskListPageProps {
 const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
   const user = useUser();
   const intl = useIntl();
+  const navigate = useNavigator();
   const data = useTaskBoard(id);
 
   // const dataBoard = useConfigTaskList(id);
@@ -28,13 +31,6 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
-        <Button variant="primary">
-          <FormattedMessage
-            id="cF1/Vc"
-            defaultMessage="Workflow"
-            description="button"
-          />
-        </Button>
         <ButtonWithSelect
           options={[]}
           data-test-id="create-task-button"
@@ -46,6 +42,13 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
             description="button"
           />
         </ButtonWithSelect>
+        <Button
+          variant="primary"
+          style={{ marginLeft: 20, padding: 8 }}
+          onClick={() => navigate(`/taskboard/workflow`)}
+        >
+          <SettingsIcon />
+        </Button>
       </PageHeader>
       {data.type === "board" && <TaskBoard data={data}></TaskBoard>}
       {data.type === "list" && (

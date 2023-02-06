@@ -10,7 +10,8 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
-import { useGetMyTasksQuery } from "@saleor/graphql";
+import UserChip from "@saleor/components/UserChip";
+import { useGetTasksQuery } from "@saleor/graphql";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { taskUrl } from "@saleor/taskboard/urls";
@@ -65,20 +66,23 @@ interface TaskListProps {
 
 const numberOfColumns = 8;
 
-export const TaskList: React.FC<TaskListProps> = ({ id }) => {
+export const TaskList: React.FC<TaskListProps> = () => {
   const classes = useStyles();
-  const { data, loading } = useGetMyTasksQuery({
-    variables: {
-      _eq: +id,
-    },
-  });
+  const { data, loading } = useGetTasksQuery();
+
+  // const { data, loading } = useGetMyTasksQuery({
+  //   variables: {
+  //     _eq: +id,
+  //   },
+  // });
   const getTaskList = useMemo(() => {
     if (loading) {
       return;
     } else {
       return mapEdgesToItems(data?.Task_connection);
     }
-  }, [data]);
+  }, [data?.Task_connection, loading]);
+
   const onUpdateListSettings = (_key: any, _value: any) => null;
 
   return (
@@ -89,13 +93,16 @@ export const TaskList: React.FC<TaskListProps> = ({ id }) => {
             <FormattedMessage id="9a9+ww" defaultMessage="Title" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
-            <FormattedMessage id="EwRIOm" defaultMessage="User" />
+            <FormattedMessage id="ku+mDU" defaultMessage="State" />
           </TableCellHeader>
           <TableCellHeader className={classes.colStatus}>
             <FormattedMessage id="tzMNF3" defaultMessage="Status" />
           </TableCellHeader>
           <TableCellHeader className={classes.colPriority}>
             <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
+          </TableCellHeader>
+          <TableCellHeader className={classes.colUser}>
+            <FormattedMessage id="EwRIOm" defaultMessage="User" />
           </TableCellHeader>
         </TableRowLink>
       </TableHead>
@@ -121,8 +128,8 @@ export const TaskList: React.FC<TaskListProps> = ({ id }) => {
               <TableCell className={classes.colTitle}>
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
-              <TableCell className={classes.colUser}>
-                {maybe(() => task.User.email) ? task.User.email : <Skeleton />}
+              <TableCell className={classes.colTask}>
+                {maybe(() => task.state) ? task.state : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
@@ -136,6 +143,13 @@ export const TaskList: React.FC<TaskListProps> = ({ id }) => {
                   <Container className={classes.priority}>
                     <Pill label={task.priority} color="error" />
                   </Container>
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colUser}>
+                {maybe(() => task.User.email) ? (
+                  <UserChip user={task.User} />
                 ) : (
                   <Skeleton />
                 )}

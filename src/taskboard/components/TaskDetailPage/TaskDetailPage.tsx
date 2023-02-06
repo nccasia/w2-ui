@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import { Avatar, List, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
@@ -43,31 +37,55 @@ interface ITaskDetailProps {
   refetch: () => void;
 }
 
+export interface IFormSubTaskApprove {
+  approval: string;
+  reason: string;
+}
+
+const OPTIONS: SwitchSelectorButtonOptions[] = [
+  {
+    label: "Task History",
+    value: "1",
+  },
+  {
+    label: "Task Comment",
+    value: "2",
+  },
+];
+
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   taskDetail,
   refetch,
 }) => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: TaskDetailPage.tsx:59 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const intl = useIntl();
   const classes = useStyles();
 
   const [submitTaskMutation] = useSubmitTaskMutation({
-    onCompleted: () => {
-      alertConfirmSubTask("success", "Submit Success!");
+    onCompleted: async () => {
+      await alertConfirmSubTask("success", "Submit Success!");
       refetch();
     },
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const OPTIONS: SwitchSelectorButtonOptions[] = [
-    {
-      label: "Task History",
-      value: "1",
-    },
-    {
-      label: "Task Comment",
-      value: "2",
-    },
-  ];
+  const handleConfirm = async (
+    formValue: IFormSubTaskApprove,
+    formId: number,
+    taskId: number,
+  ) => {
+    setLoading(true);
+    await submitTaskMutation({
+      variables: {
+        value: formValue,
+        formId,
+        taskId,
+      },
+    });
+    setLoading(false);
+  };
 
   const handleChooseActivity = value => {
     setActive(value);
@@ -80,7 +98,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   const user = useUser();
   return (
     <Container>
-      <Backlink href={taskListUrl(undefined, user.user.userId)}>
+      <Backlink href={taskListUrl(undefined, user?.user?.userId)}>
         {intl.formatMessage(sectionNames.tasks)}
       </Backlink>
       <Grid>
@@ -90,7 +108,8 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
           {activeTask && (
             <SubTask
               task={activeTask}
-              submitTaskMutation={submitTaskMutation}
+              submitTaskMutation={handleConfirm}
+              loading={loading}
             ></SubTask>
           )}
           <List>
@@ -104,17 +123,15 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                   ])}
                 >
                   <AccordionSummary key={subtask.id}>
-                    <ListItem>
-                      <ListItemText primary={subtask.title} />
-                      <ListItemText primary={subtask.state} />
-                      <ListItemText primary={subtask.status} />
-                      <ListItemText primary={subtask.priority} />
-                      <ListItemAvatar>
-                        <Avatar>
-                          <UserChip user={taskDetail.userByCreatorid} />
-                        </Avatar>
-                      </ListItemAvatar>
-                    </ListItem>
+                    <ListItemText primary={subtask.title} />
+                    <ListItemText primary={subtask.state} />
+                    <ListItemText primary={subtask.status} />
+                    <ListItemText primary={subtask.priority} />
+                    <ListItemAvatar>
+                      <Avatar>
+                        <UserChip user={taskDetail.userByCreatorid} />
+                      </Avatar>
+                    </ListItemAvatar>
                   </AccordionSummary>
                   <FormSchema
                     formId={createRelayId([

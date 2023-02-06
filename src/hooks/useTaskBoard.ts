@@ -24,8 +24,6 @@ const fakeData = (id: string) => {
 export function useTaskBoard(id: string) {
   const { data } = useGetTasksQuery();
   const reponse = useMemo(() => {
-    // eslint-disable-next-line no-console
-    console.log("-v-v->", mapEdgesToItems(data?.Task_connection));
     if (id === "wfh-request") {
       return fakeData(id);
     }

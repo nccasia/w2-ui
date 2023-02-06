@@ -52,10 +52,11 @@ export interface Task {
   parentId?: number;
   priority: string;
   status: string;
-  stateName: string;
   teamId: number;
   title: string;
   User: User;
+  assigneeId: number;
+  state: string;
   __typename?: string;
 }
 

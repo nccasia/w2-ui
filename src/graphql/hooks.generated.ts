@@ -95,6 +95,7 @@ export const TaskEventLogFragmentFragmentDoc = gql`
 export const TaskDetailFragmemtFragmentDoc = gql`
     fragment TaskDetailFragmemt on Task {
   id
+  assigneeId
   creatorId
   definitionId
   description
@@ -681,7 +682,8 @@ export const GetTasksDocument = gql`
         status
         teamId
         title
-        stateName
+        assigneeId
+        state
         User {
           id
           firstname
@@ -826,7 +828,7 @@ export const GetMyTasksDocument = gql`
         status
         teamId
         title
-        stateName
+        state
         User {
           id
           firstname

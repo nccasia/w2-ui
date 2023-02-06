@@ -117,7 +117,8 @@ export const getTasks = gql`
           status
           teamId
           title
-          stateName
+          assigneeId
+          state
           User {
             id
             firstname
@@ -135,6 +136,7 @@ export const getTasks = gql`
 export const TaskDetailFragmemt = gql`
   fragment TaskDetailFragmemt on Task {
     id
+    assigneeId
     creatorId
     definitionId
     description
@@ -273,7 +275,7 @@ export const getMyTasks = gql`
           status
           teamId
           title
-          stateName
+          state
           User {
             id
             firstname

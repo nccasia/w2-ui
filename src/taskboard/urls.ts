@@ -15,8 +15,10 @@ import urljoin from "url-join";
 export const taskBoardSectionUrl = "/taskboard";
 
 export const taskSectionUrl = urljoin(taskBoardSectionUrl, "tasks");
+export const workFlowSectionUrl = urljoin(taskBoardSectionUrl, "workflow");
 
 export const taskListPath = taskSectionUrl;
+export const workFlowPath = workFlowSectionUrl;
 type CreatetaskDialog = "create-task";
 
 export enum TaskListUrlFiltersEnum {
@@ -58,6 +60,9 @@ export type TaskListUrlQueryParams = BulkAction &
   TaskListUrlSort &
   Pagination &
   ActiveTab;
+
+export const workFlowPathUrl = (id: string) => urljoin(workFlowSectionUrl, id);
+
 export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
   const orderList = taskListPath;
   if (params === undefined) {
@@ -75,20 +80,29 @@ export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
 
 export const taskListUrl = (params?: any, id?: string): string => {
-  let taskList = "/taskboard";
   if (id) {
-    taskList = urljoin(taskList, `/${id}`);
-    // eslint-disable-next-line no-console
-    console.log(444444444, taskList);
+    return urljoin(taskBoardSectionUrl, `/${id}`);
   }
+};
+// export const taskListUrl = (params?: any): string => {
+//   const taskList = taskListPath;
+//   if (params === undefined) {
+//     return taskList;
+//   } else {
+//     return urljoin(taskList, "?" + stringifyQs(params));
+//   }
+// };
+
+export const workUrl = (params?: any): string => {
+  const workFlowList = workFlowPath;
   if (params === undefined) {
-    return taskList;
+    return workFlowList;
   } else {
-    // eslint-disable-next-line no-console
-    console.log(222222222111, params);
-    return urljoin(taskList, "?" + stringifyQs(params));
+    return urljoin(workFlowList, "?" + stringifyQs(params));
   }
 };
 
 export const taskUrl = (id: string, params?: any) =>
   taskPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
+export const workFlowUrl = (id: string, params?: any) =>
+  workFlowPathUrl(encodeURIComponent(id)) + "?" + stringifyQs(params);
