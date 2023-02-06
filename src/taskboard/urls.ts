@@ -79,7 +79,7 @@ export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 
 export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
 
-export const taskListUrl = (params?: any, id?: string): string => {
+export const taskListUrl = (_params?: any, id?: string): string => {
   if (id) {
     return urljoin(taskBoardSectionUrl, `/${id}`);
   }
