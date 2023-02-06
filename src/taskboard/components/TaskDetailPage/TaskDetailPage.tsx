@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@material-ui/core";
+import { Avatar, List, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
@@ -21,6 +15,7 @@ import {
 import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
+import clsx from "clsx";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -41,31 +36,55 @@ interface ITaskDetailProps {
   refetch: () => void;
 }
 
+export interface IFormSubTaskApprove {
+  approval: string;
+  reason: string;
+}
+
+const OPTIONS: SwitchSelectorButtonOptions[] = [
+  {
+    label: "Task History",
+    value: "1",
+  },
+  {
+    label: "Task Comment",
+    value: "2",
+  },
+];
+
 const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   taskDetail,
   refetch,
 }) => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: TaskDetailPage.tsx:59 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const intl = useIntl();
   const classes = useStyles();
 
   const [submitTaskMutation] = useSubmitTaskMutation({
-    onCompleted: () => {
-      alertConfirmSubTask("success", "Submit Success!");
+    onCompleted: async () => {
+      await alertConfirmSubTask("success", "Submit Success!");
       refetch();
     },
   });
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const OPTIONS: SwitchSelectorButtonOptions[] = [
-    {
-      label: "Task History",
-      value: "1",
-    },
-    {
-      label: "Task Comment",
-      value: "2",
-    },
-  ];
+  const handleConfirm = async (
+    formValue: IFormSubTaskApprove,
+    formId: number,
+    taskId: number,
+  ) => {
+    setLoading(true);
+    await submitTaskMutation({
+      variables: {
+        value: formValue,
+        formId,
+        taskId,
+      },
+    });
+    setLoading(false);
+  };
 
   const handleChooseActivity = value => {
     setActive(value);
@@ -88,7 +107,8 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
           {activeTask && (
             <SubTask
               task={activeTask}
-              submitTaskMutation={submitTaskMutation}
+              submitTaskMutation={handleConfirm}
+              loading={loading}
             ></SubTask>
           )}
           <List>
@@ -96,24 +116,21 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
             {taskDetail?.Tasks?.map(subtask => {
               return (
                 <Accordion
-                  className={classes.subTaskItem}
-                  style={{
-                    border: "1px solid rgba(37, 41, 41, 0.1)",
-                    borderRadius: 6,
-                  }}
+                  className={clsx([
+                    classes.subTaskItem,
+                    classes.subTaskContainer,
+                  ])}
                 >
                   <AccordionSummary key={subtask.id}>
-                    <ListItem>
-                      <ListItemText primary={subtask.title} />
-                      <ListItemText primary={subtask.state} />
-                      <ListItemText primary={subtask.status} />
-                      <ListItemText primary={subtask.priority} />
-                      <ListItemAvatar>
-                        <Avatar>
-                          <UserChip user={taskDetail.userByCreatorid} />
-                        </Avatar>
-                      </ListItemAvatar>
-                    </ListItem>
+                    <ListItemText primary={subtask.title} />
+                    <ListItemText primary={subtask.state} />
+                    <ListItemText primary={subtask.status} />
+                    <ListItemText primary={subtask.priority} />
+                    <ListItemAvatar>
+                      <Avatar>
+                        <UserChip user={taskDetail.userByCreatorid} />
+                      </Avatar>
+                    </ListItemAvatar>
                   </AccordionSummary>
                   <FormSchema
                     formId={createRelayId([

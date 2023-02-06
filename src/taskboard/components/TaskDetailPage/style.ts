@@ -65,6 +65,10 @@ export const useStyles = makeStyles(
       borderRadius: "50%",
       cursor: "pointer",
     },
+    subTaskContainer: {
+      border: "1px solid rgba(37, 41, 41, 0.1)",
+      borderRadius: 6,
+    },
     subTaskItem: {
       "& form": {
         padding: 20,

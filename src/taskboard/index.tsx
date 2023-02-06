@@ -13,10 +13,12 @@ import {
   TaskListUrlSortField,
   taskPath,
   taskSectionUrl,
+  workFlowSectionUrl,
 } from "./urls";
 import TaskDefinitionComponent from "./views/TaskDefinition";
 import TaskDetailsComponent from "./views/TaskDetails";
 import TaskListComponent from "./views/TaskList";
+import { WorkFlow } from "./views/Workflow";
 
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location }) => {
   const qs = parseQs(location.search.substr(1));
@@ -61,6 +63,7 @@ const Component = () => {
         <Redirect exact from={taskBoardSectionUrl} to={taskSectionUrl} />
         <Route exact path={taskSectionUrl} component={TaskLists} />
         <Route path={taskDefinitionPath()} component={TaskDefinition} />
+        <Route path={workFlowSectionUrl} component={WorkFlow} />
         <Route path={taskPath(":id")} component={TaskDetails} />
       </Switch>
     </>

@@ -1,12 +1,11 @@
-import { MutationFunction } from "@apollo/client/react/types/types";
 import { Card, CardContent, makeStyles, Modal } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
-import { SubmitTaskMutation, TaskFragmentFragment } from "@saleor/graphql";
-import { Exact } from "@saleor/sdk/dist/apollo/types";
-import React, { useState } from "react";
+import { TaskFragmentFragment } from "@saleor/graphql";
+import React from "react";
 
+import { IFormSubTaskApprove } from "../TaskDetailPage";
 import TaskTitle from "../TaskTitle";
 const useStyles = makeStyles(
   () => ({
@@ -36,32 +35,19 @@ const useStyles = makeStyles(
 );
 interface SubTaskType {
   task: TaskFragmentFragment;
-  submitTaskMutation: MutationFunction<
-    SubmitTaskMutation,
-    Exact<{
-      value: any;
-      formId: number;
-      taskId: number;
-    }>
-  >;
+  submitTaskMutation: (
+    formValue: IFormSubTaskApprove,
+    formId: number,
+    taskId: number,
+  ) => void;
+  loading: boolean;
 }
-const SubTask = ({ task, submitTaskMutation }: SubTaskType): JSX.Element => {
+const SubTask = ({
+  task,
+  submitTaskMutation,
+  loading,
+}: SubTaskType): JSX.Element => {
   const classes = useStyles();
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleConfirm = async formValue => {
-    setLoading(true);
-    setTimeout(() => {
-      submitTaskMutation({
-        variables: {
-          value: formValue,
-          formId: task.formId,
-          taskId: task.parentId,
-        },
-      });
-      setLoading(false);
-    }, 2000);
-  };
 
   return (
     <Card>
@@ -78,7 +64,9 @@ const SubTask = ({ task, submitTaskMutation }: SubTaskType): JSX.Element => {
         <div className={classes.root}>
           <FormSchema
             formId={task.Form.id}
-            onSubmit={data => handleConfirm(data)}
+            onSubmit={data =>
+              submitTaskMutation(data, task.formId, task.parentId)
+            }
           />
         </div>
       </CardContent>

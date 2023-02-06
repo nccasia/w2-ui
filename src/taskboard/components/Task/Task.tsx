@@ -24,8 +24,6 @@ interface TaskType {
   task: TaskDetailFragmemtFragment;
 }
 const Task = ({ task }: TaskType) => {
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: Task.tsx:27 ~ Task ~ task", task);
   const classes = useStyles();
 
   return (

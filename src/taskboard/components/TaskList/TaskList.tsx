@@ -11,6 +11,7 @@ import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
+import UserChip from "@saleor/components/UserChip";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { Task } from "@saleor/taskboard/model/Task";
@@ -90,13 +91,16 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
             <FormattedMessage id="9a9+ww" defaultMessage="Title" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
-            <FormattedMessage id="EwRIOm" defaultMessage="User" />
+            <FormattedMessage id="ku+mDU" defaultMessage="State" />
           </TableCellHeader>
           <TableCellHeader className={classes.colStatus}>
             <FormattedMessage id="tzMNF3" defaultMessage="Status" />
           </TableCellHeader>
           <TableCellHeader className={classes.colPriority}>
             <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
+          </TableCellHeader>
+          <TableCellHeader className={classes.colUser}>
+            <FormattedMessage id="EwRIOm" defaultMessage="User" />
           </TableCellHeader>
         </TableRowLink>
       </TableHead>
@@ -122,8 +126,8 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
               <TableCell className={classes.colTask}>
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
-              <TableCell className={classes.colUser}>
-                {maybe(() => task.User.email) ? task.User.email : <Skeleton />}
+              <TableCell className={classes.colTask}>
+                {maybe(() => task.state) ? task.state : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
@@ -137,6 +141,13 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
                   <Container className={classes.priority}>
                     <Pill label={task.priority} color="error" />
                   </Container>
+                ) : (
+                  <Skeleton />
+                )}
+              </TableCell>
+              <TableCell className={classes.colUser}>
+                {maybe(() => task.User.email) ? (
+                  <UserChip user={task.User} />
                 ) : (
                   <Skeleton />
                 )}
