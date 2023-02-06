@@ -190,15 +190,148 @@ export const schema = {
     },
     statesObject: {
       type: "object",
-      patternProperties: {
-        "^.*$": {
-          oneOf: [
-            { $ref: "#/definitions/atomicStateNode" },
-            { $ref: "#/definitions/compoundStateNode" },
-            { $ref: "#/definitions/parallelStateNode" },
-            { $ref: "#/definitions/historyStateNode" },
-            { $ref: "#/definitions/finalStateNode" },
-          ],
+      properties: {
+        stateForm: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: {
+                type: "string",
+              },
+              key: {
+                type: "string",
+              },
+              type: {
+                type: "string",
+                enum: ["atomic", "compound", "parallel", "final", "history"],
+              },
+              order: {
+                type: "integer",
+              },
+              description: {
+                type: "string",
+                description: "The description of the state node, in Markdown",
+              },
+            },
+            required: ["id", "key", "type"],
+          },
+        },
+        stateOptions: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              type: {
+                type: "string",
+                pattern: "compound",
+              },
+              entry: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    type: {
+                      type: "string",
+                      definition: "The action type",
+                    },
+                  },
+                  additionalProperties: true,
+                  required: ["type"],
+                },
+              },
+              exit: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    type: {
+                      type: "string",
+                      definition: "The action type",
+                    },
+                  },
+                  additionalProperties: true,
+                  required: ["type"],
+                },
+              },
+              initial: {
+                type: "string",
+              },
+              invoke: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    type: {
+                      type: "string",
+                    },
+                    id: {
+                      type: "string",
+                    },
+                    src: {
+                      type: "object",
+                      properties: {
+                        type: { type: "string" },
+                      },
+                    },
+                    // autoForward: {
+                    //   type: "boolean",
+                    //   default: false,
+                    // },
+                  },
+                  required: ["type", "id", "src"],
+                  additionalProperties: false,
+                },
+              },
+              on: {
+                type: "object",
+                patternProperties: {
+                  "^.*$": {
+                    type: "array",
+                    items: {
+                      type: "object",
+                      properties: {
+                        actions: {
+                          type: "array",
+                          items: {
+                            type: "object",
+                            properties: {
+                              type: {
+                                type: "string",
+                                definition: "The action type",
+                              },
+                            },
+                            additionalProperties: true,
+                            required: ["type"],
+                          },
+                        },
+                        cond: {
+                          type: "object",
+                        },
+                        eventType: {
+                          type: "string",
+                        },
+                        source: {
+                          type: "string",
+                        },
+                        target: {
+                          type: "array",
+                          items: {
+                            type: "string",
+                          },
+                        },
+                      },
+                      required: ["actions", "eventType", "source", "target"],
+                    },
+                  },
+                },
+              },
+              // states: {
+              //   $ref: "#/definitions/statesObject",
+              // },
+            },
+            required: ["states"],
+          },
         },
       },
     },
@@ -324,7 +457,13 @@ export const schema = {
   required: ["id", "key", "type", "states"],
 };
 
-ajv.addVocabulary(["uniforms", "allowedValues", "checkboxes", "definition"]);
+ajv.addVocabulary([
+  "uniforms",
+  "allowedValues",
+  "checkboxes",
+  "definition",
+  "prefixItems",
+]);
 
 function createValidator(schema: any) {
   const validator = ajv.compile(schema);

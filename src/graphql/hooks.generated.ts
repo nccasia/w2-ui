@@ -95,6 +95,7 @@ export const TaskEventLogFragmentFragmentDoc = gql`
 export const TaskDetailFragmemtFragmentDoc = gql`
     fragment TaskDetailFragmemt on Task {
   id
+  assigneeId
   creatorId
   definitionId
   description

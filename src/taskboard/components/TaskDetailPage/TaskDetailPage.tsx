@@ -56,6 +56,8 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   taskDetail,
   refetch,
 }) => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: TaskDetailPage.tsx:59 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const intl = useIntl();
   const classes = useStyles();

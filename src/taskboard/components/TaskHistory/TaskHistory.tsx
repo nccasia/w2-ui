@@ -1,13 +1,17 @@
-import Form from "@saleor/components/Form";
-import Hr from "@saleor/components/Hr";
 import Skeleton from "@saleor/components/Skeleton";
-import {
-  Timeline,
-  TimelineAddNote,
-  TimelineEvent,
-} from "@saleor/components/Timeline";
+import { Timeline, TimelineEvent } from "@saleor/components/Timeline";
 import { TaskEventLogFragmentFragment } from "@saleor/graphql";
+import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
+
+const useStyles = makeStyles(
+  () => ({
+    timeLine: {
+      marginTop: 20,
+    },
+  }),
+  { name: "WorkFlow" },
+);
 
 interface TaskHistoryProps {
   history: TaskEventLogFragmentFragment[];
@@ -15,22 +19,12 @@ interface TaskHistoryProps {
 
 const TaskHistory: React.FC<TaskHistoryProps> = props => {
   const { history } = props;
+  const classes = useStyles();
 
   return (
-    <div>
-      <Hr />
+    <div className={classes.timeLine}>
       {history ? (
         <Timeline>
-          <Form confirmLeave initial={{ message: "" }} resetOnSubmit>
-            {({ change, data, reset, submit }) => (
-              <TimelineAddNote
-                message={data?.message}
-                reset={reset}
-                onChange={change}
-                onSubmit={submit}
-              />
-            )}
-          </Form>
           {history.map(({ id, createdAt, content }) => (
             <TimelineEvent key={id} title={content} date={createdAt} />
           ))}

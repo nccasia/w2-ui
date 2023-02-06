@@ -136,6 +136,7 @@ export const getTasks = gql`
 export const TaskDetailFragmemt = gql`
   fragment TaskDetailFragmemt on Task {
     id
+    assigneeId
     creatorId
     definitionId
     description

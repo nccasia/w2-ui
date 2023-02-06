@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
+import { Backlink } from "@saleor/components/Backlink";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles, PageTab, PageTabPanel, PageTabs } from "@saleor/macaw-ui";
+import { taskListUrl } from "@saleor/taskboard/urls";
 import { bridge } from "@saleor/utils/schema";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
@@ -16,11 +18,16 @@ const useStyles = makeStyles(
       padding: theme.spacing(3),
       marginBottom: theme.spacing(3),
     },
+    formWorkFlow: {
+      "& .MuiOutlinedInput-inputMarginDense": {
+        paddingTop: "25px!important",
+        paddingBottom: "10px!important",
+      },
+    },
   }),
   { name: "WorkFlow" },
 );
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WorkFlowPageProps {
   modal: any;
 }
@@ -37,6 +44,9 @@ const WorkFlowPage: React.FC<WorkFlowPageProps> = ({ modal }) => {
   return (
     <>
       <Container>
+        <Backlink href={taskListUrl()}>
+          {intl.formatMessage(sectionNames.tasks)}
+        </Backlink>
         <PageHeader title={intl.formatMessage(sectionNames.workFlow)} />
         <div className={classes.tabContainer}>
           <PageTabs value={tab} onChange={setTab}>
@@ -51,7 +61,9 @@ const WorkFlowPage: React.FC<WorkFlowPageProps> = ({ modal }) => {
             })}
           </PageTabs>
           <PageTabPanel show={tab === "workflow"}>
-            <AutoForm schema={bridge} model={modal} onSubmit={console.log} />
+            <div className={classes.formWorkFlow}>
+              <AutoForm schema={bridge} model={modal} onSubmit={console.log} />
+            </div>
           </PageTabPanel>
           <PageTabPanel show={tab === "visual"}>
             <h1>visual</h1>

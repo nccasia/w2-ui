@@ -8,7 +8,7 @@ interface WorkFlowProps {
 
 export const WorkFlow: React.FC<WorkFlowProps> = () => {
   const modal = {
-    id: "[DEV#40] Device request",
+    id: "[DEV#578] Device request",
     on: {
       SET_ACTIVE: { actions: "setActive" },
       CHANGE_STATUS: [
@@ -59,14 +59,14 @@ export const WorkFlow: React.FC<WorkFlowProps> = () => {
                 },
               },
               APPROVED: {
-                on: { always: [{ cond: "pass", target: "#DONE.APPROVED" }] },
                 meta: { IT_APPROVAL: { state: "APPROVED" } },
                 type: "final",
+                always: "#DONE.APPROVED",
               },
               REJECTED: {
-                on: { always: [{ cond: "pass", target: "#DONE.REJECTED" }] },
                 meta: { IT_APPROVAL: { state: "REJECTED" } },
                 type: "final",
+                always: "#DONE.REJECTED",
               },
               WAIT_IT_APPROVAL: {
                 on: {
@@ -92,19 +92,19 @@ export const WorkFlow: React.FC<WorkFlowProps> = () => {
                 },
               },
               APPROVED: {
-                on: { always: [{ cond: "pass", target: "#SALE_APPROVAL" }] },
                 meta: { PM_APPROVAL: { state: "APPROVED" } },
                 type: "final",
+                always: "#IT_APPROVAL",
               },
               REJECTED: {
-                on: { always: [{ cond: "pass", target: "#DONE.REJECTED" }] },
                 meta: { PM_APPROVAL: { state: "REJECTED" } },
                 type: "final",
+                always: "#DONE.REJECTED",
               },
               FORWARDED: {
-                on: { always: [{ cond: "pass", target: "#SALE_APPROVAL" }] },
                 meta: { PM_APPROVAL: { state: "FORWARDED" } },
                 type: "final",
+                always: "#SALE_APPROVAL",
               },
               WAIT_PM_APPROVAL: {
                 on: {
@@ -124,14 +124,14 @@ export const WorkFlow: React.FC<WorkFlowProps> = () => {
             type: "compound",
             states: {
               APPROVED: {
-                on: { always: [{ cond: "pass", target: "#IT_APPROVAL" }] },
                 meta: { SALE_APPROVAL: { state: "APPROVED" } },
                 type: "final",
+                always: "#CUSTOMER_APPROVAL",
               },
               REJECTED: {
-                on: { always: [{ cond: "pass", target: "#DONE.REJECTED" }] },
                 meta: { SALE_APPROVAL: { state: "REJECTED" } },
                 type: "final",
+                always: "#DONE.REJECTED",
               },
               WAIT_SALE_APPROVAL: {
                 on: {
@@ -151,14 +151,14 @@ export const WorkFlow: React.FC<WorkFlowProps> = () => {
             type: "compound",
             states: {
               APPROVED: {
-                on: { always: "#IT_APPROVAL" },
                 meta: { CUSTOMER_APPROVAL: { state: "APPROVED" } },
                 type: "final",
+                always: "#IT_APPROVAL",
               },
               REJECTED: {
-                on: { always: [{ cond: "pass", target: "#DONE.REJECTED" }] },
                 meta: { CUSTOMER_APPROVAL: { state: "REJECTED" } },
                 type: "final",
+                always: "#DONE.REJECTED",
               },
               WAIT_CUSTOMER_APPROVAL: {
                 on: {
