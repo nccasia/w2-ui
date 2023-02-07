@@ -23,28 +23,29 @@ const fakeData = (id: string) => {
 };
 export function useTaskBoard(id: string) {
   // const { data } = useGetTasksQuery();
-  const { data } = useGetViewConfigQuery({
+  const { data, error } = useGetViewConfigQuery({
     variables: {
       code: "601",
     },
   });
   const reponse = useMemo(() => {
+    if (!data) {
+      return {};
+    }
     if (id === "wfh-request") {
       return fakeData(id);
     }
     if (id === "device-request") {
-      return {
-        type: "board",
-        data: mapEdgesToItems(data?.TaskBoard_connection),
-        viewConfig: [
-          "Request",
-          "PM Approve",
-          "Sale Approve",
-          "Customer Approve",
-          "IT Approve",
-          "Done",
-        ],
-      };
+      // eslint-disable-next-line no-console
+      console.log(666, data, error);
+      const cloneData = JSON.parse(JSON.stringify(data));
+      // eslint-disable-next-line no-console
+      console.log(
+        777,
+        data,
+        cloneData.TaskBoard_connection.edges[0].node.viewConfig.data,
+      );
+      return cloneData.TaskBoard_connection.edges[0].node.viewConfig.data;
     }
     if (id === "change-office-request") {
       return {
@@ -63,8 +64,6 @@ export function useTaskBoard(id: string) {
         viewConfig: [],
       };
     }
-  }, [id]);
-  // eslint-disable-next-line no-console
-  console.log(111111111111111111, data);
+  }, [id, data]);
   return reponse;
 }

@@ -296,6 +296,40 @@ export const getViewConfig = gql`
       edges {
         node {
           viewConfig
+          taskDefinitionId
+        }
+      }
+    }
+  }
+`;
+export const getTaskByBoard = gql`
+  query GetTaskByBoard($_eq: Int!) {
+    Task_connection(
+      where: { parentId: { _is_null: true }, definitionId: { _eq: $_eq } }
+    ) {
+      edges {
+        node {
+          id
+          dueDate
+          description
+          definitionId
+          creatorId
+          organizationId
+          parentId
+          priority
+          status
+          teamId
+          title
+          assigneeId
+          state
+          User {
+            id
+            firstname
+            lastname
+            email
+            organizationId
+            role
+          }
         }
       }
     }

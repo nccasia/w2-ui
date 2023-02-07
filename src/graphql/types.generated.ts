@@ -7943,4 +7943,11 @@ export type GetViewConfigQueryVariables = Exact<{
 }>;
 
 
-export type GetViewConfigQuery = { __typename: 'query_root', TaskBoard_connection: { __typename: 'TaskBoardConnection', edges: Array<{ __typename: 'TaskBoardEdge', node: { __typename: 'TaskBoard', viewConfig: any } }> } };
+export type GetViewConfigQuery = { __typename: 'query_root', TaskBoard_connection: { __typename: 'TaskBoardConnection', edges: Array<{ __typename: 'TaskBoardEdge', node: { __typename: 'TaskBoard', viewConfig: any, taskDefinitionId: number } }> } };
+
+export type GetTaskByBoardQueryVariables = Exact<{
+  _eq: Scalars['Int'];
+}>;
+
+
+export type GetTaskByBoardQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
