@@ -63,8 +63,6 @@ export function useTaskBoard(id: string) {
         viewConfig: [],
       };
     }
-  }, [id]);
-  // eslint-disable-next-line no-console
-  console.log(111111111111111111, data);
+  }, [data?.TaskBoard_connection, id]);
   return reponse;
 }
