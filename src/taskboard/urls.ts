@@ -61,10 +61,6 @@ export type TaskListUrlQueryParams = BulkAction &
   Pagination &
   ActiveTab;
 
-export const taskDefinitionPath = () =>
-  urljoin(taskBoardSectionUrl, "settings");
-
-export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 export const workFlowPathUrl = (id: string) => urljoin(workFlowSectionUrl, id);
 
 export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
@@ -76,14 +72,26 @@ export const orderListUrl = (params?: TaskListUrlQueryParams): string => {
   }
 };
 
-export const taskListUrl = (params?: any): string => {
-  const taskList = taskListPath;
-  if (params === undefined) {
-    return taskList;
-  } else {
-    return urljoin(taskList, "?" + stringifyQs(params));
+export const taskDefinitionPath = () =>
+  urljoin(taskBoardSectionUrl, "settings");
+
+export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
+
+export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
+
+export const taskListUrl = (_params?: any, id?: string): string => {
+  if (id) {
+    return urljoin(taskBoardSectionUrl, `/${id}`);
   }
 };
+// export const taskListUrl = (params?: any): string => {
+//   const taskList = taskListPath;
+//   if (params === undefined) {
+//     return taskList;
+//   } else {
+//     return urljoin(taskList, "?" + stringifyQs(params));
+//   }
+// };
 
 export const workUrl = (params?: any): string => {
   const workFlowList = workFlowPath;

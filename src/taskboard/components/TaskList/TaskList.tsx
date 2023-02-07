@@ -5,81 +5,83 @@ import {
   TableHead,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import { CSSProperties } from "@material-ui/styles";
 import Container from "@saleor/components/Container";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
 import UserChip from "@saleor/components/UserChip";
+import { useGetTasksQuery } from "@saleor/graphql";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
-import { Task } from "@saleor/taskboard/model/Task";
 import { taskUrl } from "@saleor/taskboard/urls";
-import React from "react";
+import { mapEdgesToItems } from "@saleor/utils/maps";
+import React, { useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
-  theme => {
-    const overflowing: CSSProperties = {
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    };
-
-    return {
-      [theme.breakpoints.up("lg")]: {
-        colUser: {
-          width: 220,
-        },
-        colTask: {
-          width: 230,
-        },
-        colID: {
-          width: 120,
-        },
-        colStatus: {
-          width: 220,
-        },
-        colType: {},
-        colDate: {},
-        colPriority: {},
-        colState: {},
-        colRow: {
-          cursor: "pointer",
-        },
-      },
-      pill: {
-        maxWidth: "100%",
-        ...overflowing,
-      },
-      colUser: overflowing,
-      colPriority: {},
-      colID: {},
-      colStatus: {},
-      priority: {
-        display: "flex",
-        padding: "0 !important",
-        alignItems: "center",
-      },
-      colDate: {
-        textAlign: "right",
-      },
-      link: {
-        cursor: "pointer",
-      },
-    };
-  },
+  () => ({
+    colUser: {
+      width: "20%",
+    },
+    colTask: {
+      width: 230,
+    },
+    colTitle: {
+      width: "40%",
+    },
+    colID: {
+      width: 120,
+    },
+    colStatus: {
+      width: "20%",
+    },
+    colType: {},
+    colDate: {},
+    colPriority: {
+      width: "20%",
+    },
+    colState: {},
+    colRow: {
+      cursor: "pointer",
+    },
+    pill: {
+      maxWidth: "100%",
+    },
+    priority: {
+      display: "flex",
+      padding: "0 !important",
+      alignItems: "center",
+    },
+    link: {
+      cursor: "pointer",
+    },
+  }),
   { name: "TaskList" },
 );
 
 interface TaskListProps {
-  tasks: Task[] | [];
+  id: string;
 }
 
 const numberOfColumns = 8;
 
-export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+export const TaskList: React.FC<TaskListProps> = () => {
   const classes = useStyles();
+  const { data, loading } = useGetTasksQuery();
+
+  // const { data, loading } = useGetMyTasksQuery({
+  //   variables: {
+  //     _eq: +id,
+  //   },
+  // });
+  const getTaskList = useMemo(() => {
+    if (loading) {
+      return;
+    } else {
+      return mapEdgesToItems(data?.Task_connection);
+    }
+  }, [data?.Task_connection, loading]);
 
   const onUpdateListSettings = (_key: any, _value: any) => null;
 
@@ -87,7 +89,7 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     <ResponsiveTable>
       <TableHead>
         <TableRowLink>
-          <TableCellHeader className={classes.colTask}>
+          <TableCellHeader className={classes.colTitle}>
             <FormattedMessage id="9a9+ww" defaultMessage="Title" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
@@ -116,14 +118,14 @@ export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
       </TableFooter>
       <TableBody>
         {renderCollection(
-          tasks,
+          getTaskList,
           task => (
             <TableRowLink
               hover={!!task}
               href={task && taskUrl(`${task.id}`)}
               className={classes.colRow}
             >
-              <TableCell className={classes.colTask}>
+              <TableCell className={classes.colTitle}>
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colTask}>

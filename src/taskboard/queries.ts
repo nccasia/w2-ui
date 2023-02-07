@@ -258,3 +258,34 @@ export const getComment = gql`
     }
   }
 `;
+
+export const getMyTasks = gql`
+  query GetMyTasks($_eq: Int!) {
+    Task_connection(where: { Task: { assigneeId: { _eq: $_eq } } }) {
+      edges {
+        node {
+          id
+          dueDate
+          description
+          definitionId
+          creatorId
+          organizationId
+          parentId
+          priority
+          status
+          teamId
+          title
+          state
+          User {
+            id
+            firstname
+            lastname
+            email
+            organizationId
+            role
+          }
+        }
+      }
+    }
+  }
+`;

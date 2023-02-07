@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
@@ -39,12 +40,13 @@ const pageTabs = [
 
 const WorkFlowPage: React.FC<WorkFlowPageProps> = ({ modal }) => {
   const classes = useStyles();
-  const [tab, setTab] = useState("workflow");
+  const user = useUser();
   const intl = useIntl();
+  const [tab, setTab] = useState("workflow");
   return (
     <>
       <Container>
-        <Backlink href={taskListUrl()}>
+        <Backlink href={taskListUrl(undefined, user?.user?.userId)}>
           {intl.formatMessage(sectionNames.tasks)}
         </Backlink>
         <PageHeader title={intl.formatMessage(sectionNames.workFlow)} />
