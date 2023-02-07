@@ -47,6 +47,8 @@ const SubTask = ({
   submitTaskMutation,
   loading,
 }: SubTaskType): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: SubTask.tsx:50 ~ task", task);
   const classes = useStyles();
 
   return (

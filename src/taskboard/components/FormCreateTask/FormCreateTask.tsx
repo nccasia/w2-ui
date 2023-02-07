@@ -23,6 +23,7 @@ import FormCreatedTaskType from "./FormCreatedTaskType/FormCreatedTaskType";
 
 interface Props {
   onClose: () => void;
+  checkType: string;
 }
 
 const FormCreateTask: React.FC<Props> = ({ onClose }) => {

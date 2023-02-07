@@ -25,6 +25,7 @@ export const TaskFragmentFragmentDoc = gql`
     fragment TaskFragment on Task {
   id
   dueDate
+  assigneeId
   description
   definitionId
   creatorId
@@ -870,3 +871,42 @@ export function useGetMyTasksLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryH
 export type GetMyTasksQueryHookResult = ReturnType<typeof useGetMyTasksQuery>;
 export type GetMyTasksLazyQueryHookResult = ReturnType<typeof useGetMyTasksLazyQuery>;
 export type GetMyTasksQueryResult = Apollo.QueryResult<Types.GetMyTasksQuery, Types.GetMyTasksQueryVariables>;
+export const GetViewConfigDocument = gql`
+    query GetViewConfig($code: String!) {
+  TaskBoard_connection(where: {code: {_eq: $code}}) {
+    edges {
+      node {
+        viewConfig
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetViewConfigQuery__
+ *
+ * To run a query within a React component, call `useGetViewConfigQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetViewConfigQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetViewConfigQuery({
+ *   variables: {
+ *      code: // value for 'code'
+ *   },
+ * });
+ */
+export function useGetViewConfigQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>(GetViewConfigDocument, options);
+      }
+export function useGetViewConfigLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>(GetViewConfigDocument, options);
+        }
+export type GetViewConfigQueryHookResult = ReturnType<typeof useGetViewConfigQuery>;
+export type GetViewConfigLazyQueryHookResult = ReturnType<typeof useGetViewConfigLazyQuery>;
+export type GetViewConfigQueryResult = Apollo.QueryResult<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>;

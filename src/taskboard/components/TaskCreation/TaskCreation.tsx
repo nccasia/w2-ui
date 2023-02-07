@@ -8,9 +8,14 @@ import FormCreateTask from "../FormCreateTask/FormCreateTask";
 export interface TaskCreationProps {
   open: boolean;
   onClose: () => void;
+  checkType: string;
 }
 
-const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose }) => {
+const TaskCreation: React.FC<TaskCreationProps> = ({
+  open,
+  onClose,
+  checkType,
+}) => {
   useModalDialogOpen(open, {
     onClose: () => {
       return;
@@ -26,7 +31,7 @@ const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose }) => {
         onClose={onClose}
       >
         <Box sx={styleModal}>
-          <FormCreateTask onClose={onClose} />
+          <FormCreateTask onClose={onClose} checkType={checkType} />
         </Box>
       </Modal>
     </>

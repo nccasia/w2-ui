@@ -51,6 +51,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params, id }) => {
           <TaskCreation
             open={params.action === "create-task"}
             onClose={closeModal}
+            checkType={id}
           />
         )}
       </PaginatorContext.Provider>
