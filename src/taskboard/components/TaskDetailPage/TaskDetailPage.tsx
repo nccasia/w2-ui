@@ -1,4 +1,5 @@
 import { Avatar, List, ListItemAvatar, ListItemText } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
@@ -94,10 +95,10 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     const active = taskDetail?.Tasks?.find(e => e.isActive);
     return active;
   }, [taskDetail]);
-
+  const user = useUser();
   return (
     <Container>
-      <Backlink href={taskListUrl()}>
+      <Backlink href={taskListUrl(undefined, user?.user?.userId)}>
         {intl.formatMessage(sectionNames.tasks)}
       </Backlink>
       <Grid>
