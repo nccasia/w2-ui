@@ -30,7 +30,7 @@ const UserChip: React.FC<UserChipProps> = ({
   return (
     <UserChipMenu
       initials={getUserInitials(user)}
-      name={getUserName(user, true)}
+      name={onLogout && getUserName(user, true)}
       avatar={user?.avatar?.url}
     >
       {!onLogout ? (

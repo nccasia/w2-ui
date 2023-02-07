@@ -185,6 +185,7 @@ export const TaskFragment = gql`
   fragment TaskFragment on Task {
     id
     dueDate
+    assigneeId
     description
     definitionId
     creatorId
@@ -284,6 +285,17 @@ export const getMyTasks = gql`
             organizationId
             role
           }
+        }
+      }
+    }
+  }
+`;
+export const getViewConfig = gql`
+  query GetViewConfig($code: String!) {
+    TaskBoard_connection(where: { code: { _eq: $code } }) {
+      edges {
+        node {
+          viewConfig
         }
       }
     }

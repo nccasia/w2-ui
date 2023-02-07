@@ -43,8 +43,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
           />
         </ButtonWithSelect>
         <Button
-          variant="primary"
-          style={{ marginLeft: 20, padding: 8 }}
+          style={{ marginLeft: 20, padding: "8px 0 8px 8px" }}
           onClick={() => navigate(`/taskboard/workflow`)}
         >
           <SettingsIcon />

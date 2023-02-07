@@ -1,5 +1,4 @@
 import { Typography } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
 import HorizontalSpacer from "@saleor/apps/components/HorizontalSpacer";
 import DefaultCardTitle from "@saleor/components/CardTitle";
 import UserChip from "@saleor/components/UserChip";
@@ -90,9 +89,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
         }
       />
       <div className={classes.avatar}>
-        <Avatar>
-          <UserChip user={user} />
-        </Avatar>
+        <UserChip user={user} />
       </div>
     </div>
   );

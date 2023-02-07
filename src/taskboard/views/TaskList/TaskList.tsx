@@ -3,7 +3,7 @@ import usePaginator, { PaginatorContext } from "@saleor/hooks/usePaginator";
 import TaskCreation from "@saleor/taskboard/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/taskboard/components/TaskListPage";
 import {
-  orderListUrl,
+  modalNewTaslUrl,
   TaskListUrlDialog,
   TaskListUrlQueryParams,
 } from "@saleor/taskboard/urls";
@@ -41,7 +41,7 @@ export const TaskList: React.FC<TaskListProps> = ({ params, id }) => {
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
     TaskListUrlQueryParams
-  >(navigate, orderListUrl, params);
+  >(navigate, modalNewTaslUrl, params);
 
   return (
     <>

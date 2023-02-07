@@ -1,4 +1,4 @@
-import { useGetTasksQuery } from "@saleor/graphql";
+import { useGetViewConfigQuery } from "@saleor/graphql";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { useMemo } from "react";
 const fakeData = (id: string) => {
@@ -22,7 +22,12 @@ const fakeData = (id: string) => {
   }
 };
 export function useTaskBoard(id: string) {
-  const { data } = useGetTasksQuery();
+  // const { data } = useGetTasksQuery();
+  const { data } = useGetViewConfigQuery({
+    variables: {
+      code: "601",
+    },
+  });
   const reponse = useMemo(() => {
     if (id === "wfh-request") {
       return fakeData(id);
@@ -30,7 +35,7 @@ export function useTaskBoard(id: string) {
     if (id === "device-request") {
       return {
         type: "board",
-        data: mapEdgesToItems(data?.Task_connection),
+        data: mapEdgesToItems(data?.TaskBoard_connection),
         viewConfig: [
           "Request",
           "PM Approve",
@@ -44,7 +49,7 @@ export function useTaskBoard(id: string) {
     if (id === "change-office-request") {
       return {
         type: "board",
-        data: mapEdgesToItems(data?.Task_connection),
+        data: mapEdgesToItems(data?.TaskBoard_connection),
         viewConfig: [
           "Request",
           "Original Office",
@@ -58,6 +63,6 @@ export function useTaskBoard(id: string) {
         viewConfig: [],
       };
     }
-  }, [id]);
+  }, [data?.TaskBoard_connection, id]);
   return reponse;
 }

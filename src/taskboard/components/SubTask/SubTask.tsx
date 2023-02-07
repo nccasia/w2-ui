@@ -1,4 +1,5 @@
 import { Card, CardContent, makeStyles, Modal } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
@@ -48,29 +49,36 @@ const SubTask = ({
   loading,
 }: SubTaskType): JSX.Element => {
   const classes = useStyles();
+  const { user } = useUser();
+  // eslint-disable-next-line no-console
+  console.log("🚀 ~ file: SubTask.tsx:53 ~ user", user.userId, task.assigneeId);
 
   return (
-    <Card>
-      <Modal open={loading}>
-        <Loading />
-      </Modal>
-      <TaskTitle
-        user={task.userByCreatorid}
-        title={task.title}
-        state={task.state}
-      />
-      <Hr />
-      <CardContent style={{ paddingBottom: "47px" }}>
-        <div className={classes.root}>
-          <FormSchema
-            formId={task.Form.id}
-            onSubmit={data =>
-              submitTaskMutation(data, task.formId, task.parentId)
-            }
+    <>
+      {+user.userId === task.assigneeId && (
+        <Card>
+          <Modal open={loading}>
+            <Loading />
+          </Modal>
+          <TaskTitle
+            user={task.userByCreatorid}
+            title={task.title}
+            state={task.state}
           />
-        </div>
-      </CardContent>
-    </Card>
+          <Hr />
+          <CardContent style={{ paddingBottom: "47px" }}>
+            <div className={classes.root}>
+              <FormSchema
+                formId={task.Form.id}
+                onSubmit={data =>
+                  submitTaskMutation(data, task.formId, task.parentId)
+                }
+              />
+            </div>
+          </CardContent>
+        </Card>
+      )}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Avatar, List, ListItemAvatar, ListItemText } from "@material-ui/core";
+import { List, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
@@ -57,8 +57,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   taskDetail,
   refetch,
 }) => {
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: TaskDetailPage.tsx:59 ~ taskDetail", taskDetail);
   const [active, setActive] = useState<string>("1");
   const intl = useIntl();
   const classes = useStyles();
@@ -128,9 +126,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                     <ListItemText primary={subtask.status} />
                     <ListItemText primary={subtask.priority} />
                     <ListItemAvatar>
-                      <Avatar>
-                        <UserChip user={taskDetail.userByCreatorid} />
-                      </Avatar>
+                      <UserChip user={taskDetail.userByCreatorid} />
                     </ListItemAvatar>
                   </AccordionSummary>
                   <FormSchema

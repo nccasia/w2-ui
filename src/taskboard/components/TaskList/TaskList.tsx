@@ -5,7 +5,7 @@ import {
   TableHead,
 } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
-import Container from "@saleor/components/Container";
+import { DateTime } from "@saleor/components/Date";
 import ResponsiveTable from "@saleor/components/ResponsiveTable";
 import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
@@ -98,8 +98,8 @@ export const TaskList: React.FC<TaskListProps> = () => {
           <TableCellHeader className={classes.colStatus}>
             <FormattedMessage id="tzMNF3" defaultMessage="Status" />
           </TableCellHeader>
-          <TableCellHeader className={classes.colPriority}>
-            <FormattedMessage id="8lCjAM" defaultMessage="Priority" />
+          <TableCellHeader className={classes.colStatus}>
+            <FormattedMessage id="P7PLVj" defaultMessage="Date" />
           </TableCellHeader>
           <TableCellHeader className={classes.colUser}>
             <FormattedMessage id="EwRIOm" defaultMessage="User" />
@@ -133,16 +133,14 @@ export const TaskList: React.FC<TaskListProps> = () => {
               </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
-                  <Pill label={task.status} color="success" />
+                  <Pill label={task.status} color="warning" />
                 ) : (
                   <Skeleton />
                 )}
               </TableCell>
-              <TableCell className={classes.colPriority}>
-                {maybe(() => task.priority) ? (
-                  <Container className={classes.priority}>
-                    <Pill label={task.priority} color="error" />
-                  </Container>
+              <TableCell className={classes.colStatus}>
+                {maybe(() => task.dueDate) ? (
+                  <DateTime date={task.dueDate} />
                 ) : (
                   <Skeleton />
                 )}
