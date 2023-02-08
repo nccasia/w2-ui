@@ -23,13 +23,13 @@ import { WorkFlow } from "./views/Workflow";
 
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const qs = parseQs(location.search.substr(1));
+  const id = match.params.id;
   const params: TaskListUrlQueryParams = asSortParams(
     qs,
     TaskListUrlSortField,
     TaskListUrlSortField.number,
     false,
   );
-  const id = match.params.id;
   return <TaskListComponent params={params} id={id} />;
 };
 

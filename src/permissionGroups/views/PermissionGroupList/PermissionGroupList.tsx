@@ -47,7 +47,7 @@ export const PermissionGroupList: React.FC<PermissionGroupListProps> = ({
     permissionGroupListUrl,
     params,
   );
-
+  // @ts-ignore
   const [openModal, closeModal] = createDialogActionHandlers<
     PermissionGroupListUrlDialog,
     PermissionGroupListUrlQueryParams

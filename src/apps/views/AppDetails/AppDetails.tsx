@@ -20,12 +20,15 @@ interface AppDetailsProps {
 }
 
 export const AppDetails: React.FC<AppDetailsProps> = ({ id, params }) => {
-  const { data, loading } = { data: null, loading: false };
+  const { data, loading } = {
+    data: null,
+    loading: false,
+  };
 
   const appExists = data?.app !== null;
 
   const navigate = useNavigator();
-
+  // @ts-ignore
   const [openModal, closeModal] = createDialogActionHandlers<
     AppDetailsUrlDialog,
     AppDetailsUrlQueryParams
