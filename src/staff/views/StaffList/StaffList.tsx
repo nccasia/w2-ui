@@ -72,7 +72,10 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     }),
     [params, settings.rowNumber],
   );
-  const { data: staffQueryData, loading } = { data: null, loading: false };
+  const { data: staffQueryData, loading } = {
+    data: null,
+    loading: false,
+  };
   const limitOpts = null;
 
   // @ts-ignore
@@ -110,7 +113,7 @@ export const StaffList: React.FC<StaffListProps> = ({ params }) => {
     navigate,
     params,
   });
-
+  // @ts-ignore
   const [openModal, closeModal] = createDialogActionHandlers<
     StaffListUrlDialog,
     StaffListUrlQueryParams
