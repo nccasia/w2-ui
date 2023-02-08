@@ -133,6 +133,16 @@ export const TaskDetailFragmemtFragmentDoc = gql`
 }
     ${TaskFragmentFragmentDoc}
 ${TaskEventLogFragmentFragmentDoc}`;
+export const TaskBoardFragmentFragmentDoc = gql`
+    fragment TaskBoardFragment on TaskBoard {
+  code
+  id
+  name
+  taskDefinitionId
+  viewConfig
+  viewType
+}
+    `;
 export const SigninDocument = gql`
     mutation Signin($email: String = "", $password: String = "") {
   signin(data: {email: $email, password: $password}) {
@@ -876,13 +886,12 @@ export const GetViewConfigDocument = gql`
   TaskBoard_connection(where: {code: {_eq: $code}}) {
     edges {
       node {
-        viewConfig
-        taskDefinitionId
+        ...TaskBoardFragment
       }
     }
   }
 }
-    `;
+    ${TaskBoardFragmentFragmentDoc}`;
 
 /**
  * __useGetViewConfigQuery__
@@ -912,8 +921,10 @@ export type GetViewConfigQueryHookResult = ReturnType<typeof useGetViewConfigQue
 export type GetViewConfigLazyQueryHookResult = ReturnType<typeof useGetViewConfigLazyQuery>;
 export type GetViewConfigQueryResult = Apollo.QueryResult<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>;
 export const GetTaskByBoardDocument = gql`
-    query GetTaskByBoard($_eq: Int!) {
-  Task_connection(where: {parentId: {_is_null: true}, definitionId: {_eq: $_eq}}) {
+    query GetTaskByBoard($definitionId: Int!) {
+  Task_connection(
+    where: {parentId: {_is_null: true}, definitionId: {_eq: $definitionId}}
+  ) {
     edges {
       node {
         id
@@ -955,7 +966,7 @@ export const GetTaskByBoardDocument = gql`
  * @example
  * const { data, loading, error } = useGetTaskByBoardQuery({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      definitionId: // value for 'definitionId'
  *   },
  * });
  */

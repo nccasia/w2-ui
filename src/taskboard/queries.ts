@@ -232,7 +232,16 @@ export const TaskFragment = gql`
     }
   }
 `;
-
+export const TaskBoardFragment = gql`
+  fragment TaskBoardFragment on TaskBoard {
+    code
+    id
+    name
+    taskDefinitionId
+    viewConfig
+    viewType
+  }
+`;
 export const getComment = gql`
   query GetComment {
     Comment_connection {
@@ -295,17 +304,19 @@ export const getViewConfig = gql`
     TaskBoard_connection(where: { code: { _eq: $code } }) {
       edges {
         node {
-          viewConfig
-          taskDefinitionId
+          ...TaskBoardFragment
         }
       }
     }
   }
 `;
 export const getTaskByBoard = gql`
-  query GetTaskByBoard($_eq: Int!) {
+  query GetTaskByBoard($definitionId: Int!) {
     Task_connection(
-      where: { parentId: { _is_null: true }, definitionId: { _eq: $_eq } }
+      where: {
+        parentId: { _is_null: true }
+        definitionId: { _eq: $definitionId }
+      }
     ) {
       edges {
         node {
