@@ -74,16 +74,20 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
             <HorizontalSpacer spacing={2} />
             <Typography className={classes.cardHeader}>
               {title}
-              <Pill
-                className={classes.cardPill}
-                label={state}
-                color="warning"
-              />
-              <Pill
-                className={classes.cardPill}
-                label={status}
-                color="success"
-              />
+              {state && (
+                <Pill
+                  className={classes.cardPill}
+                  label={state}
+                  color="warning"
+                />
+              )}
+              {status && (
+                <Pill
+                  className={classes.cardPill}
+                  label={status}
+                  color="success"
+                />
+              )}
             </Typography>
           </div>
         }

@@ -1,10 +1,7 @@
-import Card from "@material-ui/core/Card/Card";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
-import { FilterElement } from "@saleor/components/Filter";
-import FilterBar from "@saleor/components/FilterBar";
 import PageHeader from "@saleor/components/PageHeader";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
@@ -52,7 +49,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
       {data.type === "board" && <TaskBoard data={data}></TaskBoard>}
       {data.type === "list" && (
         <>
-          <Card>
+          {/* <Card>
             <FilterBar
               searchPlaceholder={intl.formatMessage({
                 id: "Ut9v0j",
@@ -88,7 +85,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
                 throw new Error("Function not implemented.");
               }}
             />
-          </Card>
+          </Card> */}
           <TaskList id={user.user.userId} />
         </>
       )}

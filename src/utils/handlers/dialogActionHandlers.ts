@@ -1,7 +1,7 @@
 import { UseNavigatorResult } from "@saleor/hooks/useNavigator";
 import { BulkAction, Dialog, SingleAction } from "@saleor/types";
 
-type Url<T extends Dialog<any>> = (params: T) => string;
+// type Url<T extends Dialog<any>> = (params: T) => string;
 type CreateCloseModal<
   TAction extends string,
   TParams extends Dialog<TAction>
@@ -12,25 +12,36 @@ function createDialogActionHandlers<
   TParams extends Dialog<TAction> & BulkAction & SingleAction
 >(
   navigate: UseNavigatorResult,
-  url: Url<TParams>,
+  url: any,
   params: TParams,
+  id: string,
 ): CreateCloseModal<TAction, TParams> {
   const close = () =>
     navigate(
       url({
-        ...params,
-        action: undefined,
-        id: undefined,
-        ids: undefined,
+        param: {
+          ...params,
+          action: undefined,
+          id: undefined,
+          ids: undefined,
+        },
+        paramId: {
+          id,
+        },
       }),
       { replace: true },
     );
   const open = (action: TAction, newParams?: TParams) =>
     navigate(
       url({
-        ...params,
-        ...newParams,
-        action,
+        param: {
+          ...params,
+          ...newParams,
+          action,
+        },
+        paramId: {
+          id,
+        },
       }),
     );
 

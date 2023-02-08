@@ -2,7 +2,7 @@ import { useGetViewConfigQuery } from "@saleor/graphql";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import { useMemo } from "react";
 const fakeData = (id: string) => {
-  if (id === "wfh-request") {
+  if (id === "wfh_request") {
     return {
       type: "board",
       viewConfig: [
@@ -29,10 +29,10 @@ export function useTaskBoard(id: string) {
     },
   });
   const reponse = useMemo(() => {
-    if (id === "wfh-request") {
+    if (id === "wfh_request") {
       return fakeData(id);
     }
-    if (id === "device-request") {
+    if (id === "device_request") {
       return {
         type: "board",
         data: mapEdgesToItems(data?.TaskBoard_connection),
@@ -46,7 +46,7 @@ export function useTaskBoard(id: string) {
         ],
       };
     }
-    if (id === "change-office-request") {
+    if (id === "change_office_request") {
       return {
         type: "board",
         data: mapEdgesToItems(data?.TaskBoard_connection),

@@ -11,7 +11,7 @@ export const typeTaskMock = [
     id: "Q2hhbm5lbDoxMg==",
     isActive: true,
     name: TaskType.CHANGE_OFFICE_REQ,
-    slug: "change-office-request",
+    slug: "change_office_request",
     stockSettings: {
       allocationStrategy: "PRIORITIZE_HIGH_STOCK",
       __typename: "StockSettings",
@@ -28,7 +28,7 @@ export const typeTaskMock = [
     id: "Q2hhbm5lbDoxMQ==",
     isActive: true,
     name: TaskType.DEVICE_REQ,
-    slug: "device-request",
+    slug: "device_request",
     stockSettings: {
       allocationStrategy: "PRIORITIZE_HIGH_STOCK",
       __typename: "StockSettings",
@@ -45,7 +45,7 @@ export const typeTaskMock = [
     id: "Q2hhbm5lbDoxMU==",
     isActive: true,
     name: TaskType.WFH_REQ,
-    slug: "wfh-request",
+    slug: "wfh_request",
     stockSettings: {
       allocationStrategy: "PRIORITIZE_HIGH_STOCK",
       __typename: "StockSettings",

@@ -129,11 +129,15 @@ export const TaskList: React.FC<TaskListProps> = () => {
                 {maybe(() => task.title) ? task.title : <Skeleton />}
               </TableCell>
               <TableCell className={classes.colTask}>
-                {maybe(() => task.state) ? task.state : <Skeleton />}
+                {maybe(() => task.state) ? (
+                  <Pill label={task.state} color="warning" />
+                ) : (
+                  <Skeleton />
+                )}
               </TableCell>
               <TableCell className={classes.colStatus}>
                 {maybe(() => task.status) ? (
-                  <Pill label={task.status} color="warning" />
+                  <Pill label={task.status} color="success" />
                 ) : (
                   <Skeleton />
                 )}

@@ -10,6 +10,7 @@ import { sectionNames } from "@saleor/intl";
 import {
   Accordion,
   AccordionSummary,
+  Pill,
   SwitchSelector,
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
@@ -122,8 +123,20 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                 >
                   <AccordionSummary key={subtask.id}>
                     <ListItemText primary={subtask.title} />
-                    <ListItemText primary={subtask.state} />
-                    <ListItemText primary={subtask.status} />
+                    <ListItemText
+                      primary={
+                        subtask.state && (
+                          <Pill label={subtask.state} color="warning" />
+                        )
+                      }
+                    />
+                    <ListItemText
+                      primary={
+                        subtask.status && (
+                          <Pill label={subtask.status} color="success" />
+                        )
+                      }
+                    />
                     <ListItemText primary={subtask.priority} />
                     <ListItemAvatar>
                       <UserChip user={taskDetail.userByCreatorid} />

@@ -23,9 +23,10 @@ import FormCreatedTaskType from "./FormCreatedTaskType/FormCreatedTaskType";
 
 interface Props {
   onClose: () => void;
+  id: string;
 }
 
-const FormCreateTask: React.FC<Props> = ({ onClose }) => {
+const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const [loading, setLoading] = useState<boolean>(false);
@@ -50,6 +51,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
       []
     );
   }, [TaskDefinitionQuery?.data]);
+
   const { choiceType } = useTaskDefinitionChoiceType(data);
   const { result } = useChoiceSearch(choiceType);
 
@@ -60,8 +62,12 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
   const { user } = useUser();
 
   const selectedType = useMemo(() => {
-    return data?.find?.(item => item?.Form?.id === typeTask);
-  }, [data, typeTask]);
+    if (user.userId === id) {
+      return data?.find?.(item => item?.Form?.id === typeTask);
+    } else {
+      return data?.find?.(item => item?.Form?.code.toLowerCase() === id);
+    }
+  }, [data, id, typeTask, user.userId]);
 
   const selectTeam = useMemo(
     () => user?.MemberOnTeams?.find?.(item => item.User.id === user?.id),
@@ -99,14 +105,24 @@ const FormCreateTask: React.FC<Props> = ({ onClose }) => {
         {selectedType && <b>{selectedType?.title}</b>}
         <CloseIcon style={iconClose} onClick={() => onClose()} />
       </Box>
-      {typeTask && (
+      {user.userId === id && (
+        <>
+          {typeTask && (
+            <FormCreatedTaskDetail
+              formId={selectedType?.Form?.id}
+              onNewRequest={handleNewRequest}
+            />
+          )}
+          {!typeTask && (
+            <FormCreatedTaskType typeList={result} onSetType={setTypeTask} />
+          )}
+        </>
+      )}
+      {user.userId !== id && (
         <FormCreatedTaskDetail
           formId={selectedType?.Form?.id}
           onNewRequest={handleNewRequest}
         />
-      )}
-      {!typeTask && (
-        <FormCreatedTaskType typeList={result} onSetType={setTypeTask} />
       )}
     </>
   );

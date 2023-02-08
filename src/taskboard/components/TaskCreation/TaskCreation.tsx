@@ -8,9 +8,10 @@ import FormCreateTask from "../FormCreateTask/FormCreateTask";
 export interface TaskCreationProps {
   open: boolean;
   onClose: () => void;
+  id: string;
 }
 
-const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose }) => {
+const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose, id }) => {
   useModalDialogOpen(open, {
     onClose: () => {
       return;
@@ -26,7 +27,7 @@ const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose }) => {
         onClose={onClose}
       >
         <Box sx={styleModal}>
-          <FormCreateTask onClose={onClose} />
+          <FormCreateTask onClose={onClose} id={id} />
         </Box>
       </Modal>
     </>

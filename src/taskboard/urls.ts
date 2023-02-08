@@ -63,12 +63,13 @@ export type TaskListUrlQueryParams = BulkAction &
 
 export const workFlowPathUrl = (id: string) => urljoin(workFlowSectionUrl, id);
 
-export const modalNewTaslUrl = (params?: TaskListUrlQueryParams): string => {
-  const orderList = taskListPath;
-  if (params === undefined) {
-    return orderList;
+export const modalNewTaskUrl = (params?: any): string => {
+  const taskSectionUrl = urljoin(taskBoardSectionUrl, params.paramId.id);
+
+  if (params.param === undefined) {
+    return taskSectionUrl;
   } else {
-    return urljoin(orderList, "?" + stringifyQs(params));
+    return urljoin(taskSectionUrl, "?" + stringifyQs(params.param));
   }
 };
 

@@ -50,8 +50,6 @@ const SubTask = ({
 }: SubTaskType): JSX.Element => {
   const classes = useStyles();
   const { user } = useUser();
-  // eslint-disable-next-line no-console
-  console.log("🚀 ~ file: SubTask.tsx:53 ~ user", user.userId, task.assigneeId);
 
   return (
     <>
