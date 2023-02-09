@@ -29,3 +29,18 @@ export const updateInformationUser = gql`
     }
   }
 `;
+
+export const googleLogin = gql`
+  mutation googleLogin($data: GoogleLoginInput!) {
+    googleLogin(data: $data) {
+      accessToken
+      refreshToken
+      user {
+        id
+        email
+        firstname
+        lastname
+      }
+    }
+  }
+`;

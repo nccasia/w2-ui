@@ -4,17 +4,19 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { useUser } from "@saleor/auth";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useUser } from "@saleor/auth/index";
 import { UserContextError } from "@saleor/auth/types";
 import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
 import { FormSpacer } from "@saleor/components/FormSpacer";
+import { GoogleLoginInput } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { EyeIcon, IconButton } from "@saleor/macaw-ui";
 import { gapi } from "gapi-script";
 import React, { useEffect } from "react";
-import { GoogleLogin } from "react-google-login";
+import GoogleButton from "react-google-button";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -40,6 +42,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
     onExternalAuthentication,
     onSubmit,
   } = props;
+  const { loginWithGoogle } = useUser();
   const clientId =
     "297834965215-lcf3u4r5cb0psirejjulvne91fqgiha8.apps.googleusercontent.com";
   useEffect(() => {
@@ -47,11 +50,26 @@ const LoginCard: React.FC<LoginCardProps> = props => {
       gapi.client.init({ clientId });
     });
   }, []);
-  const { loginWithGoogle } = useUser();
 
   const classes = useStyles(props);
   const intl = useIntl();
   const [showPassword, setShowPassword] = React.useState(false);
+  const login = useGoogleLogin({
+    ux_mode: "popup",
+    flow: "auth-code",
+    onSuccess: async codeResponse => {
+      const data: GoogleLoginInput = {
+        code: codeResponse.code,
+      };
+      const result = await loginWithGoogle(data);
+      const errors = result?.errors || [];
+      return errors;
+    },
+    onError: (errorResponse: any) => {
+      // eslint-disable-next-line no-console
+      console.log("login with google fail: ", errorResponse);
+    },
+  });
 
   if (loading) {
     return (
@@ -60,17 +78,6 @@ const LoginCard: React.FC<LoginCardProps> = props => {
       </div>
     );
   }
-
-  const responseGoogle = response => {
-    // eslint-disable-next-line no-console
-    console.log("success->", response);
-
-    loginWithGoogle(response.googleId);
-  };
-  const responseGoogleFail = response => {
-    // eslint-disable-next-line no-console
-    console.log("fail->", response);
-  };
 
   return (
     <LoginForm onSubmit={onSubmit}>
@@ -181,13 +188,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
             </Button>
           </div>
           <div className={classes.buttonContainer}>
-            <GoogleLogin
-              clientId={clientId}
-              className={classes.googleLoginButton}
-              buttonText="Login with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogleFail}
-            />
+            <GoogleButton style={{ flex: 1 }} onClick={() => login()} />
           </div>
           {externalAuthentications.length > 0 && (
             <>
