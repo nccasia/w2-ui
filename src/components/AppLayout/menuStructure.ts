@@ -1,7 +1,6 @@
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import tasksIcon from "@assets/images/tasks-icon.svg";
 import { useExtensions } from "@saleor/apps/useExtensions";
-import { useUser } from "@saleor/auth";
 import { sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
@@ -26,7 +25,6 @@ function useMenuStructure(
       return;
     }
   };
-  const users = useUser();
 
   const menuItems: FilterableMenuItem[] = [
     {
@@ -41,7 +39,7 @@ function useMenuStructure(
       iconSrc: tasksIcon,
       label: "My Tasks",
       id: "tasks",
-      url: `/taskboard/${users.user.userId}`,
+      url: `/taskboard/my-tasks`,
     },
     {
       ariaLabel: "Works & Projects",
@@ -55,7 +53,7 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "WFH request",
           id: "wfhRequest",
-          url: "/taskboard/wfh_request",
+          url: "/taskboard/wfh-request",
         },
       ],
     },
@@ -71,7 +69,7 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "Change office request",
           id: "changeOfficeRequest",
-          url: "/taskboard/change_office_request",
+          url: "/taskboard/change-office-request",
         },
       ],
     },
@@ -87,7 +85,7 @@ function useMenuStructure(
           iconSrc: tasksIcon,
           label: "Device requests",
           id: "devicerequests",
-          url: "/taskboard/device_request",
+          url: "/taskboard/device-request",
         },
       ],
     },

@@ -62,12 +62,14 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const { user } = useUser();
 
   const selectedType = useMemo(() => {
-    if (user.userId === id) {
+    if (id === "my-tasks") {
       return data?.find?.(item => item?.Form?.id === typeTask);
     } else {
-      return data?.find?.(item => item?.Form?.code.toLowerCase() === id);
+      return data?.find?.(
+        item => item?.Form?.code === id.toUpperCase().replaceAll("-", "_"),
+      );
     }
-  }, [data, id, typeTask, user.userId]);
+  }, [data, id, typeTask]);
 
   const selectTeam = useMemo(
     () => user?.MemberOnTeams?.find?.(item => item.User.id === user?.id),
@@ -105,7 +107,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
         {selectedType && <b>{selectedType?.title}</b>}
         <CloseIcon style={iconClose} onClick={() => onClose()} />
       </Box>
-      {user.userId === id && (
+      {id === "my-tasks" && (
         <>
           {typeTask && (
             <FormCreatedTaskDetail
@@ -118,7 +120,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
           )}
         </>
       )}
-      {user.userId !== id && (
+      {id !== "my-tasks" && (
         <FormCreatedTaskDetail
           formId={selectedType?.Form?.id}
           onNewRequest={handleNewRequest}

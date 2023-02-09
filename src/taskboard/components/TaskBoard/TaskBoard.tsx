@@ -1,60 +1,66 @@
-import React, { useMemo } from "react";
+import {
+  TaskBoardFragmentFragment,
+  useGetTaskByBoardLazyQuery,
+} from "@saleor/graphql";
+import useNavigator from "@saleor/hooks/useNavigator";
+import { taskUrl } from "@saleor/taskboard/urls";
+import React, { useEffect, useMemo } from "react";
 import Board from "react-trello";
 interface TaskBoardProps {
-  data: any;
+  taskBoardData: TaskBoardFragmentFragment;
 }
-const test = {
-  data: [
-    {
-      id: "COR555",
-      title: "Change Office Request",
-      description: "Change Office Request",
-      label: "30 mins",
-      status: "PM Approve",
-      draggable: false,
-    },
-    {
-      id: "COR11",
-      title: "Change",
-      description: "Change Office Request",
-      label: "30 mins",
-      status: "Request",
-      draggable: false,
-    },
-  ],
-};
-export const TaskBoard: React.FC<TaskBoardProps> = ({ data }) => {
-  // const { data } = useGetTasksQueryLazy();p
-  const convertData = useMemo(() => {
-    let result;
-    if (data?.viewConfig) {
-      result = {
-        lanes: data?.viewConfig.map(e => {
-          return {
-            id: e,
-            title: e,
-            label: "2/2",
-            cards: test.data.filter(item => {
-              if (item.status === e) {
-                return {
-                  id: item.id,
-                  title: item.title,
-                  description: item.description,
-                  label: "30 mins",
-                  draggable: false,
-                };
-              }
-            }),
-          };
-        }),
-      };
-      return result;
+const convertTaskCard = (state, taskEdges) => {
+  const result = [];
+  for (const item of taskEdges) {
+    if (item.node.state === state) {
+      result.push({
+        id: item.node.id,
+        title: item.node.title,
+        description: item.node.description,
+        draggable: false,
+      });
     }
+  }
+  return result;
+};
+export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
+  const navigate = useNavigator();
+  const [fetch, { data }] = useGetTaskByBoardLazyQuery();
+  useEffect(() => {
+    if (taskBoardData.taskDefinitionId) {
+      fetch({
+        variables: {
+          definitionId: taskBoardData.taskDefinitionId,
+        },
+      });
+    }
+  }, [taskBoardData]);
+  const viewConfig = useMemo(() => {
+    if (!taskBoardData || !data) {
+      return null;
+    }
+    return {
+      ...taskBoardData.viewConfig,
+      lanes: taskBoardData.viewConfig.lanes.map(lane => {
+        return {
+          ...lane,
+          cards: convertTaskCard(lane.state, data.Task_connection.edges),
+        };
+      }),
+    };
   }, [data]);
-
+  const handleClickCard = id => {
+    navigate(taskUrl(id));
+  };
   return (
     <>
-      <Board data={convertData} style={{ backgroundColor: "transparent" }} />
+      {data && (
+        <Board
+          data={viewConfig}
+          style={{ backgroundColor: "transparent" }}
+          onCardClick={cardId => handleClickCard(cardId)}
+        />
+      )}
     </>
   );
 };
