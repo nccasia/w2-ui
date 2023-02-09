@@ -1,5 +1,4 @@
 import { List, ListItemAvatar, ListItemText } from "@material-ui/core";
-import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
@@ -14,7 +13,7 @@ import {
   SwitchSelector,
   SwitchSelectorButton,
 } from "@saleor/macaw-ui";
-import { taskListUrl } from "@saleor/taskboard/urls";
+// import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { createRelayId } from "@saleor/utils/createRelayId";
 import clsx from "clsx";
@@ -94,12 +93,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     const active = taskDetail?.Tasks?.find(e => e.isActive);
     return active;
   }, [taskDetail]);
-  const user = useUser();
   return (
     <Container>
-      <Backlink href={taskListUrl(undefined, user?.user?.userId)}>
-        {intl.formatMessage(sectionNames.tasks)}
-      </Backlink>
+      <Backlink>{intl.formatMessage(sectionNames.tasks)}</Backlink>
       <Grid>
         <div>
           <Task task={taskDetail} />

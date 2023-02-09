@@ -133,6 +133,16 @@ export const TaskDetailFragmemtFragmentDoc = gql`
 }
     ${TaskFragmentFragmentDoc}
 ${TaskEventLogFragmentFragmentDoc}`;
+export const TaskBoardFragmentFragmentDoc = gql`
+    fragment TaskBoardFragment on TaskBoard {
+  code
+  id
+  name
+  taskDefinitionId
+  viewConfig
+  viewType
+}
+    `;
 export const SigninDocument = gql`
     mutation Signin($email: String = "", $password: String = "") {
   signin(data: {email: $email, password: $password}) {
@@ -877,12 +887,12 @@ export const GetViewConfigDocument = gql`
   TaskBoard_connection(where: {code: {_eq: $code}}) {
     edges {
       node {
-        viewConfig
+        ...TaskBoardFragment
       }
     }
   }
 }
-    `;
+    ${TaskBoardFragmentFragmentDoc}`;
 
 /**
  * __useGetViewConfigQuery__
@@ -911,3 +921,64 @@ export function useGetViewConfigLazyQuery(baseOptions?: ApolloReactHooks.LazyQue
 export type GetViewConfigQueryHookResult = ReturnType<typeof useGetViewConfigQuery>;
 export type GetViewConfigLazyQueryHookResult = ReturnType<typeof useGetViewConfigLazyQuery>;
 export type GetViewConfigQueryResult = Apollo.QueryResult<Types.GetViewConfigQuery, Types.GetViewConfigQueryVariables>;
+export const GetTaskByBoardDocument = gql`
+    query GetTaskByBoard($definitionId: Int!) {
+  Task_connection(
+    where: {parentId: {_is_null: true}, definitionId: {_eq: $definitionId}}
+  ) {
+    edges {
+      node {
+        id
+        dueDate
+        description
+        definitionId
+        creatorId
+        organizationId
+        parentId
+        priority
+        status
+        teamId
+        title
+        assigneeId
+        state
+        User {
+          id
+          firstname
+          lastname
+          email
+          organizationId
+          role
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTaskByBoardQuery__
+ *
+ * To run a query within a React component, call `useGetTaskByBoardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskByBoardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTaskByBoardQuery({
+ *   variables: {
+ *      definitionId: // value for 'definitionId'
+ *   },
+ * });
+ */
+export function useGetTaskByBoardQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>(GetTaskByBoardDocument, options);
+      }
+export function useGetTaskByBoardLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>(GetTaskByBoardDocument, options);
+        }
+export type GetTaskByBoardQueryHookResult = ReturnType<typeof useGetTaskByBoardQuery>;
+export type GetTaskByBoardLazyQueryHookResult = ReturnType<typeof useGetTaskByBoardLazyQuery>;
+export type GetTaskByBoardQueryResult = Apollo.QueryResult<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>;

@@ -1,68 +1,27 @@
-import { useGetViewConfigQuery } from "@saleor/graphql";
-import { mapEdgesToItems } from "@saleor/utils/maps";
+import {
+  TaskBoardFragmentFragment,
+  useGetViewConfigQuery,
+} from "@saleor/graphql";
 import { useMemo } from "react";
-const fakeData = (id: string) => {
-  if (id === "wfh_request") {
-    return {
-      type: "board",
-      viewConfig: [
-        "Request",
-        "PM Approve",
-        "Sale Approve",
-        "Customer Approve",
-        "IT Approve",
-        "Done",
-      ],
-    };
-  } else {
-    return {
-      type: "board",
-      viewConfig: [],
-    };
-  }
-};
 export function useTaskBoard(id: string) {
-  // const { data } = useGetTasksQuery();
   const { data } = useGetViewConfigQuery({
     variables: {
-      code: "601",
+      code: "1",
     },
   });
   const reponse = useMemo(() => {
-    if (id === "wfh_request") {
-      return fakeData(id);
+    if (!data) {
+      return {} as TaskBoardFragmentFragment;
     }
-    if (id === "device_request") {
+    if (id === "my-tasks") {
       return {
-        type: "board",
-        data: mapEdgesToItems(data?.TaskBoard_connection),
-        viewConfig: [
-          "Request",
-          "PM Approve",
-          "Sale Approve",
-          "Customer Approve",
-          "IT Approve",
-          "Done",
-        ],
-      };
+        viewType: "list",
+        viewConfig: {},
+      } as TaskBoardFragmentFragment;
     }
-    if (id === "change_office_request") {
-      return {
-        type: "board",
-        data: mapEdgesToItems(data?.TaskBoard_connection),
-        viewConfig: [
-          "Request",
-          "Original Office",
-          "Destination Office",
-          "Done",
-        ],
-      };
-    } else {
-      return {
-        type: "list",
-        viewConfig: [],
-      };
-    }
-  }, [data?.TaskBoard_connection, id]);
+    return JSON.parse(
+      JSON.stringify(data.TaskBoard_connection.edges[0].node),
+    ) as TaskBoardFragmentFragment;
+  }, [id, data]);
   return reponse;
 }

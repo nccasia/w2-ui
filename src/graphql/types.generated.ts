@@ -7926,6 +7926,8 @@ export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'Act
 
 export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null };
 
+export type TaskBoardFragmentFragment = { __typename: 'TaskBoard', code: string, id: string, name: string, taskDefinitionId: number, viewConfig: any, viewType: any };
+
 export type GetCommentQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -7943,4 +7945,11 @@ export type GetViewConfigQueryVariables = Exact<{
 }>;
 
 
-export type GetViewConfigQuery = { __typename: 'query_root', TaskBoard_connection: { __typename: 'TaskBoardConnection', edges: Array<{ __typename: 'TaskBoardEdge', node: { __typename: 'TaskBoard', viewConfig: any } }> } };
+export type GetViewConfigQuery = { __typename: 'query_root', TaskBoard_connection: { __typename: 'TaskBoardConnection', edges: Array<{ __typename: 'TaskBoardEdge', node: { __typename: 'TaskBoard', code: string, id: string, name: string, taskDefinitionId: number, viewConfig: any, viewType: any } }> } };
+
+export type GetTaskByBoardQueryVariables = Exact<{
+  definitionId: Scalars['Int'];
+}>;
+
+
+export type GetTaskByBoardQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
