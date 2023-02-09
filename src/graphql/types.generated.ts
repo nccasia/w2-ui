@@ -14,6 +14,7 @@ export type Scalars = {
   ActivityType: any;
   FileType: any;
   JWT: any;
+  ProviderEnum: any;
   Role: any;
   TaskBoardType: any;
   TaskBoardViewType: any;
@@ -1365,6 +1366,10 @@ export type Form_Updates = {
   _set?: InputMaybe<Form_Set_Input>;
   /** filter the rows which have to be updated */
   where: Form_Bool_Exp;
+};
+
+export type GoogleLoginInput = {
+  code: Scalars['String'];
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
@@ -3245,6 +3250,19 @@ export type Project_Variance_Order_By = {
   taskDefinitionId?: InputMaybe<Order_By>;
 };
 
+/** Boolean expression to compare columns of type "ProviderEnum". All fields are combined with logical 'AND'. */
+export type ProviderEnum_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['ProviderEnum']>;
+  _gt?: InputMaybe<Scalars['ProviderEnum']>;
+  _gte?: InputMaybe<Scalars['ProviderEnum']>;
+  _in?: InputMaybe<Array<Scalars['ProviderEnum']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['ProviderEnum']>;
+  _lte?: InputMaybe<Scalars['ProviderEnum']>;
+  _neq?: InputMaybe<Scalars['ProviderEnum']>;
+  _nin?: InputMaybe<Array<Scalars['ProviderEnum']>>;
+};
+
 export type ResourceItem_Aggregate_Bool_Exp = {
   count?: InputMaybe<ResourceItem_Aggregate_Bool_Exp_Count>;
 };
@@ -4941,6 +4959,7 @@ export type TaskDefinition_Aggregate_Order_By = {
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type TaskDefinition_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
@@ -4984,6 +5003,7 @@ export type TaskDefinition_Bool_Exp = {
   _not?: InputMaybe<TaskDefinition_Bool_Exp>;
   _or?: InputMaybe<Array<TaskDefinition_Bool_Exp>>;
   config?: InputMaybe<Jsonb_Comparison_Exp>;
+  contextConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   ctaConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   ctaTemplate?: InputMaybe<String_Comparison_Exp>;
@@ -5019,6 +5039,7 @@ export enum TaskDefinition_Constraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type TaskDefinition_Delete_At_Path_Input = {
   config?: InputMaybe<Array<Scalars['String']>>;
+  contextConfig?: InputMaybe<Array<Scalars['String']>>;
   ctaConfig?: InputMaybe<Array<Scalars['String']>>;
   machineConfig?: InputMaybe<Array<Scalars['String']>>;
   notificationConfig?: InputMaybe<Array<Scalars['String']>>;
@@ -5031,6 +5052,7 @@ export type TaskDefinition_Delete_At_Path_Input = {
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type TaskDefinition_Delete_Elem_Input = {
   config?: InputMaybe<Scalars['Int']>;
+  contextConfig?: InputMaybe<Scalars['Int']>;
   ctaConfig?: InputMaybe<Scalars['Int']>;
   machineConfig?: InputMaybe<Scalars['Int']>;
   notificationConfig?: InputMaybe<Scalars['Int']>;
@@ -5043,6 +5065,7 @@ export type TaskDefinition_Delete_Elem_Input = {
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type TaskDefinition_Delete_Key_Input = {
   config?: InputMaybe<Scalars['String']>;
+  contextConfig?: InputMaybe<Scalars['String']>;
   ctaConfig?: InputMaybe<Scalars['String']>;
   machineConfig?: InputMaybe<Scalars['String']>;
   notificationConfig?: InputMaybe<Scalars['String']>;
@@ -5071,6 +5094,7 @@ export type TaskDefinition_Insert_Input = {
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   ctaTemplate?: InputMaybe<Scalars['String']>;
@@ -5164,6 +5188,7 @@ export type TaskDefinition_Order_By = {
   TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   config?: InputMaybe<Order_By>;
+  contextConfig?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   ctaConfig?: InputMaybe<Order_By>;
   ctaTemplate?: InputMaybe<Order_By>;
@@ -5198,6 +5223,7 @@ export type TaskDefinition_Pk_Columns_Input = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type TaskDefinition_Prepend_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   machineConfig?: InputMaybe<Scalars['jsonb']>;
   notificationConfig?: InputMaybe<Scalars['jsonb']>;
@@ -5211,6 +5237,8 @@ export type TaskDefinition_Prepend_Input = {
 export enum TaskDefinition_Select_Column {
   /** column name */
   CONFIG = 'config',
+  /** column name */
+  CONTEXTCONFIG = 'contextConfig',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -5264,6 +5292,7 @@ export enum TaskDefinition_Select_Column {
 /** input type for updating data in table "TaskDefinition" */
 export type TaskDefinition_Set_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   ctaTemplate?: InputMaybe<Scalars['String']>;
@@ -5326,6 +5355,8 @@ export type TaskDefinition_Sum_Order_By = {
 export enum TaskDefinition_Update_Column {
   /** column name */
   CONFIG = 'config',
+  /** column name */
+  CONTEXTCONFIG = 'contextConfig',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -5477,6 +5508,7 @@ export type Task_Aggregate_Order_By = {
 /** append existing jsonb value of filtered columns with new jsonb value */
 export type Task_Append_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   formConfig?: InputMaybe<Scalars['jsonb']>;
   machineConfig?: InputMaybe<Scalars['jsonb']>;
@@ -5532,6 +5564,7 @@ export type Task_Bool_Exp = {
   _or?: InputMaybe<Array<Task_Bool_Exp>>;
   assigneeId?: InputMaybe<Int_Comparison_Exp>;
   config?: InputMaybe<Jsonb_Comparison_Exp>;
+  contextConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   creatorId?: InputMaybe<Int_Comparison_Exp>;
   cta?: InputMaybe<String_Comparison_Exp>;
@@ -5587,6 +5620,7 @@ export enum Task_Constraint {
 /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
 export type Task_Delete_At_Path_Input = {
   config?: InputMaybe<Array<Scalars['String']>>;
+  contextConfig?: InputMaybe<Array<Scalars['String']>>;
   ctaConfig?: InputMaybe<Array<Scalars['String']>>;
   formConfig?: InputMaybe<Array<Scalars['String']>>;
   machineConfig?: InputMaybe<Array<Scalars['String']>>;
@@ -5602,6 +5636,7 @@ export type Task_Delete_At_Path_Input = {
 /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
 export type Task_Delete_Elem_Input = {
   config?: InputMaybe<Scalars['Int']>;
+  contextConfig?: InputMaybe<Scalars['Int']>;
   ctaConfig?: InputMaybe<Scalars['Int']>;
   formConfig?: InputMaybe<Scalars['Int']>;
   machineConfig?: InputMaybe<Scalars['Int']>;
@@ -5617,6 +5652,7 @@ export type Task_Delete_Elem_Input = {
 /** delete key/value pair or string element. key/value pairs are matched based on their key value */
 export type Task_Delete_Key_Input = {
   config?: InputMaybe<Scalars['String']>;
+  contextConfig?: InputMaybe<Scalars['String']>;
   ctaConfig?: InputMaybe<Scalars['String']>;
   formConfig?: InputMaybe<Scalars['String']>;
   machineConfig?: InputMaybe<Scalars['String']>;
@@ -5658,6 +5694,7 @@ export type Task_Insert_Input = {
   User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   assigneeId?: InputMaybe<Scalars['Int']>;
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   creatorId?: InputMaybe<Scalars['Int']>;
   cta?: InputMaybe<Scalars['String']>;
@@ -5805,6 +5842,7 @@ export type Task_Order_By = {
   User?: InputMaybe<User_Order_By>;
   assigneeId?: InputMaybe<Order_By>;
   config?: InputMaybe<Order_By>;
+  contextConfig?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
   creatorId?: InputMaybe<Order_By>;
   cta?: InputMaybe<Order_By>;
@@ -5859,6 +5897,7 @@ export type Task_Pk_Columns_Input = {
 /** prepend existing jsonb value of filtered columns with new jsonb value */
 export type Task_Prepend_Input = {
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   ctaConfig?: InputMaybe<Scalars['jsonb']>;
   formConfig?: InputMaybe<Scalars['jsonb']>;
   machineConfig?: InputMaybe<Scalars['jsonb']>;
@@ -5877,6 +5916,8 @@ export enum Task_Select_Column {
   ASSIGNEEID = 'assigneeId',
   /** column name */
   CONFIG = 'config',
+  /** column name */
+  CONTEXTCONFIG = 'contextConfig',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -5979,6 +6020,7 @@ export enum Task_Select_Column_Task_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns
 export type Task_Set_Input = {
   assigneeId?: InputMaybe<Scalars['Int']>;
   config?: InputMaybe<Scalars['jsonb']>;
+  contextConfig?: InputMaybe<Scalars['jsonb']>;
   createdAt?: InputMaybe<Scalars['timestamp']>;
   creatorId?: InputMaybe<Scalars['Int']>;
   cta?: InputMaybe<Scalars['String']>;
@@ -6085,6 +6127,8 @@ export enum Task_Update_Column {
   ASSIGNEEID = 'assigneeId',
   /** column name */
   CONFIG = 'config',
+  /** column name */
+  CONTEXTCONFIG = 'contextConfig',
   /** column name */
   CREATEDAT = 'createdAt',
   /** column name */
@@ -7344,6 +7388,8 @@ export type User_Bool_Exp = {
   createdAt?: InputMaybe<Timestamp_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   firstname?: InputMaybe<String_Comparison_Exp>;
+  googleId?: InputMaybe<String_Comparison_Exp>;
+  googleToken?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   lastname?: InputMaybe<String_Comparison_Exp>;
   organizationId?: InputMaybe<Int_Comparison_Exp>;
@@ -7352,6 +7398,7 @@ export type User_Bool_Exp = {
   projectsByManagerid_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
   projectsByReporterid?: InputMaybe<Project_Bool_Exp>;
   projectsByReporterid_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
+  provider?: InputMaybe<ProviderEnum_Comparison_Exp>;
   role?: InputMaybe<Role_Comparison_Exp>;
   tasksByCreatorid?: InputMaybe<Task_Bool_Exp>;
   tasksByCreatorid_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
@@ -7395,12 +7442,15 @@ export type User_Insert_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   firstname?: InputMaybe<Scalars['String']>;
+  googleId?: InputMaybe<Scalars['String']>;
+  googleToken?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   lastname?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   password?: InputMaybe<Scalars['String']>;
   projectsByManagerid?: InputMaybe<Project_Arr_Rel_Insert_Input>;
   projectsByReporterid?: InputMaybe<Project_Arr_Rel_Insert_Input>;
+  provider?: InputMaybe<Scalars['ProviderEnum']>;
   role?: InputMaybe<Scalars['Role']>;
   tasksByCreatorid?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   tasksByReporterid?: InputMaybe<Task_Arr_Rel_Insert_Input>;
@@ -7414,10 +7464,13 @@ export type User_Max_Order_By = {
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
+  googleId?: InputMaybe<Order_By>;
+  googleToken?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   lastname?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
   role?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
@@ -7428,10 +7481,13 @@ export type User_Min_Order_By = {
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
+  googleId?: InputMaybe<Order_By>;
+  googleToken?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   lastname?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
   role?: InputMaybe<Order_By>;
   updatedAt?: InputMaybe<Order_By>;
 };
@@ -7468,12 +7524,15 @@ export type User_Order_By = {
   createdAt?: InputMaybe<Order_By>;
   email?: InputMaybe<Order_By>;
   firstname?: InputMaybe<Order_By>;
+  googleId?: InputMaybe<Order_By>;
+  googleToken?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   lastname?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
   projectsByManagerid_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
   projectsByReporterid_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
+  provider?: InputMaybe<Order_By>;
   role?: InputMaybe<Order_By>;
   tasksByCreatorid_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   tasksByReporterid_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
@@ -7497,6 +7556,10 @@ export enum User_Select_Column {
   /** column name */
   FIRSTNAME = 'firstname',
   /** column name */
+  GOOGLEID = 'googleId',
+  /** column name */
+  GOOGLETOKEN = 'googleToken',
+  /** column name */
   ID = 'id',
   /** column name */
   LASTNAME = 'lastname',
@@ -7504,6 +7567,8 @@ export enum User_Select_Column {
   ORGANIZATIONID = 'organizationId',
   /** column name */
   PASSWORD = 'password',
+  /** column name */
+  PROVIDER = 'provider',
   /** column name */
   ROLE = 'role',
   /** column name */
@@ -7516,10 +7581,13 @@ export type User_Set_Input = {
   createdAt?: InputMaybe<Scalars['timestamp']>;
   email?: InputMaybe<Scalars['String']>;
   firstname?: InputMaybe<Scalars['String']>;
+  googleId?: InputMaybe<Scalars['String']>;
+  googleToken?: InputMaybe<Scalars['String']>;
   id?: InputMaybe<Scalars['Int']>;
   lastname?: InputMaybe<Scalars['String']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   password?: InputMaybe<Scalars['String']>;
+  provider?: InputMaybe<Scalars['ProviderEnum']>;
   role?: InputMaybe<Scalars['Role']>;
   updatedAt?: InputMaybe<Scalars['timestamp']>;
 };
@@ -7563,6 +7631,10 @@ export enum User_Update_Column {
   /** column name */
   FIRSTNAME = 'firstname',
   /** column name */
+  GOOGLEID = 'googleId',
+  /** column name */
+  GOOGLETOKEN = 'googleToken',
+  /** column name */
   ID = 'id',
   /** column name */
   LASTNAME = 'lastname',
@@ -7570,6 +7642,8 @@ export enum User_Update_Column {
   ORGANIZATIONID = 'organizationId',
   /** column name */
   PASSWORD = 'password',
+  /** column name */
+  PROVIDER = 'provider',
   /** column name */
   ROLE = 'role',
   /** column name */
@@ -7828,6 +7902,13 @@ export type UpdateInformationUserMutationVariables = Exact<{
 
 
 export type UpdateInformationUserMutation = { __typename: 'mutation_root', update_User_by_pk: { __typename: 'User', lastname: string | null, firstname: string | null } | null };
+
+export type GoogleLoginMutationVariables = Exact<{
+  data: GoogleLoginInput;
+}>;
+
+
+export type GoogleLoginMutation = { __typename: 'mutation_root', googleLogin: { __typename: 'LoginAuth', accessToken: any, refreshToken: any, user: { __typename: 'LoginUser', id: string, email: string, firstname: string | null, lastname: string | null } } };
 
 export type UserByPkQueryVariables = Exact<{
   id: Scalars['ID'];

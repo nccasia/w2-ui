@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import React from "react";
 import useRouter from "use-react-router";
 
@@ -30,7 +31,9 @@ const AppStateProvider: React.FC = ({ children }) => {
 
   return (
     <AppStateContext.Provider value={stateAndDispatch}>
-      {children}
+      <GoogleOAuthProvider clientId="63748869594-f5mhd82rc1ft4okk2q2v3ulhar66d3b0.apps.googleusercontent.com">
+        {children}
+      </GoogleOAuthProvider>
     </AppStateContext.Provider>
   );
 };
