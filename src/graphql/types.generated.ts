@@ -7880,6 +7880,14 @@ export type SubmitTaskMutationVariables = Exact<{
 
 export type SubmitTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'SubmitTaskOutput', submitTask: { __typename: 'SubmitTask', id: string | null, name: string | null, code: string | null, description: string | null } | null } };
 
+export type UpdateAssigneeMutationVariables = Exact<{
+  _eq: Scalars['Int'];
+  assigneeId: Scalars['Int'];
+}>;
+
+
+export type UpdateAssigneeMutation = { __typename: 'mutation_root', update_Task: { __typename: 'Task_mutation_response', affected_rows: number, returning: Array<{ __typename: 'Task', assigneeId: number | null, id: string }> } | null };
+
 export type TaskEventLogFragmentFragment = { __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null };
 
 export type GetTaskDefinitionQueryVariables = Exact<{ [key: string]: never; }>;
@@ -7953,3 +7961,8 @@ export type GetTaskByBoardQueryVariables = Exact<{
 
 
 export type GetTaskByBoardQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+
+export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserQuery = { __typename: 'query_root', User_connection: { __typename: 'UserConnection', edges: Array<{ __typename: 'UserEdge', node: { __typename: 'User', email: string, firstname: string | null, id: string, lastname: string | null, role: any } }> } };

@@ -1,25 +1,22 @@
-import { List, ListItemAvatar, ListItemText } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from "@material-ui/core";
 import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
-import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Grid from "@saleor/components/Grid";
 import UserChip from "@saleor/components/UserChip";
 import { useSubmitTaskMutation } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
-import {
-  Accordion,
-  AccordionSummary,
-  Pill,
-  SwitchSelector,
-  SwitchSelectorButton,
-} from "@saleor/macaw-ui";
+import { Pill, SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
 // import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
-import { createRelayId } from "@saleor/utils/createRelayId";
-import clsx from "clsx";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
+import ModalSubTask from "../ModalSubTask";
 import SubTask from "../SubTask";
 import Task from "../Task";
 import TaskComment from "../TaskComment";
@@ -58,6 +55,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   refetch,
 }) => {
   const [active, setActive] = useState<string>("1");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [dataModalSubTask, setDataModalSubTask] = useState(null);
+
   const intl = useIntl();
   const classes = useStyles();
 
@@ -93,6 +93,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     const active = taskDetail?.Tasks?.find(e => e.isActive);
     return active;
   }, [taskDetail]);
+
+  const handleOpenModalSubTask = id => {
+    setModalOpen(true);
+    setDataModalSubTask(taskDetail.Tasks.find(item => item.id === id));
+  };
+
   return (
     <Container>
       <Backlink>{intl.formatMessage(sectionNames.tasks)}</Backlink>
@@ -111,13 +117,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
             <h2>Sub Tasks</h2>
             {taskDetail?.Tasks?.map(subtask => {
               return (
-                <Accordion
-                  className={clsx([
-                    classes.subTaskItem,
-                    classes.subTaskContainer,
-                  ])}
-                >
-                  <AccordionSummary key={subtask.id}>
+                <>
+                  <ListItem
+                    key={subtask.id}
+                    className={classes.subTaskContainer}
+                    onClick={() => handleOpenModalSubTask(subtask.id)}
+                  >
                     <ListItemText primary={subtask.title} />
                     <ListItemText
                       primary={
@@ -137,21 +142,16 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                     <ListItemAvatar>
                       <UserChip user={taskDetail.userByCreatorid} />
                     </ListItemAvatar>
-                  </AccordionSummary>
-                  <FormSchema
-                    formId={createRelayId([
-                      1,
-                      "public",
-                      "Form",
-                      subtask.formId,
-                    ])}
-                    readonly={true}
-                    modelData={subtask?.Form?.values}
-                  />
-                </Accordion>
+                  </ListItem>
+                </>
               );
             })}
           </List>
+          <ModalSubTask
+            modalOpen={modalOpen}
+            onModalOpen={setModalOpen}
+            dataModalSubTask={dataModalSubTask}
+          />
           <div className={classes.attach}></div>
           <div className={classes.activities}>
             <SwitchSelector>

@@ -510,6 +510,44 @@ export function useSubmitTaskMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type SubmitTaskMutationHookResult = ReturnType<typeof useSubmitTaskMutation>;
 export type SubmitTaskMutationResult = Apollo.MutationResult<Types.SubmitTaskMutation>;
 export type SubmitTaskMutationOptions = Apollo.BaseMutationOptions<Types.SubmitTaskMutation, Types.SubmitTaskMutationVariables>;
+export const UpdateAssigneeDocument = gql`
+    mutation UpdateAssignee($_eq: Int!, $assigneeId: Int!) {
+  update_Task(where: {id: {_eq: $_eq}}, _set: {assigneeId: $assigneeId}) {
+    affected_rows
+    returning {
+      assigneeId
+      id
+    }
+  }
+}
+    `;
+export type UpdateAssigneeMutationFn = Apollo.MutationFunction<Types.UpdateAssigneeMutation, Types.UpdateAssigneeMutationVariables>;
+
+/**
+ * __useUpdateAssigneeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAssigneeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAssigneeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAssigneeMutation, { data, loading, error }] = useUpdateAssigneeMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *      assigneeId: // value for 'assigneeId'
+ *   },
+ * });
+ */
+export function useUpdateAssigneeMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<Types.UpdateAssigneeMutation, Types.UpdateAssigneeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<Types.UpdateAssigneeMutation, Types.UpdateAssigneeMutationVariables>(UpdateAssigneeDocument, options);
+      }
+export type UpdateAssigneeMutationHookResult = ReturnType<typeof useUpdateAssigneeMutation>;
+export type UpdateAssigneeMutationResult = Apollo.MutationResult<Types.UpdateAssigneeMutation>;
+export type UpdateAssigneeMutationOptions = Apollo.BaseMutationOptions<Types.UpdateAssigneeMutation, Types.UpdateAssigneeMutationVariables>;
 export const GetTaskDefinitionDocument = gql`
     query GetTaskDefinition {
   TaskDefinition_connection(where: {parentId: {_is_null: true}}) {
@@ -982,3 +1020,45 @@ export function useGetTaskByBoardLazyQuery(baseOptions?: ApolloReactHooks.LazyQu
 export type GetTaskByBoardQueryHookResult = ReturnType<typeof useGetTaskByBoardQuery>;
 export type GetTaskByBoardLazyQueryHookResult = ReturnType<typeof useGetTaskByBoardLazyQuery>;
 export type GetTaskByBoardQueryResult = Apollo.QueryResult<Types.GetTaskByBoardQuery, Types.GetTaskByBoardQueryVariables>;
+export const GetUserDocument = gql`
+    query GetUser {
+  User_connection {
+    edges {
+      node {
+        email
+        firstname
+        id
+        lastname
+        role
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(GetUserDocument, options);
+      }
+export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetUserQuery, Types.GetUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetUserQuery, Types.GetUserQueryVariables>(GetUserDocument, options);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<Types.GetUserQuery, Types.GetUserQueryVariables>;

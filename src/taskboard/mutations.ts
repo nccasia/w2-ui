@@ -59,3 +59,18 @@ export const SubmitTask = gql`
     }
   }
 `;
+
+export const SingleChoiceAssignee = gql`
+  mutation UpdateAssignee($_eq: Int!, $assigneeId: Int!) {
+    update_Task(
+      where: { id: { _eq: $_eq } }
+      _set: { assigneeId: $assigneeId }
+    ) {
+      affected_rows
+      returning {
+        assigneeId
+        id
+      }
+    }
+  }
+`;

@@ -30,7 +30,7 @@ const useStyles = makeStyles(
 interface CardContentItemMultipleChoiceProps {
   results: any;
   search: any;
-  title: string | null;
+  title?: string | null;
 }
 
 const CardContentItemMultipleChoice: React.FC<CardContentItemMultipleChoiceProps> = ({
@@ -41,11 +41,13 @@ const CardContentItemMultipleChoice: React.FC<CardContentItemMultipleChoiceProps
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <div className={classes.containerTitle}>
-        <Typography className={classes.title} variant="subtitle2">
-          {title}
-        </Typography>
-      </div>
+      {title && (
+        <div className={classes.containerTitle}>
+          <Typography className={classes.title} variant="subtitle2">
+            {title}
+          </Typography>
+        </div>
+      )}
       <div className={classes.containerInfo}>
         <MultipleValueAutocomplete
           fullWidth
