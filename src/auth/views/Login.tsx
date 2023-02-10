@@ -41,7 +41,6 @@ const LoginView: React.FC<LoginViewProps> = ({ params }) => {
   const handleSubmit = async (data: LoginFormData) => {
     const result = await login(data.email, data.password);
     const errors = result?.errors || [];
-
     return errors;
   };
 

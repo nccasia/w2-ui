@@ -7925,6 +7925,13 @@ export type UpdateInformationUserMutationVariables = Exact<{
 
 export type UpdateInformationUserMutation = { __typename: 'mutation_root', update_User_by_pk: { __typename: 'User', lastname: string | null, firstname: string | null } | null };
 
+export type GoogleLoginMutationVariables = Exact<{
+  data: GoogleLoginInput;
+}>;
+
+
+export type GoogleLoginMutation = { __typename: 'mutation_root', googleLogin: { __typename: 'LoginAuth', accessToken: any, refreshToken: any, user: { __typename: 'LoginUser', id: string, email: string, firstname: string | null, lastname: string | null } } };
+
 export type UserByPkQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;

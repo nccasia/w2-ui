@@ -2,6 +2,7 @@ import { ApolloClient, ApolloError } from "@apollo/client";
 import { useAuth } from "@saleor/auth/hooks/useAuth";
 import { IMessageContext } from "@saleor/components/messages";
 import { DEMO_MODE } from "@saleor/config";
+import { GoogleLoginInput } from "@saleor/graphql";
 import useLocalStorage from "@saleor/hooks/useLocalStorage";
 import useNavigator from "@saleor/hooks/useNavigator";
 import { commonMessages } from "@saleor/intl";
@@ -33,7 +34,7 @@ export function useAuthProvider({
 }: UseAuthProviderOpts): UserContext {
   const {
     login,
-    loginWithGoogle,
+    loginGoogle,
     getExternalAuthUrl,
     // getExternalAccessToken,
     logout,
@@ -152,24 +153,23 @@ export function useAuthProvider({
       handleLoginError(error);
     }
   };
-  const handleLoginWithGoogle = async (googleId: string) => {
+  const handleLoginWithGoogle = async (googleId: GoogleLoginInput) => {
     try {
-      const result = await loginWithGoogle(googleId);
-      if (result && !result.data.tokenCreate.errors.length) {
+      const result = await loginGoogle(googleId);
+
+      if (result && !result.errors) {
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
         }
-        // eslint-disable-next-line no-console
-        console.log("user--->>>", result.data.tokenCreate.user);
-        saveCredentials(result.data.tokenCreate.user, "111111");
       } else {
         setErrors(["loginError"]);
       }
-      await logoutNonStaffUser(result.data.tokenCreate);
 
-      setUserId(result.data.tokenCreate.user);
+      await logoutNonStaffUser(result.data.googleLogin.accessToken);
 
-      return result.data.tokenCreate.user;
+      setUserId(result.data.googleLogin.user);
+
+      return result.data.googleLogin.user;
     } catch (error) {
       handleLoginError(error);
     }

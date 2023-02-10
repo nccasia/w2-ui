@@ -1,3 +1,4 @@
+import { GoogleLoginInput } from "@saleor/graphql";
 import {
   GetExternalAccessTokenData,
   GetExternalAuthUrlData,
@@ -28,7 +29,7 @@ export type UserContextError = typeof UserContextError[keyof typeof UserContextE
 
 export interface UserContext {
   login: (username: string, password: string) => Promise<any>;
-  loginWithGoogle?: (googleId: string) => Promise<any>;
+  loginWithGoogle?: (googleId: GoogleLoginInput) => Promise<any>;
   loginByExternalPlugin: (
     pluginId: string,
     input: ExternalLoginInput,
