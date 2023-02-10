@@ -2313,6 +2313,12 @@ input Form_inc_input {
   id: Int
 }
 
+input Form_insert {
+  name: String
+  schema: jsonb
+  values: jsonb
+}
+
 """
 input type for inserting data into table "Form"
 """
@@ -2344,6 +2350,10 @@ type Form_mutation_response {
 
   """data from the rows affected by the mutation"""
   returning: [Form!]!
+}
+
+input Form_obj_rel_insert {
+  data: Form_insert!
 }
 
 """
@@ -2545,6 +2555,14 @@ input Form_updates {
 
   """filter the rows which have to be updated"""
   where: Form_bool_exp!
+}
+
+input GoogleLoginInput {
+  code: String!
+}
+
+type ITask {
+  id: ID!
 }
 
 """
@@ -3332,6 +3350,18 @@ order by variance() on columns of table "MemberOnTeams"
 input MemberOnTeams_variance_order_by {
   teamId: order_by
   userId: order_by
+}
+
+input New_task {
+  Form: Form_obj_rel_insert
+  assigneeId: Int
+  creatorId: Int
+  definitionId: Int
+  dueDate: timestamp
+  organizationId: Int
+  teamId: Int
+  title: String
+  values: jsonb
 }
 
 """An object with globally unique ID"""
@@ -6893,6 +6923,23 @@ input Project_variance_order_by {
   taskDefinitionId: order_by
 }
 
+scalar ProviderEnum
+
+"""
+Boolean expression to compare columns of type "ProviderEnum". All fields are combined with logical 'AND'.
+"""
+input ProviderEnum_comparison_exp {
+  _eq: ProviderEnum
+  _gt: ProviderEnum
+  _gte: ProviderEnum
+  _in: [ProviderEnum!]
+  _is_null: Boolean
+  _lt: ProviderEnum
+  _lte: ProviderEnum
+  _neq: ProviderEnum
+  _nin: [ProviderEnum!]
+}
+
 """
 columns and relationships of "Resource"
 """
@@ -8469,7 +8516,7 @@ type Task implements Node {
   Task: Task
 
   """An object relationship"""
-  TaskDefinition: TaskDefinition!
+  TaskDefinition: TaskDefinition
 
   """An array relationship"""
   Tasks(
@@ -8587,6 +8634,10 @@ type Task implements Node {
     """JSON select path"""
     path: String
   ): jsonb
+  contextConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   createdAt: timestamp!
   creatorId: Int!
   cta: String!
@@ -8596,7 +8647,7 @@ type Task implements Node {
   ): jsonb
   ctaName: String!
   ctaTemplate: String
-  definitionId: Int!
+  definitionId: Int
   description: String!
   descriptionTemplate: String
   dueDate: timestamp
@@ -10121,6 +10172,10 @@ type TaskDefinition implements Node {
     """JSON select path"""
     path: String
   ): jsonb
+  contextConfig(
+    """JSON select path"""
+    path: String
+  ): jsonb
   createdAt: timestamp!
   ctaConfig(
     """JSON select path"""
@@ -10730,6 +10785,7 @@ input TaskDefinition_aggregate_order_by {
 """append existing jsonb value of filtered columns with new jsonb value"""
 input TaskDefinition_append_input {
   config: jsonb
+  contextConfig: jsonb
   ctaConfig: jsonb
   machineConfig: jsonb
   notificationConfig: jsonb
@@ -10788,6 +10844,7 @@ input TaskDefinition_bool_exp {
   _not: TaskDefinition_bool_exp
   _or: [TaskDefinition_bool_exp!]
   config: jsonb_comparison_exp
+  contextConfig: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   ctaConfig: jsonb_comparison_exp
   ctaTemplate: String_comparison_exp
@@ -10829,6 +10886,7 @@ delete the field or element with specified path (for JSON arrays, negative integ
 """
 input TaskDefinition_delete_at_path_input {
   config: [String!]
+  contextConfig: [String!]
   ctaConfig: [String!]
   machineConfig: [String!]
   notificationConfig: [String!]
@@ -10843,6 +10901,7 @@ delete the array element with specified index (negative integers count from the 
 """
 input TaskDefinition_delete_elem_input {
   config: Int
+  contextConfig: Int
   ctaConfig: Int
   machineConfig: Int
   notificationConfig: Int
@@ -10857,6 +10916,7 @@ delete key/value pair or string element. key/value pairs are matched based on th
 """
 input TaskDefinition_delete_key_input {
   config: String
+  contextConfig: String
   ctaConfig: String
   machineConfig: String
   notificationConfig: String
@@ -10889,6 +10949,7 @@ input TaskDefinition_insert_input {
   TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   config: jsonb
+  contextConfig: jsonb
   createdAt: timestamp
   ctaConfig: jsonb
   ctaTemplate: String
@@ -11044,6 +11105,7 @@ input TaskDefinition_order_by {
   TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
   config: order_by
+  contextConfig: order_by
   createdAt: order_by
   ctaConfig: order_by
   ctaTemplate: order_by
@@ -11078,6 +11140,7 @@ input TaskDefinition_pk_columns_input {
 """prepend existing jsonb value of filtered columns with new jsonb value"""
 input TaskDefinition_prepend_input {
   config: jsonb
+  contextConfig: jsonb
   ctaConfig: jsonb
   machineConfig: jsonb
   notificationConfig: jsonb
@@ -11093,6 +11156,9 @@ select columns of table "TaskDefinition"
 enum TaskDefinition_select_column {
   """column name"""
   config
+
+  """column name"""
+  contextConfig
 
   """column name"""
   createdAt
@@ -11172,6 +11238,7 @@ input type for updating data in table "TaskDefinition"
 """
 input TaskDefinition_set_input {
   config: jsonb
+  contextConfig: jsonb
   createdAt: timestamp
   ctaConfig: jsonb
   ctaTemplate: String
@@ -11276,6 +11343,9 @@ update columns of table "TaskDefinition"
 enum TaskDefinition_update_column {
   """column name"""
   config
+
+  """column name"""
+  contextConfig
 
   """column name"""
   createdAt
@@ -11530,6 +11600,7 @@ input Task_aggregate_order_by {
 """append existing jsonb value of filtered columns with new jsonb value"""
 input Task_append_input {
   config: jsonb
+  contextConfig: jsonb
   ctaConfig: jsonb
   formConfig: jsonb
   machineConfig: jsonb
@@ -11606,6 +11677,7 @@ input Task_bool_exp {
   _or: [Task_bool_exp!]
   assigneeId: Int_comparison_exp
   config: jsonb_comparison_exp
+  contextConfig: jsonb_comparison_exp
   createdAt: timestamp_comparison_exp
   creatorId: Int_comparison_exp
   cta: String_comparison_exp
@@ -11667,6 +11739,7 @@ delete the field or element with specified path (for JSON arrays, negative integ
 """
 input Task_delete_at_path_input {
   config: [String!]
+  contextConfig: [String!]
   ctaConfig: [String!]
   formConfig: [String!]
   machineConfig: [String!]
@@ -11684,6 +11757,7 @@ delete the array element with specified index (negative integers count from the 
 """
 input Task_delete_elem_input {
   config: Int
+  contextConfig: Int
   ctaConfig: Int
   formConfig: Int
   machineConfig: Int
@@ -11701,6 +11775,7 @@ delete key/value pair or string element. key/value pairs are matched based on th
 """
 input Task_delete_key_input {
   config: String
+  contextConfig: String
   ctaConfig: String
   formConfig: String
   machineConfig: String
@@ -11746,6 +11821,7 @@ input Task_insert_input {
   User: User_obj_rel_insert_input
   assigneeId: Int
   config: jsonb
+  contextConfig: jsonb
   createdAt: timestamp
   creatorId: Int
   cta: String
@@ -11985,6 +12061,7 @@ input Task_order_by {
   User: User_order_by
   assigneeId: order_by
   config: order_by
+  contextConfig: order_by
   createdAt: order_by
   creatorId: order_by
   cta: order_by
@@ -12039,6 +12116,7 @@ input Task_pk_columns_input {
 """prepend existing jsonb value of filtered columns with new jsonb value"""
 input Task_prepend_input {
   config: jsonb
+  contextConfig: jsonb
   ctaConfig: jsonb
   formConfig: jsonb
   machineConfig: jsonb
@@ -12060,6 +12138,9 @@ enum Task_select_column {
 
   """column name"""
   config
+
+  """column name"""
+  contextConfig
 
   """column name"""
   createdAt
@@ -12210,6 +12291,7 @@ input type for updating data in table "Task"
 input Task_set_input {
   assigneeId: Int
   config: jsonb
+  contextConfig: jsonb
   createdAt: timestamp
   creatorId: Int
   cta: String
@@ -12383,6 +12465,9 @@ enum Task_update_column {
 
   """column name"""
   config
+
+  """column name"""
+  contextConfig
 
   """column name"""
   createdAt
@@ -14332,10 +14417,12 @@ type User implements Node {
   createdAt: timestamp!
   email: String!
   firstname: String
+  googleId: String
+  googleToken: String
   id: ID!
   lastname: String
   organizationId: Int!
-  password: String!
+  password: String
 
   """An array relationship"""
   projectsByManagerid(
@@ -14442,6 +14529,7 @@ type User implements Node {
     """filter the rows returned"""
     where: Project_bool_exp
   ): ProjectConnection!
+  provider: ProviderEnum!
   role: Role!
 
   """An array relationship"""
@@ -15570,6 +15658,8 @@ input User_bool_exp {
   createdAt: timestamp_comparison_exp
   email: String_comparison_exp
   firstname: String_comparison_exp
+  googleId: String_comparison_exp
+  googleToken: String_comparison_exp
   id: Int_comparison_exp
   lastname: String_comparison_exp
   organizationId: Int_comparison_exp
@@ -15578,6 +15668,7 @@ input User_bool_exp {
   projectsByManagerid_aggregate: Project_aggregate_bool_exp
   projectsByReporterid: Project_bool_exp
   projectsByReporterid_aggregate: Project_aggregate_bool_exp
+  provider: ProviderEnum_comparison_exp
   role: Role_comparison_exp
   tasksByCreatorid: Task_bool_exp
   tasksByCreatorid_aggregate: Task_aggregate_bool_exp
@@ -15632,12 +15723,15 @@ input User_insert_input {
   createdAt: timestamp
   email: String
   firstname: String
+  googleId: String
+  googleToken: String
   id: Int
   lastname: String
   organizationId: Int
   password: String
   projectsByManagerid: Project_arr_rel_insert_input
   projectsByReporterid: Project_arr_rel_insert_input
+  provider: ProviderEnum
   role: Role
   tasksByCreatorid: Task_arr_rel_insert_input
   tasksByReporterid: Task_arr_rel_insert_input
@@ -15651,10 +15745,13 @@ type User_max_fields {
   createdAt: timestamp
   email: String
   firstname: String
+  googleId: String
+  googleToken: String
   id: Int
   lastname: String
   organizationId: Int
   password: String
+  provider: ProviderEnum
   role: Role
   updatedAt: timestamp
 }
@@ -15667,10 +15764,13 @@ input User_max_order_by {
   createdAt: order_by
   email: order_by
   firstname: order_by
+  googleId: order_by
+  googleToken: order_by
   id: order_by
   lastname: order_by
   organizationId: order_by
   password: order_by
+  provider: order_by
   role: order_by
   updatedAt: order_by
 }
@@ -15681,10 +15781,13 @@ type User_min_fields {
   createdAt: timestamp
   email: String
   firstname: String
+  googleId: String
+  googleToken: String
   id: Int
   lastname: String
   organizationId: Int
   password: String
+  provider: ProviderEnum
   role: Role
   updatedAt: timestamp
 }
@@ -15697,10 +15800,13 @@ input User_min_order_by {
   createdAt: order_by
   email: order_by
   firstname: order_by
+  googleId: order_by
+  googleToken: order_by
   id: order_by
   lastname: order_by
   organizationId: order_by
   password: order_by
+  provider: order_by
   role: order_by
   updatedAt: order_by
 }
@@ -15753,12 +15859,15 @@ input User_order_by {
   createdAt: order_by
   email: order_by
   firstname: order_by
+  googleId: order_by
+  googleToken: order_by
   id: order_by
   lastname: order_by
   organizationId: order_by
   password: order_by
   projectsByManagerid_aggregate: Project_aggregate_order_by
   projectsByReporterid_aggregate: Project_aggregate_order_by
+  provider: order_by
   role: order_by
   tasksByCreatorid_aggregate: Task_aggregate_order_by
   tasksByReporterid_aggregate: Task_aggregate_order_by
@@ -15788,6 +15897,12 @@ enum User_select_column {
   firstname
 
   """column name"""
+  googleId
+
+  """column name"""
+  googleToken
+
+  """column name"""
   id
 
   """column name"""
@@ -15798,6 +15913,9 @@ enum User_select_column {
 
   """column name"""
   password
+
+  """column name"""
+  provider
 
   """column name"""
   role
@@ -15814,10 +15932,13 @@ input User_set_input {
   createdAt: timestamp
   email: String
   firstname: String
+  googleId: String
+  googleToken: String
   id: Int
   lastname: String
   organizationId: Int
   password: String
+  provider: ProviderEnum
   role: Role
   updatedAt: timestamp
 }
@@ -15903,6 +16024,12 @@ enum User_update_column {
   firstname
 
   """column name"""
+  googleId
+
+  """column name"""
+  googleToken
+
+  """column name"""
   id
 
   """column name"""
@@ -15913,6 +16040,9 @@ enum User_update_column {
 
   """column name"""
   password
+
+  """column name"""
+  provider
 
   """column name"""
   role
@@ -16233,6 +16363,8 @@ input jsonb_comparison_exp {
 
 """mutation root"""
 type mutation_root {
+  createTaskInput(newTask: New_task!): ITask
+
   """
   delete data from the table: "ActivityDefinition"
   """
@@ -16583,6 +16715,7 @@ type mutation_root {
   delete single row from the table: "_prisma_migrations"
   """
   delete__prisma_migrations_by_pk(id: String!): _prisma_migrations
+  googleLogin(data: GoogleLoginInput!): LoginAuth!
 
   """
   insert data into the table: "ActivityDefinition"

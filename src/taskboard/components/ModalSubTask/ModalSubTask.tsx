@@ -1,62 +1,67 @@
-import { MenuItem, Modal, Typography } from "@material-ui/core";
+import { Modal, Typography } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
-import { useGetUserQuery, useUpdateAssigneeMutation } from "@saleor/graphql";
-import { Autocomplete } from "@saleor/macaw-ui";
+import { useUpdateAssigneeMutation } from "@saleor/graphql";
 import { createRelayId } from "@saleor/utils/createRelayId";
-import { mapEdgesToItems } from "@saleor/utils/maps";
 import clsx from "clsx";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useStyles } from "../TaskDetailPage/style";
+import AutoCompleteUser from "./components/AutoCompleteUser/AutoCompleteUser";
 import { useUserChoiceType } from "./useUserChoiceType";
 
 interface SubTaskType {
   modalOpen: any;
   onModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   dataModalSubTask: any;
+  resultEdgesUser: Array<{
+    __typename: "User";
+    email: string;
+    firstname: string;
+    id: string;
+    lastname: string;
+    role: any;
+  }>;
 }
 
 const ModalSubTask: React.FC<SubTaskType> = ({
   dataModalSubTask,
   modalOpen,
   onModalOpen,
+  resultEdgesUser,
 }) => {
   const classes = useStyles();
-  const { data } = useGetUserQuery();
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [updateAssigneeMutation] = useUpdateAssigneeMutation();
 
-  const resultEdgesUser = useMemo(
-    () => mapEdgesToItems(data?.User_connection) || [],
-    [data?.User_connection],
-  );
   const { choiceType } = useUserChoiceType(resultEdgesUser);
 
-  const [userSingleChoice] = useState(
-    choiceType?.find(
-      item =>
-        item.value ===
-        createRelayId([1, "public", "User", dataModalSubTask?.assigneeId]),
-    ),
-  );
-  // eslint-disable-next-line no-console
-  console.log(
-    "🚀 ~ file: modalSubTask.tsx:41 ~ userSingleChoice",
-    createRelayId([1, "public", "User", dataModalSubTask?.assigneeId]),
-    choiceType[0].value,
-    choiceType[1].value,
-    dataModalSubTask?.assigneeId,
-    userSingleChoice,
+  const optionDefault = useMemo(
+    () =>
+      choiceType?.find(
+        item =>
+          JSON.parse(atob(item.value))[3] === dataModalSubTask?.assigneeId,
+      ),
+    [choiceType, dataModalSubTask?.assigneeId],
   );
 
-  const handleOnChangeSingleChoice = data => {
-    // eslint-disable-next-line no-console
-    console.log(
-      "🚀 ~ file: modalSubTask.tsx:43 ~ handleOnChangeSingleChoice ~ data",
-      data,
-    );
-  };
+  const [userSingleChoice, setUserSingleChoice] = useState(optionDefault);
+
+  const handleOnChangeSingleChoice = useCallback(
+    (_e: any, data: any, subTaskId: string) => {
+      const optionDefault = choiceType?.find(item => item.value === data.value);
+      setUserSingleChoice(optionDefault);
+      updateAssigneeMutation({
+        variables: {
+          _eq: JSON.parse(atob(subTaskId))[3],
+          assigneeId: JSON.parse(atob(data.value))[3],
+        },
+      });
+    },
+    [choiceType, updateAssigneeMutation],
+  );
+
+  useEffect(() => {
+    setUserSingleChoice(optionDefault);
+  }, [optionDefault]);
   return (
     <>
       <Modal
@@ -80,28 +85,12 @@ const ModalSubTask: React.FC<SubTaskType> = ({
               />
             </div>
             <div className="single_choice-assignee">
-              <Autocomplete
-                choices={choiceType}
-                fullWidth
-                label={"Assignee"}
-                onInputChange={handleOnChangeSingleChoice}
-                defaultValue={userSingleChoice?.label}
-              >
-                {({ highlightedIndex, getItemProps }) =>
-                  choiceType.map((choice, choiceIndex) => (
-                    <MenuItem
-                      key={choiceIndex}
-                      selected={highlightedIndex === choiceIndex}
-                      {...getItemProps({
-                        item: choice,
-                        index: choiceIndex,
-                      })}
-                    >
-                      {choice.label}
-                    </MenuItem>
-                  ))
-                }
-              </Autocomplete>
+              <AutoCompleteUser
+                onChangeSingleChoice={handleOnChangeSingleChoice}
+                subTaskId={dataModalSubTask?.id}
+                choiceType={choiceType}
+                userSingleChoice={userSingleChoice}
+              />
             </div>
           </div>
         </div>

@@ -40,7 +40,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
           text: intl.formatMessage(commonMessages.savedChanges),
         });
         onClose();
-        navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
+        navigate(taskUrl(`${data.createTaskInput.id}`));
         setLoading(false);
       }, 6000);
     },
@@ -80,16 +80,21 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const handleNewRequest = data => {
     const decodedString = atob(selectedType?.id);
     const current = new Date();
+    const newTask = {
+      values: { ...data },
+      creatorId: +user.userId,
+      assigneeId: +user.userId,
+      organizationId: user.organizationId,
+      definitionId: JSON.parse(decodedString)[3],
+      teamId: selectTeam.teamId,
+      dueDate: current.toISOString(),
+      title: selectedType?.title,
+      key: selectedType?.title,
+      description: `${data?.content}`,
+    };
     createTaskMutation({
       variables: {
-        values: { ...data },
-        creatorId: +user.userId,
-        assigneeId: +user.userId,
-        organizationId: user.organizationId,
-        definitionId: JSON.parse(decodedString)[3],
-        teamId: selectTeam.teamId,
-        dueDate: current.toISOString(),
-        title: selectedType?.title,
+        data: newTask,
       },
     });
   };

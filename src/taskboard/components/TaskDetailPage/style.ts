@@ -108,6 +108,7 @@ export const useStyles = makeStyles(
       borderRadius: "7px",
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+      width: 1000,
       maxHeight: "700px",
     },
     subtask: {

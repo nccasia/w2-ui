@@ -8,11 +8,12 @@ import { Backlink } from "@saleor/components/Backlink";
 import { Container } from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import UserChip from "@saleor/components/UserChip";
-import { useSubmitTaskMutation } from "@saleor/graphql";
+import { useGetUserQuery, useSubmitTaskMutation } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { Pill, SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
 // import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
+import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -60,6 +61,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
 
   const intl = useIntl();
   const classes = useStyles();
+
+  const { data } = useGetUserQuery();
+  const resultEdgesUser = useMemo(
+    () => mapEdgesToItems(data?.User_connection) || [],
+    [data?.User_connection],
+  );
 
   const [submitTaskMutation] = useSubmitTaskMutation({
     onCompleted: async () => {
@@ -140,7 +147,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                     />
                     <ListItemText primary={subtask.priority} />
                     <ListItemAvatar>
-                      <UserChip user={taskDetail.userByCreatorid} />
+                      <UserChip user={subtask.User} />
                     </ListItemAvatar>
                   </ListItem>
                 </>
@@ -151,6 +158,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
             modalOpen={modalOpen}
             onModalOpen={setModalOpen}
             dataModalSubTask={dataModalSubTask}
+            resultEdgesUser={resultEdgesUser}
           />
           <div className={classes.attach}></div>
           <div className={classes.activities}>

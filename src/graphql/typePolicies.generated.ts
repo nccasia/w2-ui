@@ -451,6 +451,10 @@ export type Form_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type ITaskKeySpecifier = ('id' | ITaskKeySpecifier)[];
+export type ITaskFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type LoginAuthKeySpecifier = ('accessToken' | 'refreshToken' | 'user' | LoginAuthKeySpecifier)[];
 export type LoginAuthFieldPolicy = {
 	accessToken?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1656,7 +1660,7 @@ export type SubmitTaskOutputKeySpecifier = ('submitTask' | SubmitTaskOutputKeySp
 export type SubmitTaskOutputFieldPolicy = {
 	submitTask?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaConfig' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'processConfig' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateConfig' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusConfig' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'triggerConfig' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
+export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'contextConfig' | 'createdAt' | 'creatorId' | 'cta' | 'ctaConfig' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'processConfig' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateConfig' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusConfig' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'triggerConfig' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
 export type TaskFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1679,6 +1683,7 @@ export type TaskFieldPolicy = {
 	User?: FieldPolicy<any> | FieldReadFunction<any>,
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	config?: FieldPolicy<any> | FieldReadFunction<any>,
+	contextConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	cta?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1974,7 +1979,7 @@ export type TaskConnectionFieldPolicy = {
 	edges?: FieldPolicy<any> | FieldReadFunction<any>,
 	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskDefinitionKeySpecifier = ('Form' | 'Organization' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitionActivityDefinitions' | 'TaskDefinitionActivityDefinitions_aggregate' | 'TaskDefinitionActivityDefinitions_connection' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'config' | 'createdAt' | 'ctaConfig' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'processConfig' | 'stateConfig' | 'stateTemplate' | 'statusConfig' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'triggerConfig' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
+export type TaskDefinitionKeySpecifier = ('Form' | 'Organization' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitionActivityDefinitions' | 'TaskDefinitionActivityDefinitions_aggregate' | 'TaskDefinitionActivityDefinitions_connection' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'config' | 'contextConfig' | 'createdAt' | 'ctaConfig' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'processConfig' | 'stateConfig' | 'stateTemplate' | 'statusConfig' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'triggerConfig' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
 export type TaskDefinitionFieldPolicy = {
 	Form?: FieldPolicy<any> | FieldReadFunction<any>,
 	Organization?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1995,6 +2000,7 @@ export type TaskDefinitionFieldPolicy = {
 	Tasks_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	config?: FieldPolicy<any> | FieldReadFunction<any>,
+	contextConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2710,7 +2716,7 @@ export type Trigger_variance_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	taskId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'File' | 'MemberOnProjects' | 'MemberOnProjects_aggregate' | 'MemberOnProjects_connection' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'UserSettings' | 'UserSettings_aggregate' | 'UserSettings_connection' | 'avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'projectsByManagerid' | 'projectsByManagerid_aggregate' | 'projectsByManagerid_connection' | 'projectsByReporterid' | 'projectsByReporterid_aggregate' | 'projectsByReporterid_connection' | 'role' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'tasksByReporterid' | 'tasksByReporterid_aggregate' | 'tasksByReporterid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'File' | 'MemberOnProjects' | 'MemberOnProjects_aggregate' | 'MemberOnProjects_connection' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'UserSettings' | 'UserSettings_aggregate' | 'UserSettings_connection' | 'avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'projectsByManagerid' | 'projectsByManagerid_aggregate' | 'projectsByManagerid_connection' | 'projectsByReporterid' | 'projectsByReporterid_aggregate' | 'projectsByReporterid_connection' | 'provider' | 'role' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'tasksByReporterid' | 'tasksByReporterid_aggregate' | 'tasksByReporterid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2748,6 +2754,8 @@ export type UserFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2758,6 +2766,7 @@ export type UserFieldPolicy = {
 	projectsByReporterid?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectsByReporterid_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectsByReporterid_connection?: FieldPolicy<any> | FieldReadFunction<any>,
+	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
 	tasksByCreatorid?: FieldPolicy<any> | FieldReadFunction<any>,
 	tasksByCreatorid_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3010,29 +3019,35 @@ export type User_avg_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_max_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_max_fieldsKeySpecifier)[];
+export type User_max_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'updatedAt' | User_max_fieldsKeySpecifier)[];
 export type User_max_fieldsFieldPolicy = {
 	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
+	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_min_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'id' | 'lastname' | 'organizationId' | 'password' | 'role' | 'updatedAt' | User_min_fieldsKeySpecifier)[];
+export type User_min_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'updatedAt' | User_min_fieldsKeySpecifier)[];
 export type User_min_fieldsFieldPolicy = {
 	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
+	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
@@ -3109,8 +3124,9 @@ export type _prisma_migrations_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type mutation_rootKeySpecifier = ('delete_ActivityDefinition' | 'delete_ActivityDefinition_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnProjects' | 'delete_MemberOnProjects_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Project' | 'delete_ProjectSettings' | 'delete_ProjectSettings_by_pk' | 'delete_Project_by_pk' | 'delete_Resource' | 'delete_ResourceItem' | 'delete_ResourceItem_by_pk' | 'delete_Resource_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskBoard' | 'delete_TaskBoardSettings' | 'delete_TaskBoardSettings_by_pk' | 'delete_TaskBoard_by_pk' | 'delete_TaskDefinition' | 'delete_TaskDefinitionActivityDefinition' | 'delete_TaskDefinitionActivityDefinition_by_pk' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_UserSetting' | 'delete_UserSetting_by_pk' | 'delete_User_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'insert_ActivityDefinition' | 'insert_ActivityDefinition_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnProjects' | 'insert_MemberOnProjects_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Project' | 'insert_ProjectSettings' | 'insert_ProjectSettings_one' | 'insert_Project_one' | 'insert_Resource' | 'insert_ResourceItem' | 'insert_ResourceItem_one' | 'insert_Resource_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskBoard' | 'insert_TaskBoardSettings' | 'insert_TaskBoardSettings_one' | 'insert_TaskBoard_one' | 'insert_TaskDefinition' | 'insert_TaskDefinitionActivityDefinition' | 'insert_TaskDefinitionActivityDefinition_one' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_UserSetting' | 'insert_UserSetting_one' | 'insert_User_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'signin' | 'submitTask' | 'update_ActivityDefinition' | 'update_ActivityDefinition_by_pk' | 'update_ActivityDefinition_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnProjects' | 'update_MemberOnProjects_by_pk' | 'update_MemberOnProjects_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Project' | 'update_ProjectSettings' | 'update_ProjectSettings_by_pk' | 'update_ProjectSettings_many' | 'update_Project_by_pk' | 'update_Project_many' | 'update_Resource' | 'update_ResourceItem' | 'update_ResourceItem_by_pk' | 'update_ResourceItem_many' | 'update_Resource_by_pk' | 'update_Resource_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskBoard' | 'update_TaskBoardSettings' | 'update_TaskBoardSettings_by_pk' | 'update_TaskBoardSettings_many' | 'update_TaskBoard_by_pk' | 'update_TaskBoard_many' | 'update_TaskDefinition' | 'update_TaskDefinitionActivityDefinition' | 'update_TaskDefinitionActivityDefinition_by_pk' | 'update_TaskDefinitionActivityDefinition_many' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_UserSetting' | 'update_UserSetting_by_pk' | 'update_UserSetting_many' | 'update_User_by_pk' | 'update_User_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
+export type mutation_rootKeySpecifier = ('createTaskInput' | 'delete_ActivityDefinition' | 'delete_ActivityDefinition_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnProjects' | 'delete_MemberOnProjects_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Project' | 'delete_ProjectSettings' | 'delete_ProjectSettings_by_pk' | 'delete_Project_by_pk' | 'delete_Resource' | 'delete_ResourceItem' | 'delete_ResourceItem_by_pk' | 'delete_Resource_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskBoard' | 'delete_TaskBoardSettings' | 'delete_TaskBoardSettings_by_pk' | 'delete_TaskBoard_by_pk' | 'delete_TaskDefinition' | 'delete_TaskDefinitionActivityDefinition' | 'delete_TaskDefinitionActivityDefinition_by_pk' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_UserSetting' | 'delete_UserSetting_by_pk' | 'delete_User_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'googleLogin' | 'insert_ActivityDefinition' | 'insert_ActivityDefinition_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnProjects' | 'insert_MemberOnProjects_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Project' | 'insert_ProjectSettings' | 'insert_ProjectSettings_one' | 'insert_Project_one' | 'insert_Resource' | 'insert_ResourceItem' | 'insert_ResourceItem_one' | 'insert_Resource_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskBoard' | 'insert_TaskBoardSettings' | 'insert_TaskBoardSettings_one' | 'insert_TaskBoard_one' | 'insert_TaskDefinition' | 'insert_TaskDefinitionActivityDefinition' | 'insert_TaskDefinitionActivityDefinition_one' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_UserSetting' | 'insert_UserSetting_one' | 'insert_User_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'signin' | 'submitTask' | 'update_ActivityDefinition' | 'update_ActivityDefinition_by_pk' | 'update_ActivityDefinition_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnProjects' | 'update_MemberOnProjects_by_pk' | 'update_MemberOnProjects_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Project' | 'update_ProjectSettings' | 'update_ProjectSettings_by_pk' | 'update_ProjectSettings_many' | 'update_Project_by_pk' | 'update_Project_many' | 'update_Resource' | 'update_ResourceItem' | 'update_ResourceItem_by_pk' | 'update_ResourceItem_many' | 'update_Resource_by_pk' | 'update_Resource_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskBoard' | 'update_TaskBoardSettings' | 'update_TaskBoardSettings_by_pk' | 'update_TaskBoardSettings_many' | 'update_TaskBoard_by_pk' | 'update_TaskBoard_many' | 'update_TaskDefinition' | 'update_TaskDefinitionActivityDefinition' | 'update_TaskDefinitionActivityDefinition_by_pk' | 'update_TaskDefinitionActivityDefinition_many' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_UserSetting' | 'update_UserSetting_by_pk' | 'update_UserSetting_many' | 'update_User_by_pk' | 'update_User_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
 export type mutation_rootFieldPolicy = {
+	createTaskInput?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_ActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_ActivityDefinition_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Comment?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3165,6 +3181,7 @@ export type mutation_rootFieldPolicy = {
 	delete_User_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete__prisma_migrations?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete__prisma_migrations_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
+	googleLogin?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_ActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_ActivityDefinition_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Comment?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3589,6 +3606,10 @@ export type StrictTypedTypePolicies = {
 	Form_mutation_response?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | Form_mutation_responseKeySpecifier | (() => undefined | Form_mutation_responseKeySpecifier),
 		fields?: Form_mutation_responseFieldPolicy,
+	},
+	ITask?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | ITaskKeySpecifier | (() => undefined | ITaskKeySpecifier),
+		fields?: ITaskFieldPolicy,
 	},
 	LoginAuth?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | LoginAuthKeySpecifier | (() => undefined | LoginAuthKeySpecifier),

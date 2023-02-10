@@ -385,13 +385,9 @@ export type GetEventLogsQueryHookResult = ReturnType<typeof useGetEventLogsQuery
 export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsLazyQuery>;
 export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
 export const CreateTaskDocument = gql`
-    mutation CreateTask($values: jsonb = "", $definitionId: Int!, $creatorId: Int!, $assigneeId: Int!, $organizationId: Int!, $teamId: Int!, $dueDate: timestamp!, $title: String!) {
-  insert_Task(
-    objects: {values: $values, description: "default", creatorId: $creatorId, assigneeId: $assigneeId, title: $title, key: "", definitionId: $definitionId, dueDate: $dueDate, organizationId: $organizationId, teamId: $teamId}
-  ) {
-    returning {
-      id
-    }
+    mutation CreateTask($data: New_task!) {
+  createTaskInput(newTask: $data) {
+    id
   }
 }
     `;
@@ -410,14 +406,7 @@ export type CreateTaskMutationFn = Apollo.MutationFunction<Types.CreateTaskMutat
  * @example
  * const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
  *   variables: {
- *      values: // value for 'values'
- *      definitionId: // value for 'definitionId'
- *      creatorId: // value for 'creatorId'
- *      assigneeId: // value for 'assigneeId'
- *      organizationId: // value for 'organizationId'
- *      teamId: // value for 'teamId'
- *      dueDate: // value for 'dueDate'
- *      title: // value for 'title'
+ *      data: // value for 'data'
  *   },
  * });
  */
