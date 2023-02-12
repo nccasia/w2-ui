@@ -347,3 +347,19 @@ export const getTaskByBoard = gql`
     }
   }
 `;
+
+export const getUser = gql`
+  query GetUser {
+    User_connection {
+      edges {
+        node {
+          email
+          firstname
+          id
+          lastname
+          role
+        }
+      }
+    }
+  }
+`;

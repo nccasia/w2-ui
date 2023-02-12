@@ -2313,6 +2313,12 @@ input Form_inc_input {
   id: Int
 }
 
+input Form_insert {
+  name: String
+  schema: jsonb
+  values: jsonb
+}
+
 """
 input type for inserting data into table "Form"
 """
@@ -2344,6 +2350,10 @@ type Form_mutation_response {
 
   """data from the rows affected by the mutation"""
   returning: [Form!]!
+}
+
+input Form_obj_rel_insert {
+  data: Form_insert!
 }
 
 """
@@ -2549,6 +2559,10 @@ input Form_updates {
 
 input GoogleLoginInput {
   code: String!
+}
+
+type ITask {
+  id: ID!
 }
 
 """
@@ -3336,6 +3350,18 @@ order by variance() on columns of table "MemberOnTeams"
 input MemberOnTeams_variance_order_by {
   teamId: order_by
   userId: order_by
+}
+
+input New_task {
+  Form: Form_obj_rel_insert
+  assigneeId: Int
+  creatorId: Int
+  definitionId: Int
+  dueDate: timestamp
+  organizationId: Int
+  teamId: Int
+  title: String
+  values: jsonb
 }
 
 """An object with globally unique ID"""
@@ -8490,7 +8516,7 @@ type Task implements Node {
   Task: Task
 
   """An object relationship"""
-  TaskDefinition: TaskDefinition!
+  TaskDefinition: TaskDefinition
 
   """An array relationship"""
   Tasks(
@@ -8621,7 +8647,7 @@ type Task implements Node {
   ): jsonb
   ctaName: String!
   ctaTemplate: String
-  definitionId: Int!
+  definitionId: Int
   description: String!
   descriptionTemplate: String
   dueDate: timestamp
@@ -16337,6 +16363,8 @@ input jsonb_comparison_exp {
 
 """mutation root"""
 type mutation_root {
+  createTaskInput(newTask: New_task!): ITask
+
   """
   delete data from the table: "ActivityDefinition"
   """

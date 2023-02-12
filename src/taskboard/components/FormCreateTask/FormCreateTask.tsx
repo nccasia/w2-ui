@@ -1,8 +1,7 @@
-import { Box, Modal } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CloseIcon from "@material-ui/icons/Close";
 import { useUser } from "@saleor/auth";
-import Loading from "@saleor/components/Loading";
 import {
   useCreateTaskMutation,
   useGetTaskDefinitionQuery,
@@ -29,20 +28,15 @@ interface Props {
 const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
-  const [loading, setLoading] = useState<boolean>(false);
 
   const [createTaskMutation] = useCreateTaskMutation({
     onCompleted: data => {
-      setLoading(true);
-      setTimeout(() => {
-        notify({
-          status: "success",
-          text: intl.formatMessage(commonMessages.savedChanges),
-        });
-        onClose();
-        navigate(taskUrl(`${data.insert_Task.returning[0].id}`));
-        setLoading(false);
-      }, 6000);
+      notify({
+        status: "success",
+        text: intl.formatMessage(commonMessages.savedChanges),
+      });
+      onClose();
+      navigate(taskUrl(`${data.createTaskInput.id}`));
     },
   });
   const TaskDefinitionQuery = useGetTaskDefinitionQuery();
@@ -80,25 +74,27 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const handleNewRequest = data => {
     const decodedString = atob(selectedType?.id);
     const current = new Date();
+    const newTask = {
+      values: { ...data },
+      creatorId: +user.userId,
+      assigneeId: +user.userId,
+      organizationId: user.organizationId,
+      definitionId: JSON.parse(decodedString)[3],
+      teamId: selectTeam.teamId,
+      dueDate: current.toISOString(),
+      title: selectedType?.title,
+      key: selectedType?.title,
+      description: `${data?.content}`,
+    };
     createTaskMutation({
       variables: {
-        values: { ...data },
-        creatorId: +user.userId,
-        assigneeId: +user.userId,
-        organizationId: user.organizationId,
-        definitionId: JSON.parse(decodedString)[3],
-        teamId: selectTeam.teamId,
-        dueDate: current.toISOString(),
-        title: selectedType?.title,
+        data: newTask,
       },
     });
   };
 
   return (
     <>
-      <Modal open={loading}>
-        <Loading />
-      </Modal>
       <Box sx={iconModal}>
         {typeTask ? (
           <ArrowBackIcon style={iconClose} onClick={() => setTypeTask("")} />

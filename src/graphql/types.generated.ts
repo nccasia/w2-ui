@@ -1197,6 +1197,12 @@ export type Form_Inc_Input = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+export type Form_Insert = {
+  name?: InputMaybe<Scalars['String']>;
+  schema?: InputMaybe<Scalars['jsonb']>;
+  values?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting data into table "Form" */
 export type Form_Insert_Input = {
   TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
@@ -1215,6 +1221,10 @@ export type Form_Insert_Input = {
   updatedAt?: InputMaybe<Scalars['timestamp']>;
   validationConfig?: InputMaybe<Scalars['jsonb']>;
   values?: InputMaybe<Scalars['jsonb']>;
+};
+
+export type Form_Obj_Rel_Insert = {
+  data: Form_Insert;
 };
 
 /** input type for inserting object relation for remote table "Form" */
@@ -1780,6 +1790,18 @@ export type MemberOnTeams_Var_Samp_Order_By = {
 export type MemberOnTeams_Variance_Order_By = {
   teamId?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
+};
+
+export type New_Task = {
+  Form?: InputMaybe<Form_Obj_Rel_Insert>;
+  assigneeId?: InputMaybe<Scalars['Int']>;
+  creatorId?: InputMaybe<Scalars['Int']>;
+  definitionId?: InputMaybe<Scalars['Int']>;
+  dueDate?: InputMaybe<Scalars['timestamp']>;
+  organizationId?: InputMaybe<Scalars['Int']>;
+  teamId?: InputMaybe<Scalars['Int']>;
+  title?: InputMaybe<Scalars['String']>;
+  values?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** Boolean expression to filter rows from the table "Organization". All fields are combined with a logical 'AND'. */
@@ -7930,18 +7952,11 @@ export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetEventLogsQuery = { __typename: 'query_root', EventLog_connection: { __typename: 'EventLogConnection', edges: Array<{ __typename: 'EventLogEdge', node: { __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string } } }> } };
 
 export type CreateTaskMutationVariables = Exact<{
-  values?: InputMaybe<Scalars['jsonb']>;
-  definitionId: Scalars['Int'];
-  creatorId: Scalars['Int'];
-  assigneeId: Scalars['Int'];
-  organizationId: Scalars['Int'];
-  teamId: Scalars['Int'];
-  dueDate: Scalars['timestamp'];
-  title: Scalars['String'];
+  data: New_Task;
 }>;
 
 
-export type CreateTaskMutation = { __typename: 'mutation_root', insert_Task: { __typename: 'Task_mutation_response', returning: Array<{ __typename: 'Task', id: string }> } | null };
+export type CreateTaskMutation = { __typename: 'mutation_root', createTaskInput: { __typename: 'ITask', id: string } | null };
 
 export type InsertCommentMutationVariables = Exact<{
   content: Scalars['String'];
@@ -7960,6 +7975,14 @@ export type SubmitTaskMutationVariables = Exact<{
 
 
 export type SubmitTaskMutation = { __typename: 'mutation_root', submitTask: { __typename: 'SubmitTaskOutput', submitTask: { __typename: 'SubmitTask', id: string | null, name: string | null, code: string | null, description: string | null } | null } };
+
+export type UpdateAssigneeMutationVariables = Exact<{
+  _eq: Scalars['Int'];
+  assigneeId: Scalars['Int'];
+}>;
+
+
+export type UpdateAssigneeMutation = { __typename: 'mutation_root', update_Task: { __typename: 'Task_mutation_response', affected_rows: number, returning: Array<{ __typename: 'Task', assigneeId: number | null, id: string }> } | null };
 
 export type TaskEventLogFragmentFragment = { __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null };
 
@@ -7994,18 +8017,18 @@ export type ResourceItemFragmentFragment = { __typename: 'ResourceItem', id: str
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+export type GetTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
 
-export type TaskDetailFragmemtFragment = { __typename: 'Task', id: string, assigneeId: number | null, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, state: string, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null }>, Form: { __typename: 'Form', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', id: string }, EventLogs: Array<{ __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null }> };
+export type TaskDetailFragmemtFragment = { __typename: 'Task', id: string, assigneeId: number | null, creatorId: number, definitionId: number | null, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, state: string, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null }>, Form: { __typename: 'Form', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', id: string } | null, EventLogs: Array<{ __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null }> };
 
 export type TaskByPkQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, assigneeId: number | null, creatorId: number, definitionId: number, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, state: string, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null }>, Form: { __typename: 'Form', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', id: string }, EventLogs: Array<{ __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null }> } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+export type TaskByPkQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task', id: string, assigneeId: number | null, creatorId: number, definitionId: number | null, description: string, dueDate: any | null, organizationId: number, status: string, teamId: number | null, title: string, values: any | null, parentId: number | null, priority: any, state: string, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, Tasks: Array<{ __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null }>, Form: { __typename: 'Form', id: string } | null, TaskDefinition: { __typename: 'TaskDefinition', id: string } | null, EventLogs: Array<{ __typename: 'EventLog', createdAt: any, id: string, organizationId: number, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, avatarId: number | null } | null }> } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'TaskDefinitionActivityDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User' } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
 
-export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null };
+export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: any | null, assigneeId: number | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, stateName: string, status: string, priority: any, values: any | null, teamId: number | null, state: string, formId: number | null, parentId: number | null, title: string, isActive: boolean, Task: { __typename: 'Task', id: string } | null, Form: { __typename: 'Form', id: string, values: any | null } | null, userByCreatorid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any }, userByReporterid: { __typename: 'User', id: string, email: string, firstname: string | null, lastname: string | null, organizationId: number, role: any } | null, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, avatarId: number | null } | null };
 
 export type TaskBoardFragmentFragment = { __typename: 'TaskBoard', code: string, id: string, name: string, taskDefinitionId: number, viewConfig: any, viewType: any };
 
@@ -8019,7 +8042,7 @@ export type GetMyTasksQueryVariables = Exact<{
 }>;
 
 
-export type GetMyTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+export type GetMyTasksQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
 
 export type GetViewConfigQueryVariables = Exact<{
   code: Scalars['String'];
@@ -8033,4 +8056,9 @@ export type GetTaskByBoardQueryVariables = Exact<{
 }>;
 
 
-export type GetTaskByBoardQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+export type GetTaskByBoardQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number | null, creatorId: number, organizationId: number, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, assigneeId: number | null, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, organizationId: number, role: any } | null } }> } };
+
+export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserQuery = { __typename: 'query_root', User_connection: { __typename: 'UserConnection', edges: Array<{ __typename: 'UserEdge', node: { __typename: 'User', email: string, firstname: string | null, id: string, lastname: string | null, role: any } }> } };

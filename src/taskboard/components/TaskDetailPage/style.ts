@@ -68,6 +68,13 @@ export const useStyles = makeStyles(
     subTaskContainer: {
       border: "1px solid rgba(37, 41, 41, 0.1)",
       borderRadius: 6,
+      marginBottom: 10,
+      "& .MuiAvatar-root": {
+        "& :hover": {
+          cursor: "pointer",
+          opacity: 0.8,
+        },
+      },
     },
     subTaskItem: {
       "& form": {
@@ -88,17 +95,38 @@ export const useStyles = makeStyles(
         justifyContent: "space-around !important",
         flexDirection: "initial !important",
       },
-      marginBottom: 10,
-      "& .MuiAvatar-root": {
-        "& :hover": {
-          cursor: "pointer",
-          opacity: 0.8,
-        },
-      },
+    },
+    profileUser: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "8px 12px",
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: "1px solid #888",
+      borderRadius: "7px",
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+      width: 1000,
+      maxHeight: "700px",
     },
     subtask: {
       width: "100%",
       backgroundColor: theme.palette.background.paper,
+    },
+    subtaskAutoAssignee: {
+      display: "flex",
+      width: "100%",
+      "& .form_approve": {
+        width: "70%",
+        borderRight: "1px solid rgba(37, 41, 41, 0.2)",
+      },
+
+      "& .single_choice-assignee": {
+        width: "30%",
+        margin: "40px 0 0 40px",
+      },
     },
   }),
   {
