@@ -130,8 +130,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                     className={classes.subTaskContainer}
                     onClick={() => handleOpenModalSubTask(subtask.id)}
                   >
-                    <ListItemText primary={subtask.title} />
                     <ListItemText
+                      primary={subtask.title}
+                      style={{ width: "25%" }}
+                    />
+                    <ListItemText
+                      style={{ width: "40%" }}
                       primary={
                         subtask.state && (
                           <Pill label={subtask.state} color="warning" />
@@ -139,14 +143,18 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                       }
                     />
                     <ListItemText
+                      style={{ width: "15%" }}
                       primary={
                         subtask.status && (
                           <Pill label={subtask.status} color="success" />
                         )
                       }
                     />
-                    <ListItemText primary={subtask.priority} />
-                    <ListItemAvatar>
+                    <ListItemText
+                      primary={subtask.priority}
+                      style={{ width: "5%" }}
+                    />
+                    <ListItemAvatar style={{ width: "5%" }}>
                       <UserChip user={subtask.User} />
                     </ListItemAvatar>
                   </ListItem>
