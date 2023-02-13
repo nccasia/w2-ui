@@ -26,7 +26,7 @@ const AutoCompleteUser: React.FC<Props> = ({
         }
         defaultValue={userSingleChoice}
         renderInput={params => (
-          <TextField {...params} label="Combo box" variant="outlined" />
+          <TextField {...params} label="Assignee" variant="outlined" />
         )}
       />
     </>

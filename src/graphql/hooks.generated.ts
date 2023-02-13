@@ -592,6 +592,7 @@ export const GetTaskDefinitionDocument = gql`
         titleTemplate
         description
         createdAt
+        keyTemplate
       }
     }
   }

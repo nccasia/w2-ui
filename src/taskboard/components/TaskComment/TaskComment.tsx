@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, TextField, Typography } from "@material-ui/core";
+import { Button, Card, TextField, Typography } from "@material-ui/core";
 import UserChip from "@saleor/components/UserChip";
 import { useGetCommentQuery, useInsertCommentMutation } from "@saleor/graphql";
 import useNotifier from "@saleor/hooks/useNotifier";
@@ -132,9 +132,7 @@ const Comment = ({ comments }) => {
   return (
     <div className={classes.container}>
       <div style={{ width: "8%", cursor: "pointer" }}>
-        <Avatar>
-          <UserChip user={comments.User} />
-        </Avatar>
+        <UserChip user={comments.User} />
       </div>
       <div style={{ width: "92%" }}>
         <div className={classes.commentInfo}>

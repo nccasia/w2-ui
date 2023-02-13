@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
-import { useUser } from "@saleor/auth";
 import { Backlink } from "@saleor/components/Backlink";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles, PageTab, PageTabPanel, PageTabs } from "@saleor/macaw-ui";
-import { taskListUrl } from "@saleor/taskboard/urls";
 import { bridge } from "@saleor/utils/schema";
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
@@ -235,15 +233,12 @@ const visual = {
 
 const WorkFlowPage: React.FC<WorkFlowPageProps> = ({ modal }) => {
   const classes = useStyles();
-  const user = useUser();
   const intl = useIntl();
   const [tab, setTab] = useState("workflow");
   return (
     <>
       <Container>
-        <Backlink href={taskListUrl(undefined, user?.user?.userId)}>
-          {intl.formatMessage(sectionNames.tasks)}
-        </Backlink>
+        <Backlink>{intl.formatMessage(sectionNames.tasks)}</Backlink>
         <PageHeader title={intl.formatMessage(sectionNames.workFlow)} />
         <div className={classes.tabContainer}>
           <PageTabs value={tab} onChange={setTab}>

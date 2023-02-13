@@ -37,6 +37,7 @@ export const getTaskDefinition = gql`
           titleTemplate
           description
           createdAt
+          keyTemplate
         }
       }
     }

@@ -19,7 +19,7 @@ export const radioType = {
   justifyContent: "space-between",
   padding: "0 10px",
   borderRadius: "4px",
-  boxShadow: "0 0 2px 1px #ddd",
+  border: "2px solid rgba(37, 41, 41, 0.1)",
 };
 
 export const iconModal = {

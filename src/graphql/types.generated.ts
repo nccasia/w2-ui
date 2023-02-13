@@ -7989,7 +7989,7 @@ export type TaskEventLogFragmentFragment = { __typename: 'EventLog', createdAt: 
 export type GetTaskDefinitionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition_connection: { __typename: 'TaskDefinitionConnection', edges: Array<{ __typename: 'TaskDefinitionEdge', node: { __typename: 'TaskDefinition', id: string, organizationId: number, title: string, titleTemplate: string | null, description: string, createdAt: any, Form: { __typename: 'Form', id: string, code: string } | null } }> } };
+export type GetTaskDefinitionQuery = { __typename: 'query_root', TaskDefinition_connection: { __typename: 'TaskDefinitionConnection', edges: Array<{ __typename: 'TaskDefinitionEdge', node: { __typename: 'TaskDefinition', id: string, organizationId: number, title: string, titleTemplate: string | null, description: string, createdAt: any, keyTemplate: string | null, Form: { __typename: 'Form', id: string, code: string } | null } }> } };
 
 export type FormFragmentFragment = { __typename: 'Form', id: string, name: string, schema: any, code: string };
 
