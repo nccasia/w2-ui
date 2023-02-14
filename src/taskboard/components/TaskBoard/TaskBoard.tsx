@@ -48,7 +48,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
         };
       }),
     };
-  }, [data]);
+  }, [data, taskBoardData]);
   const handleClickCard = id => {
     navigate(taskUrl(id));
   };

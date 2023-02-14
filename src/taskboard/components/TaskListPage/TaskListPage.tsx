@@ -3,8 +3,11 @@ import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
 import PageHeader from "@saleor/components/PageHeader";
+import {
+  TaskBoardFragmentFragment,
+  TaskFragmentFragment,
+} from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
-import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import { sectionNames } from "@saleor/intl";
 import { Button } from "@saleor/macaw-ui";
 import React from "react";
@@ -14,14 +17,18 @@ import { TaskBoard } from "../TaskBoard/TaskBoard";
 import TaskList from "../TaskList/TaskList";
 export interface TaskListPageProps {
   onAdd: () => void;
-  id: string;
+  dataTaskBoard: TaskBoardFragmentFragment;
+  data: TaskFragmentFragment[];
 }
 
-const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
+const TaskListPage: React.FC<TaskListPageProps> = ({
+  onAdd,
+  dataTaskBoard,
+  data,
+}) => {
   const user = useUser();
   const intl = useIntl();
   const navigate = useNavigator();
-  const data = useTaskBoard(id);
 
   return (
     <Container>
@@ -44,10 +51,12 @@ const TaskListPage: React.FC<TaskListPageProps> = ({ onAdd, id }) => {
           <SettingsIcon />
         </Button>
       </PageHeader>
-      {data.viewType === "Kanban" && (
-        <TaskBoard taskBoardData={data}></TaskBoard>
+      {dataTaskBoard.viewType === "Kanban" && (
+        <TaskBoard taskBoardData={dataTaskBoard}></TaskBoard>
       )}
-      {data.viewType === "list" && <TaskList id={user.user.userId} />}
+      {dataTaskBoard.viewType === "list" && (
+        <TaskList id={user.user.userId} data={data} />
+      )}
     </Container>
   );
 };

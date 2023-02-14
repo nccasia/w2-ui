@@ -11,12 +11,11 @@ import TableCellHeader from "@saleor/components/TableCellHeader";
 import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
 import UserChip from "@saleor/components/UserChip";
-import { useGetTasksQuery } from "@saleor/graphql";
+import { TaskFragmentFragment } from "@saleor/graphql";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { taskUrl } from "@saleor/taskboard/urls";
-import { mapEdgesToItems } from "@saleor/utils/maps";
-import React, { useMemo } from "react";
+import React from "react";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles(
@@ -62,26 +61,19 @@ const useStyles = makeStyles(
 
 interface TaskListProps {
   id: string;
+  data: TaskFragmentFragment[];
 }
 
 const numberOfColumns = 8;
 
-export const TaskList: React.FC<TaskListProps> = () => {
+export const TaskList: React.FC<TaskListProps> = ({ data }) => {
   const classes = useStyles();
-  const { data, loading } = useGetTasksQuery();
 
   // const { data, loading } = useGetMyTasksQuery({
   //   variables: {
   //     _eq: +id,
   //   },
   // });
-  const getTaskList = useMemo(() => {
-    if (loading) {
-      return;
-    } else {
-      return mapEdgesToItems(data?.Task_connection);
-    }
-  }, [data?.Task_connection, loading]);
 
   const onUpdateListSettings = (_key: any, _value: any) => null;
 
@@ -118,7 +110,7 @@ export const TaskList: React.FC<TaskListProps> = () => {
       </TableFooter>
       <TableBody>
         {renderCollection(
-          getTaskList,
+          data,
           task => (
             <TableRowLink
               hover={!!task}

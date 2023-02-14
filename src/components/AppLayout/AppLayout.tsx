@@ -23,6 +23,7 @@ import Navigator from "../Navigator";
 import UserChip from "../UserChip";
 import { appLoaderHeight } from "./consts";
 import useMenuStructure from "./menuStructure";
+import { NotificationTask } from "./NotificationTask";
 import { SidebarLink } from "./SidebarLink";
 import { isMenuActive } from "./utils";
 
@@ -197,7 +198,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                         logo={logoContent}
                       />
                     )}
-                    <div className={classes.spacer} />
+                    <div className={classes.spacer}>
+                      <NotificationTask />
+                    </div>
                     <div className={classes.userBar}>
                       <UserChip
                         isDarkThemeEnabled={isDarkTheme(themeType)}
