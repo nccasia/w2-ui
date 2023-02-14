@@ -7911,7 +7911,10 @@ export type GetResourceItemsQuery = { __typename: 'query_root', node: { __typena
 export type ResourceItemFragmentFragment = { __typename: 'ResourceItem', id: string, name: string, description: string, code: string };
 
 export type GetTasksQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
 }>;
 
 

@@ -680,8 +680,14 @@ export type GetResourceItemsQueryHookResult = ReturnType<typeof useGetResourceIt
 export type GetResourceItemsLazyQueryHookResult = ReturnType<typeof useGetResourceItemsLazyQuery>;
 export type GetResourceItemsQueryResult = Apollo.QueryResult<Types.GetResourceItemsQuery, Types.GetResourceItemsQueryVariables>;
 export const GetTasksDocument = gql`
-    query GetTasks($after: String) {
-  Task_connection(where: {parentId: {_is_null: true}}, first: 5, after: $after) {
+    query GetTasks($first: Int, $last: Int, $after: String, $before: String) {
+  Task_connection(
+    where: {parentId: {_is_null: true}}
+    first: $first
+    after: $after
+    before: $before
+    last: $last
+  ) {
     edges {
       node {
         id
@@ -729,7 +735,10 @@ export const GetTasksDocument = gql`
  * @example
  * const { data, loading, error } = useGetTasksQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
  *      after: // value for 'after'
+ *      before: // value for 'before'
  *   },
  * });
  */

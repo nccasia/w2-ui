@@ -103,11 +103,13 @@ export const ResourceItemFragment = gql`
 `;
 
 export const getTasks = gql`
-  query GetTasks($after: String) {
+  query GetTasks($first: Int, $last: Int, $after: String, $before: String) {
     Task_connection(
       where: { parentId: { _is_null: true } }
-      first: 5
+      first: $first
       after: $after
+      before: $before
+      last: $last
     ) {
       edges {
         node {

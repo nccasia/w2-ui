@@ -1,9 +1,10 @@
-import { GetTasksQuery, useGetTasksQuery } from "@saleor/graphql";
+import { TaskFragmentFragment, useGetTasksQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, {
-  createPaginationState,
+  PaginationState,
   PaginatorContext,
 } from "@saleor/hooks/usePaginator";
+import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import TaskCreation from "@saleor/taskboard/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/taskboard/components/TaskListPage";
 import {
@@ -12,54 +13,66 @@ import {
   TaskListUrlQueryParams,
 } from "@saleor/taskboard/urls";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
-import { parse as parseQs } from "qs";
+import { mapEdgesToItems } from "@saleor/utils/maps";
 import React from "react";
 
 interface TaskListProps {
   params: TaskListUrlQueryParams;
   id: string;
-  variables: GetTasksQuery;
+  variables: PaginationState;
+  qs: any;
 }
 
 export const TaskList: React.FC<TaskListProps> = ({
   params,
   id,
   variables,
+  qs,
 }) => {
   const navigate = useNavigator();
   const { channel } = {
     channel: undefined,
   };
-  const qs = parseQs(location);
-  const paginationState = createPaginationState(5, params);
+  const dataTaskBoard = useTaskBoard(id);
   const { data } = useGetTasksQuery({
     variables,
   });
 
   const paginationValues = usePaginator({
     pageInfo: data?.Task_connection.pageInfo,
-    paginationState,
-    queryString: qs,
+    paginationState: variables,
+    queryString: {},
   });
   // eslint-disable-next-line no-console
   console.log(
     "\x1b[44m%s\x1b[0m",
     "TaskList.tsx line:41 paginationValues",
     paginationValues,
+    "qs",
     qs,
-    paginationState,
   );
+  // eslint-disable-next-line no-console
+  console.log("data", data?.Task_connection.edges, "vari", variables);
 
   const noTaskType = !channel && typeof channel !== "undefined";
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
     TaskListUrlQueryParams
   >(navigate, modalNewTaskUrl, params, id);
-
+  // eslint-disable-next-line no-console
+  console.log("123", mapEdgesToItems(data?.Task_connection));
   return (
     <>
       <PaginatorContext.Provider value={paginationValues}>
-        <TaskListPage onAdd={() => openModal("create-task")} id={id} />
+        <TaskListPage
+          onAdd={() => openModal("create-task")}
+          data={
+            (mapEdgesToItems(
+              data?.Task_connection,
+            ) as unknown) as TaskFragmentFragment[]
+          }
+          dataTaskBoard={dataTaskBoard}
+        />
         {!noTaskType && (
           <TaskCreation
             open={params.action === "create-task"}

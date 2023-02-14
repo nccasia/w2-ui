@@ -1,3 +1,4 @@
+import { createPaginationState } from "@saleor/hooks/usePaginator";
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
@@ -20,17 +21,29 @@ import TaskDefinitionComponent from "./views/TaskDefinition";
 import TaskDetailsComponent from "./views/TaskDetails";
 import TaskListComponent from "./views/TaskList";
 import { WorkFlow } from "./views/Workflow";
-
+// interface TranslationsPagesQueryParams {
+//   activeField: string;
+// }
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const qs = parseQs(location.search.substr(1));
   const id = match.params.id;
+
+  const paginationState = createPaginationState(10, qs);
+
   const params: TaskListUrlQueryParams = asSortParams(
     qs,
     TaskListUrlSortField,
     TaskListUrlSortField.number,
     false,
   );
-  return <TaskListComponent params={params} id={id} />;
+  return (
+    <TaskListComponent
+      qs={qs}
+      params={params}
+      id={id}
+      variables={paginationState}
+    />
+  );
 };
 
 const TaskDetails: React.FC<RouteComponentProps<any>> = ({
