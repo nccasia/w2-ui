@@ -6,9 +6,10 @@ import { useMemo } from "react";
 export function useTaskBoard(id: string) {
   const { data } = useGetViewConfigQuery({
     variables: {
-      code: "1",
+      code: id,
     },
   });
+
   const reponse = useMemo(() => {
     if (!data) {
       return {} as TaskBoardFragmentFragment;

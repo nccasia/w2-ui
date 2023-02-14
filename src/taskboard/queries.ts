@@ -103,8 +103,12 @@ export const ResourceItemFragment = gql`
 `;
 
 export const getTasks = gql`
-  query GetTasks {
-    Task_connection(where: { parentId: { _is_null: true } }) {
+  query GetTasks($after: String) {
+    Task_connection(
+      where: { parentId: { _is_null: true } }
+      first: 5
+      after: $after
+    ) {
       edges {
         node {
           id
@@ -130,12 +134,18 @@ export const getTasks = gql`
           }
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
     }
   }
 `;
 
-export const TaskDetailFragmemt = gql`
-  fragment TaskDetailFragmemt on Task {
+export const TaskDetailFragment = gql`
+  fragment TaskDetailFragment on Task {
     id
     assigneeId
     creatorId
@@ -150,6 +160,7 @@ export const TaskDetailFragmemt = gql`
     parentId
     priority
     state
+    formConfig
     userByCreatorid {
       id
       email
@@ -177,7 +188,7 @@ export const TaskDetailFragmemt = gql`
 export const getTaskDetail = gql`
   query TaskByPk($id: ID!) {
     node(id: $id) {
-      ...TaskDetailFragmemt
+      ...TaskDetailFragment
     }
   }
 `;
