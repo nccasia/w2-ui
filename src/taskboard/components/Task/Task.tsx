@@ -1,6 +1,6 @@
 import { Card } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
-import { TaskDetailFragmemtFragment } from "@saleor/graphql";
+import { TaskDetailFragmentFragment } from "@saleor/graphql";
 import { makeStyles } from "@saleor/macaw-ui";
 import { bridge } from "@saleor/utils/schema";
 import React from "react";
@@ -21,11 +21,12 @@ const useStyles = makeStyles(
   { name: "Task" },
 );
 interface TaskType {
-  task: TaskDetailFragmemtFragment;
+  task: TaskDetailFragmentFragment;
 }
 const Task = ({ task }: TaskType) => {
   const classes = useStyles();
-
+  // eslint-disable-next-line no-console
+  console.log("\x111111111111111111t", task);
   return (
     <Card className={classes.container}>
       <TaskTitle

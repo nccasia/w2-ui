@@ -93,8 +93,8 @@ export const TaskEventLogFragmentFragmentDoc = gql`
   }
 }
     `;
-export const TaskDetailFragmemtFragmentDoc = gql`
-    fragment TaskDetailFragmemt on Task {
+export const TaskDetailFragmentFragmentDoc = gql`
+    fragment TaskDetailFragment on Task {
   id
   assigneeId
   creatorId
@@ -109,6 +109,7 @@ export const TaskDetailFragmemtFragmentDoc = gql`
   parentId
   priority
   state
+  formConfig
   userByCreatorid {
     id
     email
@@ -747,8 +748,14 @@ export type GetResourceItemsQueryHookResult = ReturnType<typeof useGetResourceIt
 export type GetResourceItemsLazyQueryHookResult = ReturnType<typeof useGetResourceItemsLazyQuery>;
 export type GetResourceItemsQueryResult = Apollo.QueryResult<Types.GetResourceItemsQuery, Types.GetResourceItemsQueryVariables>;
 export const GetTasksDocument = gql`
-    query GetTasks {
-  Task_connection(where: {parentId: {_is_null: true}}) {
+    query GetTasks($first: Int, $last: Int, $after: String, $before: String) {
+  Task_connection(
+    where: {parentId: {_is_null: true}}
+    first: $first
+    after: $after
+    before: $before
+    last: $last
+  ) {
     edges {
       node {
         id
@@ -774,6 +781,12 @@ export const GetTasksDocument = gql`
         }
       }
     }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
   }
 }
     `;
@@ -790,6 +803,10 @@ export const GetTasksDocument = gql`
  * @example
  * const { data, loading, error } = useGetTasksQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
  *   },
  * });
  */
@@ -807,10 +824,10 @@ export type GetTasksQueryResult = Apollo.QueryResult<Types.GetTasksQuery, Types.
 export const TaskByPkDocument = gql`
     query TaskByPk($id: ID!) {
   node(id: $id) {
-    ...TaskDetailFragmemt
+    ...TaskDetailFragment
   }
 }
-    ${TaskDetailFragmemtFragmentDoc}`;
+    ${TaskDetailFragmentFragmentDoc}`;
 
 /**
  * __useTaskByPkQuery__
