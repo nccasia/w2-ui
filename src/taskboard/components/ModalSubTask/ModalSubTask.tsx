@@ -1,6 +1,7 @@
 import { Modal, Typography } from "@material-ui/core";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { useUpdateAssigneeMutation } from "@saleor/graphql";
+import { createNumberId } from "@saleor/utils/createNumberId";
 import { createRelayId } from "@saleor/utils/createRelayId";
 import clsx from "clsx";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -8,7 +9,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useStyles } from "../TaskDetailPage/style";
 import AutoCompleteUser from "./components/AutoCompleteUser/AutoCompleteUser";
 import { useUserChoiceType } from "./useUserChoiceType";
-
 interface SubTaskType {
   modalOpen: any;
   onModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,8 +37,7 @@ const ModalSubTask: React.FC<SubTaskType> = ({
   const optionDefault = useMemo(
     () =>
       choiceType?.find(
-        item =>
-          JSON.parse(atob(item.value))[3] === dataModalSubTask?.assigneeId,
+        item => createNumberId(item.value) === dataModalSubTask?.assigneeId,
       ),
     [choiceType, dataModalSubTask?.assigneeId],
   );
@@ -51,8 +50,8 @@ const ModalSubTask: React.FC<SubTaskType> = ({
       setUserSingleChoice(optionDefault);
       updateAssigneeMutation({
         variables: {
-          _eq: JSON.parse(atob(subTaskId))[3],
-          assigneeId: JSON.parse(atob(data.value))[3],
+          _eq: createNumberId(subTaskId),
+          assigneeId: createNumberId(data.value),
         },
       });
     },
