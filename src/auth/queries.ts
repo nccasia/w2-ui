@@ -50,6 +50,7 @@ export const getInformationUser = gql`
         email
         firstname
         lastname
+        role
       }
     }
   }

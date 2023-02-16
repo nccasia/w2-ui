@@ -51,6 +51,7 @@ export function useAuthProvider({
     "requestedExternalPluginId",
     null,
   );
+  const [userToken, setUserToken] = useLocalStorage("userToken", null);
   const [errors, setErrors] = useState<UserContextError[]>([]);
   const permitCredentialsAPI = useRef(true);
 
@@ -113,6 +114,7 @@ export function useAuthProvider({
       ? // @ts-ignore
         JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl
       : "";
+    // setUserToken("");
 
     if (!errors.length) {
       if (externalLogoutUrl) {
@@ -124,6 +126,7 @@ export function useAuthProvider({
 
     // TODO: fetch data logout
     setUserId(null);
+    navigate("/");
 
     return;
   };
@@ -135,16 +138,22 @@ export function useAuthProvider({
         password,
       });
 
+      // eslint-disable-next-line no-console
+      console.log("54343", result);
       if (result && !result.errors) {
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
         }
+
         saveCredentials(result.data.signin.user, password);
+        setUserToken(result.data?.signin.user.id);
+        // eslint-disable-next-line no-console
+        console.log(74378, userToken);
       } else {
         setErrors(["loginError"]);
       }
 
-      await logoutNonStaffUser(result.data.signin.accessToken);
+      await logoutNonStaffUser(result.data.signin?.accessToken);
 
       setUserId(result.data.signin.user);
 

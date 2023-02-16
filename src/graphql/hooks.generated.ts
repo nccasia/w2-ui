@@ -341,6 +341,7 @@ export const GetInformationUserDocument = gql`
       email
       firstname
       lastname
+      role
     }
   }
 }
