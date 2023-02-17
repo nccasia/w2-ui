@@ -1,5 +1,5 @@
 import appleTouchIcon from "@assets/favicons/apple-touch-icon.png";
-import logoIcon from "@assets/favicons/logo-icon.png";
+import logoIcon from "@assets/favicons/mstile-70x70.png";
 import safariPinnedTab from "@assets/favicons/safari-pinned-tab.svg";
 import React from "react";
 import Helmet from "react-helmet";

@@ -5,17 +5,17 @@ export const homeNotificationTableMessages = defineMessages({
     id: "Nuq83+",
     defaultMessage: "Create new channel",
   },
-  noTasks: {
-    id: "LazGNy",
-    defaultMessage: "No tasks ready to fulfill",
+  myTasks: {
+    id: "/jMFF5",
+    defaultMessage: "My-tasks",
   },
-  noPaymentWaiting: {
-    id: "5dyOs0",
-    defaultMessage: "No payments waiting for capture",
+  workFromHome: {
+    id: "ded6Gr",
+    defaultMessage: "Work from home",
   },
-  noTasksOut: {
-    id: "2tpxYm",
-    defaultMessage: "No tasks are out of stock",
+  changeOffice: {
+    id: "PmO7qd",
+    defaultMessage: "Change office",
   },
   pendingTasks: {
     id: "iYFScv",

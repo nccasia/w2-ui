@@ -3,8 +3,10 @@ import {
   useGoogleLoginMutation,
   useSigninMutation,
 } from "@saleor/graphql";
+import useLocalStorage from "@saleor/hooks/useLocalStorage";
 
 export const useAuth = () => {
+  const [, setUserToken] = useLocalStorage("userToken", null);
   const [loginMutation] = useSigninMutation();
   const [loginGoogleMutation] = useGoogleLoginMutation();
   const login = async ({ password, email }) => {
@@ -34,9 +36,11 @@ export const useAuth = () => {
     // get dummy external access token here using the auth code
     ({ data: null });
 
-  const logout = () =>
+  const logout = () => {
+    setUserToken("");
     // do some dummy logout process here
-    true;
+    return true;
+  };
 
   return {
     loginGoogle,

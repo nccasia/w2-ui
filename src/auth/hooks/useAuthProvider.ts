@@ -51,6 +51,7 @@ export function useAuthProvider({
     "requestedExternalPluginId",
     null,
   );
+  const [, setUserToken] = useLocalStorage("userToken", null);
   const [errors, setErrors] = useState<UserContextError[]>([]);
   const permitCredentialsAPI = useRef(true);
 
@@ -65,7 +66,6 @@ export function useAuthProvider({
       permitCredentialsAPI.current = true;
     }
   }, [authenticated]);
-
   useEffect(() => {
     if (
       !authenticated &&
@@ -113,7 +113,6 @@ export function useAuthProvider({
       ? // @ts-ignore
         JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl
       : "";
-
     if (!errors.length) {
       if (externalLogoutUrl) {
         window.location.href = externalLogoutUrl;
@@ -122,7 +121,6 @@ export function useAuthProvider({
       }
     }
 
-    // TODO: fetch data logout
     setUserId(null);
 
     return;
@@ -139,12 +137,14 @@ export function useAuthProvider({
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
         }
+
         saveCredentials(result.data.signin.user, password);
+        setUserToken(result.data?.signin.user.id);
       } else {
         setErrors(["loginError"]);
       }
 
-      await logoutNonStaffUser(result.data.signin.accessToken);
+      await logoutNonStaffUser(result.data.signin?.accessToken);
 
       setUserId(result.data.signin.user);
 

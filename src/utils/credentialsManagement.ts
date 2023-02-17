@@ -29,11 +29,14 @@ export function saveCredentials(
       name: user.firstName ? `${user.firstName} ${user.lastName}` : undefined,
       password,
     });
+
     try {
       result = navigator.credentials.store(cred);
     } catch {
       result = null;
     }
+    // eslint-disable-next-line no-console
+    console.log(12, cred, result);
   } else {
     result = null;
   }
