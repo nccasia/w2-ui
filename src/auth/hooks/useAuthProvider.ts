@@ -51,7 +51,7 @@ export function useAuthProvider({
     "requestedExternalPluginId",
     null,
   );
-  const [userToken, setUserToken] = useLocalStorage("userToken", null);
+  const [, setUserToken] = useLocalStorage("userToken", null);
   const [errors, setErrors] = useState<UserContextError[]>([]);
   const permitCredentialsAPI = useRef(true);
 
@@ -66,7 +66,6 @@ export function useAuthProvider({
       permitCredentialsAPI.current = true;
     }
   }, [authenticated]);
-
   useEffect(() => {
     if (
       !authenticated &&
@@ -114,8 +113,6 @@ export function useAuthProvider({
       ? // @ts-ignore
         JSON.parse(result.data?.externalLogout?.logoutData || null)?.logoutUrl
       : "";
-    // setUserToken("");
-
     if (!errors.length) {
       if (externalLogoutUrl) {
         window.location.href = externalLogoutUrl;
@@ -124,9 +121,7 @@ export function useAuthProvider({
       }
     }
 
-    // TODO: fetch data logout
     setUserId(null);
-    navigate("/");
 
     return;
   };
@@ -138,8 +133,6 @@ export function useAuthProvider({
         password,
       });
 
-      // eslint-disable-next-line no-console
-      console.log("54343", result);
       if (result && !result.errors) {
         if (DEMO_MODE) {
           displayDemoMessage(intl, notify);
@@ -147,8 +140,6 @@ export function useAuthProvider({
 
         saveCredentials(result.data.signin.user, password);
         setUserToken(result.data?.signin.user.id);
-        // eslint-disable-next-line no-console
-        console.log(74378, userToken);
       } else {
         setErrors(["loginError"]);
       }

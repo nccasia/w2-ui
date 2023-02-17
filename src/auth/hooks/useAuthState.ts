@@ -25,19 +25,18 @@ export const useAuthState = () => {
 
   useEffect(() => {
     if (userToken) {
-      getUser({
-        variables: {
-          id: createRelayId([1, "public", "User", userToken]),
-        },
-      });
-    } else {
-      getUser({
-        variables: {
-          id: relayId,
-        },
+      setUserId({
+        id: userToken,
       });
     }
+  }, []);
+  useEffect(() => {
+    getUser({
+      variables: {
+        id: relayId,
+      },
+    });
   }, [getUser, relayId, userId, userToken]);
 
-  return { authenticated, authenticating, user, setUserId, refetch };
+  return { authenticated, authenticating, user, setUserId, userId, refetch };
 };

@@ -78,7 +78,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   <Skeleton />
                 ) : tasksToFulfill === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noTasks)}
+                    {intl.formatMessage(messages.myTasks)}
                   </Typography>
                 ) : (
                   <Typography>
@@ -98,7 +98,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   <Skeleton />
                 ) : tasksToCapture === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noPaymentWaiting)}
+                    {intl.formatMessage(messages.workFromHome)}
                   </Typography>
                 ) : (
                   <Typography>
@@ -120,7 +120,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   <Skeleton />
                 ) : tasksOutOfStock === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.noTasksOut)}
+                    {intl.formatMessage(messages.changeOffice)}
                   </Typography>
                 ) : (
                   <Typography>
