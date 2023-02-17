@@ -12,6 +12,7 @@ import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal } from "@saleor/styles/modal";
 import { taskUrl } from "@saleor/taskboard/urls";
+import { createNumberId } from "@saleor/utils/createNumberId";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
@@ -72,14 +73,13 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   );
 
   const handleNewRequest = data => {
-    const decodedString = atob(selectedType?.id);
     const current = new Date();
     const newTask = {
       values: { ...data },
       creatorId: +user.userId,
       assigneeId: +user.userId,
       organizationId: user.organizationId,
-      definitionId: JSON.parse(decodedString)[3],
+      definitionId: createNumberId(selectedType?.id),
       teamId: selectTeam.teamId,
       dueDate: current.toISOString(),
       title: selectedType?.title,

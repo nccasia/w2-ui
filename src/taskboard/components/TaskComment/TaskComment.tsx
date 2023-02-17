@@ -4,10 +4,10 @@ import { useGetCommentQuery, useInsertCommentMutation } from "@saleor/graphql";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
+import { createNumberId } from "@saleor/utils/createNumberId";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useCallback, useMemo, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-
 const useStyles = makeStyles(
   theme => ({
     root: {
@@ -77,7 +77,6 @@ const TaskComment: React.FC<Props> = ({ task }) => {
     [data?.Comment_connection],
   );
 
-  const decodedStringIdTask = atob(task.id);
   const [insertCommentMutation] = useInsertCommentMutation({
     onCompleted: () => {
       notify({
@@ -99,13 +98,13 @@ const TaskComment: React.FC<Props> = ({ task }) => {
       insertCommentMutation({
         variables: {
           content: text,
-          taskId: JSON.parse(decodedStringIdTask)[3],
+          taskId: createNumberId(task.id),
           creatorId: task.creatorId,
         },
       });
       setTextCommentField("");
     },
-    [decodedStringIdTask, insertCommentMutation, intl, notify, task.creatorId],
+    [insertCommentMutation, intl, notify, task.creatorId, task.id],
   );
 
   return (

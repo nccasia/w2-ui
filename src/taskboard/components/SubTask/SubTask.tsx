@@ -4,6 +4,7 @@ import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import Hr from "@saleor/components/Hr";
 import Loading from "@saleor/components/Loading";
 import { TaskFragmentFragment } from "@saleor/graphql";
+import { createNumberId } from "@saleor/utils/createNumberId";
 import React from "react";
 
 import { IFormSubTaskApprove } from "../TaskDetailPage";
@@ -69,7 +70,7 @@ const SubTask = ({
               <FormSchema
                 formId={task.Form.id}
                 onSubmit={data =>
-                  submitTaskMutation(data, task.formId, task.parentId)
+                  submitTaskMutation(data, task.formId, createNumberId(task.id))
                 }
               />
             </div>
