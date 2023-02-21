@@ -5,9 +5,9 @@ export const homeNotificationTableMessages = defineMessages({
     id: "Nuq83+",
     defaultMessage: "Create new channel",
   },
-  myTasks: {
-    id: "/jMFF5",
-    defaultMessage: "My-tasks",
+  deviceRequest: {
+    id: "UcSkKb",
+    defaultMessage: "Device request",
   },
   workFromHome: {
     id: "ded6Gr",
