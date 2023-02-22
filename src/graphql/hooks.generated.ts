@@ -756,6 +756,7 @@ export const GetTasksDocument = gql`
     after: $after
     before: $before
     last: $last
+    order_by: {createdAt: desc}
   ) {
     edges {
       node {
@@ -911,8 +912,14 @@ export type GetCommentQueryHookResult = ReturnType<typeof useGetCommentQuery>;
 export type GetCommentLazyQueryHookResult = ReturnType<typeof useGetCommentLazyQuery>;
 export type GetCommentQueryResult = Apollo.QueryResult<Types.GetCommentQuery, Types.GetCommentQueryVariables>;
 export const GetMyTasksDocument = gql`
-    query GetMyTasks($_eq: Int!) {
-  Task_connection(where: {Task: {assigneeId: {_eq: $_eq}}}) {
+    query GetMyTasks($id: Int!, $after: String, $before: String, $first: Int, $last: Int) {
+  Task_connection(
+    where: {Task: {assigneeId: {_eq: $id}}}
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+  ) {
     edges {
       node {
         id
@@ -937,6 +944,12 @@ export const GetMyTasksDocument = gql`
         }
       }
     }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
   }
 }
     `;
@@ -953,7 +966,11 @@ export const GetMyTasksDocument = gql`
  * @example
  * const { data, loading, error } = useGetMyTasksQuery({
  *   variables: {
- *      _eq: // value for '_eq'
+ *      id: // value for 'id'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
  *   },
  * });
  */
