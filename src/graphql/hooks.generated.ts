@@ -914,7 +914,7 @@ export type GetCommentQueryResult = Apollo.QueryResult<Types.GetCommentQuery, Ty
 export const GetMyTasksDocument = gql`
     query GetMyTasks($id: Int!, $after: String, $before: String, $first: Int, $last: Int) {
   Task_connection(
-    where: {Task: {assigneeId: {_eq: $id}, parentId: {_is_null: true}}}
+    where: {Tasks: {assigneeId: {_eq: $id}, parentId: {_is_null: false}}}
     after: $after
     before: $before
     first: $first
