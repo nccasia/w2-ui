@@ -294,7 +294,9 @@ export const getMyTasks = gql`
     $last: Int
   ) {
     Task_connection(
-      where: { Task: { assigneeId: { _eq: $id } } }
+      where: {
+        Task: { assigneeId: { _eq: $id }, parentId: { _is_null: true } }
+      }
       after: $after
       before: $before
       first: $first
