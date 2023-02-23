@@ -67,20 +67,13 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
     }
   }, [data, id, typeTask]);
 
-  const selectTeam = useMemo(
-    () => user?.MemberOnTeams?.find?.(item => item.User.id === user?.id),
-    [user?.MemberOnTeams, user?.id],
-  );
-
   const handleNewRequest = data => {
     const current = new Date();
     const newTask = {
       values: { ...data },
       creatorId: +user.userId,
       assigneeId: +user.userId,
-      organizationId: user.organizationId,
       definitionId: createNumberId(selectedType?.id),
-      teamId: selectTeam.teamId,
       dueDate: current.toISOString(),
       title: selectedType?.title,
       key: selectedType?.keyTemplate,
