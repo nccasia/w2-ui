@@ -78,9 +78,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
       values: { ...data },
       creatorId: +user.userId,
       assigneeId: +user.userId,
-      organizationId: user.organizationId,
       definitionId: createNumberId(selectedType?.id),
-      teamId: selectTeam.teamId,
       dueDate: current.toISOString(),
       title: selectedType?.title,
       key: selectedType?.keyTemplate,
@@ -92,7 +90,8 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
       },
     });
   };
-
+  // eslint-disable-next-line no-console
+  console.log("selectTeam", selectTeam);
   return (
     <>
       <Box sx={iconModal}>

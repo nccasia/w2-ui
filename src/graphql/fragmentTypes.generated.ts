@@ -28,7 +28,6 @@
       "TaskBoard",
       "TaskBoardSettings",
       "TaskDefinition",
-      "TaskDefinitionActivityDefinition",
       "Team",
       "Trigger",
       "User",
