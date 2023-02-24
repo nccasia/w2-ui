@@ -1,4 +1,3 @@
-import { Typography } from "@material-ui/core";
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
@@ -91,7 +90,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                   />
                 }
               >
-                <Typography>{quantityTasks.pending}</Typography>
+                <h1>{quantityTasks.pending}</h1>
               </HomeAnalyticsCard>
               <HomeAnalyticsCard
                 title={"Done Tasks"}
@@ -104,7 +103,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                   />
                 }
               >
-                <Typography>{quantityTasks.done}</Typography>
+                <h1>{quantityTasks.done}</h1>
               </HomeAnalyticsCard>
             </div>
           </RequirePermissions>

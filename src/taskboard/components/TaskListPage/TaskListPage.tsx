@@ -1,5 +1,4 @@
-import { FormControlLabel, Popover, Switch } from "@material-ui/core";
-import SettingsIcon from "@material-ui/icons/Settings";
+import { FormControlLabel, Switch } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
@@ -9,10 +8,9 @@ import {
   TaskFragmentFragment,
 } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
-import { Button } from "@saleor/macaw-ui";
+import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
 import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import Board from "react-trello";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
 import TaskList from "../TaskList/TaskList";
@@ -31,33 +29,26 @@ export interface TaskListPageProps {
 //   }), { name: "TaskListPage" }
 // )
 
-const dataTest = {
-  lanes: [
-    {
-      id: "lane1",
-      cards: [],
-      label: "",
-      state: "DOING",
-      title: "DOING",
+const useStyles = makeStyles(
+  () => ({
+    settingViewContainer: {
+      padding: "8px",
     },
-    {
-      id: "lane2",
-      cards: [],
-      label: "",
-      state: "DONE",
-      title: "DONE",
+    settingViewTitle: {
+      marginBottom: 0,
     },
-  ],
-};
+  }),
+  { name: "TaskListPage" },
+);
+
 const TaskListPage: React.FC<TaskListPageProps> = ({
   onAdd,
   dataTaskBoard,
   data,
 }) => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const user = useUser();
   const intl = useIntl();
-  const [openSetting, setOpenSetting] = useState<boolean>(false);
   const [viewByStatus, setViewByStatus] = useState<boolean>(false);
 
   return (
@@ -67,6 +58,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
           options={[]}
           data-test-id="create-task-button"
           onClick={onAdd}
+          style={{ marginRight: 20 }}
         >
           <FormattedMessage
             id="y26e0U"
@@ -74,26 +66,9 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
             description="button"
           />
         </ButtonWithSelect>
-        <Button
-          style={{ marginLeft: 20, padding: "8px 0 8px 8px" }}
-          onClick={() => setOpenSetting(true)}
-        >
-          <SettingsIcon />
-        </Button>
-        <Popover
-          open={openSetting}
-          onClose={() => setOpenSetting(false)}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
-          <div>
-            <h1>Setting views</h1>
+        <PopoverCustom>
+          <div className={classes.settingViewContainer}>
+            <h3 className={classes.settingViewTitle}>Setting views</h3>
             <FormControlLabel
               control={<Switch checked={viewByStatus} disableRipple />}
               label={intl.formatMessage({
@@ -106,16 +81,14 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
               }}
             />
           </div>
-        </Popover>
+        </PopoverCustom>
       </PageHeader>
-      {dataTaskBoard.viewType === "Kanban" &&
-        (viewByStatus ? (
-          <div>
-            <Board data={dataTest} style={{ backgroundColor: "transparent" }} />
-          </div>
-        ) : (
-          <TaskBoard taskBoardData={dataTaskBoard}></TaskBoard>
-        ))}
+      {dataTaskBoard.viewType === "Kanban" && (
+        <TaskBoard
+          taskBoardData={dataTaskBoard}
+          viewByStatus={viewByStatus}
+        ></TaskBoard>
+      )}
       {dataTaskBoard.viewType === "list" && (
         <TaskList id={user.user.userId} data={data} />
       )}

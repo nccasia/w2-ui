@@ -21,14 +21,12 @@ import TaskDefinitionComponent from "./views/TaskDefinition";
 import TaskDetailsComponent from "./views/TaskDetails";
 import TaskListComponent from "./views/TaskList";
 import { WorkFlow } from "./views/Workflow";
-// interface TranslationsPagesQueryParams {
-//   activeField: string;
-// }
+
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const qs = parseQs(location.search.substr(1));
   const id = match.params.id;
 
-  const paginationState = createPaginationState(10, qs);
+  const paginationState = createPaginationState(5, qs);
 
   const params: TaskListUrlQueryParams = asSortParams(
     qs,

@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 export interface UserChipProps {
   isDarkThemeEnabled?: boolean;
-  user: any;
+  user?: any;
   onLogout?: () => void;
   onThemeToggle?: () => void;
 }
