@@ -21,6 +21,7 @@ import FormSchemaProvider from "./components/FormSchema/FormSchemaProvider";
 import { LocaleProvider } from "./components/Locale";
 import MessageManagerProvider from "./components/messages";
 import { ShopProvider } from "./components/Shop";
+import { TimezoneProvider } from "./components/Timezone";
 import { WindowTitle } from "./components/WindowTitle";
 import { DEMO_MODE, getAppMountUri, GTM_ID } from "./config";
 import ConfigurationSection from "./configuration";
@@ -47,35 +48,39 @@ if (process.env.GTM_ID) {
 
 errorTracker.init();
 
+// eslint-disable-next-line react-refresh/only-export-components
 const App: React.FC = () => (
   <ApolloProvider client={apolloClient}>
     <BrowserRouter basename={getAppMountUri()}>
       <ThemeProvider overrides={themeOverrides}>
-        <DateProvider>
-          <LocaleProvider>
-            <MessageManagerProvider>
-              <ServiceWorker />
-              <BackgroundTasksProvider>
-                <AppStateProvider>
-                  <AuthProvider>
-                    <ShopProvider>
-                      <ExitFormDialogProvider>
-                        <FormSchemaProvider>
-                          <Routes />
-                        </FormSchemaProvider>
-                      </ExitFormDialogProvider>
-                    </ShopProvider>
-                  </AuthProvider>
-                </AppStateProvider>
-              </BackgroundTasksProvider>
-            </MessageManagerProvider>
-          </LocaleProvider>
-        </DateProvider>
+        <TimezoneProvider value="Asia/Ho_Chi_Minh">
+          <DateProvider>
+            <LocaleProvider>
+              <MessageManagerProvider>
+                <ServiceWorker />
+                <BackgroundTasksProvider>
+                  <AppStateProvider>
+                    <AuthProvider>
+                      <ShopProvider>
+                        <ExitFormDialogProvider>
+                          <FormSchemaProvider>
+                            <Routes />
+                          </FormSchemaProvider>
+                        </ExitFormDialogProvider>
+                      </ShopProvider>
+                    </AuthProvider>
+                  </AppStateProvider>
+                </BackgroundTasksProvider>
+              </MessageManagerProvider>
+            </LocaleProvider>
+          </DateProvider>
+        </TimezoneProvider>
       </ThemeProvider>
     </BrowserRouter>
   </ApolloProvider>
 );
 
+// eslint-disable-next-line react-refresh/only-export-components
 const Routes: React.FC = () => {
   const intl = useIntl();
   const [, dispatchAppState] = useAppState();
