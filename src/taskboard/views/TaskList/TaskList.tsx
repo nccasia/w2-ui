@@ -1,4 +1,5 @@
-import { TaskFragmentFragment, useGetTasksQuery } from "@saleor/graphql";
+import { useUser } from "@saleor/auth";
+import { TaskFragmentFragment, useGetMyTasksLazyQuery } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
 import usePaginator, {
   PaginationState,
@@ -14,7 +15,7 @@ import {
 } from "@saleor/taskboard/urls";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import React from "react";
+import React, { useEffect } from "react";
 
 interface TaskListProps {
   params: TaskListUrlQueryParams;
@@ -27,40 +28,39 @@ export const TaskList: React.FC<TaskListProps> = ({
   params,
   id,
   variables,
-  qs,
 }) => {
+  const user = useUser();
   const navigate = useNavigator();
   const { channel } = {
     channel: undefined,
   };
   const dataTaskBoard = useTaskBoard(id);
-  const { data } = useGetTasksQuery({
-    variables,
-  });
+
+  const [fetchMyTask, { data }] = useGetMyTasksLazyQuery();
 
   const paginationValues = usePaginator({
     pageInfo: data?.Task_connection.pageInfo,
     paginationState: variables,
     queryString: {},
   });
-  // eslint-disable-next-line no-console
-  console.log(
-    "\x1b[44m%s\x1b[0m",
-    "TaskList.tsx line:41 paginationValues",
-    paginationValues,
-    "qs",
-    qs,
-  );
-  // eslint-disable-next-line no-console
-  console.log("data", data?.Task_connection.edges, "vari", variables);
 
   const noTaskType = !channel && typeof channel !== "undefined";
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
     TaskListUrlQueryParams
   >(navigate, modalNewTaskUrl, params, id);
-  // eslint-disable-next-line no-console
-  console.log("123", mapEdgesToItems(data?.Task_connection));
+
+  useEffect(() => {
+    if (user.user.userId) {
+      const temp = {
+        ...variables,
+        id: user.user.userId,
+      };
+      fetchMyTask({
+        variables: temp,
+      });
+    }
+  }, [variables]);
   return (
     <>
       <PaginatorContext.Provider value={paginationValues}>

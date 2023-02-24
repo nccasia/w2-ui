@@ -78,7 +78,7 @@ const HomeNotificationTable: React.FC<HomeNotificationTableProps> = props => {
                   <Skeleton />
                 ) : tasksToFulfill === 0 ? (
                   <Typography>
-                    {intl.formatMessage(messages.myTasks)}
+                    {intl.formatMessage(messages.deviceRequest)}
                   </Typography>
                 ) : (
                   <Typography>

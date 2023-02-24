@@ -111,6 +111,7 @@ export const getTasks = gql`
       after: $after
       before: $before
       last: $last
+      order_by: { createdAt: desc }
     ) {
       edges {
         node {
@@ -285,8 +286,23 @@ export const getComment = gql`
 `;
 
 export const getMyTasks = gql`
-  query GetMyTasks($_eq: Int!) {
-    Task_connection(where: { Task: { assigneeId: { _eq: $_eq } } }) {
+  query GetMyTasks(
+    $id: Int!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+  ) {
+    Task_connection(
+      where: {
+        Tasks: { assigneeId: { _eq: $id }, parentId: { _is_null: false } }
+      }
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      order_by: { createdAt: desc }
+    ) {
       edges {
         node {
           id
@@ -310,6 +326,12 @@ export const getMyTasks = gql`
             role
           }
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
       }
     }
   }

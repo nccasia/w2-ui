@@ -1,4 +1,4 @@
-import SettingsIcon from "@material-ui/icons/Settings";
+import { FormControlLabel, Switch } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
@@ -7,10 +7,9 @@ import {
   TaskBoardFragmentFragment,
   TaskFragmentFragment,
 } from "@saleor/graphql";
-import useNavigator from "@saleor/hooks/useNavigator";
 import { sectionNames } from "@saleor/intl";
-import { Button } from "@saleor/macaw-ui";
-import React from "react";
+import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
@@ -21,14 +20,27 @@ export interface TaskListPageProps {
   data: TaskFragmentFragment[];
 }
 
+const useStyles = makeStyles(
+  () => ({
+    settingViewContainer: {
+      padding: "8px",
+    },
+    settingViewTitle: {
+      marginBottom: 0,
+    },
+  }),
+  { name: "TaskListPage" },
+);
+
 const TaskListPage: React.FC<TaskListPageProps> = ({
   onAdd,
   dataTaskBoard,
   data,
 }) => {
+  const classes = useStyles();
   const user = useUser();
   const intl = useIntl();
-  const navigate = useNavigator();
+  const [viewByStatus, setViewByStatus] = useState<boolean>(false);
 
   return (
     <Container>
@@ -37,6 +49,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
           options={[]}
           data-test-id="create-task-button"
           onClick={onAdd}
+          style={{ marginRight: 20 }}
         >
           <FormattedMessage
             id="y26e0U"
@@ -44,15 +57,28 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
             description="button"
           />
         </ButtonWithSelect>
-        <Button
-          style={{ marginLeft: 20, padding: "8px 0 8px 8px" }}
-          onClick={() => navigate(`/taskboard/workflow`)}
-        >
-          <SettingsIcon />
-        </Button>
+        <PopoverCustom>
+          <div className={classes.settingViewContainer}>
+            <h3 className={classes.settingViewTitle}>Setting views</h3>
+            <FormControlLabel
+              control={<Switch checked={viewByStatus} disableRipple />}
+              label={intl.formatMessage({
+                id: "42CeNi",
+                defaultMessage: "View By Status",
+                description: "button",
+              })}
+              onChange={() => {
+                setViewByStatus(!viewByStatus);
+              }}
+            />
+          </div>
+        </PopoverCustom>
       </PageHeader>
       {dataTaskBoard.viewType === "Kanban" && (
-        <TaskBoard taskBoardData={dataTaskBoard}></TaskBoard>
+        <TaskBoard
+          taskBoardData={dataTaskBoard}
+          viewByStatus={viewByStatus}
+        ></TaskBoard>
       )}
       {dataTaskBoard.viewType === "list" && (
         <TaskList id={user.user.userId} data={data} />

@@ -33,6 +33,9 @@ const HomeSection = () => {
       tasksOutOfStock={dataHomePage?.tasksOutOfStock.totalCount}
       userName={getUserName(user, true)}
       noChannel={noChannel}
+      tasksToCaptureHref="/taskboard/wfh-request"
+      tasksOutOfStockHref="/taskboard/change-office-request"
+      tasksToFulfillHref="/taskboard/device-request"
     />
   );
 };
