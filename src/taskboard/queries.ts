@@ -17,6 +17,7 @@ export const TaskEventLogFragment = gql`
       email
       lastname
       firstname
+      fullName
       avatarId
     }
   }
@@ -132,6 +133,7 @@ export const getTasks = gql`
             id
             firstname
             lastname
+            fullName
             email
             organizationId
             role
@@ -169,6 +171,7 @@ export const TaskDetailFragment = gql`
       id
       email
       firstname
+      fullName
       lastname
       organizationId
       role
@@ -228,6 +231,7 @@ export const TaskFragment = gql`
       email
       firstname
       lastname
+      fullName
       organizationId
       role
     }
@@ -236,6 +240,7 @@ export const TaskFragment = gql`
       email
       firstname
       lastname
+      fullName
       organizationId
       role
     }
@@ -243,6 +248,7 @@ export const TaskFragment = gql`
       id
       firstname
       lastname
+      fullName
       email
       avatarId
     }
@@ -272,6 +278,7 @@ export const getComment = gql`
             email
             lastname
             firstname
+            fullName
             avatarId
           }
           Task {
@@ -322,6 +329,7 @@ export const getMyTasks = gql`
             firstname
             lastname
             email
+            fullName
             organizationId
             role
           }
@@ -375,6 +383,7 @@ export const getTaskByBoard = gql`
             firstname
             lastname
             email
+            fullName
             organizationId
             role
           }
@@ -393,6 +402,7 @@ export const getUser = gql`
           firstname
           id
           lastname
+          fullName
           role
         }
       }

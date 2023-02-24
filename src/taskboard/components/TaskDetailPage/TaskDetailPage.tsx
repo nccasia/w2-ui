@@ -42,11 +42,11 @@ export interface IFormSubTaskApprove {
 
 const OPTIONS: SwitchSelectorButtonOptions[] = [
   {
-    label: "Task History",
+    label: "Task Comment",
     value: "1",
   },
   {
-    label: "Task Comment",
+    label: "Task History",
     value: "2",
   },
 ];
@@ -120,27 +120,28 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
               loading={loading}
             ></SubTask>
           )}
-          <List>
-            <h2>Sub Tasks</h2>
+          <List className={classes.subTaskList}>
+            <h2 className={classes.subTaskTitle}>Sub Tasks</h2>
             {taskDetail?.Tasks?.map(subtask => {
               return (
                 <>
                   <ListItem
                     key={subtask.id}
                     className={classes.subTaskContainer}
-                    onClick={() => handleOpenModalSubTask(subtask.id)}
                   >
                     <ListItemText
                       primary={subtask.title}
-                      style={{ width: "25%" }}
+                      style={{ width: "35%" }}
+                      onClick={() => handleOpenModalSubTask(subtask.id)}
                     />
                     <ListItemText
-                      style={{ width: "40%" }}
+                      style={{ width: "30%" }}
                       primary={
                         subtask.state && (
                           <Pill label={subtask.state} color="warning" />
                         )
                       }
+                      onClick={() => handleOpenModalSubTask(subtask.id)}
                     />
                     <ListItemText
                       style={{ width: "15%" }}
@@ -149,10 +150,12 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                           <Pill label={subtask.status} color="success" />
                         )
                       }
+                      onClick={() => handleOpenModalSubTask(subtask.id)}
                     />
                     <ListItemText
                       primary={subtask.priority}
                       style={{ width: "5%" }}
+                      onClick={() => handleOpenModalSubTask(subtask.id)}
                     />
                     <ListItemAvatar style={{ width: "5%" }}>
                       <UserChip user={subtask.User} />
@@ -182,9 +185,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
               ))}
             </SwitchSelector>
             {active === "1" ? (
-              <TaskHistory history={taskDetail.EventLogs} />
-            ) : (
               <TaskComment task={taskDetail} />
+            ) : (
+              <TaskHistory history={taskDetail.EventLogs} />
             )}
           </div>
         </div>

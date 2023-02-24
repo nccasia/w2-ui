@@ -67,14 +67,19 @@ export const useStyles = makeStyles(
     },
     subTaskContainer: {
       border: "1px solid rgba(37, 41, 41, 0.1)",
+      // backgroundColor: "rgba(255, 255, 255, 0.8)",
       borderRadius: 6,
       marginBottom: 10,
-      "& .MuiAvatar-root": {
-        "& :hover": {
-          cursor: "pointer",
-          opacity: 0.8,
+      // "& .MuiListItem-root": {
+      "& :hover": {
+        cursor: "pointer",
+
+        "& .MuiListItem-root": {
+          // color: "white",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
         },
       },
+      // },
     },
     subTaskItem: {
       "& form": {
@@ -114,6 +119,16 @@ export const useStyles = makeStyles(
     subtask: {
       width: "100%",
       backgroundColor: theme.palette.background.paper,
+    },
+    subTaskTitle: {
+      margin: 0,
+      paddingBottom: "2.4rem",
+    },
+    subTaskList: {
+      marginTop: "30px",
+      padding: "2.4rem 3.2rem",
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: "7px",
     },
     subtaskAutoAssignee: {
       display: "flex",

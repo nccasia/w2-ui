@@ -20,7 +20,6 @@ interface TaskHistoryProps {
 const TaskHistory: React.FC<TaskHistoryProps> = props => {
   const { history } = props;
   const classes = useStyles();
-
   return (
     <div className={classes.timeLine}>
       {history ? (

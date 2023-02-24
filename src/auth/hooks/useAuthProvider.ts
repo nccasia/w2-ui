@@ -168,6 +168,7 @@ export function useAuthProvider({
       await logoutNonStaffUser(result.data.googleLogin.accessToken);
 
       setUserId(result.data.googleLogin.user);
+      setUserToken(result.data.googleLogin.user.id);
 
       return result.data.googleLogin.user;
     } catch (error) {
