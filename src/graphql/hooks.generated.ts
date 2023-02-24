@@ -919,6 +919,7 @@ export const GetMyTasksDocument = gql`
     before: $before
     first: $first
     last: $last
+    order_by: {createdAt: desc}
   ) {
     edges {
       node {

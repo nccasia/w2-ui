@@ -8,22 +8,40 @@ import React, { useEffect, useMemo } from "react";
 import Board from "react-trello";
 interface TaskBoardProps {
   taskBoardData: TaskBoardFragmentFragment;
+  viewByStatus: boolean;
 }
-const convertTaskCard = (state, taskEdges) => {
+
+const laneConfig = ["TODO", "DOING", "DONE"];
+
+const convertTaskCard = (view, state, taskEdges) => {
   const result = [];
   for (const item of taskEdges) {
-    if (item.node.state === state) {
-      result.push({
-        id: item.node.id,
-        title: item.node.title,
-        description: item.node.description,
-        draggable: false,
-      });
+    if (view === "status") {
+      if (item.node.status === state) {
+        result.push({
+          id: item.node.id,
+          title: item.node.title,
+          description: item.node.description,
+          draggable: false,
+        });
+      }
+    } else {
+      if (item.node.state === state) {
+        result.push({
+          id: item.node.id,
+          title: item.node.title,
+          description: item.node.description,
+          draggable: false,
+        });
+      }
     }
   }
   return result;
 };
-export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
+export const TaskBoard: React.FC<TaskBoardProps> = ({
+  taskBoardData,
+  viewByStatus,
+}) => {
   const navigate = useNavigator();
   const [fetch, { data }] = useGetTaskByBoardLazyQuery();
   useEffect(() => {
@@ -35,6 +53,22 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
       });
     }
   }, [taskBoardData]);
+
+  const result = useMemo(() => {
+    if (data?.Task_connection.edges) {
+      return {
+        lanes: laneConfig.map((ele, index) => {
+          return {
+            id: index,
+            title: ele,
+            state: ele,
+            cards: convertTaskCard("status", ele, data?.Task_connection.edges),
+          };
+        }),
+      };
+    }
+  }, [data]);
+
   const viewConfig = useMemo(() => {
     if (!taskBoardData || !data) {
       return null;
@@ -44,7 +78,11 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
       lanes: taskBoardData.viewConfig.lanes.map(lane => {
         return {
           ...lane,
-          cards: convertTaskCard(lane.state, data.Task_connection.edges),
+          cards: convertTaskCard(
+            "state",
+            lane.state,
+            data.Task_connection.edges,
+          ),
         };
       }),
     };
@@ -54,12 +92,20 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({ taskBoardData }) => {
   };
   return (
     <>
-      {data && (
+      {viewByStatus ? (
         <Board
-          data={viewConfig}
+          data={result}
           style={{ backgroundColor: "transparent" }}
           onCardClick={cardId => handleClickCard(cardId)}
         />
+      ) : (
+        data && (
+          <Board
+            data={viewConfig}
+            style={{ backgroundColor: "transparent" }}
+            onCardClick={cardId => handleClickCard(cardId)}
+          />
+        )
       )}
     </>
   );
