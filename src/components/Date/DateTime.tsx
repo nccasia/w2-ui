@@ -13,12 +13,20 @@ interface DateTimeProps {
 }
 
 export const DateTime: React.FC<DateTimeProps> = ({ date, plain }) => {
-  const getTitle = (value: string, locale?: string, tz?: string) => {
-    let date = moment(value).locale(locale);
+  const getTime = (value: string, tz?: string) => {
+    let date = moment.utc(value);
+
     if (tz !== undefined) {
-      date = date.tz(tz);
+      date = date.clone().tz(tz);
+    } else {
+      date = date.clone().local();
     }
-    return date.format("lll");
+    return date.toISOString();
+  };
+
+  const getTitle = (value: string, locale?: string, tz?: string) => {
+    const date = moment(getTime(value, tz));
+    return date.locale(locale).format("lll");
   };
 
   return (
@@ -33,7 +41,7 @@ export const DateTime: React.FC<DateTimeProps> = ({ date, plain }) => {
                 ) : (
                   <Tooltip title={getTitle(date, locale, tz)}>
                     <ReactMoment from={currentDate} locale={locale} tz={tz}>
-                      {date}
+                      {getTime(date, tz)}
                     </ReactMoment>
                   </Tooltip>
                 )
