@@ -10,20 +10,30 @@ interface TaskBoardProps {
   taskBoardData: TaskBoardFragmentFragment;
   viewByStatus: boolean;
 }
-// interface IResult {
 
-// }
+const laneConfig = ["TODO", "DOING", "DONE"];
 
-const convertTaskCard = (state, taskEdges) => {
+const convertTaskCard = (view, state, taskEdges) => {
   const result = [];
   for (const item of taskEdges) {
-    if (item.node.state === state) {
-      result.push({
-        id: item.node.id,
-        title: item.node.title,
-        description: item.node.description,
-        draggable: false,
-      });
+    if (view === "status") {
+      if (item.node.status === state) {
+        result.push({
+          id: item.node.id,
+          title: item.node.title,
+          description: item.node.description,
+          draggable: false,
+        });
+      }
+    } else {
+      if (item.node.state === state) {
+        result.push({
+          id: item.node.id,
+          title: item.node.title,
+          description: item.node.description,
+          draggable: false,
+        });
+      }
     }
   }
   return result;
@@ -46,30 +56,13 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
 
   const result = useMemo(() => {
     if (data?.Task_connection.edges) {
-      const groupByStatus = data.Task_connection.edges.reduce((d, v) => {
-        if (!(v.node.status in d)) {
-          return {
-            ...d,
-            [v.node.status]: [v],
-          };
-        }
-        return { ...d, [v.node.status]: [...d[v.node.status], v] };
-      }, {});
-
-      const getKey = Object.keys(groupByStatus);
       return {
-        lanes: getKey.map((e, index) => {
+        lanes: laneConfig.map((ele, index) => {
           return {
             id: index,
-            cards: groupByStatus[e].map(c => {
-              return {
-                id: c.node.id,
-                title: c.node.title,
-                state: c.node.title,
-                description: c.node.description,
-              };
-            }),
-            title: e,
+            title: ele,
+            state: ele,
+            cards: convertTaskCard("status", ele, data?.Task_connection.edges),
           };
         }),
       };
@@ -80,13 +73,16 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
     if (!taskBoardData || !data) {
       return null;
     }
-
     return {
       ...taskBoardData.viewConfig,
       lanes: taskBoardData.viewConfig.lanes.map(lane => {
         return {
           ...lane,
-          cards: convertTaskCard(lane.state, data.Task_connection.edges),
+          cards: convertTaskCard(
+            "state",
+            lane.state,
+            data.Task_connection.edges,
+          ),
         };
       }),
     };
