@@ -1,10 +1,7 @@
 /* eslint-disable */
 import { FieldPolicy, FieldReadFunction, TypePolicies, TypePolicy } from '@apollo/client/cache';
-export type ActivityDefinitionKeySpecifier = ('TaskDefinitionActivityDefinitions' | 'TaskDefinitionActivityDefinitions_aggregate' | 'TaskDefinitionActivityDefinitions_connection' | 'config' | 'createdAt' | 'description' | 'id' | 'initialValue' | 'key' | 'name' | 'synchronous' | 'type' | 'updatedAt' | ActivityDefinitionKeySpecifier)[];
+export type ActivityDefinitionKeySpecifier = ('config' | 'createdAt' | 'description' | 'id' | 'initialValue' | 'key' | 'name' | 'synchronous' | 'type' | 'updatedAt' | ActivityDefinitionKeySpecifier)[];
 export type ActivityDefinitionFieldPolicy = {
-	TaskDefinitionActivityDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinitions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinitions_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	config?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -413,7 +410,7 @@ export type File_variance_fieldsFieldPolicy = {
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	variantOfId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type FormKeySpecifier = ('TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'code' | 'config' | 'createdAt' | 'description' | 'displayConfig' | 'displayTemplate' | 'id' | 'name' | 'schema' | 'serializerConfig' | 'triggerConfig' | 'updatedAt' | 'validationConfig' | 'values' | FormKeySpecifier)[];
+export type FormKeySpecifier = ('TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'code' | 'config' | 'createdAt' | 'description' | 'id' | 'name' | 'schema' | 'updatedAt' | 'validationConfig' | 'values' | FormKeySpecifier)[];
 export type FormFieldPolicy = {
 	TaskDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinitions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -425,13 +422,9 @@ export type FormFieldPolicy = {
 	config?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
-	displayConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	displayTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	schema?: FieldPolicy<any> | FieldReadFunction<any>,
-	serializerConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	triggerConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	validationConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	values?: FieldPolicy<any> | FieldReadFunction<any>
@@ -1660,7 +1653,7 @@ export type SubmitTaskOutputKeySpecifier = ('submitTask' | SubmitTaskOutputKeySp
 export type SubmitTaskOutputFieldPolicy = {
 	submitTask?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'contextConfig' | 'createdAt' | 'creatorId' | 'cta' | 'ctaConfig' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'processConfig' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateConfig' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusConfig' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'triggerConfig' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
+export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
 export type TaskFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1683,11 +1676,9 @@ export type TaskFieldPolicy = {
 	User?: FieldPolicy<any> | FieldReadFunction<any>,
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	config?: FieldPolicy<any> | FieldReadFunction<any>,
-	contextConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	cta?: FieldPolicy<any> | FieldReadFunction<any>,
-	ctaConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaName?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1699,29 +1690,23 @@ export type TaskFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	isActive?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
-	machineConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	notificationConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	priority?: FieldPolicy<any> | FieldReadFunction<any>,
-	processConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	properties?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	state?: FieldPolicy<any> | FieldReadFunction<any>,
-	stateConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateName?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateValues?: FieldPolicy<any> | FieldReadFunction<any>,
 	status?: FieldPolicy<any> | FieldReadFunction<any>,
-	statusConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	titleTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
-	triggerConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	type?: FieldPolicy<any> | FieldReadFunction<any>,
 	typeName?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1979,7 +1964,7 @@ export type TaskConnectionFieldPolicy = {
 	edges?: FieldPolicy<any> | FieldReadFunction<any>,
 	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskDefinitionKeySpecifier = ('Form' | 'Organization' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitionActivityDefinitions' | 'TaskDefinitionActivityDefinitions_aggregate' | 'TaskDefinitionActivityDefinitions_connection' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'config' | 'contextConfig' | 'createdAt' | 'ctaConfig' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'processConfig' | 'stateConfig' | 'stateTemplate' | 'statusConfig' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'triggerConfig' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
+export type TaskDefinitionKeySpecifier = ('Form' | 'Organization' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'createdAt' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'stateTemplate' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
 export type TaskDefinitionFieldPolicy = {
 	Form?: FieldPolicy<any> | FieldReadFunction<any>,
 	Organization?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1990,19 +1975,13 @@ export type TaskDefinitionFieldPolicy = {
 	TaskBoards_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoards_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinitions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinitions_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinitions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinitions_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks_connection?: FieldPolicy<any> | FieldReadFunction<any>,
-	config?: FieldPolicy<any> | FieldReadFunction<any>,
-	contextConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	ctaConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	ctaTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	description?: FieldPolicy<any> | FieldReadFunction<any>,
 	descriptionTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2011,130 +1990,15 @@ export type TaskDefinitionFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	keyTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	machineConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	notificationConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
-	processConfig?: FieldPolicy<any> | FieldReadFunction<any>,
-	stateConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	stateTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
-	statusConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	statusTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	thumbnail?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	titleTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
-	triggerConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinitionKeySpecifier = ('ActivityDefinition' | 'TaskDefinition' | 'activityDefinitionId' | 'config' | 'createdAt' | 'id' | 'initialValue' | 'taskDefinitionId' | 'updatedAt' | TaskDefinitionActivityDefinitionKeySpecifier)[];
-export type TaskDefinitionActivityDefinitionFieldPolicy = {
-	ActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	config?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	initialValue?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinitionConnectionKeySpecifier = ('edges' | 'pageInfo' | TaskDefinitionActivityDefinitionConnectionKeySpecifier)[];
-export type TaskDefinitionActivityDefinitionConnectionFieldPolicy = {
-	edges?: FieldPolicy<any> | FieldReadFunction<any>,
-	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinitionEdgeKeySpecifier = ('cursor' | 'node' | TaskDefinitionActivityDefinitionEdgeKeySpecifier)[];
-export type TaskDefinitionActivityDefinitionEdgeFieldPolicy = {
-	cursor?: FieldPolicy<any> | FieldReadFunction<any>,
-	node?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_aggregateKeySpecifier = ('aggregate' | 'nodes' | TaskDefinitionActivityDefinition_aggregateKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_aggregateFieldPolicy = {
-	aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
-	nodes?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_aggregate_fieldsKeySpecifier = ('avg' | 'count' | 'max' | 'min' | 'stddev' | 'stddev_pop' | 'stddev_samp' | 'sum' | 'var_pop' | 'var_samp' | 'variance' | TaskDefinitionActivityDefinition_aggregate_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_aggregate_fieldsFieldPolicy = {
-	avg?: FieldPolicy<any> | FieldReadFunction<any>,
-	count?: FieldPolicy<any> | FieldReadFunction<any>,
-	max?: FieldPolicy<any> | FieldReadFunction<any>,
-	min?: FieldPolicy<any> | FieldReadFunction<any>,
-	stddev?: FieldPolicy<any> | FieldReadFunction<any>,
-	stddev_pop?: FieldPolicy<any> | FieldReadFunction<any>,
-	stddev_samp?: FieldPolicy<any> | FieldReadFunction<any>,
-	sum?: FieldPolicy<any> | FieldReadFunction<any>,
-	var_pop?: FieldPolicy<any> | FieldReadFunction<any>,
-	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
-	variance?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_avg_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_avg_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_avg_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_max_fieldsKeySpecifier = ('activityDefinitionId' | 'createdAt' | 'id' | 'taskDefinitionId' | 'updatedAt' | TaskDefinitionActivityDefinition_max_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_max_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_min_fieldsKeySpecifier = ('activityDefinitionId' | 'createdAt' | 'id' | 'taskDefinitionId' | 'updatedAt' | TaskDefinitionActivityDefinition_min_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_min_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | TaskDefinitionActivityDefinition_mutation_responseKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_mutation_responseFieldPolicy = {
-	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
-	returning?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_stddev_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_stddev_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_stddev_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_stddev_pop_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_stddev_pop_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_stddev_pop_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_stddev_samp_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_stddev_samp_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_stddev_samp_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_sum_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_sum_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_sum_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_var_pop_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_var_pop_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_var_pop_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_var_samp_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_var_samp_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_var_samp_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
-};
-export type TaskDefinitionActivityDefinition_variance_fieldsKeySpecifier = ('activityDefinitionId' | 'id' | 'taskDefinitionId' | TaskDefinitionActivityDefinition_variance_fieldsKeySpecifier)[];
-export type TaskDefinitionActivityDefinition_variance_fieldsFieldPolicy = {
-	activityDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>,
-	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	taskDefinitionId?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type TaskDefinitionConnectionKeySpecifier = ('edges' | 'pageInfo' | TaskDefinitionConnectionKeySpecifier)[];
 export type TaskDefinitionConnectionFieldPolicy = {
@@ -2716,7 +2580,7 @@ export type Trigger_variance_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	taskId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'File' | 'MemberOnProjects' | 'MemberOnProjects_aggregate' | 'MemberOnProjects_connection' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'UserSettings' | 'UserSettings_aggregate' | 'UserSettings_connection' | 'avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'projectsByManagerid' | 'projectsByManagerid_aggregate' | 'projectsByManagerid_connection' | 'projectsByReporterid' | 'projectsByReporterid_aggregate' | 'projectsByReporterid_connection' | 'provider' | 'role' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'tasksByReporterid' | 'tasksByReporterid_aggregate' | 'tasksByReporterid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | UserKeySpecifier)[];
+export type UserKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'File' | 'MemberOnProjects' | 'MemberOnProjects_aggregate' | 'MemberOnProjects_connection' | 'MemberOnTeams' | 'MemberOnTeams_aggregate' | 'MemberOnTeams_connection' | 'Organization' | 'Posts' | 'Posts_aggregate' | 'Posts_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'UserPermissions' | 'UserPermissions_aggregate' | 'UserPermissions_connection' | 'UserSettings' | 'UserSettings_aggregate' | 'UserSettings_connection' | 'avatarId' | 'branchCode' | 'createdAt' | 'email' | 'firstname' | 'fullName' | 'googleId' | 'googleToken' | 'id' | 'jobPositionCode' | 'lastname' | 'organizationId' | 'password' | 'projectsByManagerid' | 'projectsByManagerid_aggregate' | 'projectsByManagerid_connection' | 'projectsByReporterid' | 'projectsByReporterid_aggregate' | 'projectsByReporterid_connection' | 'provider' | 'role' | 'statusName' | 'tasksByCreatorid' | 'tasksByCreatorid_aggregate' | 'tasksByCreatorid_connection' | 'tasksByReporterid' | 'tasksByReporterid_aggregate' | 'tasksByReporterid_connection' | 'teamsByManagerid' | 'teamsByManagerid_aggregate' | 'teamsByManagerid_connection' | 'updatedAt' | 'userTypeName' | UserKeySpecifier)[];
 export type UserFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2751,12 +2615,15 @@ export type UserFieldPolicy = {
 	UserSettings_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	UserSettings_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
+	branchCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	fullName?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	jobPositionCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2768,6 +2635,7 @@ export type UserFieldPolicy = {
 	projectsByReporterid_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
+	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
 	tasksByCreatorid?: FieldPolicy<any> | FieldReadFunction<any>,
 	tasksByCreatorid_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	tasksByCreatorid_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2777,7 +2645,8 @@ export type UserFieldPolicy = {
 	teamsByManagerid?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamsByManagerid_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamsByManagerid_connection?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	userTypeName?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type UserConnectionKeySpecifier = ('edges' | 'pageInfo' | UserConnectionKeySpecifier)[];
 export type UserConnectionFieldPolicy = {
@@ -3019,37 +2888,47 @@ export type User_avg_fieldsFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_max_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'updatedAt' | User_max_fieldsKeySpecifier)[];
+export type User_max_fieldsKeySpecifier = ('avatarId' | 'branchCode' | 'createdAt' | 'email' | 'firstname' | 'fullName' | 'googleId' | 'googleToken' | 'id' | 'jobPositionCode' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'statusName' | 'updatedAt' | 'userTypeName' | User_max_fieldsKeySpecifier)[];
 export type User_max_fieldsFieldPolicy = {
 	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
+	branchCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	fullName?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	jobPositionCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	userTypeName?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type User_min_fieldsKeySpecifier = ('avatarId' | 'createdAt' | 'email' | 'firstname' | 'googleId' | 'googleToken' | 'id' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'updatedAt' | User_min_fieldsKeySpecifier)[];
+export type User_min_fieldsKeySpecifier = ('avatarId' | 'branchCode' | 'createdAt' | 'email' | 'firstname' | 'fullName' | 'googleId' | 'googleToken' | 'id' | 'jobPositionCode' | 'lastname' | 'organizationId' | 'password' | 'provider' | 'role' | 'statusName' | 'updatedAt' | 'userTypeName' | User_min_fieldsKeySpecifier)[];
 export type User_min_fieldsFieldPolicy = {
 	avatarId?: FieldPolicy<any> | FieldReadFunction<any>,
+	branchCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	email?: FieldPolicy<any> | FieldReadFunction<any>,
 	firstname?: FieldPolicy<any> | FieldReadFunction<any>,
+	fullName?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleId?: FieldPolicy<any> | FieldReadFunction<any>,
 	googleToken?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	jobPositionCode?: FieldPolicy<any> | FieldReadFunction<any>,
 	lastname?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	password?: FieldPolicy<any> | FieldReadFunction<any>,
 	provider?: FieldPolicy<any> | FieldReadFunction<any>,
 	role?: FieldPolicy<any> | FieldReadFunction<any>,
-	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
+	statusName?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	userTypeName?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type User_mutation_responseKeySpecifier = ('affected_rows' | 'returning' | User_mutation_responseKeySpecifier)[];
 export type User_mutation_responseFieldPolicy = {
@@ -3124,7 +3003,7 @@ export type _prisma_migrations_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type mutation_rootKeySpecifier = ('createTaskInput' | 'delete_ActivityDefinition' | 'delete_ActivityDefinition_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnProjects' | 'delete_MemberOnProjects_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Project' | 'delete_ProjectSettings' | 'delete_ProjectSettings_by_pk' | 'delete_Project_by_pk' | 'delete_Resource' | 'delete_ResourceItem' | 'delete_ResourceItem_by_pk' | 'delete_Resource_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskBoard' | 'delete_TaskBoardSettings' | 'delete_TaskBoardSettings_by_pk' | 'delete_TaskBoard_by_pk' | 'delete_TaskDefinition' | 'delete_TaskDefinitionActivityDefinition' | 'delete_TaskDefinitionActivityDefinition_by_pk' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_UserSetting' | 'delete_UserSetting_by_pk' | 'delete_User_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'googleLogin' | 'insert_ActivityDefinition' | 'insert_ActivityDefinition_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnProjects' | 'insert_MemberOnProjects_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Project' | 'insert_ProjectSettings' | 'insert_ProjectSettings_one' | 'insert_Project_one' | 'insert_Resource' | 'insert_ResourceItem' | 'insert_ResourceItem_one' | 'insert_Resource_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskBoard' | 'insert_TaskBoardSettings' | 'insert_TaskBoardSettings_one' | 'insert_TaskBoard_one' | 'insert_TaskDefinition' | 'insert_TaskDefinitionActivityDefinition' | 'insert_TaskDefinitionActivityDefinition_one' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_UserSetting' | 'insert_UserSetting_one' | 'insert_User_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'signin' | 'submitTask' | 'update_ActivityDefinition' | 'update_ActivityDefinition_by_pk' | 'update_ActivityDefinition_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnProjects' | 'update_MemberOnProjects_by_pk' | 'update_MemberOnProjects_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Project' | 'update_ProjectSettings' | 'update_ProjectSettings_by_pk' | 'update_ProjectSettings_many' | 'update_Project_by_pk' | 'update_Project_many' | 'update_Resource' | 'update_ResourceItem' | 'update_ResourceItem_by_pk' | 'update_ResourceItem_many' | 'update_Resource_by_pk' | 'update_Resource_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskBoard' | 'update_TaskBoardSettings' | 'update_TaskBoardSettings_by_pk' | 'update_TaskBoardSettings_many' | 'update_TaskBoard_by_pk' | 'update_TaskBoard_many' | 'update_TaskDefinition' | 'update_TaskDefinitionActivityDefinition' | 'update_TaskDefinitionActivityDefinition_by_pk' | 'update_TaskDefinitionActivityDefinition_many' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_UserSetting' | 'update_UserSetting_by_pk' | 'update_UserSetting_many' | 'update_User_by_pk' | 'update_User_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
+export type mutation_rootKeySpecifier = ('createTaskInput' | 'delete_ActivityDefinition' | 'delete_ActivityDefinition_by_pk' | 'delete_Comment' | 'delete_Comment_by_pk' | 'delete_EventLog' | 'delete_EventLog_by_pk' | 'delete_File' | 'delete_File_by_pk' | 'delete_Form' | 'delete_Form_by_pk' | 'delete_MemberOnProjects' | 'delete_MemberOnProjects_by_pk' | 'delete_MemberOnTeams' | 'delete_MemberOnTeams_by_pk' | 'delete_Organization' | 'delete_Organization_by_pk' | 'delete_Permission' | 'delete_PermissionGroup' | 'delete_PermissionGroup_by_pk' | 'delete_Permission_by_pk' | 'delete_Post' | 'delete_Post_by_pk' | 'delete_Project' | 'delete_ProjectSettings' | 'delete_ProjectSettings_by_pk' | 'delete_Project_by_pk' | 'delete_Resource' | 'delete_ResourceItem' | 'delete_ResourceItem_by_pk' | 'delete_Resource_by_pk' | 'delete_Settings' | 'delete_Settings_by_pk' | 'delete_Task' | 'delete_TaskBoard' | 'delete_TaskBoardSettings' | 'delete_TaskBoardSettings_by_pk' | 'delete_TaskBoard_by_pk' | 'delete_TaskDefinition' | 'delete_TaskDefinition_by_pk' | 'delete_Task_by_pk' | 'delete_Team' | 'delete_Team_by_pk' | 'delete_Trigger' | 'delete_Trigger_by_pk' | 'delete_User' | 'delete_UserPermission' | 'delete_UserPermission_by_pk' | 'delete_UserSetting' | 'delete_UserSetting_by_pk' | 'delete_User_by_pk' | 'delete__prisma_migrations' | 'delete__prisma_migrations_by_pk' | 'googleLogin' | 'insert_ActivityDefinition' | 'insert_ActivityDefinition_one' | 'insert_Comment' | 'insert_Comment_one' | 'insert_EventLog' | 'insert_EventLog_one' | 'insert_File' | 'insert_File_one' | 'insert_Form' | 'insert_Form_one' | 'insert_MemberOnProjects' | 'insert_MemberOnProjects_one' | 'insert_MemberOnTeams' | 'insert_MemberOnTeams_one' | 'insert_Organization' | 'insert_Organization_one' | 'insert_Permission' | 'insert_PermissionGroup' | 'insert_PermissionGroup_one' | 'insert_Permission_one' | 'insert_Post' | 'insert_Post_one' | 'insert_Project' | 'insert_ProjectSettings' | 'insert_ProjectSettings_one' | 'insert_Project_one' | 'insert_Resource' | 'insert_ResourceItem' | 'insert_ResourceItem_one' | 'insert_Resource_one' | 'insert_Settings' | 'insert_Settings_one' | 'insert_Task' | 'insert_TaskBoard' | 'insert_TaskBoardSettings' | 'insert_TaskBoardSettings_one' | 'insert_TaskBoard_one' | 'insert_TaskDefinition' | 'insert_TaskDefinition_one' | 'insert_Task_one' | 'insert_Team' | 'insert_Team_one' | 'insert_Trigger' | 'insert_Trigger_one' | 'insert_User' | 'insert_UserPermission' | 'insert_UserPermission_one' | 'insert_UserSetting' | 'insert_UserSetting_one' | 'insert_User_one' | 'insert__prisma_migrations' | 'insert__prisma_migrations_one' | 'signin' | 'submitTask' | 'update_ActivityDefinition' | 'update_ActivityDefinition_by_pk' | 'update_ActivityDefinition_many' | 'update_Comment' | 'update_Comment_by_pk' | 'update_Comment_many' | 'update_EventLog' | 'update_EventLog_by_pk' | 'update_EventLog_many' | 'update_File' | 'update_File_by_pk' | 'update_File_many' | 'update_Form' | 'update_Form_by_pk' | 'update_Form_many' | 'update_MemberOnProjects' | 'update_MemberOnProjects_by_pk' | 'update_MemberOnProjects_many' | 'update_MemberOnTeams' | 'update_MemberOnTeams_by_pk' | 'update_MemberOnTeams_many' | 'update_Organization' | 'update_Organization_by_pk' | 'update_Organization_many' | 'update_Permission' | 'update_PermissionGroup' | 'update_PermissionGroup_by_pk' | 'update_PermissionGroup_many' | 'update_Permission_by_pk' | 'update_Permission_many' | 'update_Post' | 'update_Post_by_pk' | 'update_Post_many' | 'update_Project' | 'update_ProjectSettings' | 'update_ProjectSettings_by_pk' | 'update_ProjectSettings_many' | 'update_Project_by_pk' | 'update_Project_many' | 'update_Resource' | 'update_ResourceItem' | 'update_ResourceItem_by_pk' | 'update_ResourceItem_many' | 'update_Resource_by_pk' | 'update_Resource_many' | 'update_Settings' | 'update_Settings_by_pk' | 'update_Settings_many' | 'update_Task' | 'update_TaskBoard' | 'update_TaskBoardSettings' | 'update_TaskBoardSettings_by_pk' | 'update_TaskBoardSettings_many' | 'update_TaskBoard_by_pk' | 'update_TaskBoard_many' | 'update_TaskDefinition' | 'update_TaskDefinition_by_pk' | 'update_TaskDefinition_many' | 'update_Task_by_pk' | 'update_Task_many' | 'update_Team' | 'update_Team_by_pk' | 'update_Team_many' | 'update_Trigger' | 'update_Trigger_by_pk' | 'update_Trigger_many' | 'update_User' | 'update_UserPermission' | 'update_UserPermission_by_pk' | 'update_UserPermission_many' | 'update_UserSetting' | 'update_UserSetting_by_pk' | 'update_UserSetting_many' | 'update_User_by_pk' | 'update_User_many' | 'update__prisma_migrations' | 'update__prisma_migrations_by_pk' | 'update__prisma_migrations_many' | mutation_rootKeySpecifier)[];
 export type mutation_rootFieldPolicy = {
 	createTaskInput?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_ActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3165,8 +3044,6 @@ export type mutation_rootFieldPolicy = {
 	delete_TaskBoardSettings_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_TaskBoard_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_TaskDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	delete_TaskDefinitionActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	delete_TaskDefinitionActivityDefinition_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_TaskDefinition_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Task_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	delete_Team?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3220,8 +3097,6 @@ export type mutation_rootFieldPolicy = {
 	insert_TaskBoardSettings_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_TaskBoard_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_TaskDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	insert_TaskDefinitionActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	insert_TaskDefinitionActivityDefinition_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_TaskDefinition_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Task_one?: FieldPolicy<any> | FieldReadFunction<any>,
 	insert_Team?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3294,9 +3169,6 @@ export type mutation_rootFieldPolicy = {
 	update_TaskBoard_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_TaskBoard_many?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_TaskDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	update_TaskDefinitionActivityDefinition?: FieldPolicy<any> | FieldReadFunction<any>,
-	update_TaskDefinitionActivityDefinition_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
-	update_TaskDefinitionActivityDefinition_many?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_TaskDefinition_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_TaskDefinition_many?: FieldPolicy<any> | FieldReadFunction<any>,
 	update_Task_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3320,7 +3192,7 @@ export type mutation_rootFieldPolicy = {
 	update__prisma_migrations_by_pk?: FieldPolicy<any> | FieldReadFunction<any>,
 	update__prisma_migrations_many?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type query_rootKeySpecifier = ('ActivityDefinition_connection' | 'Comment_connection' | 'EventLog_connection' | 'File_connection' | 'Form_connection' | 'MemberOnProjects_connection' | 'MemberOnTeams_connection' | 'Organization_connection' | 'PermissionGroup_connection' | 'Permission_connection' | 'Post_connection' | 'ProjectSettings_connection' | 'Project_connection' | 'ResourceItem_connection' | 'Resource_connection' | 'Settings_connection' | 'TaskBoardSettings_connection' | 'TaskBoard_connection' | 'TaskDefinitionActivityDefinition_connection' | 'TaskDefinition_connection' | 'Task_connection' | 'Team_connection' | 'Trigger_connection' | 'UserPermission_connection' | 'UserSetting_connection' | 'User_connection' | '_prisma_migrations_connection' | 'node' | query_rootKeySpecifier)[];
+export type query_rootKeySpecifier = ('ActivityDefinition_connection' | 'Comment_connection' | 'EventLog_connection' | 'File_connection' | 'Form_connection' | 'MemberOnProjects_connection' | 'MemberOnTeams_connection' | 'Organization_connection' | 'PermissionGroup_connection' | 'Permission_connection' | 'Post_connection' | 'ProjectSettings_connection' | 'Project_connection' | 'ResourceItem_connection' | 'Resource_connection' | 'Settings_connection' | 'TaskBoardSettings_connection' | 'TaskBoard_connection' | 'TaskDefinition_connection' | 'Task_connection' | 'Team_connection' | 'Trigger_connection' | 'UserPermission_connection' | 'UserSetting_connection' | 'User_connection' | '_prisma_migrations_connection' | 'node' | query_rootKeySpecifier)[];
 export type query_rootFieldPolicy = {
 	ActivityDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comment_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3340,7 +3212,6 @@ export type query_rootFieldPolicy = {
 	Settings_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoardSettings_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoard_connection?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Task_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Team_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3351,7 +3222,7 @@ export type query_rootFieldPolicy = {
 	_prisma_migrations_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	node?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type subscription_rootKeySpecifier = ('ActivityDefinition_connection' | 'Comment_connection' | 'EventLog_connection' | 'File_connection' | 'Form_connection' | 'MemberOnProjects_connection' | 'MemberOnTeams_connection' | 'Organization_connection' | 'PermissionGroup_connection' | 'Permission_connection' | 'Post_connection' | 'ProjectSettings_connection' | 'Project_connection' | 'ResourceItem_connection' | 'Resource_connection' | 'Settings_connection' | 'TaskBoardSettings_connection' | 'TaskBoard_connection' | 'TaskDefinitionActivityDefinition_connection' | 'TaskDefinition_connection' | 'Task_connection' | 'Team_connection' | 'Trigger_connection' | 'UserPermission_connection' | 'UserSetting_connection' | 'User_connection' | '_prisma_migrations_connection' | 'node' | subscription_rootKeySpecifier)[];
+export type subscription_rootKeySpecifier = ('ActivityDefinition_connection' | 'Comment_connection' | 'EventLog_connection' | 'File_connection' | 'Form_connection' | 'MemberOnProjects_connection' | 'MemberOnTeams_connection' | 'Organization_connection' | 'PermissionGroup_connection' | 'Permission_connection' | 'Post_connection' | 'ProjectSettings_connection' | 'Project_connection' | 'ResourceItem_connection' | 'Resource_connection' | 'Settings_connection' | 'TaskBoardSettings_connection' | 'TaskBoard_connection' | 'TaskDefinition_connection' | 'Task_connection' | 'Team_connection' | 'Trigger_connection' | 'UserPermission_connection' | 'UserSetting_connection' | 'User_connection' | '_prisma_migrations_connection' | 'node' | subscription_rootKeySpecifier)[];
 export type subscription_rootFieldPolicy = {
 	ActivityDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comment_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -3371,7 +3242,6 @@ export type subscription_rootFieldPolicy = {
 	Settings_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoardSettings_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoard_connection?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitionActivityDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskDefinition_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Task_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Team_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -4430,70 +4300,6 @@ export type StrictTypedTypePolicies = {
 	TaskDefinition?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TaskDefinitionKeySpecifier | (() => undefined | TaskDefinitionKeySpecifier),
 		fields?: TaskDefinitionFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinitionKeySpecifier | (() => undefined | TaskDefinitionActivityDefinitionKeySpecifier),
-		fields?: TaskDefinitionActivityDefinitionFieldPolicy,
-	},
-	TaskDefinitionActivityDefinitionConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinitionConnectionKeySpecifier | (() => undefined | TaskDefinitionActivityDefinitionConnectionKeySpecifier),
-		fields?: TaskDefinitionActivityDefinitionConnectionFieldPolicy,
-	},
-	TaskDefinitionActivityDefinitionEdge?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinitionEdgeKeySpecifier | (() => undefined | TaskDefinitionActivityDefinitionEdgeKeySpecifier),
-		fields?: TaskDefinitionActivityDefinitionEdgeFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_aggregate?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_aggregateKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_aggregateKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_aggregateFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_aggregate_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_aggregate_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_aggregate_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_aggregate_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_avg_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_avg_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_avg_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_avg_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_max_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_max_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_max_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_max_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_min_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_min_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_min_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_min_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_mutation_response?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_mutation_responseKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_mutation_responseKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_mutation_responseFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_stddev_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_stddev_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_stddev_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_stddev_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_stddev_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_stddev_pop_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_stddev_pop_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_stddev_pop_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_stddev_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_stddev_samp_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_stddev_samp_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_stddev_samp_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_sum_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_sum_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_sum_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_sum_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_var_pop_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_var_pop_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_var_pop_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_var_pop_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_var_samp_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_var_samp_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_var_samp_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_var_samp_fieldsFieldPolicy,
-	},
-	TaskDefinitionActivityDefinition_variance_fields?: Omit<TypePolicy, "fields" | "keyFields"> & {
-		keyFields?: false | TaskDefinitionActivityDefinition_variance_fieldsKeySpecifier | (() => undefined | TaskDefinitionActivityDefinition_variance_fieldsKeySpecifier),
-		fields?: TaskDefinitionActivityDefinition_variance_fieldsFieldPolicy,
 	},
 	TaskDefinitionConnection?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | TaskDefinitionConnectionKeySpecifier | (() => undefined | TaskDefinitionConnectionKeySpecifier),
