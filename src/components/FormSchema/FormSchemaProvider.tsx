@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { AutoField } from "uniforms-material";
 
-import CustomDateField from "../CustomDataField/CustomDateField";
+import CustomDateField from "../CustomDateField/CustomDateField";
 import QuillEditorField from "../QuillEditor/QuillEditorField";
 import RadioConfirmSubtask from "../RadioConfirmSubtask/RadioConfirmSubtask";
 import SelectResourceField from "../SelectResourceField/SelectResourceField";
