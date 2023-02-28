@@ -9,6 +9,12 @@ const useStyles = makeStyles(
     root: {
       width: "100%",
     },
+    labelQuillEditor: {
+      color: "rgba(124, 127, 127, 1)",
+      fontSize: "1.2rem",
+      paddingLeft: "12px",
+      fontWeight: 400,
+    },
   }),
   { name: "QuillEditor" },
 );
@@ -19,6 +25,7 @@ export interface QuillEditorProps {
   modules?: { toolbar: boolean };
   readonly?: boolean;
   onChange: (text: string | null) => void;
+  label?: string;
 }
 
 const QuillEditor: React.FC<QuillEditorProps> = ({
@@ -27,11 +34,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   modules,
   readonly,
   onChange,
+  label,
 }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
+      <span className={classes.labelQuillEditor}>{label}</span>
       <ReactQuill
         readOnly={readonly}
         key={key}

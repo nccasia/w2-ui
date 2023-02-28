@@ -11,12 +11,12 @@ import UserChip from "@saleor/components/UserChip";
 import { useGetUserQuery, useSubmitTaskMutation } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { Pill, SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
-// import { taskListUrl } from "@saleor/taskboard/urls";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
+// import { parse as parseQs } from "qs";
 import ModalSubTask from "../ModalSubTask";
 import SubTask from "../SubTask";
 import Task from "../Task";
@@ -67,6 +67,10 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     () => mapEdgesToItems(data?.User_connection) || [],
     [data?.User_connection],
   );
+
+  // workflow auto submit form:
+  // - get QS  -> decodeURL -> get formID, taskID , json , callAPI SubmitTask
+  // console.log('qssss', parseQs(location), taskDetail)
 
   const [submitTaskMutation] = useSubmitTaskMutation({
     onCompleted: async () => {
