@@ -9,6 +9,7 @@ export const userByPk = gql`
         role
         lastname
         firstname
+        fullName
         organizationId
         MemberOnTeams {
           teamId
@@ -51,6 +52,7 @@ export const getInformationUser = gql`
         firstname
         lastname
         role
+        fullName
       }
     }
   }

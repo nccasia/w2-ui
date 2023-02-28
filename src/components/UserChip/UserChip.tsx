@@ -26,7 +26,6 @@ const UserChip: React.FC<UserChipProps> = ({
   onThemeToggle,
 }) => {
   const intl = useIntl();
-
   return (
     <UserChipMenu
       initials={getUserInitials(user)}
@@ -34,7 +33,10 @@ const UserChip: React.FC<UserChipProps> = ({
       avatar={user?.avatar?.url}
     >
       {!onLogout ? (
-        <Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
+        <Box
+          sx={{ border: 1, p: 1, bgcolor: "background.paper" }}
+          style={{ boxShadow: "1px 1px 1px 1px #888888" }}
+        >
           <div
             style={{
               display: "flex",
@@ -42,27 +44,39 @@ const UserChip: React.FC<UserChipProps> = ({
               padding: "8px 12px",
             }}
           >
-            <Avatar
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e1/%ED%88%AC%EB%AA%85%ED%95%9C_%ED%94%BC%EB%B6%80%EB%A5%BC_%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94_%EC%9C%A4%EC%95%84%28YOONA%29%EC%9D%98_%ED%94%BC%EB%B6%80_%EA%B4%80%EB%A6%AC_%EB%B9%84%EA%B2%B0%EC%9D%80_%281%29.jpg"
-              sizes="xl"
-            />
-            <Box>
+            {user?.avatar ? (
+              <Avatar
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e1/%ED%88%AC%EB%AA%85%ED%95%9C_%ED%94%BC%EB%B6%80%EB%A5%BC_%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94_%EC%9C%A4%EC%95%84%28YOONA%29%EC%9D%98_%ED%94%BC%EB%B6%80_%EA%B4%80%EB%A6%AC_%EB%B9%84%EA%B2%B0%EC%9D%80_%281%29.jpg"
+                sizes="xl"
+              />
+            ) : (
+              <Avatar alt={getUserInitials(user)}>
+                {getUserInitials(user)}
+              </Avatar>
+            )}
+
+            <Box style={{ padding: "0 4px" }}>
               <Typography
                 style={{
                   padding: "0px 10px",
                   display: "flex",
                   flexDirection: "column",
                 }}
+                variant="h3"
               >
-                <b>
-                  {/* @ts-ignore */}
-                  {`${user.lastname} ${user.firstname}`}
-                </b>
-                <span>
-                  {/* @ts-ignore */}
-                  Email: {user.email}
-                </span>
+                {user.fullName ? (
+                  user.fullName
+                ) : (
+                  <>
+                    {user.lastname && `${user.lastname}`}{" "}
+                    {user.firstname && `${user.firstname}`}
+                  </>
+                )}
               </Typography>
+              <span>
+                {/* @ts-ignore */}
+                Email: {user.email}
+              </span>
             </Box>
           </div>
         </Box>

@@ -52,6 +52,7 @@ export const TaskFragmentFragmentDoc = gql`
     email
     firstname
     lastname
+    fullName
     organizationId
     role
   }
@@ -60,6 +61,7 @@ export const TaskFragmentFragmentDoc = gql`
     email
     firstname
     lastname
+    fullName
     organizationId
     role
   }
@@ -67,6 +69,7 @@ export const TaskFragmentFragmentDoc = gql`
     id
     firstname
     lastname
+    fullName
     email
     avatarId
   }
@@ -89,6 +92,7 @@ export const TaskEventLogFragmentFragmentDoc = gql`
     email
     lastname
     firstname
+    fullName
     avatarId
   }
 }
@@ -114,6 +118,7 @@ export const TaskDetailFragmentFragmentDoc = gql`
     id
     email
     firstname
+    fullName
     lastname
     organizationId
     role
@@ -272,6 +277,7 @@ export const UserByPkDocument = gql`
       role
       lastname
       firstname
+      fullName
       organizationId
       MemberOnTeams {
         teamId
@@ -342,6 +348,7 @@ export const GetInformationUserDocument = gql`
       firstname
       lastname
       role
+      fullName
     }
   }
 }
@@ -777,6 +784,7 @@ export const GetTasksDocument = gql`
           id
           firstname
           lastname
+          fullName
           email
           organizationId
           role
@@ -872,6 +880,7 @@ export const GetCommentDocument = gql`
           email
           lastname
           firstname
+          fullName
           avatarId
         }
         Task {
@@ -940,6 +949,7 @@ export const GetMyTasksDocument = gql`
           firstname
           lastname
           email
+          fullName
           organizationId
           role
         }
@@ -1050,6 +1060,7 @@ export const GetTaskByBoardDocument = gql`
           firstname
           lastname
           email
+          fullName
           organizationId
           role
         }
@@ -1095,6 +1106,7 @@ export const GetUserDocument = gql`
         firstname
         id
         lastname
+        fullName
         role
       }
     }
