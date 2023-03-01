@@ -12,13 +12,17 @@ jobs:
     steps:
       - name: Install Package
         run: |
-          source /home/nccsoft/.bashrc
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
           nvm use 18.12.1
           npm ci --legacy-peer-deps
       
       - name: Build Static Files
         run: |
-          source /home/nccsoft/.bashrc
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" 
           nvm use 18.12.1
           npm run build
 
