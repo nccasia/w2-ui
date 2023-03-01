@@ -1,0 +1,21 @@
+name: Deploy W2-UI to Dev Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Install Package
+        run: |
+          nvm use 18.12.1
+          npm ci --legacy-peer-deps
+      
+      - name: Build Static Files
+        run: |
+          nvm use 18.12.1
+          npm run build
+          
