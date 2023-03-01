@@ -18,7 +18,6 @@ jobs:
       
       - name: Install Package
         run: |
-          sudo apt-get install sshpass -y
           npm ci --legacy-peer-deps
       
       - name: Build Static Files
@@ -57,3 +56,4 @@ jobs:
           mkdir -p /var/www/app/w2-ui-dev
           unzip /home/nccsoft/fe.zip -d /var/www/app/w2-ui-dev
           rm -rf /home/nccsoft/fe.zip
+
