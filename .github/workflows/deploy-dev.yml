@@ -46,3 +46,11 @@ jobs:
         with:
           name: fe-build
           path: /home/nccsoft/
+      
+      - name: Export Static File
+        run: |
+          rm -rf /var/www/app/w2-ui-dev-bk
+          mv /var/www/app/w2-ui-dev /var/www/app/w2-ui-dev-bk
+          mkdir -p /var/www/app/w2-ui-dev
+          unzip /home/nccsoft/fe.zip -d /var/www/app/w2-ui-dev
+          rm -rf /home/nccsoft/fe.zip
