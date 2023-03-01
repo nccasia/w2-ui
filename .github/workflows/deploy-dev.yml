@@ -24,7 +24,10 @@ jobs:
       - name: Build Static Files
         run: |
           npm run build
-      
+        env:
+          API_URL: ${{ secrets.API_URL_DEV }}
+          APP_MOUNT_URI: ${{ secrets.APP_MOUNT_URI_DEV }}
+          STATIC_URL: ${{ secrets.STATIC_URL_DEV }}
       - name: Compress file build
         run: |
           zip -r fe.zip build/
