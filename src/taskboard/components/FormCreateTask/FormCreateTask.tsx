@@ -2,6 +2,7 @@ import { Box } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CloseIcon from "@material-ui/icons/Close";
 import { useUser } from "@saleor/auth";
+import LoginLoading from "@saleor/auth/components/LoginLoading";
 import {
   useCreateTaskMutation,
   useGetTaskDefinitionQuery,
@@ -30,7 +31,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
 
-  const [createTaskMutation] = useCreateTaskMutation({
+  const [createTaskMutation, { loading }] = useCreateTaskMutation({
     onCompleted: data => {
       notify({
         status: "success",
@@ -97,24 +98,33 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
         {selectedType && <b>{selectedType?.title}</b>}
         <CloseIcon style={iconClose} onClick={() => onClose()} />
       </Box>
-      {id === "my-tasks" && (
+      {loading ? (
+        <LoginLoading style={{ height: "100%" }} />
+      ) : (
         <>
-          {typeTask && (
+          {id === "my-tasks" && (
+            <>
+              {typeTask && (
+                <FormCreatedTaskDetail
+                  formId={selectedType?.Form?.id}
+                  onNewRequest={handleNewRequest}
+                />
+              )}
+              {!typeTask && (
+                <FormCreatedTaskType
+                  typeList={result}
+                  onSetType={setTypeTask}
+                />
+              )}
+            </>
+          )}
+          {id !== "my-tasks" && (
             <FormCreatedTaskDetail
               formId={selectedType?.Form?.id}
               onNewRequest={handleNewRequest}
             />
           )}
-          {!typeTask && (
-            <FormCreatedTaskType typeList={result} onSetType={setTypeTask} />
-          )}
         </>
-      )}
-      {id !== "my-tasks" && (
-        <FormCreatedTaskDetail
-          formId={selectedType?.Form?.id}
-          onNewRequest={handleNewRequest}
-        />
       )}
     </>
   );

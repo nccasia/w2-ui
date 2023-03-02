@@ -1,10 +1,14 @@
+import changeOfficeIcon from "@assets/images/change-office-icon.svg";
+import deviceIcon from "@assets/images/device-icon.svg";
 import homeIcon from "@assets/images/menu-home-icon.svg";
 import tasksIcon from "@assets/images/tasks-icon.svg";
+import wfhIcon from "@assets/images/work-from-home-icon.svg";
 import { useExtensions } from "@saleor/apps/useExtensions";
 import { sectionNames } from "@saleor/intl";
 import { SidebarMenuItem } from "@saleor/macaw-ui";
 import { IntlShape } from "react-intl";
 
+// import { AccessAlarm } from '@mui/icons-material';
 import { getMenuItemExtension } from "./utils";
 
 export interface FilterableMenuItem extends Omit<SidebarMenuItem, "children"> {
@@ -43,14 +47,14 @@ function useMenuStructure(
     },
     {
       ariaLabel: "Works & Projects",
-      iconSrc: tasksIcon,
+      iconSrc: wfhIcon,
       label: "Works & Projects",
       id: "works",
       url: "/taskboard",
       children: [
         {
           ariaLabel: "WFH request",
-          iconSrc: tasksIcon,
+          iconSrc: wfhIcon,
           label: "WFH request",
           id: "wfhRequest",
           url: "/taskboard/wfh-request",
@@ -59,14 +63,14 @@ function useMenuStructure(
     },
     {
       ariaLabel: "Office",
-      iconSrc: tasksIcon,
+      iconSrc: changeOfficeIcon,
       label: "Office",
       id: "office",
       url: "/taskboard",
       children: [
         {
           ariaLabel: "Change office request",
-          iconSrc: tasksIcon,
+          iconSrc: changeOfficeIcon,
           label: "Change office request",
           id: "changeOfficeRequest",
           url: "/taskboard/change-office-request",
@@ -75,14 +79,14 @@ function useMenuStructure(
     },
     {
       ariaLabel: "Asset & Facility",
-      iconSrc: tasksIcon,
+      iconSrc: deviceIcon,
       label: "Asset & Facility",
       id: "asset",
       url: "/taskboard",
       children: [
         {
           ariaLabel: "Device requests",
-          iconSrc: tasksIcon,
+          iconSrc: deviceIcon,
           label: "Device requests",
           id: "devicerequests",
           url: "/taskboard/device-request",

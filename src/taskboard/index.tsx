@@ -80,6 +80,7 @@ const Component = () => {
         <Route path={workFlowSectionUrl} component={WorkFlow} />
         <Route path={taskPath(":id")} component={TaskDetails} />
         <Route path={taskBoardPath(":id")} component={TaskLists} />
+        <Route path={taskPath(":id?")} component={TaskDetails} />
       </Switch>
     </>
   );

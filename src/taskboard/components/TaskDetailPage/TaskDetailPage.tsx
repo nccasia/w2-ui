@@ -13,10 +13,10 @@ import { sectionNames } from "@saleor/intl";
 import { Pill, SwitchSelector, SwitchSelectorButton } from "@saleor/macaw-ui";
 import { alertConfirmSubTask } from "@saleor/taskboard/utils";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import React, { useMemo, useState } from "react";
+import { parse as parseQs } from "qs";
+import React, { useEffect, useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
-// import { parse as parseQs } from "qs";
 import ModalSubTask from "../ModalSubTask";
 import SubTask from "../SubTask";
 import Task from "../Task";
@@ -68,14 +68,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     [data?.User_connection],
   );
 
-  // workflow auto submit form:
-  // - get QS  -> decodeURL -> get formID, taskID , json , callAPI SubmitTask
-  // console.log('qssss', parseQs(location), taskDetail)
-
-  const [submitTaskMutation] = useSubmitTaskMutation({
+  const [submitTaskMutation, { error }] = useSubmitTaskMutation({
     onCompleted: async () => {
       await alertConfirmSubTask("success", "Submit Success!");
-      refetch();
     },
   });
   const [loading, setLoading] = useState<boolean>(false);
@@ -93,6 +88,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
         taskId,
       },
     });
+    if (!error) {
+      refetch();
+    }
     setLoading(false);
   };
 
@@ -109,6 +107,22 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     setModalOpen(true);
     setDataModalSubTask(taskDetail.Tasks.find(item => item.id === id));
   };
+
+  useEffect(() => {
+    const qs = parseQs(location);
+    if (qs.search.split("?")[1]) {
+      // decode qs
+
+      // handleConfirm(qs.search.split("?")[1], +atob(taskDetail.Form.id), +atob(taskDetail.id))
+      submitTaskMutation({
+        variables: {
+          value: qs,
+          formId: +atob(taskDetail.Form.id),
+          taskId: +atob(taskDetail.id),
+        },
+      });
+    }
+  }, []);
 
   return (
     <Container>
