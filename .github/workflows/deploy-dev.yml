@@ -1,0 +1,59 @@
+name: Deploy W2-UI to Dev Server
+
+on:
+  push:
+    branches:
+      - main
+      - cicd
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.12.1]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Install Package
+        run: |
+          npm ci --legacy-peer-deps
+      
+      - name: Build Static Files
+        run: |
+          npm run build
+        env:
+          API_URL: ${{ secrets.API_URL_DEV }}
+          APP_MOUNT_URI: ${{ secrets.APP_MOUNT_URI_DEV }}
+          STATIC_URL: ${{ secrets.STATIC_URL_DEV }}
+      - name: Compress file build
+        run: |
+          zip -r fe.zip build/
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: fe-build
+          path: fe.zip
+          retention-days: 1
+
+  deploy:
+    needs:
+      - build
+    runs-on: self-hosted
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: fe-build
+          path: /home/nccsoft/
+      
+      - name: Export Static File
+        run: |
+          rm -rf /var/www/app/w2-ui-dev-bk
+          mv /var/www/app/w2-ui-dev /var/www/app/w2-ui-dev-bk
+          mkdir -p /var/www/app/w2-ui-dev
+          unzip /home/nccsoft/fe.zip -d /var/www/app/w2-ui-dev
+          rm -rf /home/nccsoft/fe.zip
+

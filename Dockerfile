@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18.12.1 as builder
 WORKDIR /app
 COPY package*.json ./
 COPY scripts/patchReactVirtualized.js scripts/
