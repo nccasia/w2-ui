@@ -29,7 +29,7 @@ const useStyles = makeStyles(
 
 interface CardContentItemMultipleChoiceProps {
   results: any;
-  search: any;
+  search?: any;
   title?: string | null;
 }
 

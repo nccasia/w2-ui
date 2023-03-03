@@ -21,7 +21,9 @@ const convertTaskCard = (view, state, taskEdges) => {
         result.push({
           id: item.node.id,
           title: item.node.title,
-          description: item.node.description,
+          description: (
+            <p dangerouslySetInnerHTML={{ __html: item.node.description }} />
+          ),
           draggable: false,
         });
       }
@@ -30,7 +32,9 @@ const convertTaskCard = (view, state, taskEdges) => {
         result.push({
           id: item.node.id,
           title: item.node.title,
-          description: item.node.description,
+          description: (
+            <p dangerouslySetInnerHTML={{ __html: item.node.description }} />
+          ),
           draggable: false,
         });
       }
@@ -57,17 +61,21 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   const result = useMemo(() => {
     if (data?.Task_connection.edges) {
       return {
-        lanes: laneConfig.map((ele, index) => {
+        lanes: laneConfig.map((element, index) => {
           return {
             id: index,
-            title: ele,
-            state: ele,
-            cards: convertTaskCard("status", ele, data?.Task_connection.edges),
+            title: element,
+            state: element,
+            cards: convertTaskCard(
+              "status",
+              element,
+              data?.Task_connection.edges,
+            ),
           };
         }),
       };
     }
-  }, [data]);
+  }, [data, fetch]);
 
   const viewConfig = useMemo(() => {
     if (!taskBoardData || !data) {
@@ -87,6 +95,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       }),
     };
   }, [data, taskBoardData]);
+
   const handleClickCard = id => {
     navigate(taskUrl(id));
   };

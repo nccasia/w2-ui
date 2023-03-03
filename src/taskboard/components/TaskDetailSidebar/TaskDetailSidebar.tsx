@@ -1,32 +1,18 @@
 import { Card, CardContent } from "@material-ui/core";
 import CardTitle from "@saleor/components/CardTitle";
 import Hr from "@saleor/components/Hr";
-import { choices } from "@saleor/taskboard/__mock__/Task";
-import { useMockAutocomplete } from "@saleor/taskboard/utils";
 import React from "react";
 import { useIntl } from "react-intl";
 
-import CardContentItemInput from "./components/CardContentItemInput";
-import CardContentItemMultipleChoice from "./components/CardContentItemMultipleChoice";
 import CardContentItemSingleChoice from "./components/CardContentItemSingleChoice";
-
-// const useStyles = makeStyles(
-//   theme => ({
-//     range: {
-//       marginTop: theme.spacing(5),
-//     },
-//   }),
-//   { name: "TaskDetailSidebar" },
-// );
 
 interface Props {
   task: any;
 }
 
-const TaskDetailSidebar: React.FC<Props> = () => {
+const TaskDetailSidebar: React.FC<Props> = ({ task }) => {
   const intl = useIntl();
-  const { results, search } = useMockAutocomplete(choices);
-  // const classes = useStyles();
+
   return (
     <React.Fragment>
       <Card>
@@ -40,51 +26,11 @@ const TaskDetailSidebar: React.FC<Props> = () => {
         <Hr />
         <CardContent>
           <CardContentItemSingleChoice
-            results={results}
-            search={search}
+            results={task.userByCreatorid}
             title={"Requester"}
           />
-          <CardContentItemMultipleChoice
-            results={results}
-            search={search}
-            title={"Assignee"}
-          />
-          {/* <CardContentItemMultipleChoice
-            results={results}
-            search={search}
-            title={"Reporter"}
-          />
-          <CardContentItemSingleChoice
-            results={results}
-            search={search}
-            title={"Labels"}
-          /> */}
-          <CardContentItemInput value="2d 4h" title="Original estimate" />
         </CardContent>
       </Card>
-      {/* <Card className={classes.range}>
-        <CardTitle
-          title={intl.formatMessage({
-            id: "YAruc9",
-            defaultMessage: "More field",
-            description: "section header",
-          })}
-        />
-        <Hr />
-        <CardContent>
-          <CardContentItemMultipleChoice
-            results={results}
-            search={search}
-            title={"Reporter"}
-          />
-          <CardContentItemSingleChoice
-            results={results}
-            search={search}
-            title={"Labels"}
-          />
-          <CardContentItemInput title="Original estimate" />
-        </CardContent>
-      </Card> */}
     </React.Fragment>
   );
 };

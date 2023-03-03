@@ -17,6 +17,7 @@ export interface UserChipProps {
   user?: any;
   onLogout?: () => void;
   onThemeToggle?: () => void;
+  displayName?: boolean;
 }
 
 const UserChip: React.FC<UserChipProps> = ({
@@ -24,12 +25,13 @@ const UserChip: React.FC<UserChipProps> = ({
   user,
   onLogout,
   onThemeToggle,
+  displayName = true,
 }) => {
   const intl = useIntl();
   return (
     <UserChipMenu
       initials={getUserInitials(user)}
-      name={onLogout && getUserName(user, true)}
+      name={displayName && getUserName(user, true)}
       avatar={user?.avatar?.url}
     >
       {!onLogout ? (
