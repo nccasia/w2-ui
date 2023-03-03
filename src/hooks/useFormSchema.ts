@@ -1,6 +1,6 @@
-import { useGetFormSchemaQuery } from "@saleor/graphql";
+import { useGetFormSchemaLazyQuery } from "@saleor/graphql";
 import Ajv from "ajv";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { CustomSchemaBridge } from "./customSchemaBridge";
 
@@ -28,11 +28,7 @@ ajv.addVocabulary([
 ]);
 
 export function useFormSchema(formId: string) {
-  const { data } = useGetFormSchemaQuery({
-    variables: {
-      id: formId,
-    },
-  });
+  const [fetch, { data }] = useGetFormSchemaLazyQuery();
 
   // @ts-ignore
   const schema = data?.node?.schema;
@@ -44,6 +40,16 @@ export function useFormSchema(formId: string) {
     const schemaValidator = createValidator(schema);
     return new CustomSchemaBridge(schema, schemaValidator);
   }, [schema]);
+
+  useEffect(() => {
+    if (formId) {
+      fetch({
+        variables: {
+          id: formId,
+        },
+      });
+    }
+  }, [formId]);
 
   return { bridge };
 }

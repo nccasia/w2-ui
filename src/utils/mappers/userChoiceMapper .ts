@@ -8,6 +8,8 @@ export function userChoiceMapper(data: any): Array<Choice<string, string>> {
     const result = {
       value: item?.id ?? "",
       label: `${item.firstname} ${item.lastname}`,
+      email: item?.email ?? "",
+      fullname: item?.fullName ?? "",
     };
     return result;
   });

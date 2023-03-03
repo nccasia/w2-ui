@@ -44,7 +44,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
   } = props;
   const { loginWithGoogle } = useUser();
   const clientId =
-    "297834965215-lcf3u4r5cb0psirejjulvne91fqgiha8.apps.googleusercontent.com";
+    "546997951634-qtc7a6i3ugiei6l4ovqsbebjjlvu49pa.apps.googleusercontent.com";
   useEffect(() => {
     gapi.load("client:auth2", () => {
       gapi.client.init({ clientId });

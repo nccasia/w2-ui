@@ -25,8 +25,6 @@ interface TaskType {
 }
 const Task = ({ task }: TaskType) => {
   const classes = useStyles();
-  // eslint-disable-next-line no-console
-  console.log("\x111111111111111111t", task);
   return (
     <Card className={classes.container}>
       <TaskTitle

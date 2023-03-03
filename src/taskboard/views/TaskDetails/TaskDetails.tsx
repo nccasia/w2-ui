@@ -9,7 +9,6 @@ interface TaskDetailsProps {
 }
 
 const TaskDetails: React.FC<TaskDetailsProps> = ({ id }) => {
-  // console.log('id', id)
   const { data, loading, refetch } = useTaskByPkQuery({
     variables: {
       id,

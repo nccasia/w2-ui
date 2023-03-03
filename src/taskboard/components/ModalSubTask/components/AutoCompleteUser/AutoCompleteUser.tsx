@@ -19,7 +19,7 @@ const AutoCompleteUser: React.FC<Props> = ({
     <>
       <Autocomplete
         options={choiceType}
-        getOptionLabel={option => option.label}
+        getOptionLabel={option => option.email}
         fullWidth
         onChange={(e, value) =>
           onChangeSingleChoice(e.defaultPrevented, value, subTaskId)
