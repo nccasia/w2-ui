@@ -7549,7 +7549,9 @@ export type TaskFragmentFragment = { __typename: 'Task', id: string, dueDate: an
 
 export type TaskBoardFragmentFragment = { __typename: 'TaskBoard', code: string, id: string, name: string, taskDefinitionId: number, viewConfig: any, viewType: any };
 
-export type GetCommentQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCommentQueryVariables = Exact<{
+  taskId: Scalars['Int'];
+}>;
 
 
 export type GetCommentQuery = { __typename: 'query_root', Comment_connection: { __typename: 'CommentConnection', edges: Array<{ __typename: 'CommentEdge', node: { __typename: 'Comment', id: string, taskId: number, creatorId: number, content: string, createdAt: any, updatedAt: any, User: { __typename: 'User', id: string, email: string, lastname: string | null, firstname: string | null, fullName: string | null, avatarId: number | null }, Task: { __typename: 'Task', id: string } } }> } };

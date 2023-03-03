@@ -69,10 +69,6 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
     [data?.User_connection],
   );
 
-  // workflow auto submit form:
-  // - get QS  -> decodeURL -> get formID, taskID , json , callAPI SubmitTask
-  // console.log('qssss', parseQs(location), taskDetail)
-
   const [submitTaskMutation, { error }] = useSubmitTaskMutation({
     onCompleted: async () => {
       await alertConfirmSubTask("success", "Submit Success!");
@@ -116,12 +112,9 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
   useEffect(() => {
     const qs = parseQs(location);
     if (qs.search.split("?")[1]) {
-      // decode qs
-
-      // handleConfirm(qs.search.split("?")[1], +atob(taskDetail.Form.id), +atob(taskDetail.id))
       submitTaskMutation({
         variables: {
-          value: qs,
+          value: atob(qs.search.split("?")[1]),
           formId: +atob(taskDetail.Form.id),
           taskId: +atob(taskDetail.id),
         },
@@ -181,7 +174,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                       onClick={() => handleOpenModalSubTask(subtask.id)}
                     />
                     <ListItemAvatar style={{ width: "5%" }}>
-                      <UserChip user={subtask.User} />
+                      <UserChip user={subtask.User} displayName={false} />
                     </ListItemAvatar>
                   </ListItem>
                 </>

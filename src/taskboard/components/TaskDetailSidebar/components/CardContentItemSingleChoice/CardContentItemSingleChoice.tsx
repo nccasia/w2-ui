@@ -1,5 +1,6 @@
-import { MenuItem, Typography } from "@material-ui/core";
-import { Autocomplete, makeStyles } from "@saleor/macaw-ui";
+import { Typography } from "@material-ui/core";
+import UserChip from "@saleor/components/UserChip";
+import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 
 const useStyles = makeStyles(
@@ -19,7 +20,11 @@ const useStyles = makeStyles(
       fontWeight: "bold",
     },
     containerInfo: {
+      display: "flex",
       width: "70%",
+    },
+    containerInfoName: {
+      lineHeight: "40px",
     },
   }),
   {
@@ -29,13 +34,11 @@ const useStyles = makeStyles(
 
 interface CardContentItemSingleChoiceProps {
   results: any;
-  search: any;
   title: string | null;
 }
 
 const CardContentItemSingleChoice: React.FC<CardContentItemSingleChoiceProps> = ({
   results,
-  search,
   title,
 }) => {
   const classes = useStyles();
@@ -47,25 +50,7 @@ const CardContentItemSingleChoice: React.FC<CardContentItemSingleChoiceProps> = 
         </Typography>
       </div>
       <div className={classes.containerInfo}>
-        <Autocomplete
-          choices={results}
-          fullWidth
-          label={title}
-          onInputChange={search}
-          defaultValue={results[1].value}
-        >
-          {({ highlightedIndex, getItemProps }) =>
-            results.map((choice, choiceIndex) => (
-              <MenuItem
-                key={choiceIndex}
-                selected={highlightedIndex === choiceIndex}
-                {...getItemProps({ item: choice, index: choiceIndex })}
-              >
-                {choice.label}
-              </MenuItem>
-            ))
-          }
-        </Autocomplete>
+        <UserChip user={results} />
       </div>
     </div>
   );

@@ -35,8 +35,6 @@ export function saveCredentials(
     } catch {
       result = null;
     }
-    // eslint-disable-next-line no-console
-    console.log(12, cred, result);
   } else {
     result = null;
   }

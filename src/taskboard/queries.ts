@@ -265,8 +265,8 @@ export const TaskBoardFragment = gql`
   }
 `;
 export const getComment = gql`
-  query GetComment {
-    Comment_connection {
+  query GetComment($taskId: Int!) {
+    Comment_connection(where: { taskId: { _eq: $taskId } }) {
       edges {
         node {
           id

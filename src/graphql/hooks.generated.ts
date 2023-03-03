@@ -867,8 +867,8 @@ export type TaskByPkQueryHookResult = ReturnType<typeof useTaskByPkQuery>;
 export type TaskByPkLazyQueryHookResult = ReturnType<typeof useTaskByPkLazyQuery>;
 export type TaskByPkQueryResult = Apollo.QueryResult<Types.TaskByPkQuery, Types.TaskByPkQueryVariables>;
 export const GetCommentDocument = gql`
-    query GetComment {
-  Comment_connection {
+    query GetComment($taskId: Int!) {
+  Comment_connection(where: {taskId: {_eq: $taskId}}) {
     edges {
       node {
         id
@@ -906,10 +906,11 @@ export const GetCommentDocument = gql`
  * @example
  * const { data, loading, error } = useGetCommentQuery({
  *   variables: {
+ *      taskId: // value for 'taskId'
  *   },
  * });
  */
-export function useGetCommentQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<Types.GetCommentQuery, Types.GetCommentQueryVariables>) {
+export function useGetCommentQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetCommentQuery, Types.GetCommentQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return ApolloReactHooks.useQuery<Types.GetCommentQuery, Types.GetCommentQueryVariables>(GetCommentDocument, options);
       }

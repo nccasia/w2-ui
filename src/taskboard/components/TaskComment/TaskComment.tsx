@@ -1,12 +1,16 @@
 import { Button, Card, TextField, Typography } from "@material-ui/core";
+import { useUser } from "@saleor/auth";
 import UserChip from "@saleor/components/UserChip";
-import { useGetCommentQuery, useInsertCommentMutation } from "@saleor/graphql";
+import {
+  useGetCommentLazyQuery,
+  useInsertCommentMutation,
+} from "@saleor/graphql";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
 import { makeStyles } from "@saleor/macaw-ui";
 import { createNumberId } from "@saleor/utils/createNumberId";
 import { mapEdgesToItems } from "@saleor/utils/maps";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 const useStyles = makeStyles(
   theme => ({
@@ -31,7 +35,6 @@ const useStyles = makeStyles(
     },
     username: {
       fontWeight: "bold",
-      color: "#516079",
       marginRight: theme.spacing(2),
     },
     addComment: {
@@ -68,9 +71,10 @@ const TaskComment: React.FC<Props> = ({ task }) => {
   const classes = useStyles();
   const notify = useNotifier();
   const intl = useIntl();
+  const user = useUser();
   const [textCommentField, setTextCommentField] = useState<string>("");
 
-  const { data, refetch } = useGetCommentQuery();
+  const [getComment, { data, refetch }] = useGetCommentLazyQuery();
 
   const mapEdgesToComments = useMemo(
     () => mapEdgesToItems(data?.Comment_connection),
@@ -99,13 +103,23 @@ const TaskComment: React.FC<Props> = ({ task }) => {
         variables: {
           content: text,
           taskId: createNumberId(task.id),
-          creatorId: task.creatorId,
+          creatorId: createNumberId(user?.user.id),
         },
       });
       setTextCommentField("");
     },
-    [insertCommentMutation, intl, notify, task.creatorId, task.id],
+    [insertCommentMutation, intl, notify, task.id, user?.user.id],
   );
+
+  useEffect(() => {
+    if (task.id) {
+      getComment({
+        variables: {
+          taskId: createNumberId(task.id),
+        },
+      });
+    }
+  }, [task, getComment]);
 
   return (
     <Card className={classes.root}>
@@ -114,30 +128,32 @@ const TaskComment: React.FC<Props> = ({ task }) => {
         setTextCommentField={setTextCommentField}
         textCommentField={textCommentField}
       />
-      {mapEdgesToComments?.map?.(item =>
-        task.id === item.Task.id ? (
-          <Comment key={item.id} comments={item} />
-        ) : (
-          <></>
-        ),
-      )}
+      {mapEdgesToComments?.map?.(item => (
+        <Comment key={item.id} comments={item} />
+      ))}
     </Card>
   );
 };
 
 const Comment = ({ comments }) => {
   const classes = useStyles();
-
   return (
     <div className={classes.container}>
       <div style={{ width: "8%", cursor: "pointer" }}>
-        <UserChip user={comments.User} />
+        <UserChip user={comments.User} displayName={false} />
       </div>
       <div style={{ width: "92%" }}>
         <div className={classes.commentInfo}>
-          <Typography variant="subtitle1" className={classes.username}>
-            {`${comments.User.lastname} ${comments.User.firstname}`}
-          </Typography>
+          {comments.User.lastname && comments.User.firstname ? (
+            <Typography variant="subtitle1" className={classes.username}>
+              {`${comments.User.lastname} ${comments.User.firstname}`}
+            </Typography>
+          ) : (
+            <Typography variant="subtitle1" className={classes.username}>
+              {comments.User.fullName}
+            </Typography>
+          )}
+
           <Typography variant="subtitle2">{`${comments.updatedAt}`}</Typography>
         </div>
         <div>
