@@ -41,7 +41,7 @@ export default defineConfig(({ command, mode }) => {
       template: "index.html",
       inject: {
         data: {
-          API_URL: API_URL || "http://w2-dev.nccsoft.vn/graphql/v1beta1/relay",
+          API_URL: API_URI,
           APP_MOUNT_URI,
           GOOGLE_CLIENT_ID,
           SALEOR_APPS_PAGE_PATH,
