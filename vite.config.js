@@ -26,7 +26,6 @@ export default defineConfig(({ command, mode }) => {
     SENTRY_AUTH_TOKEN,
     SENTRY_DSN,
     ENVIRONMENT,
-    STATIC_URL,
     SALEOR_APPS_PAGE_PATH,
     SALEOR_APPS_JSON_PATH,
     APP_TEMPLATE_GALLERY_PATH,
@@ -96,7 +95,7 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     root: "src",
-    base: STATIC_URL ?? "/",
+    base: "/",
     envDir: "..",
     server: {
       port: 9000,

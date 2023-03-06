@@ -1,9 +1,9 @@
 // DON'T TOUCH THIS
 // These are separate clients and do not share configs between themselves
 import { ApolloClient, ApolloLink, InMemoryCache } from "@apollo/client";
-import { createUploadLink } from "apollo-upload-client";
 
-import { getApiUrl } from "../config";
+// import { createUploadLink } from "apollo-upload-client";
+// import { getApiUrl } from "../config";
 import introspectionQueryResultData from "./fragmentTypes.generated";
 import { TypedTypePolicies } from "./typePolicies.generated";
 
@@ -17,12 +17,13 @@ const attachVariablesLink = new ApolloLink((operation, forward) =>
   })),
 );
 
-export const link = attachVariablesLink.concat(
-  createUploadLink({
-    credentials: "include",
-    uri: getApiUrl(),
-  }),
-);
+export const link = attachVariablesLink;
+// .concat(
+//   createUploadLink({
+//     credentials: "include",
+//     uri: getApiUrl(),
+//   }),
+// );
 
 export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
