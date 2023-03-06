@@ -5,6 +5,10 @@ import useRouter from "use-react-router";
 import appStateReducer, { AppStateReducerAction } from "./reducer";
 import IAppState, { initialAppState } from "./state";
 
+const GOOGLE_CLIENT_ID =
+  window.__APP_CONFIG__.GOOGLE_CLIENT_ID ||
+  "63748869594-f5mhd82rc1ft4okk2q2v3ulhar66d3b0.apps.googleusercontent.com";
+
 export type AppStateContextType = [
   IAppState,
   React.Dispatch<AppStateReducerAction>,
@@ -31,7 +35,7 @@ const AppStateProvider: React.FC = ({ children }) => {
 
   return (
     <AppStateContext.Provider value={stateAndDispatch}>
-      <GoogleOAuthProvider clientId="63748869594-f5mhd82rc1ft4okk2q2v3ulhar66d3b0.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
         {children}
       </GoogleOAuthProvider>
     </AppStateContext.Provider>

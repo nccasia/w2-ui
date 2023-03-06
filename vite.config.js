@@ -20,6 +20,7 @@ export default defineConfig(({ command, mode }) => {
     MARKETPLACE_URL,
     SALEOR_APPS_ENDPOINT,
     APP_MOUNT_URI,
+    GOOGLE_CLIENT_ID,
     SENTRY_ORG,
     SENTRY_PROJECT,
     SENTRY_AUTH_TOKEN,
@@ -43,6 +44,7 @@ export default defineConfig(({ command, mode }) => {
         data: {
           API_URL: API_URI,
           APP_MOUNT_URI,
+          GOOGLE_CLIENT_ID,
           SALEOR_APPS_PAGE_PATH,
           SALEOR_APPS_JSON_PATH,
           APP_TEMPLATE_GALLERY_PATH,
