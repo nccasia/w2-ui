@@ -6,11 +6,11 @@ schema {
 
 """whether this query should be cached (Hasura Cloud only)"""
 directive @cached(
-  """measured in seconds"""
-  ttl: Int! = 60
-
   """refresh the cache entry"""
   refresh: Boolean! = false
+
+  """measured in seconds"""
+  ttl: Int! = 60
 ) on QUERY
 
 """
@@ -3667,59 +3667,6 @@ type Organization implements Node {
   ): TaskBoardConnection!
 
   """An array relationship"""
-  TaskDefinitions(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): [TaskDefinition!]!
-
-  """An aggregate relationship"""
-  TaskDefinitions_aggregate(
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-
-    """limit the number of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinition_aggregate!
-
-  """An array relationship connection"""
-  TaskDefinitions_connection(
-    after: String
-    before: String
-
-    """distinct select on columns"""
-    distinct_on: [TaskDefinition_select_column!]
-    first: Int
-    last: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [TaskDefinition_order_by!]
-
-    """filter the rows returned"""
-    where: TaskDefinition_bool_exp
-  ): TaskDefinitionConnection!
-
-  """An array relationship"""
   Tasks(
     """distinct select on columns"""
     distinct_on: [Task_select_column!]
@@ -3917,8 +3864,6 @@ input Organization_bool_exp {
   Settings_aggregate: Settings_aggregate_bool_exp
   TaskBoards: TaskBoard_bool_exp
   TaskBoards_aggregate: TaskBoard_aggregate_bool_exp
-  TaskDefinitions: TaskDefinition_bool_exp
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_bool_exp
   Tasks: Task_bool_exp
   Tasks_aggregate: Task_aggregate_bool_exp
   Teams: Team_bool_exp
@@ -3964,7 +3909,6 @@ input Organization_insert_input {
   Resources: Resource_arr_rel_insert_input
   Settings: Settings_arr_rel_insert_input
   TaskBoards: TaskBoard_arr_rel_insert_input
-  TaskDefinitions: TaskDefinition_arr_rel_insert_input
   Tasks: Task_arr_rel_insert_input
   Teams: Team_arr_rel_insert_input
   Users: User_arr_rel_insert_input
@@ -4015,7 +3959,6 @@ input Organization_order_by {
   Resources_aggregate: Resource_aggregate_order_by
   Settings_aggregate: Settings_aggregate_order_by
   TaskBoards_aggregate: TaskBoard_aggregate_order_by
-  TaskDefinitions_aggregate: TaskDefinition_aggregate_order_by
   Tasks_aggregate: Task_aggregate_order_by
   Teams_aggregate: Team_aggregate_order_by
   Users_aggregate: User_aggregate_order_by
@@ -8517,6 +8460,7 @@ type Task implements Node {
   ): jsonb
   formId: Int
   id: ID!
+  index: Int
   isActive: Boolean!
   key: String!
   notificationTemplate: String
@@ -9734,9 +9678,6 @@ type TaskDefinition implements Node {
   """An object relationship"""
   Form: Form
 
-  """An object relationship"""
-  Organization: Organization!
-
   """An array relationship"""
   Projects(
     """distinct select on columns"""
@@ -10078,7 +10019,6 @@ Boolean expression to filter rows from the table "TaskDefinition". All fields ar
 """
 input TaskDefinition_bool_exp {
   Form: Form_bool_exp
-  Organization: Organization_bool_exp
   Projects: Project_bool_exp
   Projects_aggregate: Project_aggregate_bool_exp
   TaskBoards: TaskBoard_bool_exp
@@ -10157,7 +10097,6 @@ input type for inserting data into table "TaskDefinition"
 """
 input TaskDefinition_insert_input {
   Form: Form_obj_rel_insert_input
-  Organization: Organization_obj_rel_insert_input
   Projects: Project_arr_rel_insert_input
   TaskBoards: TaskBoard_arr_rel_insert_input
   TaskDefinition: TaskDefinition_obj_rel_insert_input
@@ -10304,7 +10243,6 @@ input TaskDefinition_on_conflict {
 """Ordering options when selecting data from "TaskDefinition"."""
 input TaskDefinition_order_by {
   Form: Form_order_by
-  Organization: Organization_order_by
   Projects_aggregate: Project_aggregate_order_by
   TaskBoards_aggregate: TaskBoard_aggregate_order_by
   TaskDefinition: TaskDefinition_order_by
@@ -10756,6 +10694,7 @@ type Task_avg_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -10772,6 +10711,7 @@ input Task_avg_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -10815,6 +10755,7 @@ input Task_bool_exp {
   formConfig: jsonb_comparison_exp
   formId: Int_comparison_exp
   id: Int_comparison_exp
+  index: Int_comparison_exp
   isActive: Boolean_comparison_exp
   key: String_comparison_exp
   notificationTemplate: String_comparison_exp
@@ -10891,6 +10832,7 @@ input Task_inc_input {
   definitionId: Int
   formId: Int
   id: Int
+  index: Int
   organizationId: Int
   parentId: Int
   projectId: Int
@@ -10927,6 +10869,7 @@ input Task_insert_input {
   formConfig: jsonb
   formId: Int
   id: Int
+  index: Int
   isActive: Boolean
   key: String
   notificationTemplate: String
@@ -10968,6 +10911,7 @@ type Task_max_fields {
   dueDate: timestamp
   formId: Int
   id: Int
+  index: Int
   key: String
   notificationTemplate: String
   organizationId: Int
@@ -11006,6 +10950,7 @@ input Task_max_order_by {
   dueDate: order_by
   formId: order_by
   id: order_by
+  index: order_by
   key: order_by
   notificationTemplate: order_by
   organizationId: order_by
@@ -11042,6 +10987,7 @@ type Task_min_fields {
   dueDate: timestamp
   formId: Int
   id: Int
+  index: Int
   key: String
   notificationTemplate: String
   organizationId: Int
@@ -11080,6 +11026,7 @@ input Task_min_order_by {
   dueDate: order_by
   formId: order_by
   id: order_by
+  index: order_by
   key: order_by
   notificationTemplate: order_by
   organizationId: order_by
@@ -11159,6 +11106,7 @@ input Task_order_by {
   formConfig: order_by
   formId: order_by
   id: order_by
+  index: order_by
   isActive: order_by
   key: order_by
   notificationTemplate: order_by
@@ -11244,6 +11192,9 @@ enum Task_select_column {
 
   """column name"""
   id
+
+  """column name"""
+  index
 
   """column name"""
   isActive
@@ -11349,6 +11300,7 @@ input Task_set_input {
   formConfig: jsonb
   formId: Int
   id: Int
+  index: Int
   isActive: Boolean
   key: String
   notificationTemplate: String
@@ -11381,6 +11333,7 @@ type Task_stddev_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11397,6 +11350,7 @@ input Task_stddev_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11411,6 +11365,7 @@ type Task_stddev_pop_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11427,6 +11382,7 @@ input Task_stddev_pop_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11441,6 +11397,7 @@ type Task_stddev_samp_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11457,6 +11414,7 @@ input Task_stddev_samp_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11471,6 +11429,7 @@ type Task_sum_fields {
   definitionId: Int
   formId: Int
   id: Int
+  index: Int
   organizationId: Int
   parentId: Int
   projectId: Int
@@ -11487,6 +11446,7 @@ input Task_sum_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11539,6 +11499,9 @@ enum Task_update_column {
 
   """column name"""
   id
+
+  """column name"""
+  index
 
   """column name"""
   isActive
@@ -11649,6 +11612,7 @@ type Task_var_pop_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11665,6 +11629,7 @@ input Task_var_pop_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11679,6 +11644,7 @@ type Task_var_samp_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11695,6 +11661,7 @@ input Task_var_samp_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by
@@ -11709,6 +11676,7 @@ type Task_variance_fields {
   definitionId: Float
   formId: Float
   id: Float
+  index: Float
   organizationId: Float
   parentId: Float
   projectId: Float
@@ -11725,6 +11693,7 @@ input Task_variance_order_by {
   definitionId: order_by
   formId: order_by
   id: order_by
+  index: order_by
   organizationId: order_by
   parentId: order_by
   projectId: order_by

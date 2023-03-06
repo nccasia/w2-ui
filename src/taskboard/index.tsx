@@ -26,7 +26,7 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const qs = parseQs(location.search.substr(1));
   const id = match.params.id;
 
-  const paginationState = createPaginationState(5, qs);
+  const paginationState = createPaginationState(20, qs);
 
   const params: TaskListUrlQueryParams = asSortParams(
     qs,
