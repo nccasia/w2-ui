@@ -661,7 +661,7 @@ export type NodeKeySpecifier = ('id' | NodeKeySpecifier)[];
 export type NodeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type OrganizationKeySpecifier = ('EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Files' | 'Files_aggregate' | 'Files_connection' | 'PermissionGroups' | 'PermissionGroups_aggregate' | 'PermissionGroups_connection' | 'Permissions' | 'Permissions_aggregate' | 'Permissions_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Resources' | 'Resources_aggregate' | 'Resources_connection' | 'Settings' | 'Settings_aggregate' | 'Settings_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'Users' | 'Users_aggregate' | 'Users_connection' | 'createdAt' | 'description' | 'id' | 'name' | 'updatedAt' | OrganizationKeySpecifier)[];
+export type OrganizationKeySpecifier = ('EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Files' | 'Files_aggregate' | 'Files_connection' | 'PermissionGroups' | 'PermissionGroups_aggregate' | 'PermissionGroups_connection' | 'Permissions' | 'Permissions_aggregate' | 'Permissions_connection' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'Resources' | 'Resources_aggregate' | 'Resources_connection' | 'Settings' | 'Settings_aggregate' | 'Settings_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Teams' | 'Teams_aggregate' | 'Teams_connection' | 'Users' | 'Users_aggregate' | 'Users_connection' | 'createdAt' | 'description' | 'id' | 'name' | 'updatedAt' | OrganizationKeySpecifier)[];
 export type OrganizationFieldPolicy = {
 	EventLogs?: FieldPolicy<any> | FieldReadFunction<any>,
 	EventLogs_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -687,9 +687,6 @@ export type OrganizationFieldPolicy = {
 	TaskBoards?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoards_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	TaskBoards_connection?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitions?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitions_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
-	TaskDefinitions_connection?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Tasks_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1653,7 +1650,7 @@ export type SubmitTaskOutputKeySpecifier = ('submitTask' | SubmitTaskOutputKeySp
 export type SubmitTaskOutputFieldPolicy = {
 	submitTask?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'isActive' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
+export type TaskKeySpecifier = ('Comments' | 'Comments_aggregate' | 'Comments_connection' | 'EventLogs' | 'EventLogs_aggregate' | 'EventLogs_connection' | 'Form' | 'Organization' | 'Project' | 'Task' | 'TaskDefinition' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'Team' | 'Triggers' | 'Triggers_aggregate' | 'Triggers_connection' | 'User' | 'assigneeId' | 'config' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formConfig' | 'formId' | 'id' | 'index' | 'isActive' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'properties' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | 'userByCreatorid' | 'userByReporterid' | 'values' | TaskKeySpecifier)[];
 export type TaskFieldPolicy = {
 	Comments?: FieldPolicy<any> | FieldReadFunction<any>,
 	Comments_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1688,6 +1685,7 @@ export type TaskFieldPolicy = {
 	formConfig?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	isActive?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -1964,10 +1962,9 @@ export type TaskConnectionFieldPolicy = {
 	edges?: FieldPolicy<any> | FieldReadFunction<any>,
 	pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type TaskDefinitionKeySpecifier = ('Form' | 'Organization' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'createdAt' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'stateTemplate' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
+export type TaskDefinitionKeySpecifier = ('Form' | 'Projects' | 'Projects_aggregate' | 'Projects_connection' | 'TaskBoards' | 'TaskBoards_aggregate' | 'TaskBoards_connection' | 'TaskDefinition' | 'TaskDefinitions' | 'TaskDefinitions_aggregate' | 'TaskDefinitions_connection' | 'Tasks' | 'Tasks_aggregate' | 'Tasks_connection' | 'createdAt' | 'ctaTemplate' | 'description' | 'descriptionTemplate' | 'formId' | 'icon' | 'id' | 'keyTemplate' | 'machineConfig' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'stateTemplate' | 'statusTemplate' | 'thumbnail' | 'title' | 'titleTemplate' | 'updatedAt' | TaskDefinitionKeySpecifier)[];
 export type TaskDefinitionFieldPolicy = {
 	Form?: FieldPolicy<any> | FieldReadFunction<any>,
-	Organization?: FieldPolicy<any> | FieldReadFunction<any>,
 	Projects?: FieldPolicy<any> | FieldReadFunction<any>,
 	Projects_aggregate?: FieldPolicy<any> | FieldReadFunction<any>,
 	Projects_connection?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2154,20 +2151,21 @@ export type Task_aggregate_fieldsFieldPolicy = {
 	var_samp?: FieldPolicy<any> | FieldReadFunction<any>,
 	variance?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_avg_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_avg_fieldsKeySpecifier)[];
+export type Task_avg_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_avg_fieldsKeySpecifier)[];
 export type Task_avg_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_max_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formId' | 'id' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_max_fieldsKeySpecifier)[];
+export type Task_max_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formId' | 'id' | 'index' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_max_fieldsKeySpecifier)[];
 export type Task_max_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2181,6 +2179,7 @@ export type Task_max_fieldsFieldPolicy = {
 	dueDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2202,7 +2201,7 @@ export type Task_max_fieldsFieldPolicy = {
 	typeName?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_min_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formId' | 'id' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_min_fieldsKeySpecifier)[];
+export type Task_min_fieldsKeySpecifier = ('assigneeId' | 'createdAt' | 'creatorId' | 'cta' | 'ctaName' | 'ctaTemplate' | 'definitionId' | 'description' | 'descriptionTemplate' | 'dueDate' | 'formId' | 'id' | 'index' | 'key' | 'notificationTemplate' | 'organizationId' | 'parentId' | 'priority' | 'projectId' | 'reporterId' | 'state' | 'stateName' | 'stateTemplate' | 'stateValues' | 'status' | 'statusName' | 'statusTemplate' | 'teamId' | 'title' | 'titleTemplate' | 'type' | 'typeName' | 'updatedAt' | Task_min_fieldsKeySpecifier)[];
 export type Task_min_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2216,6 +2215,7 @@ export type Task_min_fieldsFieldPolicy = {
 	dueDate?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	key?: FieldPolicy<any> | FieldReadFunction<any>,
 	notificationTemplate?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2242,91 +2242,98 @@ export type Task_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_stddev_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_fieldsKeySpecifier)[];
+export type Task_stddev_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_fieldsKeySpecifier)[];
 export type Task_stddev_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_stddev_pop_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_pop_fieldsKeySpecifier)[];
+export type Task_stddev_pop_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_pop_fieldsKeySpecifier)[];
 export type Task_stddev_pop_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_stddev_samp_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_samp_fieldsKeySpecifier)[];
+export type Task_stddev_samp_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_stddev_samp_fieldsKeySpecifier)[];
 export type Task_stddev_samp_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_sum_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_sum_fieldsKeySpecifier)[];
+export type Task_sum_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_sum_fieldsKeySpecifier)[];
 export type Task_sum_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_var_pop_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_var_pop_fieldsKeySpecifier)[];
+export type Task_var_pop_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_var_pop_fieldsKeySpecifier)[];
 export type Task_var_pop_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_var_samp_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_var_samp_fieldsKeySpecifier)[];
+export type Task_var_samp_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_var_samp_fieldsKeySpecifier)[];
 export type Task_var_samp_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,
 	reporterId?: FieldPolicy<any> | FieldReadFunction<any>,
 	teamId?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type Task_variance_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_variance_fieldsKeySpecifier)[];
+export type Task_variance_fieldsKeySpecifier = ('assigneeId' | 'creatorId' | 'definitionId' | 'formId' | 'id' | 'index' | 'organizationId' | 'parentId' | 'projectId' | 'reporterId' | 'teamId' | Task_variance_fieldsKeySpecifier)[];
 export type Task_variance_fieldsFieldPolicy = {
 	assigneeId?: FieldPolicy<any> | FieldReadFunction<any>,
 	creatorId?: FieldPolicy<any> | FieldReadFunction<any>,
 	definitionId?: FieldPolicy<any> | FieldReadFunction<any>,
 	formId?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	index?: FieldPolicy<any> | FieldReadFunction<any>,
 	organizationId?: FieldPolicy<any> | FieldReadFunction<any>,
 	parentId?: FieldPolicy<any> | FieldReadFunction<any>,
 	projectId?: FieldPolicy<any> | FieldReadFunction<any>,

@@ -49,6 +49,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
   const login = useGoogleLogin({
     ux_mode: "popup",
     flow: "auth-code",
+    redirect_uri: "postmessage",
     onSuccess: async codeResponse => {
       const data: GoogleLoginInput = {
         code: codeResponse.code,
