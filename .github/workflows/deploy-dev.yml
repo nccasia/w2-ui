@@ -24,10 +24,10 @@ jobs:
         run: |
           npm run build
         env:
-          API_URL: ${{ secrets.API_URL_DEV }}
-          APP_MOUNT_URI: ${{ secrets.APP_MOUNT_URI_DEV }}
-          STATIC_URL: ${{ secrets.APP_MOUNT_URI_DEV }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          API_URL: '${{ secrets.API_URL_DEV }}'
+          APP_MOUNT_URI: '${{ secrets.APP_MOUNT_URI_DEV }}'
+          STATIC_URL: '${{ secrets.APP_MOUNT_URI_DEV }}'
+          GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}'
           
       - name: Compress file build
         run: |
