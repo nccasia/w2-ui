@@ -14,8 +14,7 @@ import { GoogleLoginInput } from "@saleor/graphql";
 import { SubmitPromise } from "@saleor/hooks/useForm";
 import { commonMessages } from "@saleor/intl";
 import { EyeIcon, IconButton } from "@saleor/macaw-ui";
-import { gapi } from "gapi-script";
-import React, { useEffect } from "react";
+import React from "react";
 import GoogleButton from "react-google-button";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
@@ -43,13 +42,6 @@ const LoginCard: React.FC<LoginCardProps> = props => {
     onSubmit,
   } = props;
   const { loginWithGoogle } = useUser();
-  const clientId =
-    "546997951634-qtc7a6i3ugiei6l4ovqsbebjjlvu49pa.apps.googleusercontent.com";
-  useEffect(() => {
-    gapi.load("client:auth2", () => {
-      gapi.client.init({ clientId });
-    });
-  }, []);
 
   const classes = useStyles(props);
   const intl = useIntl();
