@@ -1,7 +1,6 @@
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
-import RequirePermissions from "@saleor/components/RequirePermissions";
 import Tasks from "@saleor/icons/Tasks";
 import { makeStyles } from "@saleor/macaw-ui";
 import { IEventLog, IQuantityTasks } from "@saleor/type/Task";
@@ -77,36 +76,34 @@ const HomePage: React.FC<HomePageProps> = props => {
       <CardSpacer />
       <Grid>
         <div>
-          <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
-            <div className={classes.cardContainer}>
-              <HomeAnalyticsCard
-                title={"Pending Tasks"}
-                testId="sales-analytics"
-                icon={
-                  <Sales
-                    fontSize="inherit"
-                    className={classes.icon}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                <h1>{quantityTasks.pending}</h1>
-              </HomeAnalyticsCard>
-              <HomeAnalyticsCard
-                title={"Done Tasks"}
-                testId="tasks-analytics"
-                icon={
-                  <Tasks
-                    fontSize="inherit"
-                    className={classes.icon}
-                    viewBox="0 0 64 64"
-                  />
-                }
-              >
-                <h1>{quantityTasks.done}</h1>
-              </HomeAnalyticsCard>
-            </div>
-          </RequirePermissions>
+          <div className={classes.cardContainer}>
+            <HomeAnalyticsCard
+              title={"Pending Tasks"}
+              testId="sales-analytics"
+              icon={
+                <Sales
+                  fontSize="inherit"
+                  className={classes.icon}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              <h1>{quantityTasks.pending}</h1>
+            </HomeAnalyticsCard>
+            <HomeAnalyticsCard
+              title={"Done Tasks"}
+              testId="tasks-analytics"
+              icon={
+                <Tasks
+                  fontSize="inherit"
+                  className={classes.icon}
+                  viewBox="0 0 64 64"
+                />
+              }
+            >
+              <h1>{quantityTasks.done}</h1>
+            </HomeAnalyticsCard>
+          </div>
           <HomeNotificationTable
             createNewChannelHref={createNewChannelHref}
             tasksToFulfillHref={tasksToFulfillHref}
@@ -119,13 +116,13 @@ const HomePage: React.FC<HomePageProps> = props => {
           />
           <CardSpacer />
           {topTasks && (
-            <RequirePermissions requiredPermissions={["MANAGE_TASKS"]}>
+            <>
               <HomeProductListCard
                 testId="top-products"
                 topProducts={topTasks}
               />
               <CardSpacer />
-            </RequirePermissions>
+            </>
           )}
         </div>
         {eventLog && (
