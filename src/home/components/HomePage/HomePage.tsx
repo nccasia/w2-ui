@@ -3,7 +3,7 @@ import Container from "@saleor/components/Container";
 import Grid from "@saleor/components/Grid";
 import Tasks from "@saleor/icons/Tasks";
 import { makeStyles } from "@saleor/macaw-ui";
-import { IEventLog, IQuantityTasks } from "@saleor/type/Task";
+import { IEventLog } from "@saleor/type/Task";
 import React from "react";
 
 import Sales from "../../../icons/Sales";
@@ -39,7 +39,8 @@ export interface HomePageProps {
   eventLog?: {
     EventLog: IEventLog[];
   };
-  quantityTasks: IQuantityTasks;
+  myCreatedtaskCount: number | null;
+  myParticipatedTaskCount: number | null;
   tasksToCapture: number | null;
   tasksToFulfill: number | null;
   tasksOutOfStock: number;
@@ -58,7 +59,8 @@ const HomePage: React.FC<HomePageProps> = props => {
     userName,
     topTasks,
     eventLog,
-    quantityTasks,
+    myParticipatedTaskCount,
+    myCreatedtaskCount,
     createNewChannelHref,
     tasksToFulfillHref,
     tasksToCaptureHref,
@@ -78,7 +80,7 @@ const HomePage: React.FC<HomePageProps> = props => {
         <div>
           <div className={classes.cardContainer}>
             <HomeAnalyticsCard
-              title={"Pending Tasks"}
+              title={"My Requests"}
               testId="sales-analytics"
               icon={
                 <Sales
@@ -88,10 +90,10 @@ const HomePage: React.FC<HomePageProps> = props => {
                 />
               }
             >
-              <h1>{quantityTasks.pending}</h1>
+              <h1>{myCreatedtaskCount}</h1>
             </HomeAnalyticsCard>
             <HomeAnalyticsCard
-              title={"Done Tasks"}
+              title={"My Participations"}
               testId="tasks-analytics"
               icon={
                 <Tasks
@@ -101,7 +103,7 @@ const HomePage: React.FC<HomePageProps> = props => {
                 />
               }
             >
-              <h1>{quantityTasks.done}</h1>
+              <h1>{myParticipatedTaskCount}</h1>
             </HomeAnalyticsCard>
           </div>
           <HomeNotificationTable

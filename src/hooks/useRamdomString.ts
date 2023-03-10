@@ -1,8 +1,4 @@
-const data: string[] = [
-  "Welcome to chanel",
-  "Here is some information we gathered about tasks",
-  "Work work work",
-];
+const data: string[] = ["Welcome to NCC W2"];
 function getRandomInt(max): number {
   return Math.floor(Math.random() * max);
 }

@@ -5,6 +5,39 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import * as ApolloReactHooks from '@saleor/hooks/graphql';
 const defaultOptions = {} as const;
+export const GetMyCreatedTaskCountFragmentFragmentDoc = gql`
+    fragment getMyCreatedTaskCountFragment on User {
+  id
+  email
+  tasksByCreatorid_aggregate(where: {status: {_in: $status}}) {
+    aggregate {
+      count(distinct: true)
+    }
+  }
+}
+    `;
+export const GetMyParticipatedTaskCountFragmentFragmentDoc = gql`
+    fragment getMyParticipatedTaskCountFragment on User {
+  id
+  email
+  Tasks_aggregate(where: {Task: {status: {_in: $status}}}) {
+    aggregate {
+      count(distinct: true)
+    }
+  }
+}
+    `;
+export const GetMyParticipatedTaskByKeyCountFragmentFragmentDoc = gql`
+    fragment getMyParticipatedTaskByKeyCountFragment on User {
+  id
+  email
+  Tasks_aggregate(where: {Task: {status: {_in: $status}, key: {_eq: $key}}}) {
+    aggregate {
+      count(distinct: true)
+    }
+  }
+}
+    `;
 export const FormFragmentFragmentDoc = gql`
     fragment FormFragment on Form {
   id
@@ -433,6 +466,115 @@ export function useGetEventLogsLazyQuery(baseOptions?: ApolloReactHooks.LazyQuer
 export type GetEventLogsQueryHookResult = ReturnType<typeof useGetEventLogsQuery>;
 export type GetEventLogsLazyQueryHookResult = ReturnType<typeof useGetEventLogsLazyQuery>;
 export type GetEventLogsQueryResult = Apollo.QueryResult<Types.GetEventLogsQuery, Types.GetEventLogsQueryVariables>;
+export const GetMyCreatedTaskCountDocument = gql`
+    query getMyCreatedTaskCount($userId: ID!, $status: [String!]!) {
+  node(id: $userId) {
+    ...getMyCreatedTaskCountFragment
+  }
+}
+    ${GetMyCreatedTaskCountFragmentFragmentDoc}`;
+
+/**
+ * __useGetMyCreatedTaskCountQuery__
+ *
+ * To run a query within a React component, call `useGetMyCreatedTaskCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyCreatedTaskCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyCreatedTaskCountQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useGetMyCreatedTaskCountQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetMyCreatedTaskCountQuery, Types.GetMyCreatedTaskCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetMyCreatedTaskCountQuery, Types.GetMyCreatedTaskCountQueryVariables>(GetMyCreatedTaskCountDocument, options);
+      }
+export function useGetMyCreatedTaskCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetMyCreatedTaskCountQuery, Types.GetMyCreatedTaskCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetMyCreatedTaskCountQuery, Types.GetMyCreatedTaskCountQueryVariables>(GetMyCreatedTaskCountDocument, options);
+        }
+export type GetMyCreatedTaskCountQueryHookResult = ReturnType<typeof useGetMyCreatedTaskCountQuery>;
+export type GetMyCreatedTaskCountLazyQueryHookResult = ReturnType<typeof useGetMyCreatedTaskCountLazyQuery>;
+export type GetMyCreatedTaskCountQueryResult = Apollo.QueryResult<Types.GetMyCreatedTaskCountQuery, Types.GetMyCreatedTaskCountQueryVariables>;
+export const GetMyParticipatedTaskCountDocument = gql`
+    query getMyParticipatedTaskCount($userId: ID!, $status: [String!]!) {
+  node(id: $userId) {
+    ...getMyParticipatedTaskCountFragment
+  }
+}
+    ${GetMyParticipatedTaskCountFragmentFragmentDoc}`;
+
+/**
+ * __useGetMyParticipatedTaskCountQuery__
+ *
+ * To run a query within a React component, call `useGetMyParticipatedTaskCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyParticipatedTaskCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyParticipatedTaskCountQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      status: // value for 'status'
+ *   },
+ * });
+ */
+export function useGetMyParticipatedTaskCountQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetMyParticipatedTaskCountQuery, Types.GetMyParticipatedTaskCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetMyParticipatedTaskCountQuery, Types.GetMyParticipatedTaskCountQueryVariables>(GetMyParticipatedTaskCountDocument, options);
+      }
+export function useGetMyParticipatedTaskCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetMyParticipatedTaskCountQuery, Types.GetMyParticipatedTaskCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetMyParticipatedTaskCountQuery, Types.GetMyParticipatedTaskCountQueryVariables>(GetMyParticipatedTaskCountDocument, options);
+        }
+export type GetMyParticipatedTaskCountQueryHookResult = ReturnType<typeof useGetMyParticipatedTaskCountQuery>;
+export type GetMyParticipatedTaskCountLazyQueryHookResult = ReturnType<typeof useGetMyParticipatedTaskCountLazyQuery>;
+export type GetMyParticipatedTaskCountQueryResult = Apollo.QueryResult<Types.GetMyParticipatedTaskCountQuery, Types.GetMyParticipatedTaskCountQueryVariables>;
+export const GetMyParticipatedTaskByKeyCountDocument = gql`
+    query getMyParticipatedTaskByKeyCount($userId: ID!, $status: [String!]!, $key: String!) {
+  node(id: $userId) {
+    ...getMyParticipatedTaskByKeyCountFragment
+  }
+}
+    ${GetMyParticipatedTaskByKeyCountFragmentFragmentDoc}`;
+
+/**
+ * __useGetMyParticipatedTaskByKeyCountQuery__
+ *
+ * To run a query within a React component, call `useGetMyParticipatedTaskByKeyCountQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyParticipatedTaskByKeyCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyParticipatedTaskByKeyCountQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      status: // value for 'status'
+ *      key: // value for 'key'
+ *   },
+ * });
+ */
+export function useGetMyParticipatedTaskByKeyCountQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetMyParticipatedTaskByKeyCountQuery, Types.GetMyParticipatedTaskByKeyCountQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetMyParticipatedTaskByKeyCountQuery, Types.GetMyParticipatedTaskByKeyCountQueryVariables>(GetMyParticipatedTaskByKeyCountDocument, options);
+      }
+export function useGetMyParticipatedTaskByKeyCountLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetMyParticipatedTaskByKeyCountQuery, Types.GetMyParticipatedTaskByKeyCountQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetMyParticipatedTaskByKeyCountQuery, Types.GetMyParticipatedTaskByKeyCountQueryVariables>(GetMyParticipatedTaskByKeyCountDocument, options);
+        }
+export type GetMyParticipatedTaskByKeyCountQueryHookResult = ReturnType<typeof useGetMyParticipatedTaskByKeyCountQuery>;
+export type GetMyParticipatedTaskByKeyCountLazyQueryHookResult = ReturnType<typeof useGetMyParticipatedTaskByKeyCountLazyQuery>;
+export type GetMyParticipatedTaskByKeyCountQueryResult = Apollo.QueryResult<Types.GetMyParticipatedTaskByKeyCountQuery, Types.GetMyParticipatedTaskByKeyCountQueryVariables>;
 export const CreateTaskDocument = gql`
     mutation CreateTask($data: New_task!) {
   createTaskInput(newTask: $data) {

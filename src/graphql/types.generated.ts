@@ -7475,6 +7475,37 @@ export type GetEventLogsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetEventLogsQuery = { __typename: 'query_root', EventLog_connection: { __typename: 'EventLogConnection', edges: Array<{ __typename: 'EventLogEdge', node: { __typename: 'EventLog', createdAt: any | null, id: string, organizationId: number | null, userId: number | null, taskId: number | null, content: string | null, intent: string | null, domain: string | null, action: string | null, User: { __typename: 'User', email: string } | null, Organization: { __typename: 'Organization', name: string } | null } }> } };
 
+export type GetMyCreatedTaskCountFragmentFragment = { __typename: 'User', id: string, email: string, tasksByCreatorid_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } };
+
+export type GetMyCreatedTaskCountQueryVariables = Exact<{
+  userId: Scalars['ID'];
+  status: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetMyCreatedTaskCountQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, tasksByCreatorid_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+
+export type GetMyParticipatedTaskCountFragmentFragment = { __typename: 'User', id: string, email: string, Tasks_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } };
+
+export type GetMyParticipatedTaskCountQueryVariables = Exact<{
+  userId: Scalars['ID'];
+  status: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetMyParticipatedTaskCountQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, Tasks_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+
+export type GetMyParticipatedTaskByKeyCountFragmentFragment = { __typename: 'User', id: string, email: string, Tasks_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } };
+
+export type GetMyParticipatedTaskByKeyCountQueryVariables = Exact<{
+  userId: Scalars['ID'];
+  status: Array<Scalars['String']> | Scalars['String'];
+  key: Scalars['String'];
+}>;
+
+
+export type GetMyParticipatedTaskByKeyCountQuery = { __typename: 'query_root', node: { __typename: 'ActivityDefinition' } | { __typename: 'Comment' } | { __typename: 'EventLog' } | { __typename: 'File' } | { __typename: 'Form' } | { __typename: 'MemberOnProjects' } | { __typename: 'MemberOnTeams' } | { __typename: 'Organization' } | { __typename: 'Permission' } | { __typename: 'PermissionGroup' } | { __typename: 'Post' } | { __typename: 'Project' } | { __typename: 'ProjectSettings' } | { __typename: 'Resource' } | { __typename: 'ResourceItem' } | { __typename: 'Settings' } | { __typename: 'Task' } | { __typename: 'TaskBoard' } | { __typename: 'TaskBoardSettings' } | { __typename: 'TaskDefinition' } | { __typename: 'Team' } | { __typename: 'Trigger' } | { __typename: 'User', id: string, email: string, Tasks_aggregate: { __typename: 'Task_aggregate', aggregate: { __typename: 'Task_aggregate_fields', count: number } | null } } | { __typename: 'UserPermission' } | { __typename: 'UserSetting' } | { __typename: '_prisma_migrations' } | null };
+
 export type CreateTaskMutationVariables = Exact<{
   data: New_Task;
 }>;
