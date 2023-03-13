@@ -1766,6 +1766,8 @@ export type Organization_Bool_Exp = {
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Bool_Exp>;
   TaskBoards?: InputMaybe<TaskBoard_Bool_Exp>;
   TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Bool_Exp>;
+  TaskDefinitions?: InputMaybe<TaskDefinition_Bool_Exp>;
+  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Bool_Exp>;
   Tasks?: InputMaybe<Task_Bool_Exp>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Bool_Exp>;
   Teams?: InputMaybe<Team_Bool_Exp>;
@@ -1803,6 +1805,7 @@ export type Organization_Insert_Input = {
   Resources?: InputMaybe<Resource_Arr_Rel_Insert_Input>;
   Settings?: InputMaybe<Settings_Arr_Rel_Insert_Input>;
   TaskBoards?: InputMaybe<TaskBoard_Arr_Rel_Insert_Input>;
+  TaskDefinitions?: InputMaybe<TaskDefinition_Arr_Rel_Insert_Input>;
   Tasks?: InputMaybe<Task_Arr_Rel_Insert_Input>;
   Teams?: InputMaybe<Team_Arr_Rel_Insert_Input>;
   Users?: InputMaybe<User_Arr_Rel_Insert_Input>;
@@ -1837,6 +1840,7 @@ export type Organization_Order_By = {
   Resources_aggregate?: InputMaybe<Resource_Aggregate_Order_By>;
   Settings_aggregate?: InputMaybe<Settings_Aggregate_Order_By>;
   TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Order_By>;
+  TaskDefinitions_aggregate?: InputMaybe<TaskDefinition_Aggregate_Order_By>;
   Tasks_aggregate?: InputMaybe<Task_Aggregate_Order_By>;
   Teams_aggregate?: InputMaybe<Team_Aggregate_Order_By>;
   Users_aggregate?: InputMaybe<User_Aggregate_Order_By>;
@@ -4671,6 +4675,7 @@ export type TaskDefinition_Avg_Order_By = {
 /** Boolean expression to filter rows from the table "TaskDefinition". All fields are combined with a logical 'AND'. */
 export type TaskDefinition_Bool_Exp = {
   Form?: InputMaybe<Form_Bool_Exp>;
+  Organization?: InputMaybe<Organization_Bool_Exp>;
   Projects?: InputMaybe<Project_Bool_Exp>;
   Projects_aggregate?: InputMaybe<Project_Aggregate_Bool_Exp>;
   TaskBoards?: InputMaybe<TaskBoard_Bool_Exp>;
@@ -4735,6 +4740,7 @@ export type TaskDefinition_Inc_Input = {
 /** input type for inserting data into table "TaskDefinition" */
 export type TaskDefinition_Insert_Input = {
   Form?: InputMaybe<Form_Obj_Rel_Insert_Input>;
+  Organization?: InputMaybe<Organization_Obj_Rel_Insert_Input>;
   Projects?: InputMaybe<Project_Arr_Rel_Insert_Input>;
   TaskBoards?: InputMaybe<TaskBoard_Arr_Rel_Insert_Input>;
   TaskDefinition?: InputMaybe<TaskDefinition_Obj_Rel_Insert_Input>;
@@ -4819,6 +4825,7 @@ export type TaskDefinition_On_Conflict = {
 /** Ordering options when selecting data from "TaskDefinition". */
 export type TaskDefinition_Order_By = {
   Form?: InputMaybe<Form_Order_By>;
+  Organization?: InputMaybe<Organization_Order_By>;
   Projects_aggregate?: InputMaybe<Project_Aggregate_Order_By>;
   TaskBoards_aggregate?: InputMaybe<TaskBoard_Aggregate_Order_By>;
   TaskDefinition?: InputMaybe<TaskDefinition_Order_By>;
@@ -5108,7 +5115,6 @@ export type Task_Avg_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5150,7 +5156,6 @@ export type Task_Bool_Exp = {
   formConfig?: InputMaybe<Jsonb_Comparison_Exp>;
   formId?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
-  index?: InputMaybe<Int_Comparison_Exp>;
   isActive?: InputMaybe<Boolean_Comparison_Exp>;
   key?: InputMaybe<String_Comparison_Exp>;
   notificationTemplate?: InputMaybe<String_Comparison_Exp>;
@@ -5215,7 +5220,6 @@ export type Task_Inc_Input = {
   definitionId?: InputMaybe<Scalars['Int']>;
   formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
-  index?: InputMaybe<Scalars['Int']>;
   organizationId?: InputMaybe<Scalars['Int']>;
   parentId?: InputMaybe<Scalars['Int']>;
   projectId?: InputMaybe<Scalars['Int']>;
@@ -5250,7 +5254,6 @@ export type Task_Insert_Input = {
   formConfig?: InputMaybe<Scalars['jsonb']>;
   formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
-  index?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
   key?: InputMaybe<Scalars['String']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
@@ -5292,7 +5295,6 @@ export type Task_Max_Order_By = {
   dueDate?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   key?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
@@ -5329,7 +5331,6 @@ export type Task_Min_Order_By = {
   dueDate?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   key?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
@@ -5393,7 +5394,6 @@ export type Task_Order_By = {
   formConfig?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   isActive?: InputMaybe<Order_By>;
   key?: InputMaybe<Order_By>;
   notificationTemplate?: InputMaybe<Order_By>;
@@ -5464,8 +5464,6 @@ export enum Task_Select_Column {
   FORMID = 'formId',
   /** column name */
   ID = 'id',
-  /** column name */
-  INDEX = 'index',
   /** column name */
   ISACTIVE = 'isActive',
   /** column name */
@@ -5542,7 +5540,6 @@ export type Task_Set_Input = {
   formConfig?: InputMaybe<Scalars['jsonb']>;
   formId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
-  index?: InputMaybe<Scalars['Int']>;
   isActive?: InputMaybe<Scalars['Boolean']>;
   key?: InputMaybe<Scalars['String']>;
   notificationTemplate?: InputMaybe<Scalars['String']>;
@@ -5575,7 +5572,6 @@ export type Task_Stddev_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5590,7 +5586,6 @@ export type Task_Stddev_Pop_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5605,7 +5600,6 @@ export type Task_Stddev_Samp_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5620,7 +5614,6 @@ export type Task_Sum_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5658,8 +5651,6 @@ export enum Task_Update_Column {
   FORMID = 'formId',
   /** column name */
   ID = 'id',
-  /** column name */
-  INDEX = 'index',
   /** column name */
   ISACTIVE = 'isActive',
   /** column name */
@@ -5734,7 +5725,6 @@ export type Task_Var_Pop_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5749,7 +5739,6 @@ export type Task_Var_Samp_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;
@@ -5764,7 +5753,6 @@ export type Task_Variance_Order_By = {
   definitionId?: InputMaybe<Order_By>;
   formId?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
   organizationId?: InputMaybe<Order_By>;
   parentId?: InputMaybe<Order_By>;
   projectId?: InputMaybe<Order_By>;

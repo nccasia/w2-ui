@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@material-ui/core";
+import { FormControl, FormControlLabel, Switch } from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
@@ -9,7 +9,7 @@ import {
 } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
-import React, { useState } from "react";
+import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
@@ -49,7 +49,6 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   const classes = useStyles();
   const user = useUser();
   const intl = useIntl();
-  const [viewByStatus, setViewByStatus] = useState<boolean>(false);
 
   return (
     <Container>
@@ -68,25 +67,34 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
         </ButtonWithSelect>
         <PopoverCustom>
           <div className={classes.settingViewContainer}>
-            <h3 className={classes.settingViewTitle}>Setting views</h3>
-            <FormControlLabel
-              control={<Switch checked={viewByStatus} disableRipple />}
-              label={intl.formatMessage({
-                id: "42CeNi",
-                defaultMessage: "View By Status",
-                description: "button",
-              })}
-              onChange={() => {
-                setViewByStatus(!viewByStatus);
-              }}
-            />
+            <h3 className={classes.settingViewTitle}>Views Options</h3>
+            <FormControl fullWidth>
+              <FormControlLabel
+                control={<Switch disableRipple />}
+                label={intl.formatMessage({
+                  id: "42CeNi",
+                  defaultMessage: "View By Status",
+                  description: "button",
+                })}
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <FormControlLabel
+                control={<Switch disableRipple />}
+                label={intl.formatMessage({
+                  defaultMessage: "My Requests",
+                  id: "feBHnx",
+                  description: "button",
+                })}
+              />
+            </FormControl>
           </div>
         </PopoverCustom>
       </PageHeader>
       {dataTaskBoard.viewType === "Kanban" && (
         <TaskBoard
           taskBoardData={dataTaskBoard}
-          viewByStatus={viewByStatus}
+          viewByStatus={false}
         ></TaskBoard>
       )}
       {dataTaskBoard.viewType === "list" && (

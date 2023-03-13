@@ -117,15 +117,15 @@ const HomePage: React.FC<HomePageProps> = props => {
             noChannel={noChannel}
           />
           <CardSpacer />
-          {topTasks && (
+          {topTasks && topTasks.length > 0 && (
             <>
               <HomeProductListCard
                 testId="top-products"
                 topProducts={topTasks}
               />
-              <CardSpacer />
             </>
           )}
+          <CardSpacer />
         </div>
         {eventLog && (
           <div>
