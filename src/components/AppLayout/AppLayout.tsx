@@ -21,7 +21,7 @@ import useRouter from "use-react-router";
 import Container from "../Container";
 import Navigator from "../Navigator";
 import UserChip from "../UserChip";
-import { appLoaderHeight } from "./consts";
+import { appLoaderHeight, sidebarWidthExpanded } from "./consts";
 import useMenuStructure from "./menuStructure";
 // import { NotificationTask } from "./NotificationTask";
 import { SidebarLink } from "./SidebarLink";
@@ -87,13 +87,6 @@ const useStyles = makeStyles(
         display: "flex",
       },
       width: `100%`,
-      // fix it after
-      "& .SideBar-root-132": {
-        width: "250px",
-      },
-      "& .MenuItem-rootExpanded-147": {
-        width: "250px",
-      },
     },
     spacer: {
       flex: 1,
@@ -117,6 +110,14 @@ const useStyles = makeStyles(
         4,
       )})`,
     },
+    // sidebar
+    customSidebar: ({ isSidebarExpanded }: { isSidebarExpanded: boolean }) => ({
+      width: !isSidebarExpanded && sidebarWidthExpanded,
+      "& >div>a": {
+        maxHeight: "52px !important",
+        width: !isSidebarExpanded && sidebarWidthExpanded,
+      },
+    }),
   }),
   {
     name: "AppLayout",
@@ -135,7 +136,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   fullSize = false,
 }) => {
-  const classes = useStyles();
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState<boolean>(false);
+
+  const classes = useStyles({ isSidebarExpanded });
   const { themeType, setTheme } = useTheme();
   const { anchor: appActionAnchor } = useActionBar();
   const appHeaderAnchor = useBacklink();
@@ -158,8 +161,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 
   const onExpand = value => {
     if (value) {
+      setIsSidebarExpanded(true);
       setLogoSiderbar(logoContentNoText);
     } else {
+      setIsSidebarExpanded(false);
       setLogoSiderbar(logoContent);
     }
   };
@@ -173,6 +178,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       <div className={classes.root}>
         {isMdUp && (
           <Sidebar
+            className={classes.customSidebar}
             activeId={activeMenu}
             menuItems={menuStructure}
             onMenuItemClick={handleMenuItemClick}
