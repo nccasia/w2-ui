@@ -23,7 +23,7 @@ import Navigator from "../Navigator";
 import UserChip from "../UserChip";
 import { appLoaderHeight } from "./consts";
 import useMenuStructure from "./menuStructure";
-import { NotificationTask } from "./NotificationTask";
+// import { NotificationTask } from "./NotificationTask";
 import { SidebarLink } from "./SidebarLink";
 import { isMenuActive } from "./utils";
 
@@ -87,6 +87,13 @@ const useStyles = makeStyles(
         display: "flex",
       },
       width: `100%`,
+      // fix it after
+      "& .SideBar-root-132": {
+        width: "250px",
+      },
+      "& .MenuItem-rootExpanded-147": {
+        width: "250px",
+      },
     },
     spacer: {
       flex: 1,
@@ -199,7 +206,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                       />
                     )}
                     <div className={classes.spacer}>
-                      <NotificationTask />
+                      {/* <NotificationTask /> */}
                     </div>
                     <div className={classes.userBar}>
                       <UserChip

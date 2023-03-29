@@ -140,7 +140,7 @@ export const useStyles = makeStyles(
 
       "& .single_choice-assignee": {
         width: "30%",
-        margin: "40px 0 0 40px",
+        margin: "40px 16px 0 30px",
       },
     },
   }),
