@@ -38,6 +38,7 @@ const useStyles = makeStyles(
       },
       "& .MuiListItem-root>.MuiFormControl-root": {
         display: "flex",
+        columnGap: "10px",
         flexDirection: "inherit !important",
       },
       "& form>.MuiFormControl-root": {

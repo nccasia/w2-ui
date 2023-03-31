@@ -1,6 +1,8 @@
-import { Modal, Typography } from "@material-ui/core";
+import { Box, Modal, Typography } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import { FormSchema } from "@saleor/components/FormSchema/FormSchema";
 import { useUpdateAssigneeMutation } from "@saleor/graphql";
+import { iconClose, iconModal } from "@saleor/styles/modal";
 import { createNumberId } from "@saleor/utils/createNumberId";
 import { createRelayId } from "@saleor/utils/createRelayId";
 import clsx from "clsx";
@@ -61,6 +63,7 @@ const ModalSubTask: React.FC<SubTaskType> = ({
   useEffect(() => {
     setUserSingleChoice(optionDefault);
   }, [optionDefault]);
+
   return (
     <>
       <Modal
@@ -69,7 +72,10 @@ const ModalSubTask: React.FC<SubTaskType> = ({
         className={classes.profileUser}
       >
         <div className={clsx([classes.subTaskItem, classes.paper])}>
-          <Typography variant="h3">{dataModalSubTask?.title}</Typography>
+          <Box sx={iconModal}>
+            <Typography variant="h3">{dataModalSubTask?.title}</Typography>
+            <CloseIcon style={iconClose} onClick={() => onModalOpen(false)} />
+          </Box>
           <div className={classes.subtaskAutoAssignee}>
             <div className="form_approve">
               <FormSchema
