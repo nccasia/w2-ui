@@ -111,13 +111,11 @@ const useStyles = makeStyles(
       )})`,
     },
     // sidebar
-    customSidebar: ({ isSidebarExpanded }: { isSidebarExpanded: boolean }) => ({
-      width: !isSidebarExpanded && sidebarWidthExpanded,
+    customSidebar: {
       "& >div>a": {
         maxHeight: "52px !important",
-        width: !isSidebarExpanded && sidebarWidthExpanded,
       },
-    }),
+    },
   }),
   {
     name: "AppLayout",
@@ -178,6 +176,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       <div className={classes.root}>
         {isMdUp && (
           <Sidebar
+            customSidebarWidth={sidebarWidthExpanded}
             className={classes.customSidebar}
             activeId={activeMenu}
             menuItems={menuStructure}
