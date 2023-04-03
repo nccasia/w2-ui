@@ -3,6 +3,7 @@ import {
   useGetTaskByBoardLazyQuery,
 } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
+import { Tooltip } from "@saleor/macaw-ui";
 import { taskUrl } from "@saleor/taskboard/urls";
 import React, { useEffect, useMemo } from "react";
 import Board from "react-trello";
@@ -16,11 +17,20 @@ const laneConfig = ["TODO", "DOING", "DONE"];
 const convertTaskCard = (view, state, taskEdges) => {
   const result = [];
   for (const item of taskEdges) {
+    const cardTitle =
+      item.node.title.length > 26 ? (
+        <Tooltip title={item.node.title} placement="top">
+          <span>{`${item.node.title.substring(0, 26)}...`}</span>
+        </Tooltip>
+      ) : (
+        item.node.title
+      );
+
     if (view === "status") {
       if (item.node.status === state) {
         result.push({
           id: item.node.id,
-          title: item.node.title,
+          title: cardTitle,
           description: (
             <p dangerouslySetInnerHTML={{ __html: item.node.description }} />
           ),
@@ -31,7 +41,7 @@ const convertTaskCard = (view, state, taskEdges) => {
       if (item.node.state === state) {
         result.push({
           id: item.node.id,
-          title: item.node.title,
+          title: cardTitle,
           description: (
             <p dangerouslySetInnerHTML={{ __html: item.node.description }} />
           ),
@@ -84,13 +94,15 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
     return {
       ...taskBoardData.viewConfig,
       lanes: taskBoardData.viewConfig.lanes.map(lane => {
+        const cardList = convertTaskCard(
+          "state",
+          lane.state,
+          data.Task_connection.edges,
+        );
         return {
           ...lane,
-          cards: convertTaskCard(
-            "state",
-            lane.state,
-            data.Task_connection.edges,
-          ),
+          cards: cardList,
+          label: `${cardList.length}`,
         };
       }),
     };

@@ -108,10 +108,10 @@ function useMenuStructure(
     //   ],
     // },
     {
-      ariaLabel: "Device requests",
+      ariaLabel: "Device request",
       iconSrc: deviceIcon,
-      label: "Device requests",
-      id: "devicerequests",
+      label: "Device request",
+      id: "devicerequest",
       url: "/taskboard/device-request",
     },
   ];
