@@ -22,12 +22,14 @@ interface TaskListProps {
   id: string;
   variables: PaginationState;
   qs: any;
+  setRowNumber?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const TaskList: React.FC<TaskListProps> = ({
   params,
   id,
   variables,
+  setRowNumber,
 }) => {
   const user = useUser();
   const navigate = useNavigator();
@@ -60,10 +62,11 @@ export const TaskList: React.FC<TaskListProps> = ({
         variables: temp,
       });
     }
-  }, [variables]);
+  }, [fetchMyTask, user.user.userId, variables]);
+
   return (
     <>
-      <PaginatorContext.Provider value={paginationValues}>
+      <PaginatorContext.Provider value={{ ...paginationValues, setRowNumber }}>
         <TaskListPage
           onAdd={() => openModal("create-task")}
           data={

@@ -43,6 +43,7 @@ export enum ListViews {
   WEBHOOK_LIST = "WEBHOOK_LIST",
   TRANSLATION_ATTRIBUTE_VALUE_LIST = "TRANSLATION_ATTRIBUTE_VALUE_LIST",
   GIFT_CARD_LIST = " GIFT_CARD_LIST",
+  TASK_LIST = "TASK_LIST",
 }
 
 export interface ListProps<TColumns extends string = string> {

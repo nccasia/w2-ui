@@ -57,6 +57,7 @@ export interface AppListViewSettings {
   [ListViews.WEBHOOK_LIST]: ListSettings;
   [ListViews.TRANSLATION_ATTRIBUTE_VALUE_LIST]: ListSettings;
   [ListViews.GIFT_CARD_LIST]: ListSettings;
+  [ListViews.TASK_LIST]: ListSettings;
 }
 
 export const defaultListSettings: AppListViewSettings = {
@@ -120,6 +121,9 @@ export const defaultListSettings: AppListViewSettings = {
   },
   [ListViews.GIFT_CARD_LIST]: {
     rowNumber: PAGINATE_BY,
+  },
+  [ListViews.TASK_LIST]: {
+    rowNumber: 10,
   },
 };
 

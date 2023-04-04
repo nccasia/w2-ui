@@ -12,9 +12,12 @@ import { TablePaginationWithContext } from "@saleor/components/TablePagination";
 import TableRowLink from "@saleor/components/TableRowLink";
 import UserChip from "@saleor/components/UserChip";
 import { TaskFragmentFragment } from "@saleor/graphql";
+import useListSettings from "@saleor/hooks/useListSettings";
+import { usePaginatorContext } from "@saleor/hooks/usePaginator";
 import { makeStyles, Pill } from "@saleor/macaw-ui";
 import { maybe, renderCollection } from "@saleor/misc";
 import { taskUrl } from "@saleor/taskboard/urls";
+import { ListViews } from "@saleor/types";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
@@ -75,7 +78,14 @@ export const TaskList: React.FC<TaskListProps> = ({ data }) => {
   //   },
   // });
 
-  const onUpdateListSettings = (_key: any, _value: any) => null;
+  const { setRowNumber } = usePaginatorContext();
+
+  const { updateListSettings, settings } = useListSettings(ListViews.TASK_LIST);
+
+  const handleUpdateListSetting = (_key: any, value: any) => {
+    setRowNumber(value);
+    updateListSettings("rowNumber", value);
+  };
 
   return (
     <ResponsiveTable>
@@ -102,9 +112,9 @@ export const TaskList: React.FC<TaskListProps> = ({ data }) => {
         <TableRowLink>
           <TablePaginationWithContext
             colSpan={numberOfColumns}
-            settings={{ rowNumber: 10 }}
+            settings={settings}
             disabled={false}
-            onUpdateListSettings={onUpdateListSettings}
+            onUpdateListSettings={handleUpdateListSetting}
           />
         </TableRowLink>
       </TableFooter>

@@ -2,7 +2,7 @@ import { createPaginationState } from "@saleor/hooks/usePaginator";
 import { sectionNames } from "@saleor/intl";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
-import React from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
@@ -25,8 +25,9 @@ import { WorkFlow } from "./views/Workflow";
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const qs = parseQs(location.search.substr(1));
   const id = match.params.id;
+  const [rowNumberValue, setRowNumberValue] = useState<number>(10);
 
-  const paginationState = createPaginationState(20, qs);
+  const paginationState = createPaginationState(rowNumberValue, qs);
 
   const params: TaskListUrlQueryParams = asSortParams(
     qs,
@@ -34,11 +35,13 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
     TaskListUrlSortField.number,
     false,
   );
+
   return (
     <TaskListComponent
       qs={qs}
       params={params}
       id={id}
+      setRowNumber={setRowNumberValue}
       variables={paginationState}
     />
   );

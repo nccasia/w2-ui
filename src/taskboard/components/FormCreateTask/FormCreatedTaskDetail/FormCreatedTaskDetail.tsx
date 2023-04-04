@@ -8,7 +8,7 @@ interface Props {
 }
 
 const useStyles = makeStyles(
-  () => ({
+  theme => ({
     root: {
       marginTop: "30px",
       "& > *": {
@@ -20,15 +20,22 @@ const useStyles = makeStyles(
       },
       "& .MuiButton-contained": {
         float: "right",
-        background: "#333",
-        border: "none",
-        color: "#fff",
+        // background: "#333",
+        // border: "none",
+        // color: "#fff",
         marginTop: 20,
       },
       "& .MuiButtonBase-root": {
-        background: "#333",
-        border: "none",
-        color: "#fff",
+        borderWidth: "1px",
+        borderStyle: "solid",
+        borderColor: theme.palette.type === "dark" ? "#fff" : "#333",
+        color: theme.palette.type === "dark" ? "#333" : "#fff",
+        background: theme.palette.type === "dark" ? "#fff" : "#333",
+        "&:hover": {
+          borderColor: theme.palette.type === "dark" ? "#fff" : "#333",
+          color: theme.palette.type === "dark" ? "#fff" : "#333",
+          background: theme.palette.type === "dark" ? "#333" : "#fff",
+        },
       },
       "& .MuiListSubheader-root": {
         fontSize: 16,

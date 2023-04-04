@@ -9,7 +9,7 @@ import {
 } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
@@ -28,6 +28,16 @@ export interface TaskListPageProps {
 //     },
 //   }), { name: "TaskListPage" }
 // )
+
+export interface FilterOptionState {
+  filterStatus: boolean;
+  filterRequest: boolean;
+}
+
+const initFilterOption: FilterOptionState = {
+  filterStatus: false,
+  filterRequest: false,
+};
 
 const useStyles = makeStyles(
   () => ({
@@ -50,6 +60,10 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   const user = useUser();
   const intl = useIntl();
 
+  const [filterOption, setFilterOption] = useState<FilterOptionState>(
+    initFilterOption,
+  );
+
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
@@ -70,7 +84,18 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
             <h3 className={classes.settingViewTitle}>Views Options</h3>
             <FormControl fullWidth>
               <FormControlLabel
-                control={<Switch disableRipple />}
+                control={
+                  <Switch
+                    disableRipple
+                    value={filterOption.filterStatus}
+                    onChange={e =>
+                      setFilterOption(prev => ({
+                        ...prev,
+                        filterStatus: e.target.checked,
+                      }))
+                    }
+                  />
+                }
                 label={intl.formatMessage({
                   id: "42CeNi",
                   defaultMessage: "View By Status",
@@ -80,7 +105,18 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
             </FormControl>
             <FormControl fullWidth>
               <FormControlLabel
-                control={<Switch disableRipple />}
+                control={
+                  <Switch
+                    disableRipple
+                    value={filterOption.filterRequest}
+                    onChange={e =>
+                      setFilterOption(prev => ({
+                        ...prev,
+                        filterRequest: e.target.checked,
+                      }))
+                    }
+                  />
+                }
                 label={intl.formatMessage({
                   defaultMessage: "My Requests",
                   id: "feBHnx",
