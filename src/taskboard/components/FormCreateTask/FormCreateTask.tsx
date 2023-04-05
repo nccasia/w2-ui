@@ -11,7 +11,7 @@ import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
 import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { commonMessages } from "@saleor/intl";
-import { iconClose, iconModal } from "@saleor/styles/modal";
+import { iconClose, iconModal, useCloseIconStyles } from "@saleor/styles/modal";
 import { taskUrl } from "@saleor/taskboard/urls";
 import { createNumberId } from "@saleor/utils/createNumberId";
 import { mapEdgesToItems } from "@saleor/utils/maps";
@@ -30,6 +30,8 @@ interface Props {
 const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
   const navigate = useNavigator();
   const notify = useNotifier();
+
+  const closeIconClasses = useCloseIconStyles();
 
   const [createTaskMutation, { loading }] = useCreateTaskMutation({
     onCompleted: data => {
@@ -96,7 +98,10 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
           <>&nbsp;</>
         )}
         {selectedType && <b>{selectedType?.title}</b>}
-        <CloseIcon style={iconClose} onClick={() => onClose()} />
+        <CloseIcon
+          className={closeIconClasses.root}
+          onClick={() => onClose()}
+        />
       </Box>
       {loading ? (
         <LoginLoading style={{ height: "100%" }} />

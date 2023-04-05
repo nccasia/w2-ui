@@ -8,6 +8,7 @@ type Props = AutoFieldProps;
 
 const QuillEditorField: React.FC<Props> = (props: Props) => {
   const [fieldProps] = useField(props.name, props);
+
   const handleLongText = useCallback(
     text => {
       fieldProps.onChange(text);
@@ -22,6 +23,7 @@ const QuillEditorField: React.FC<Props> = (props: Props) => {
         onChange={handleLongText}
         readonly={fieldProps.readOnly}
         label={fieldProps.label as string}
+        isRequired={fieldProps.required as boolean}
       />
     </>
   );

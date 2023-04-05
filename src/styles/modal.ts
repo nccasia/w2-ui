@@ -1,3 +1,5 @@
+import { makeStyles } from "@saleor/macaw-ui";
+
 export const styleModal = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -36,3 +38,27 @@ export const iconClose = {
   color: "#fff",
   cursor: "pointer",
 };
+
+export const useCloseIconStyles = makeStyles(
+  theme => ({
+    root: {
+      padding: "5px",
+      borderRadius: "50px",
+      border: "1px solid #333",
+      fontSize: 28,
+      background: theme.palette.type === "dark" ? "#FAFAFA" : "#28234A",
+      color: theme.palette.type === "dark" ? "#333" : "#fff",
+      cursor: "pointer",
+      transition: "all 0.2s",
+      "&:hover": {
+        color: "#3EA3FF",
+        borderColor: "#3EA3FF",
+        backgroundColor:
+          theme.palette.type === "dark" ? "rgba(52, 56, 75, 1)" : "#fff",
+      },
+    },
+  }),
+  {
+    name: "CloseIcon",
+  },
+);

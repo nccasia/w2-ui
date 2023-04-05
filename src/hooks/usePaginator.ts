@@ -104,6 +104,7 @@ export interface PaginatorContextValuesCommon {
   hasPreviousPage?: boolean;
   endCursor?: string;
   startCursor?: string;
+  setRowNumber?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export type PaginatorContextValues = PaginatorContextValuesCommon &
