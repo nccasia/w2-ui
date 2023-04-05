@@ -7,7 +7,7 @@ import {
 import { useGoogleLogin } from "@react-oauth/google";
 import { useUser } from "@saleor/auth/index";
 import { UserContextError } from "@saleor/auth/types";
-import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
+// import { passwordResetUrl, signUpResetUrl } from "@saleor/auth/urls";
 import { Button } from "@saleor/components/Button";
 import { FormSpacer } from "@saleor/components/FormSpacer";
 import { GoogleLoginInput } from "@saleor/graphql";
@@ -17,8 +17,8 @@ import { EyeIcon, IconButton } from "@saleor/macaw-ui";
 import React from "react";
 import GoogleButton from "react-google-button";
 import { FormattedMessage, useIntl } from "react-intl";
-import { Link } from "react-router-dom";
 
+// import { Link } from "react-router-dom";
 import useStyles from "../styles";
 import LoginForm, { LoginFormData } from "./form";
 import { getErrorMessage } from "./messages";
@@ -136,7 +136,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
               <EyeIcon />
             </IconButton>
           </div>
-          <div className={classes.option}>
+          {/* <div className={classes.option}>
             <Typography
               component={Link}
               className={classes.link}
@@ -163,7 +163,7 @@ const LoginCard: React.FC<LoginCardProps> = props => {
                 description="description"
               />
             </Typography>
-          </div>
+          </div> */}
           <div className={classes.buttonContainer}>
             <Button
               className={classes.loginButton}

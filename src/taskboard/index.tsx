@@ -1,8 +1,10 @@
+import useListSettings from "@saleor/hooks/useListSettings";
 import { createPaginationState } from "@saleor/hooks/usePaginator";
 import { sectionNames } from "@saleor/intl";
+import { ListViews, Pagination } from "@saleor/types";
 import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
@@ -23,18 +25,34 @@ import TaskListComponent from "./views/TaskList";
 import { WorkFlow } from "./views/Workflow";
 
 const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
-  const qs = parseQs(location.search.substr(1));
+  const [qs, setQs] = useState<Pagination>({});
   const id = match.params.id;
-  const [rowNumberValue, setRowNumberValue] = useState<number>(10);
+  const { settings } = useListSettings(ListViews.TASK_LIST);
 
-  const paginationState = createPaginationState(rowNumberValue, qs);
+  const [rowNumberValue, setRowNumberValue] = useState<number>(
+    settings.rowNumber,
+  );
+
+  useEffect(() => {
+    setRowNumberValue(settings.rowNumber);
+  }, [settings.rowNumber]);
+
+  useEffect(() => {
+    setQs(parseQs(location.search.substr(1)));
+  }, [location]);
+
+  useEffect(() => {
+    setQs({});
+  }, [rowNumberValue]);
 
   const params: TaskListUrlQueryParams = asSortParams(
-    qs,
+    qs as any,
     TaskListUrlSortField,
     TaskListUrlSortField.number,
     false,
   );
+
+  const paginationState = createPaginationState(rowNumberValue, qs);
 
   return (
     <TaskListComponent
