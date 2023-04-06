@@ -32,11 +32,13 @@ export interface TaskListPageProps {
 export interface FilterOptionState {
   filterStatus: boolean;
   filterRequest: boolean;
+  filterPaticipant: boolean;
 }
 
 const initFilterOption: FilterOptionState = {
   filterStatus: false,
   filterRequest: false,
+  filterPaticipant: false,
 };
 
 const useStyles = makeStyles(
@@ -82,48 +84,74 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
         <PopoverCustom>
           <div className={classes.settingViewContainer}>
             <h3 className={classes.settingViewTitle}>Views Options</h3>
-            <FormControl fullWidth>
-              <FormControlLabel
-                control={
-                  <Switch
-                    disableRipple
-                    value={filterOption.filterStatus}
-                    onChange={e =>
-                      setFilterOption(prev => ({
-                        ...prev,
-                        filterStatus: e.target.checked,
-                      }))
+            {dataTaskBoard.viewType === "Kanban" ? (
+              <FormControl fullWidth>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      disableRipple
+                      value={filterOption.filterStatus}
+                      onChange={e =>
+                        setFilterOption(prev => ({
+                          ...prev,
+                          filterStatus: e.target.checked,
+                        }))
+                      }
+                    />
+                  }
+                  label={intl.formatMessage({
+                    defaultMessage: "View By Status",
+                    id: "42CeNi",
+                    description: "button",
+                  })}
+                />
+              </FormControl>
+            ) : (
+              <>
+                <FormControl fullWidth>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        disableRipple
+                        value={filterOption.filterRequest}
+                        onChange={e =>
+                          setFilterOption(prev => ({
+                            ...prev,
+                            filterRequest: e.target.checked,
+                          }))
+                        }
+                      />
                     }
+                    label={intl.formatMessage({
+                      defaultMessage: "My Requests",
+                      id: "feBHnx",
+                      description: "button",
+                    })}
                   />
-                }
-                label={intl.formatMessage({
-                  id: "42CeNi",
-                  defaultMessage: "View By Status",
-                  description: "button",
-                })}
-              />
-            </FormControl>
-            <FormControl fullWidth>
-              <FormControlLabel
-                control={
-                  <Switch
-                    disableRipple
-                    value={filterOption.filterRequest}
-                    onChange={e =>
-                      setFilterOption(prev => ({
-                        ...prev,
-                        filterRequest: e.target.checked,
-                      }))
+                </FormControl>
+                <FormControl fullWidth>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        disableRipple
+                        value={filterOption.filterPaticipant}
+                        onChange={e =>
+                          setFilterOption(prev => ({
+                            ...prev,
+                            filterPaticipant: e.target.checked,
+                          }))
+                        }
+                      />
                     }
+                    label={intl.formatMessage({
+                      id: "d0Dxii",
+                      defaultMessage: "My Participations",
+                      description: "button",
+                    })}
                   />
-                }
-                label={intl.formatMessage({
-                  defaultMessage: "My Requests",
-                  id: "feBHnx",
-                  description: "button",
-                })}
-              />
-            </FormControl>
+                </FormControl>
+              </>
+            )}
           </div>
         </PopoverCustom>
       </PageHeader>
