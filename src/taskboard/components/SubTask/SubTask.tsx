@@ -10,13 +10,23 @@ import React from "react";
 import { IFormSubTaskApprove } from "../TaskDetailPage";
 import TaskTitle from "../TaskTitle";
 const useStyles = makeStyles(
-  () => ({
+  theme => ({
     root: {
       "& form>.MuiButtonBase-root": {
         float: "right",
-        background: "#333",
-        border: "none",
-        color: "#fff",
+        borderWidth: "1px",
+        borderStyle: "solid",
+        borderColor: theme.palette.type === "dark" ? "#fff" : "#333",
+        color: theme.palette.type === "dark" ? "#333" : "#fff",
+        background: theme.palette.type === "dark" ? "#fff" : "#333",
+        "&:hover": {
+          borderColor: theme.palette.type === "dark" ? "#fff" : "#333",
+          color: theme.palette.type === "dark" ? "#fff" : "#333",
+          background: theme.palette.type === "dark" ? "#333" : "#fff",
+        },
+      },
+      "& .MuiOutlinedInput-root": {
+        marginBottom: "6px",
       },
       "& .MuiOutlinedInput-inputMarginDense": {
         paddingTop: "25px!important",

@@ -7616,3 +7616,25 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUserQuery = { __typename: 'query_root', User_connection: { __typename: 'UserConnection', edges: Array<{ __typename: 'UserEdge', node: { __typename: 'User', email: string, firstname: string | null, id: string, lastname: string | null, fullName: string | null, role: any } }> } };
+
+export type GetMyRequestTaskQueryVariables = Exact<{
+  id: Scalars['Int'];
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetMyRequestTaskQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number | null, creatorId: number, organizationId: number | null, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, fullName: string | null, organizationId: number | null, role: any } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string } } };
+
+export type GetMyParticipantTaskQueryVariables = Exact<{
+  id: Scalars['Int'];
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetMyParticipantTaskQuery = { __typename: 'query_root', Task_connection: { __typename: 'TaskConnection', edges: Array<{ __typename: 'TaskEdge', node: { __typename: 'Task', id: string, dueDate: any | null, description: string, definitionId: number | null, creatorId: number, organizationId: number | null, parentId: number | null, priority: any, status: string, teamId: number | null, title: string, state: string, User: { __typename: 'User', id: string, firstname: string | null, lastname: string | null, email: string, fullName: string | null, organizationId: number | null, role: any } | null } }>, pageInfo: { __typename: 'PageInfo', endCursor: string, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string } } };

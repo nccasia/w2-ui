@@ -411,3 +411,105 @@ export const getUser = gql`
     }
   }
 `;
+
+export const getMyRequestTask = gql`
+  query getMyRequestTask(
+    $id: Int!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+  ) {
+    Task_connection(
+      where: { Tasks: { creatorId: { _eq: $id } } }
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      order_by: { createdAt: desc }
+    ) {
+      edges {
+        node {
+          id
+          dueDate
+          description
+          definitionId
+          creatorId
+          organizationId
+          parentId
+          priority
+          status
+          teamId
+          title
+          state
+          User {
+            id
+            firstname
+            lastname
+            email
+            fullName
+            organizationId
+            role
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;
+
+export const getMyParticipantTask = gql`
+  query getMyParticipantTask(
+    $id: Int!
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+  ) {
+    Task_connection(
+      where: { Tasks: { assigneeId: { _eq: $id } } }
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      order_by: { createdAt: desc }
+    ) {
+      edges {
+        node {
+          id
+          dueDate
+          description
+          definitionId
+          creatorId
+          organizationId
+          parentId
+          priority
+          status
+          teamId
+          title
+          state
+          User {
+            id
+            firstname
+            lastname
+            email
+            fullName
+            organizationId
+            role
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+  }
+`;

@@ -6,6 +6,7 @@ import { asSortParams } from "@saleor/utils/sort";
 import { parse as parseQs } from "qs";
 import React, { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
+import { useHistory } from "react-router";
 import { Route, RouteComponentProps, Switch } from "react-router-dom";
 
 import { WindowTitle } from "../components/WindowTitle";
@@ -29,6 +30,8 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   const id = match.params.id;
   const { settings } = useListSettings(ListViews.TASK_LIST);
 
+  const history = useHistory();
+
   const [rowNumberValue, setRowNumberValue] = useState<number>(
     settings.rowNumber,
   );
@@ -43,6 +46,9 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
 
   useEffect(() => {
     setQs({});
+    history.replace({
+      search: "",
+    });
   }, [rowNumberValue]);
 
   const params: TaskListUrlQueryParams = asSortParams(
@@ -57,6 +63,7 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
   return (
     <TaskListComponent
       qs={qs}
+      setQs={setQs}
       params={params}
       id={id}
       setRowNumber={setRowNumberValue}

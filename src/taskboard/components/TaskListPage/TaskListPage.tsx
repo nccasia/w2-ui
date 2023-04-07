@@ -1,4 +1,11 @@
-import { FormControl, FormControlLabel, Switch } from "@material-ui/core";
+import {
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Switch,
+} from "@material-ui/core";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
@@ -9,7 +16,9 @@ import {
 } from "@saleor/graphql";
 import { sectionNames } from "@saleor/intl";
 import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
-import React, { useState } from "react";
+import { ViewOptionsState } from "@saleor/taskboard/views/TaskList";
+import { EViewOptions } from "@saleor/taskboard/views/TaskList/const";
+import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
@@ -18,6 +27,8 @@ export interface TaskListPageProps {
   onAdd: () => void;
   dataTaskBoard: TaskBoardFragmentFragment;
   data: TaskFragmentFragment[];
+  viewOptions: ViewOptionsState;
+  setViewOptions: React.Dispatch<React.SetStateAction<ViewOptionsState>>;
 }
 // const useStyles = makeStyles(
 //   () => ({
@@ -29,23 +40,28 @@ export interface TaskListPageProps {
 //   }), { name: "TaskListPage" }
 // )
 
-export interface FilterOptionState {
-  filterStatus: boolean;
-  filterRequest: boolean;
-}
-
-const initFilterOption: FilterOptionState = {
-  filterStatus: false,
-  filterRequest: false,
-};
-
 const useStyles = makeStyles(
-  () => ({
+  theme => ({
     settingViewContainer: {
       padding: "8px",
     },
     settingViewTitle: {
       marginBottom: 0,
+    },
+    formControl: {
+      minWidth: 140,
+      "& .MuiSelect-root": {
+        fontSize: 13,
+        padding: "22px 37px 5px 12px",
+      },
+      "& .MuiFormLabel-root.MuiInputLabel-root": {
+        fontSize: 13,
+        color: theme.palette.type === "dark" ? "#fff" : "#333",
+      },
+    },
+    formMenuItem: {
+      fontSize: 13,
+      minHeight: 42,
     },
   }),
   { name: "TaskListPage" },
@@ -55,14 +71,12 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   onAdd,
   dataTaskBoard,
   data,
+  viewOptions,
+  setViewOptions,
 }) => {
   const classes = useStyles();
   const user = useUser();
   const intl = useIntl();
-
-  const [filterOption, setFilterOption] = useState<FilterOptionState>(
-    initFilterOption,
-  );
 
   return (
     <Container>
@@ -79,53 +93,68 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
             description="button"
           />
         </ButtonWithSelect>
-        <PopoverCustom>
-          <div className={classes.settingViewContainer}>
-            <h3 className={classes.settingViewTitle}>Views Options</h3>
-            <FormControl fullWidth>
-              <FormControlLabel
-                control={
-                  <Switch
-                    disableRipple
-                    value={filterOption.filterStatus}
-                    onChange={e =>
-                      setFilterOption(prev => ({
-                        ...prev,
-                        filterStatus: e.target.checked,
-                      }))
-                    }
-                  />
-                }
-                label={intl.formatMessage({
-                  id: "42CeNi",
-                  defaultMessage: "View By Status",
-                  description: "button",
-                })}
-              />
-            </FormControl>
-            <FormControl fullWidth>
-              <FormControlLabel
-                control={
-                  <Switch
-                    disableRipple
-                    value={filterOption.filterRequest}
-                    onChange={e =>
-                      setFilterOption(prev => ({
-                        ...prev,
-                        filterRequest: e.target.checked,
-                      }))
-                    }
-                  />
-                }
-                label={intl.formatMessage({
-                  defaultMessage: "My Requests",
-                  id: "feBHnx",
-                  description: "button",
-                })}
-              />
-            </FormControl>
-          </div>
-        </PopoverCustom>
+        {dataTaskBoard.viewType === "Kanban" ? (
+          <PopoverCustom>
+            <div className={classes.settingViewContainer}>
+              <h3 className={classes.settingViewTitle}>Views Options</h3>
+              <FormControl fullWidth>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      disableRipple
+                      checked={viewOptions.filterStatus}
+                      onChange={e =>
+                        setViewOptions(prev => ({
+                          ...prev,
+                          filterStatus: e.target.checked,
+                        }))
+                      }
+                    />
+                  }
+                  label={intl.formatMessage({
+                    defaultMessage: "View By Status",
+                    id: "42CeNi",
+                    description: "button",
+                  })}
+                />
+              </FormControl>
+            </div>
+          </PopoverCustom>
+        ) : (
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="view-options">View Options</InputLabel>
+            <Select
+              labelId="view-options"
+              id="view-options"
+              value={viewOptions.filterByRequest}
+              onChange={e =>
+                setViewOptions(prev => ({
+                  ...prev,
+                  filterByRequest: e.target.value as EViewOptions,
+                }))
+              }
+            >
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.ALL}
+              >
+                All
+              </MenuItem>
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.MY_REQUEST}
+              >
+                My Request
+              </MenuItem>
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.MY_PARTICIPANT}
+              >
+                My Participant
+              </MenuItem>
+            </Select>
+          </FormControl>
+        )}
       </PageHeader>
       {dataTaskBoard.viewType === "Kanban" && (
         <TaskBoard
