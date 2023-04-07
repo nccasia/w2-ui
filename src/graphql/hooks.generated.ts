@@ -1283,3 +1283,155 @@ export function useGetUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHook
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<Types.GetUserQuery, Types.GetUserQueryVariables>;
+export const GetMyRequestTaskDocument = gql`
+    query getMyRequestTask($id: Int!, $after: String, $before: String, $first: Int, $last: Int) {
+  Task_connection(
+    where: {Tasks: {creatorId: {_eq: $id}}}
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    order_by: {createdAt: desc}
+  ) {
+    edges {
+      node {
+        id
+        dueDate
+        description
+        definitionId
+        creatorId
+        organizationId
+        parentId
+        priority
+        status
+        teamId
+        title
+        state
+        User {
+          id
+          firstname
+          lastname
+          email
+          fullName
+          organizationId
+          role
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetMyRequestTaskQuery__
+ *
+ * To run a query within a React component, call `useGetMyRequestTaskQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyRequestTaskQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyRequestTaskQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *   },
+ * });
+ */
+export function useGetMyRequestTaskQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetMyRequestTaskQuery, Types.GetMyRequestTaskQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetMyRequestTaskQuery, Types.GetMyRequestTaskQueryVariables>(GetMyRequestTaskDocument, options);
+      }
+export function useGetMyRequestTaskLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetMyRequestTaskQuery, Types.GetMyRequestTaskQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetMyRequestTaskQuery, Types.GetMyRequestTaskQueryVariables>(GetMyRequestTaskDocument, options);
+        }
+export type GetMyRequestTaskQueryHookResult = ReturnType<typeof useGetMyRequestTaskQuery>;
+export type GetMyRequestTaskLazyQueryHookResult = ReturnType<typeof useGetMyRequestTaskLazyQuery>;
+export type GetMyRequestTaskQueryResult = Apollo.QueryResult<Types.GetMyRequestTaskQuery, Types.GetMyRequestTaskQueryVariables>;
+export const GetMyParticipantTaskDocument = gql`
+    query getMyParticipantTask($id: Int!, $after: String, $before: String, $first: Int, $last: Int) {
+  Task_connection(
+    where: {Tasks: {assigneeId: {_eq: $id}}}
+    after: $after
+    before: $before
+    first: $first
+    last: $last
+    order_by: {createdAt: desc}
+  ) {
+    edges {
+      node {
+        id
+        dueDate
+        description
+        definitionId
+        creatorId
+        organizationId
+        parentId
+        priority
+        status
+        teamId
+        title
+        state
+        User {
+          id
+          firstname
+          lastname
+          email
+          fullName
+          organizationId
+          role
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetMyParticipantTaskQuery__
+ *
+ * To run a query within a React component, call `useGetMyParticipantTaskQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyParticipantTaskQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyParticipantTaskQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      after: // value for 'after'
+ *      before: // value for 'before'
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *   },
+ * });
+ */
+export function useGetMyParticipantTaskQuery(baseOptions: ApolloReactHooks.QueryHookOptions<Types.GetMyParticipantTaskQuery, Types.GetMyParticipantTaskQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<Types.GetMyParticipantTaskQuery, Types.GetMyParticipantTaskQueryVariables>(GetMyParticipantTaskDocument, options);
+      }
+export function useGetMyParticipantTaskLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<Types.GetMyParticipantTaskQuery, Types.GetMyParticipantTaskQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<Types.GetMyParticipantTaskQuery, Types.GetMyParticipantTaskQueryVariables>(GetMyParticipantTaskDocument, options);
+        }
+export type GetMyParticipantTaskQueryHookResult = ReturnType<typeof useGetMyParticipantTaskQuery>;
+export type GetMyParticipantTaskLazyQueryHookResult = ReturnType<typeof useGetMyParticipantTaskLazyQuery>;
+export type GetMyParticipantTaskQueryResult = Apollo.QueryResult<Types.GetMyParticipantTaskQuery, Types.GetMyParticipantTaskQueryVariables>;
