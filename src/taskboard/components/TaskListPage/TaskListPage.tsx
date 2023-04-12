@@ -96,7 +96,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
         {dataTaskBoard.viewType === "Kanban" ? (
           <PopoverCustom>
             <div className={classes.settingViewContainer}>
-              <h3 className={classes.settingViewTitle}>Views Options</h3>
+              <h3 className={classes.settingViewTitle}>View Option</h3>
               <FormControl fullWidth>
                 <FormControlLabel
                   control={
