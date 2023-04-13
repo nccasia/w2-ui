@@ -162,7 +162,10 @@ const Comment = ({ comments }) => {
             </Typography>
           )}
 
-          <Typography style={{ fontSize: "12px" }} variant="subtitle2">
+          <Typography
+            style={{ fontSize: "10px", fontStyle: "italic" }}
+            variant="subtitle2"
+          >
             Commented on{" "}
             <b>{`${new Intl.DateTimeFormat("en-US", {
               month: "long",
@@ -171,7 +174,12 @@ const Comment = ({ comments }) => {
               hour: "numeric",
               minute: "numeric",
               hour12: true,
-            }).format(new Date(comments.updatedAt))}`}</b>
+            }).format(
+              new Date(
+                new Date(comments.updatedAt).getTime() -
+                  new Date().getTimezoneOffset() * 60000,
+              ),
+            )}`}</b>
           </Typography>
         </div>
         <div className={classes.commentContent}>
