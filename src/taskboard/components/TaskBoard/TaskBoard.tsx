@@ -102,6 +102,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
         return {
           ...lane,
           cards: cardList,
+          title: lane.title.replace(/_/g, " "),
           label: `${cardList.length}`,
         };
       }),
