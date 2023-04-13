@@ -21,8 +21,12 @@ const useStyles = makeStyles(
     container: {
       display: "flex",
       alignItems: "start",
+      gap: "15px",
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(3),
+      "& .MuiButtonBase-root": {
+        paddingRight: 0,
+      },
     },
     avatar: {
       width: "40px",
@@ -31,7 +35,11 @@ const useStyles = makeStyles(
     },
     commentInfo: {
       display: "flex",
-      alignItems: "center",
+      alignItems: "baseline",
+      flexWrap: "wrap",
+    },
+    commentContent: {
+      marginTop: "10px",
     },
     username: {
       fontWeight: "bold",
@@ -139,10 +147,10 @@ const Comment = ({ comments }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <div style={{ width: "8%", cursor: "pointer" }}>
+      <div style={{ cursor: "pointer", paddingRight: 0 }}>
         <UserChip user={comments.User} displayName={false} />
       </div>
-      <div style={{ width: "92%" }}>
+      <div>
         <div className={classes.commentInfo}>
           {comments.User.lastname && comments.User.firstname ? (
             <Typography variant="subtitle1" className={classes.username}>
@@ -154,9 +162,19 @@ const Comment = ({ comments }) => {
             </Typography>
           )}
 
-          <Typography variant="subtitle2">{`${comments.updatedAt}`}</Typography>
+          <Typography style={{ fontSize: "12px" }} variant="subtitle2">
+            Commented on{" "}
+            <b>{`${new Intl.DateTimeFormat("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            }).format(new Date(comments.updatedAt))}`}</b>
+          </Typography>
         </div>
-        <div>
+        <div className={classes.commentContent}>
           <Typography variant="body2">{comments.content}</Typography>
         </div>
       </div>
