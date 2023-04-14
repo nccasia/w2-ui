@@ -4,6 +4,18 @@ import { useEffect, useMemo } from "react";
 
 import { CustomSchemaBridge } from "./customSchemaBridge";
 
+const errorMessages = {
+  currentOffice: "You must select your current office",
+  destinationOffice: "You must select your destination office",
+  dueDate: "You must select a due date!",
+  dueDateStart: "You must select a start date",
+  dueDateEnd: "You must select an end date",
+  content: "You must enter some content",
+  type: "You must select the device type",
+  detail: "You must enter some details about the device",
+  quantity: "You must specify how many devices you want",
+};
+
 const ajv = new Ajv({
   allErrors: true,
   formats: { date: true },
@@ -15,7 +27,16 @@ function createValidator(schema: object) {
 
   return (model: object) => {
     validator(model);
-    return validator.errors?.length ? { details: validator.errors } : null;
+    return validator.errors?.length
+      ? {
+          details: validator.errors.map(error => {
+            const customMessage =
+              errorMessages[error.message.match(/'([^']+)'/)[1]];
+            const message = customMessage || error.message;
+            return { ...error, message };
+          }),
+        }
+      : null;
   };
 }
 
