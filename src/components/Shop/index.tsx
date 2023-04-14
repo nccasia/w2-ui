@@ -1,5 +1,4 @@
-import appleTouchIcon from "@assets/favicons/apple-touch-icon.png";
-import logoIcon from "@assets/favicons/mstile-70x70.png";
+import logoIcon from "@assets/favicons/ncclogo.png";
 import safariPinnedTab from "@assets/favicons/safari-pinned-tab.svg";
 import React from "react";
 import Helmet from "react-helmet";
@@ -14,7 +13,7 @@ export const ShopProvider: React.FC = ({ children }) => {
   return (
     <>
       <Helmet>
-        <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
+        <link rel="apple-touch-icon" sizes="180x180" href={logoIcon} />
         <link rel="icon" type="image/png" sizes="32x32" href={logoIcon} />
         <link rel="icon" type="image/png" sizes="16x16" href={logoIcon} />
         <link rel="mask-icon" href={safariPinnedTab} />
