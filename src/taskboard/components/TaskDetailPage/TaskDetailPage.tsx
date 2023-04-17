@@ -145,34 +145,35 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                     key={subtask.id}
                     className={classes.subTaskContainer}
                   >
-                    <ListItemText
-                      primary={subtask.title}
-                      style={{ width: "35%" }}
+                    <div
+                      className={classes.subTask}
                       onClick={() => handleOpenModalSubTask(subtask.id)}
-                    />
-                    <ListItemText
-                      style={{ width: "30%" }}
-                      primary={
-                        subtask.state && (
-                          <Pill label={subtask.state} color="warning" />
-                        )
-                      }
-                      onClick={() => handleOpenModalSubTask(subtask.id)}
-                    />
-                    <ListItemText
-                      style={{ width: "15%" }}
-                      primary={
-                        subtask.status && (
-                          <Pill label={subtask.status} color="success" />
-                        )
-                      }
-                      onClick={() => handleOpenModalSubTask(subtask.id)}
-                    />
-                    <ListItemText
-                      primary={subtask.priority}
-                      style={{ width: "5%" }}
-                      onClick={() => handleOpenModalSubTask(subtask.id)}
-                    />
+                    >
+                      <ListItemText
+                        primary={subtask.title}
+                        style={{ maxWidth: "250px" }}
+                      />
+                      <ListItemText
+                        primary={
+                          subtask.state && (
+                            <Pill label={subtask.state} color="warning" />
+                          )
+                        }
+                        style={{ maxWidth: "160px" }}
+                      />
+                      <ListItemText
+                        primary={
+                          subtask.status && (
+                            <Pill label={subtask.status} color="success" />
+                          )
+                        }
+                        style={{ maxWidth: "130px" }}
+                      />
+                      <ListItemText
+                        primary={subtask.priority}
+                        style={{ maxWidth: "50px" }}
+                      />
+                    </div>
                     <ListItemAvatar style={{ width: "5%" }}>
                       <UserChip user={subtask.User} displayName={false} />
                     </ListItemAvatar>

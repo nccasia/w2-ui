@@ -37,6 +37,7 @@ const useStyles = makeStyles(
         flexDirection: "initial !important",
       },
       "& .MuiFormGroup-root>label": {
+        marginTop: "8px",
         padding: "0 10px 0 0",
         borderRadius: "4px",
         border: "1px solid rgba(37, 41, 41, 0.1)",
