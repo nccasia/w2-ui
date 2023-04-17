@@ -67,19 +67,20 @@ export const useStyles = makeStyles(
     },
     subTaskContainer: {
       border: "1px solid rgba(37, 41, 41, 0.1)",
-      // backgroundColor: "rgba(255, 255, 255, 0.8)",
       borderRadius: 6,
       marginBottom: 10,
-      // "& .MuiListItem-root": {
       "& :hover": {
         cursor: "pointer",
-
         "& .MuiListItem-root": {
-          // color: "white",
           backgroundColor: "rgba(255, 255, 255, 0.8)",
         },
       },
-      // },
+    },
+    subTask: {
+      width: "100%",
+      display: "flex",
+      flexWrap: "wrap",
+      alignItems: "center",
     },
     subTaskItem: {
       "& form": {
@@ -92,6 +93,7 @@ export const useStyles = makeStyles(
         maxWidth: "100% !important",
       },
       "& .MuiFormGroup-root label": {
+        marginTop: "8px",
         padding: "0 10px 0 0",
         borderRadius: "4px",
         border: "1px solid rgba(37, 41, 41, 0.1)",
@@ -136,11 +138,24 @@ export const useStyles = makeStyles(
       "& .form_approve": {
         width: "70%",
         borderRight: "1px solid rgba(37, 41, 41, 0.2)",
+        [theme.breakpoints.down(630)]: {
+          borderRight: "none",
+          width: "100%",
+          borderBottom: "1px solid rgba(37, 41, 41, 0.2)",
+        },
       },
 
       "& .single_choice-assignee": {
         width: "30%",
         margin: "40px 16px 0 30px",
+        [theme.breakpoints.down(630)]: {
+          margin: "20px 16px 0 30px",
+          minWidth: "90%",
+        },
+      },
+
+      [theme.breakpoints.down(630)]: {
+        display: "block",
       },
     },
   }),

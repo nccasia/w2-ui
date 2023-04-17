@@ -28,14 +28,43 @@ const useStyles = makeStyles(
       margin: `auto ${theme.spacing(1)} auto auto`,
     },
     cardHeader: {
+      display: "flex",
+      alignItems: "center",
+      flexWrap: "wrap",
       fontSize: "21px",
       fontWeight: 500,
       lineHeight: "24px",
       letterSpacing: "0.02em",
       textAlign: "left",
+      [theme.breakpoints.down(633)]: {
+        display: "block",
+      },
+    },
+    titleHeader: {
+      display: "inline-flex",
+      [theme.breakpoints.down(425)]: {
+        maxWidth: "200px",
+      },
+    },
+    titleStatus: {
+      display: "flex",
+      [theme.breakpoints.down(425)]: {
+        marginLeft: "3px",
+      },
+    },
+    titleText: {
+      [theme.breakpoints.down(425)]: {
+        whiteSpace: "nowrap",
+        minWidth: "100%",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+      },
     },
     cardPill: {
       marginLeft: "24px",
+      [theme.breakpoints.down(425)]: {
+        marginLeft: "3px",
+      },
     },
     indicator: {
       display: "flex",
@@ -73,21 +102,25 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
             </div>
             <HorizontalSpacer spacing={2} />
             <Typography className={classes.cardHeader}>
-              {title}
-              {state && (
-                <Pill
-                  className={classes.cardPill}
-                  label={state}
-                  color="warning"
-                />
-              )}
-              {status && (
-                <Pill
-                  className={classes.cardPill}
-                  label={status}
-                  color="success"
-                />
-              )}
+              <div className={classes.titleHeader}>
+                <span className={classes.titleText}>{title}</span>
+              </div>
+              <div className={classes.titleStatus}>
+                {state && (
+                  <Pill
+                    className={classes.cardPill}
+                    label={state}
+                    color="warning"
+                  />
+                )}
+                {status && (
+                  <Pill
+                    className={classes.cardPill}
+                    label={status}
+                    color="success"
+                  />
+                )}
+              </div>
             </Typography>
           </div>
         }
