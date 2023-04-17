@@ -26,7 +26,7 @@ const useStyles = makeStyles(
         },
       },
       "& .MuiOutlinedInput-root": {
-        marginBottom: "6px",
+        marginBottom: "12px",
       },
       "& .MuiOutlinedInput-inputMarginDense": {
         paddingTop: "25px!important",
@@ -75,7 +75,7 @@ const SubTask = ({
             state={task.state}
           />
           <Hr />
-          <CardContent style={{ paddingBottom: "47px" }}>
+          <CardContent style={{ paddingBottom: "60px" }}>
             <div className={classes.root}>
               <FormSchema
                 formId={task.Form.id}
