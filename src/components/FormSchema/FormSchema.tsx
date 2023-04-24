@@ -93,6 +93,11 @@ export function FormSchema(props: PropsFormSchema) {
             errorMessage="You must enter some details about the device"
           />
           <ErrorField name="device.0.quantity" />
+          <AutoField name="currentOffice" />
+          <ErrorField
+            name="currentOffice"
+            errorMessage="You must select your current office"
+          />
           <AutoField name="dueDate" />
           <ErrorField
             name="dueDate"
