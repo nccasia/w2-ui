@@ -51,6 +51,7 @@ const useStyles = makeStyles(
     titleStatus: {
       display: "flex",
       [theme.breakpoints.down(520)]: {
+        gap: "10px",
         "& .MuiChip-label": {
           maxWidth: "100px",
         },
