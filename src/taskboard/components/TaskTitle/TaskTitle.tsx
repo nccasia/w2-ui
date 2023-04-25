@@ -48,6 +48,17 @@ const useStyles = makeStyles(
     },
     titleStatus: {
       display: "flex",
+      [theme.breakpoints.down(520)]: {
+        "& .MuiChip-label": {
+          maxWidth: "100px",
+        },
+        "& .state_mobile": {
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          minWidth: "100%",
+          textOverflow: "ellipsis",
+        },
+      },
       [theme.breakpoints.down(425)]: {
         marginLeft: "3px",
       },
@@ -109,7 +120,7 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
                 {state && (
                   <Pill
                     className={classes.cardPill}
-                    label={state}
+                    label={<span className="state_mobile">{state}</span>}
                     color="warning"
                   />
                 )}
