@@ -42,7 +42,9 @@ const useStyles = makeStyles(
     },
     titleHeader: {
       display: "inline-flex",
+      marginRight: "20px",
       [theme.breakpoints.down(425)]: {
+        marginRight: "0px",
         maxWidth: "200px",
       },
     },
@@ -52,16 +54,8 @@ const useStyles = makeStyles(
         "& .MuiChip-label": {
           maxWidth: "100px",
         },
-        "& .state_mobile": {
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          minWidth: "100%",
-          textOverflow: "ellipsis",
-        },
       },
-      [theme.breakpoints.down(425)]: {
-        marginLeft: "3px",
-      },
+      gap: "20px",
     },
     titleText: {
       [theme.breakpoints.down(425)]: {
@@ -69,12 +63,6 @@ const useStyles = makeStyles(
         minWidth: "100%",
         overflow: "hidden",
         textOverflow: "ellipsis",
-      },
-    },
-    cardPill: {
-      marginLeft: "24px",
-      [theme.breakpoints.down(425)]: {
-        marginLeft: "3px",
       },
     },
     indicator: {
@@ -117,20 +105,8 @@ const TaskTitle: React.FC<TaskTitleProps> = ({
                 <span className={classes.titleText}>{title}</span>
               </div>
               <div className={classes.titleStatus}>
-                {state && (
-                  <Pill
-                    className={classes.cardPill}
-                    label={<span className="state_mobile">{state}</span>}
-                    color="warning"
-                  />
-                )}
-                {status && (
-                  <Pill
-                    className={classes.cardPill}
-                    label={status}
-                    color="success"
-                  />
-                )}
+                {state && <Pill label={state} color="warning" />}
+                {status && <Pill label={status} color="success" />}
               </div>
             </Typography>
           </div>
