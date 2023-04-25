@@ -81,6 +81,14 @@ export const useStyles = makeStyles(
       display: "flex",
       flexWrap: "wrap",
       alignItems: "center",
+      "& .mobile": {
+        [theme.breakpoints.down(682)]: {
+          display: "none",
+        },
+      },
+      [theme.breakpoints.down(533)]: {
+        display: "block",
+      },
     },
     subTaskItem: {
       "& form": {

@@ -32,6 +32,7 @@ export enum TaskListUrlFiltersEnum {
 }
 export enum OrderListUrlFiltersWithMultipleValues {
   status = "status",
+  state = "state",
   paymentStatus = "paymentStatus",
   channel = "channel",
   giftCard = "giftCard",
@@ -51,6 +52,10 @@ export enum TaskListUrlSortField {
   payment = "payment",
   total = "total",
   rank = "rank",
+  name = "name",
+  email = "email",
+  status = "Status",
+  state = "State",
 }
 export type TaskListUrlDialog = "cancel" | CreatetaskDialog | TabActionDialog;
 export type TaskListUrlSort = Sort<TaskListUrlSortField>;
@@ -79,6 +84,9 @@ export const taskDefinitionPath = () =>
 export const taskPath = (id: string) => urljoin(taskSectionUrl, id);
 
 export const taskBoardPath = (id: string) => urljoin(taskBoardSectionUrl, id);
+
+export const filterListUrl = (params?: TaskListUrlQueryParams) =>
+  "?" + stringifyQs(params);
 
 export const taskListUrl = (_params?: any, id?: string): string => {
   if (id) {

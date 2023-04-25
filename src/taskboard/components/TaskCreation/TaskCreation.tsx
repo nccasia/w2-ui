@@ -25,6 +25,7 @@ const TaskCreation: React.FC<TaskCreationProps> = ({ open, onClose, id }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         onClose={onClose}
+        disableBackdropClick={true}
       >
         <Box sx={styleModal}>
           <FormCreateTask onClose={onClose} id={id} />

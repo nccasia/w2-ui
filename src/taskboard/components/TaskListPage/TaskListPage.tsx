@@ -6,9 +6,11 @@ import {
   Select,
   Switch,
 } from "@material-ui/core";
+// import Card from "@material-ui/core/Card/Card";
 import { useUser } from "@saleor/auth";
 import ButtonWithSelect from "@saleor/components/ButtonWithSelect";
 import Container from "@saleor/components/Container";
+import { FilterElement } from "@saleor/components/Filter";
 import PageHeader from "@saleor/components/PageHeader";
 import {
   TaskBoardFragmentFragment,
@@ -18,17 +20,26 @@ import { sectionNames } from "@saleor/intl";
 import { makeStyles, PopoverCustom } from "@saleor/macaw-ui";
 import { ViewOptionsState } from "@saleor/taskboard/views/TaskList";
 import { EViewOptions } from "@saleor/taskboard/views/TaskList/const";
+import { createOptionsField } from "@saleor/utils/filters/fields";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
 import { TaskBoard } from "../TaskBoard/TaskBoard";
 import TaskList from "../TaskList/TaskList";
+import FilterBar from "./components/FilterBar";
 export interface TaskListPageProps {
   onAdd: () => void;
   dataTaskBoard: TaskBoardFragmentFragment;
   data: TaskFragmentFragment[];
   viewOptions: ViewOptionsState;
   setViewOptions: React.Dispatch<React.SetStateAction<ViewOptionsState>>;
+  setFilterValue: React.Dispatch<
+    React.SetStateAction<{
+      state: string;
+      status: string;
+    }>
+  >;
+  changeFilters: (filter: Array<FilterElement<string>>) => void;
 }
 // const useStyles = makeStyles(
 //   () => ({
@@ -73,6 +84,8 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   data,
   viewOptions,
   setViewOptions,
+  setFilterValue,
+  changeFilters,
 }) => {
   const classes = useStyles();
   const user = useUser();
@@ -163,7 +176,72 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
         ></TaskBoard>
       )}
       {dataTaskBoard.viewType === "list" && (
-        <TaskList id={user.user.userId} data={data} />
+        <>
+          <FilterBar
+            filterStructure={[
+              {
+                ...createOptionsField("Status", "Status", [""], false, [
+                  {
+                    label: "DONE",
+                    value: "DONE",
+                  },
+                  {
+                    label: "DOING",
+                    value: "DOING",
+                  },
+                  {
+                    label: "PENDING",
+                    value: "PENDING",
+                  },
+                ]),
+              },
+              {
+                ...createOptionsField("State", "State", [""], false, [
+                  {
+                    label: "REJECTED",
+                    value: "REJECTED",
+                  },
+                  {
+                    label: "APPROVED",
+                    value: "APPROVED",
+                  },
+                  {
+                    label: "PM_APPROVAL",
+                    value: "PM_APPROVAL",
+                  },
+                  {
+                    label: "CUSTOMER_APPROVAL",
+                    value: "CUSTOMER_APPROVAL",
+                  },
+                  {
+                    label: "CUSTOMER_OFFICE_APPROVAL",
+                    value: "CUSTOMER_OFFICE_APPROVAL",
+                  },
+                  {
+                    label: "IT_APPROVAL",
+                    value: "IT_APPROVAL",
+                  },
+                ]),
+              },
+            ]}
+            onFilterChange={function(
+              filter: Array<FilterElement<string>>,
+            ): void {
+              const filterState = filter.find(item => item.label === "State");
+              const filterStatus = filter.find(item => item.label === "Status");
+              changeFilters(filter);
+              setFilterValue({
+                state: !filterState.value.length
+                  ? ""
+                  : (filterState.value[0] as string),
+                status: !filterStatus.value.length
+                  ? ""
+                  : (filterStatus.value[0] as string),
+              });
+            }}
+          />
+          <TaskList id={user.user.userId} data={data} />
+        </>
       )}
     </Container>
   );

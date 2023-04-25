@@ -58,6 +58,12 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
     false,
   );
 
+  const qsFilter = parseQs(location.search.substr(1));
+  const paramsFilter: TaskListUrlQueryParams = asSortParams(
+    qsFilter,
+    TaskListUrlSortField,
+  );
+
   const paginationState = createPaginationState(rowNumberValue, qs);
 
   return (
@@ -65,6 +71,7 @@ const TaskLists: React.FC<RouteComponentProps<any>> = ({ location, match }) => {
       qs={qs}
       setQs={setQs}
       params={params}
+      paramsFilter={paramsFilter}
       id={id}
       setRowNumber={setRowNumberValue}
       variables={paginationState}
