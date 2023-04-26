@@ -40,6 +40,10 @@ export interface TaskListPageProps {
     }>
   >;
   changeFilters: (filter: Array<FilterElement<string>>) => void;
+  filterValue: {
+    state: string;
+    status: string;
+  };
 }
 // const useStyles = makeStyles(
 //   () => ({
@@ -86,6 +90,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   setViewOptions,
   setFilterValue,
   changeFilters,
+  filterValue,
 }) => {
   const classes = useStyles();
   const user = useUser();
@@ -180,48 +185,60 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
           <FilterBar
             filterStructure={[
               {
-                ...createOptionsField("Status", "Status", [""], false, [
-                  {
-                    label: "DONE",
-                    value: "DONE",
-                  },
-                  {
-                    label: "DOING",
-                    value: "DOING",
-                  },
-                  {
-                    label: "PENDING",
-                    value: "PENDING",
-                  },
-                ]),
+                ...createOptionsField(
+                  "Status",
+                  "Status",
+                  [filterValue.status],
+                  false,
+                  [
+                    {
+                      label: "DONE",
+                      value: "DONE",
+                    },
+                    {
+                      label: "DOING",
+                      value: "DOING",
+                    },
+                    {
+                      label: "PENDING",
+                      value: "PENDING",
+                    },
+                  ],
+                ),
               },
               {
-                ...createOptionsField("State", "State", [""], false, [
-                  {
-                    label: "REJECTED",
-                    value: "REJECTED",
-                  },
-                  {
-                    label: "APPROVED",
-                    value: "APPROVED",
-                  },
-                  {
-                    label: "PM_APPROVAL",
-                    value: "PM_APPROVAL",
-                  },
-                  {
-                    label: "CUSTOMER_APPROVAL",
-                    value: "CUSTOMER_APPROVAL",
-                  },
-                  {
-                    label: "CUSTOMER_OFFICE_APPROVAL",
-                    value: "CUSTOMER_OFFICE_APPROVAL",
-                  },
-                  {
-                    label: "IT_APPROVAL",
-                    value: "IT_APPROVAL",
-                  },
-                ]),
+                ...createOptionsField(
+                  "State",
+                  "State",
+                  [filterValue.state],
+                  false,
+                  [
+                    {
+                      label: "REJECTED",
+                      value: "REJECTED",
+                    },
+                    {
+                      label: "APPROVED",
+                      value: "APPROVED",
+                    },
+                    {
+                      label: "PM_APPROVAL",
+                      value: "PM_APPROVAL",
+                    },
+                    {
+                      label: "CUSTOMER_APPROVAL",
+                      value: "CUSTOMER_APPROVAL",
+                    },
+                    {
+                      label: "CUSTOMER_OFFICE_APPROVAL",
+                      value: "CUSTOMER_OFFICE_APPROVAL",
+                    },
+                    {
+                      label: "IT_APPROVAL",
+                      value: "IT_APPROVAL",
+                    },
+                  ],
+                ),
               },
             ]}
             onFilterChange={function(

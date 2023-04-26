@@ -171,6 +171,7 @@ export const TaskList: React.FC<TaskListProps> = ({
           setViewOptions={setViewOptions}
           setFilterValue={setFilterValue}
           changeFilters={changeFilters}
+          filterValue={filterValue}
         />
         {!noTaskType && (
           <TaskCreation
