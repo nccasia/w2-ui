@@ -177,7 +177,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
       {dataTaskBoard.viewType === "Kanban" && (
         <TaskBoard
           taskBoardData={dataTaskBoard}
-          viewByStatus={false}
+          viewByStatus={viewOptions.filterStatus}
         ></TaskBoard>
       )}
       {dataTaskBoard.viewType === "list" && (
