@@ -3,7 +3,7 @@ import {
   useGetTaskByBoardLazyQuery,
 } from "@saleor/graphql";
 import useNavigator from "@saleor/hooks/useNavigator";
-import { Tooltip } from "@saleor/macaw-ui";
+import { makeStyles, Tooltip } from "@saleor/macaw-ui";
 import { taskUrl } from "@saleor/taskboard/urls";
 import React, { useEffect, useMemo } from "react";
 import Board from "react-trello";
@@ -11,6 +11,18 @@ interface TaskBoardProps {
   taskBoardData: TaskBoardFragmentFragment;
   viewByStatus: boolean;
 }
+
+const useStyles = makeStyles(
+  () => ({
+    root: {
+      "& .damEpt": {
+        height: "50px",
+        overflow: "hidden",
+      },
+    },
+  }),
+  { name: "convertTaskCard" },
+);
 
 const laneConfig = ["TODO", "DOING", "DONE"];
 
@@ -56,6 +68,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   taskBoardData,
   viewByStatus,
 }) => {
+  const classes = useStyles();
   const navigate = useNavigator();
   const [fetch, { data }] = useGetTaskByBoardLazyQuery({
     fetchPolicy: "cache-and-network",
@@ -118,6 +131,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
     <>
       {viewByStatus ? (
         <Board
+          className={classes.root}
           data={result}
           style={{ backgroundColor: "transparent" }}
           onCardClick={cardId => handleClickCard(cardId)}
@@ -125,6 +139,7 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
       ) : (
         data && (
           <Board
+            className={classes.root}
             data={viewConfig}
             style={{ backgroundColor: "transparent" }}
             onCardClick={cardId => handleClickCard(cardId)}
