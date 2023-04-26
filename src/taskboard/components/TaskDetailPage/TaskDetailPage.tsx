@@ -136,52 +136,54 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
               loading={loading}
             ></SubTask>
           )}
-          <List className={classes.subTaskList}>
-            <h2 className={classes.subTaskTitle}>Sub Tasks</h2>
-            {taskDetail?.Tasks?.map(subtask => {
-              return (
-                <>
-                  <ListItem
-                    key={subtask.id}
-                    className={classes.subTaskContainer}
-                  >
-                    <div
-                      className={classes.subTask}
-                      onClick={() => handleOpenModalSubTask(subtask.id)}
+          {taskDetail?.Tasks?.length !== 0 && (
+            <List className={classes.subTaskList}>
+              <h2 className={classes.subTaskTitle}>Sub Tasks</h2>
+              {taskDetail?.Tasks?.map(subtask => {
+                return (
+                  <>
+                    <ListItem
+                      key={subtask.id}
+                      className={classes.subTaskContainer}
                     >
-                      <ListItemText
-                        primary={subtask.title}
-                        style={{ maxWidth: "250px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          subtask.state && (
-                            <Pill label={subtask.state} color="warning" />
-                          )
-                        }
-                        style={{ maxWidth: "160px" }}
-                      />
-                      <ListItemText
-                        primary={
-                          subtask.status && (
-                            <Pill label={subtask.status} color="success" />
-                          )
-                        }
-                        style={{ maxWidth: "130px" }}
-                      />
-                      <ListItemText
-                        primary={subtask.priority}
-                        style={{ maxWidth: "50px" }}
-                      />
-                    </div>
-                    <ListItemAvatar style={{ width: "5%" }}>
-                      <UserChip user={subtask.User} displayName={false} />
-                    </ListItemAvatar>
-                  </ListItem>
-                </>
-              );
-            })}
-          </List>
+                      <div
+                        className={classes.subTask}
+                        onClick={() => handleOpenModalSubTask(subtask.id)}
+                      >
+                        <ListItemText
+                          primary={subtask.title}
+                          style={{ maxWidth: "250px" }}
+                        />
+                        <ListItemText
+                          primary={
+                            subtask.state && (
+                              <Pill label={subtask.state} color="warning" />
+                            )
+                          }
+                          style={{ maxWidth: "160px" }}
+                        />
+                        <ListItemText
+                          primary={
+                            subtask.status && (
+                              <Pill label={subtask.status} color="success" />
+                            )
+                          }
+                          style={{ maxWidth: "130px" }}
+                        />
+                        <ListItemText
+                          primary={subtask.priority}
+                          style={{ maxWidth: "50px" }}
+                        />
+                      </div>
+                      <ListItemAvatar style={{ width: "5%" }}>
+                        <UserChip user={subtask.User} displayName={false} />
+                      </ListItemAvatar>
+                    </ListItem>
+                  </>
+                );
+              })}
+            </List>
+          )}
           <ModalSubTask
             modalOpen={modalOpen}
             onModalOpen={setModalOpen}
