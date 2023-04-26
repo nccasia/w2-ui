@@ -57,7 +57,10 @@ export const TaskBoard: React.FC<TaskBoardProps> = ({
   viewByStatus,
 }) => {
   const navigate = useNavigator();
-  const [fetch, { data }] = useGetTaskByBoardLazyQuery();
+  const [fetch, { data }] = useGetTaskByBoardLazyQuery({
+    fetchPolicy: "cache-and-network",
+    pollInterval: 5000,
+  });
   useEffect(() => {
     if (taskBoardData.taskDefinitionId) {
       fetch({

@@ -8,11 +8,11 @@ import {
   useGetTaskDefinitionQuery,
 } from "@saleor/graphql";
 import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
-import useNavigator from "@saleor/hooks/useNavigator";
 import useNotifier from "@saleor/hooks/useNotifier";
+import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import { commonMessages } from "@saleor/intl";
 import { iconClose, iconModal, useCloseIconStyles } from "@saleor/styles/modal";
-import { taskUrl } from "@saleor/taskboard/urls";
+import { getTaskByBoard } from "@saleor/taskboard/queries";
 import { createNumberId } from "@saleor/utils/createNumberId";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
@@ -28,20 +28,25 @@ interface Props {
 }
 
 const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
-  const navigate = useNavigator();
+  const taskBoardData = useTaskBoard(id);
   const notify = useNotifier();
 
   const closeIconClasses = useCloseIconStyles();
 
   const [createTaskMutation, { loading }] = useCreateTaskMutation({
-    onCompleted: data => {
+    onCompleted: () => {
       notify({
         status: "success",
         text: intl.formatMessage(commonMessages.savedChanges),
       });
       onClose();
-      navigate(taskUrl(`${data.createTaskInput.id}`));
     },
+    refetchQueries: [
+      {
+        query: getTaskByBoard,
+        variables: { definitionId: taskBoardData.taskDefinitionId },
+      },
+    ],
   });
   const TaskDefinitionQuery = useGetTaskDefinitionQuery();
   const data = useMemo(() => {
