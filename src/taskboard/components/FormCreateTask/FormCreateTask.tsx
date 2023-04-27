@@ -85,7 +85,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
       dueDate: current.toISOString(),
       title: selectedType?.title,
       key: selectedType?.keyTemplate,
-      description: `${data?.content}`,
+      description: `${data?.reason}`,
     };
     createTaskMutation({
       variables: {
