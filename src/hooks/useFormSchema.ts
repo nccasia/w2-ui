@@ -15,7 +15,34 @@ function createValidator(schema: object) {
 
   return (model: object) => {
     validator(model);
-    return validator.errors?.length ? { details: validator.errors } : null;
+    return validator.errors?.length
+      ? {
+          details: validator.errors.map(error => {
+            if (error.message === "must be integer") {
+              return {
+                ...error,
+                message:
+                  "You must specify how many devices you want to request",
+              };
+            }
+            if (error.message === "must be >= 1") {
+              return {
+                ...error,
+                message:
+                  "Minimum number of requested device must be greater than or equal to 1",
+              };
+            }
+            if (error.message === "must be <= 100") {
+              return {
+                ...error,
+                message:
+                  "Maximum number of requested device must be less than or equal to 100",
+              };
+            }
+            return error;
+          }),
+        }
+      : null;
   };
 }
 

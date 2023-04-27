@@ -2,7 +2,12 @@ import { useFormSchema } from "@saleor/hooks/useFormSchema";
 import { makeStyles } from "@saleor/macaw-ui";
 import clsx from "clsx";
 import React, { useMemo } from "react";
-import { AutoForm } from "uniforms-material";
+import {
+  AutoField,
+  AutoForm,
+  ErrorField,
+  SubmitField,
+} from "uniforms-material";
 
 interface PropsFormSchema {
   formId: string;
@@ -72,6 +77,116 @@ export function FormSchema(props: PropsFormSchema) {
     }
   }, [props]);
 
+  let content;
+  const schemaTitle = bridge?.schema?.title;
+  switch (schemaTitle) {
+    case "Device request": {
+      content = (
+        <>
+          <AutoField name="device" />
+          <ErrorField
+            name="device.0.type"
+            errorMessage="You must select a device type"
+          />
+          <ErrorField
+            name="device.0.detail"
+            errorMessage="You must enter some details about the device"
+          />
+          <ErrorField name="device.0.quantity" />
+          <AutoField name="currentOffice" />
+          <ErrorField
+            name="currentOffice"
+            errorMessage="You must select your current office"
+          />
+          <AutoField name="dueDate" />
+          <ErrorField
+            name="dueDate"
+            errorMessage="You must select a due date"
+          />
+          <AutoField name="content" />
+          <ErrorField
+            name="content"
+            errorMessage="You must enter some content"
+          />
+          <SubmitField />
+        </>
+      );
+      break;
+    }
+    case "Change Office Request": {
+      content = (
+        <>
+          <AutoField name="currentOffice" />
+          <ErrorField
+            name="currentOffice"
+            errorMessage="You must select your current office"
+          />
+          <AutoField name="destinationOffice" />
+          <ErrorField
+            name="destinationOffice"
+            errorMessage="You must select your destination office"
+          />
+          <AutoField name="dueDate" />
+          <ErrorField
+            name="dueDate"
+            errorMessage="You must select a due date"
+          />
+          <AutoField name="content" />
+          <ErrorField
+            name="content"
+            errorMessage="You must enter some content"
+          />
+          <SubmitField />
+        </>
+      );
+      break;
+    }
+    case "WFH Request": {
+      content = (
+        <>
+          <AutoField name="dueDateStart" />
+          <ErrorField
+            name="dueDateStart"
+            errorMessage="You must select a start date of your WFH request"
+          />
+          <AutoField name="dueDateEnd" />
+          <ErrorField
+            name="dueDateEnd"
+            errorMessage="You must select an end date of your WFH request"
+          />
+          <AutoField name="content" />
+          <ErrorField
+            name="content"
+            errorMessage="You must enter some content"
+          />
+          <SubmitField />
+        </>
+      );
+      break;
+    }
+    case "Decision": {
+      content = (
+        <>
+          <AutoField name="approval" />
+          <ErrorField
+            name="approval"
+            errorMessage="You must either approve or reject the request"
+          />
+          <AutoField name="reason" />
+          <ErrorField
+            name="reason"
+            errorMessage="You must specify a reason for your action"
+          />
+          <SubmitField />
+        </>
+      );
+      break;
+    }
+    default:
+      content = "";
+      break;
+  }
+
   return (
     <div className={clsx({ [classes.root]: props.readonly })}>
       {bridge && (
@@ -80,7 +195,9 @@ export function FormSchema(props: PropsFormSchema) {
           onSubmit={props.onSubmit}
           readOnly={props.readonly}
           model={model}
-        />
+        >
+          {content}
+        </AutoForm>
       )}
     </div>
   );
