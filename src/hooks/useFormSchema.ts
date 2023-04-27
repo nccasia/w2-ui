@@ -15,6 +15,32 @@ function createValidator(schema: object) {
 
   return (model: object) => {
     validator(model);
+    if (
+      typeof (model as any).currentOffice !== "undefined" &&
+      typeof (model as any).destinationOffice !== "undefined"
+    ) {
+      if ((model as any).currentOffice === (model as any).destinationOffice) {
+        validator.errors = [];
+        validator.errors.push({
+          instancePath: "",
+          schemaPath: "#/required",
+          keyword: "required",
+          params: {
+            missingProperty: "currentOffice",
+          },
+          message: "Current office and destination office cannot be the same",
+        });
+        validator.errors.push({
+          instancePath: "",
+          schemaPath: "#/required",
+          keyword: "required",
+          params: {
+            missingProperty: "destinationOffice",
+          },
+          message: "Current office and destination office cannot be the same",
+        });
+      }
+    }
     return validator.errors?.length
       ? {
           details: validator.errors.map(error => {
@@ -37,6 +63,18 @@ function createValidator(schema: object) {
                 ...error,
                 message:
                   "Maximum number of requested device must be less than or equal to 100",
+              };
+            }
+            if (error.message.includes("currentOffice")) {
+              return {
+                ...error,
+                message: "You must select your current office",
+              };
+            }
+            if (error.message.includes("destinationOffice")) {
+              return {
+                ...error,
+                message: "You must select your destination office",
               };
             }
             return error;

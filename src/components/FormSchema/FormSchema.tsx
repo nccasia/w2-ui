@@ -103,10 +103,10 @@ export function FormSchema(props: PropsFormSchema) {
             name="dueDate"
             errorMessage="You must select a due date"
           />
-          <AutoField name="content" />
+          <AutoField name="reason" />
           <ErrorField
-            name="content"
-            errorMessage="You must enter some content"
+            name="reason"
+            errorMessage="You must specify a reason for your request"
           />
           <SubmitField />
         </>
@@ -117,24 +117,18 @@ export function FormSchema(props: PropsFormSchema) {
       content = (
         <>
           <AutoField name="currentOffice" />
-          <ErrorField
-            name="currentOffice"
-            errorMessage="You must select your current office"
-          />
+          <ErrorField name="currentOffice" />
           <AutoField name="destinationOffice" />
-          <ErrorField
-            name="destinationOffice"
-            errorMessage="You must select your destination office"
-          />
+          <ErrorField name="destinationOffice" />
           <AutoField name="dueDate" />
           <ErrorField
             name="dueDate"
             errorMessage="You must select a due date"
           />
-          <AutoField name="content" />
+          <AutoField name="reason" />
           <ErrorField
-            name="content"
-            errorMessage="You must enter some content"
+            name="reason"
+            errorMessage="You must specify a reason for your request"
           />
           <SubmitField />
         </>
@@ -154,10 +148,10 @@ export function FormSchema(props: PropsFormSchema) {
             name="dueDateEnd"
             errorMessage="You must select an end date of your WFH request"
           />
-          <AutoField name="content" />
+          <AutoField name="reason" />
           <ErrorField
-            name="content"
-            errorMessage="You must enter some content"
+            name="reason"
+            errorMessage="You must specify a reason for your request"
           />
           <SubmitField />
         </>
