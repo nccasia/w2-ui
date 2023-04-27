@@ -161,6 +161,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                             )
                           }
                           style={{ maxWidth: "160px" }}
+                          className="mobile"
                         />
                         <ListItemText
                           primary={
@@ -173,6 +174,7 @@ const TaskDetailPage: React.FC<ITaskDetailProps> = ({
                         <ListItemText
                           primary={subtask.priority}
                           style={{ maxWidth: "50px" }}
+                          className="mobile"
                         />
                       </div>
                       <ListItemAvatar style={{ width: "5%" }}>

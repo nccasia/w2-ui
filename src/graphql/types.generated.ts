@@ -7593,6 +7593,8 @@ export type GetMyTasksQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  state?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
 }>;
 
 

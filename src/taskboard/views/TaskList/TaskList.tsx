@@ -14,16 +14,19 @@ import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import TaskCreation from "@saleor/taskboard/components/TaskCreation/TaskCreation";
 import TaskListPage from "@saleor/taskboard/components/TaskListPage";
 import {
+  filterListUrl,
   modalNewTaskUrl,
   TaskListUrlDialog,
   TaskListUrlQueryParams,
 } from "@saleor/taskboard/urls";
 import { Pagination } from "@saleor/types";
 import createDialogActionHandlers from "@saleor/utils/handlers/dialogActionHandlers";
+import createFilterHandlers from "@saleor/utils/handlers/filterHandlers";
 import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router";
 
+import { getFilterQueryParam } from "../../fixtures";
 import { EViewOptions } from "./const";
 
 export interface ViewOptionsState {
@@ -43,6 +46,7 @@ interface TaskListProps {
   qs: any;
   setQs: React.Dispatch<React.SetStateAction<Pagination>>;
   setRowNumber?: React.Dispatch<React.SetStateAction<number>>;
+  paramsFilter: TaskListUrlQueryParams;
 }
 
 export const TaskList: React.FC<TaskListProps> = ({
@@ -51,6 +55,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   variables,
   setQs,
   setRowNumber,
+  paramsFilter,
 }) => {
   const user = useUser();
   const navigate = useNavigator();
@@ -63,6 +68,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   const [viewOptions, setViewOptions] = useState<ViewOptionsState>(
     initViewOption,
   );
+  const [filterValue, setFilterValue] = useState({ state: "", status: "" });
 
   const [fetchMyTask, { data: myTaskData }] = useGetMyTasksLazyQuery();
   const [
@@ -95,6 +101,13 @@ export const TaskList: React.FC<TaskListProps> = ({
     queryString: {},
   });
 
+  const [changeFilters] = createFilterHandlers({
+    createUrl: filterListUrl,
+    getFilterQueryParam,
+    navigate,
+    params: paramsFilter,
+  });
+
   const noTaskType = !channel && typeof channel !== "undefined";
   const [openModal, closeModal] = createDialogActionHandlers<
     TaskListUrlDialog,
@@ -106,13 +119,15 @@ export const TaskList: React.FC<TaskListProps> = ({
     history.replace({
       search: "",
     });
-  }, [viewOptions.filterByRequest, setQs]);
+  }, [viewOptions.filterByRequest, setQs, history]);
 
   useEffect(() => {
     if (user.user.userId) {
       const temp = {
         ...variables,
         id: user.user.userId,
+        state: filterValue.state,
+        status: filterValue.status,
       };
 
       // eslint-disable-next-line chai-friendly/no-unused-expressions
@@ -137,6 +152,8 @@ export const TaskList: React.FC<TaskListProps> = ({
     fetchMyTask,
     fetchMyRequestTask,
     fetchMyParticipantTask,
+    filterValue.state,
+    filterValue.status,
   ]);
 
   return (
@@ -152,6 +169,9 @@ export const TaskList: React.FC<TaskListProps> = ({
           dataTaskBoard={dataTaskBoard}
           viewOptions={viewOptions}
           setViewOptions={setViewOptions}
+          setFilterValue={setFilterValue}
+          changeFilters={changeFilters}
+          filterValue={filterValue}
         />
         {!noTaskType && (
           <TaskCreation

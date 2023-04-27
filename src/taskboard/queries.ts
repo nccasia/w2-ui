@@ -299,12 +299,16 @@ export const getMyTasks = gql`
     $before: String
     $first: Int
     $last: Int
+    $state: String
+    $status: String
   ) {
     Task_connection(
       where: {
         Tasks: {
           _or: [{ assigneeId: { _eq: $id } }, { creatorId: { _eq: $id } }]
         }
+        state: { _regex: $state }
+        status: { _regex: $status }
       }
       after: $after
       before: $before

@@ -90,7 +90,7 @@ export function createOptionsField<K extends string>(
   options: MultiAutocompleteChoiceType[],
 ): FilterElementGeneric<K, FieldType.options> {
   return {
-    active: false,
+    active: defaultValue.toString() !== "" ? true : false,
     label,
     multiple,
     name,

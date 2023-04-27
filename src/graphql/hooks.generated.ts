@@ -1064,9 +1064,9 @@ export type GetCommentQueryHookResult = ReturnType<typeof useGetCommentQuery>;
 export type GetCommentLazyQueryHookResult = ReturnType<typeof useGetCommentLazyQuery>;
 export type GetCommentQueryResult = Apollo.QueryResult<Types.GetCommentQuery, Types.GetCommentQueryVariables>;
 export const GetMyTasksDocument = gql`
-    query GetMyTasks($id: Int!, $after: String, $before: String, $first: Int, $last: Int) {
+    query GetMyTasks($id: Int!, $after: String, $before: String, $first: Int, $last: Int, $state: String, $status: String) {
   Task_connection(
-    where: {Tasks: {_or: [{assigneeId: {_eq: $id}}, {creatorId: {_eq: $id}}]}}
+    where: {Tasks: {_or: [{assigneeId: {_eq: $id}}, {creatorId: {_eq: $id}}]}, state: {_regex: $state}, status: {_regex: $status}}
     after: $after
     before: $before
     first: $first
@@ -1125,6 +1125,8 @@ export const GetMyTasksDocument = gql`
  *      before: // value for 'before'
  *      first: // value for 'first'
  *      last: // value for 'last'
+ *      state: // value for 'state'
+ *      status: // value for 'status'
  *   },
  * });
  */
