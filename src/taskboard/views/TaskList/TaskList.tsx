@@ -70,22 +70,26 @@ export const TaskList: React.FC<TaskListProps> = ({
   );
   const [filterValue, setFilterValue] = useState({ state: "", status: "" });
 
-  const [fetchMyTask, { data: myTaskData }] = useGetMyTasksLazyQuery();
+  const [fetchMyTask, { data: myTaskData }] = useGetMyTasksLazyQuery({
+    fetchPolicy: "cache-and-network",
+  });
   const [
     fetchMyRequestTask,
     { data: myRequestTaskData },
-  ] = useGetMyRequestTaskLazyQuery();
+  ] = useGetMyRequestTaskLazyQuery({
+    fetchPolicy: "cache-and-network",
+  });
   const [
     fetchMyParticipantTask,
     { data: myParticipantTaskData },
-  ] = useGetMyParticipantTaskLazyQuery();
+  ] = useGetMyParticipantTaskLazyQuery({ fetchPolicy: "cache-and-network" });
 
   const data = useMemo(() => {
     return viewOptions.filterByRequest === EViewOptions.ALL
       ? myTaskData
-      : viewOptions.filterByRequest === EViewOptions.MY_REQUEST
+      : viewOptions.filterByRequest === EViewOptions.MY_REQUESTS
       ? myRequestTaskData
-      : viewOptions.filterByRequest === EViewOptions.MY_PARTICIPANT
+      : viewOptions.filterByRequest === EViewOptions.MY_PARTICIPATIONS
       ? myParticipantTaskData
       : undefined;
   }, [
@@ -135,11 +139,11 @@ export const TaskList: React.FC<TaskListProps> = ({
         ? fetchMyTask({
             variables: temp,
           })
-        : viewOptions.filterByRequest === EViewOptions.MY_REQUEST
+        : viewOptions.filterByRequest === EViewOptions.MY_REQUESTS
         ? fetchMyRequestTask({
             variables: temp,
           })
-        : viewOptions.filterByRequest === EViewOptions.MY_PARTICIPANT
+        : viewOptions.filterByRequest === EViewOptions.MY_PARTICIPATIONS
         ? fetchMyParticipantTask({
             variables: temp,
           })

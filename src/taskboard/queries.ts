@@ -423,9 +423,15 @@ export const getMyRequestTask = gql`
     $before: String
     $first: Int
     $last: Int
+    $state: String
+    $status: String
   ) {
     Task_connection(
-      where: { Tasks: { creatorId: { _eq: $id } } }
+      where: {
+        Tasks: { creatorId: { _eq: $id } }
+        state: { _regex: $state }
+        status: { _regex: $status }
+      }
       after: $after
       before: $before
       first: $first
@@ -474,9 +480,15 @@ export const getMyParticipantTask = gql`
     $before: String
     $first: Int
     $last: Int
+    $state: String
+    $status: String
   ) {
     Task_connection(
-      where: { Tasks: { assigneeId: { _eq: $id } } }
+      where: {
+        Tasks: { assigneeId: { _eq: $id } }
+        state: { _regex: $state }
+        status: { _regex: $status }
+      }
       after: $after
       before: $before
       first: $first
