@@ -99,89 +99,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
-        <ButtonWithSelect
-          options={[]}
-          data-test-id="create-task-button"
-          onClick={onAdd}
-          style={{ marginRight: 20 }}
-        >
-          <FormattedMessage
-            id="y26e0U"
-            defaultMessage="New task"
-            description="button"
-          />
-        </ButtonWithSelect>
-        {dataTaskBoard.viewType === "Kanban" ? (
-          <PopoverCustom>
-            <div className={classes.settingViewContainer}>
-              <h3 className={classes.settingViewTitle}>View Option</h3>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      disableRipple
-                      checked={viewOptions.filterStatus}
-                      onChange={e =>
-                        setViewOptions(prev => ({
-                          ...prev,
-                          filterStatus: e.target.checked,
-                        }))
-                      }
-                    />
-                  }
-                  label={intl.formatMessage({
-                    defaultMessage: "View By Status",
-                    id: "42CeNi",
-                    description: "button",
-                  })}
-                />
-              </FormControl>
-            </div>
-          </PopoverCustom>
-        ) : (
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="view-options">View Options</InputLabel>
-            <Select
-              labelId="view-options"
-              id="view-options"
-              value={viewOptions.filterByRequest}
-              onChange={e =>
-                setViewOptions(prev => ({
-                  ...prev,
-                  filterByRequest: e.target.value as EViewOptions,
-                }))
-              }
-            >
-              <MenuItem
-                className={classes.formMenuItem}
-                value={EViewOptions.ALL}
-              >
-                All
-              </MenuItem>
-              <MenuItem
-                className={classes.formMenuItem}
-                value={EViewOptions.MY_REQUEST}
-              >
-                My Request
-              </MenuItem>
-              <MenuItem
-                className={classes.formMenuItem}
-                value={EViewOptions.MY_PARTICIPANT}
-              >
-                My Participant
-              </MenuItem>
-            </Select>
-          </FormControl>
-        )}
-      </PageHeader>
-      {dataTaskBoard.viewType === "Kanban" && (
-        <TaskBoard
-          taskBoardData={dataTaskBoard}
-          viewByStatus={viewOptions.filterStatus}
-        ></TaskBoard>
-      )}
-      {dataTaskBoard.viewType === "list" && (
-        <>
+        {dataTaskBoard.viewType === "list" && (
           <FilterBar
             filterStructure={[
               {
@@ -257,8 +175,92 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
               });
             }}
           />
-          <TaskList id={user.user.userId} data={data} />
-        </>
+        )}
+        {dataTaskBoard.viewType !== "list" && (
+          <ButtonWithSelect
+            options={[]}
+            data-test-id="create-task-button"
+            onClick={onAdd}
+            style={{ marginRight: 20 }}
+          >
+            <FormattedMessage
+              id="y26e0U"
+              defaultMessage="New task"
+              description="button"
+            />
+          </ButtonWithSelect>
+        )}
+        {dataTaskBoard.viewType === "Kanban" ? (
+          <PopoverCustom>
+            <div className={classes.settingViewContainer}>
+              <h3 className={classes.settingViewTitle}>View Option</h3>
+              <FormControl fullWidth>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      disableRipple
+                      checked={viewOptions.filterStatus}
+                      onChange={e =>
+                        setViewOptions(prev => ({
+                          ...prev,
+                          filterStatus: e.target.checked,
+                        }))
+                      }
+                    />
+                  }
+                  label={intl.formatMessage({
+                    defaultMessage: "View By Status",
+                    id: "42CeNi",
+                    description: "button",
+                  })}
+                />
+              </FormControl>
+            </div>
+          </PopoverCustom>
+        ) : (
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="view-options">View Options</InputLabel>
+            <Select
+              labelId="view-options"
+              id="view-options"
+              value={viewOptions.filterByRequest}
+              onChange={e =>
+                setViewOptions(prev => ({
+                  ...prev,
+                  filterByRequest: e.target.value as EViewOptions,
+                }))
+              }
+            >
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.ALL}
+              >
+                All
+              </MenuItem>
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.MY_REQUEST}
+              >
+                My Request
+              </MenuItem>
+              <MenuItem
+                className={classes.formMenuItem}
+                value={EViewOptions.MY_PARTICIPANT}
+              >
+                My Participant
+              </MenuItem>
+            </Select>
+          </FormControl>
+        )}
+      </PageHeader>
+      {dataTaskBoard.viewType === "Kanban" && (
+        <TaskBoard
+          taskBoardData={dataTaskBoard}
+          viewByStatus={viewOptions.filterStatus}
+        ></TaskBoard>
+      )}
+      {dataTaskBoard.viewType === "list" && (
+        <TaskList id={user.user.userId} data={data} />
       )}
     </Container>
   );

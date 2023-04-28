@@ -42,7 +42,7 @@ const useStyles = makeStyles(
     },
     titleHeader: {
       display: "inline-flex",
-      marginRight: "20px",
+      margin: "0 20px 5px 0",
       [theme.breakpoints.down(425)]: {
         marginRight: "0px",
         maxWidth: "200px",

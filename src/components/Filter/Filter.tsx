@@ -168,7 +168,7 @@ const Filter: React.FC<FilterProps> = props => {
           anchorEl={anchor.current}
           transition
           disablePortal
-          placement="bottom-start"
+          placement="bottom-end"
           modifiers={{
             flip: {
               enabled: false,
