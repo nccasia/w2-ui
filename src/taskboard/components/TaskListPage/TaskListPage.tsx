@@ -239,15 +239,15 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
               </MenuItem>
               <MenuItem
                 className={classes.formMenuItem}
-                value={EViewOptions.MY_REQUEST}
+                value={EViewOptions.MY_REQUESTS}
               >
-                My Request
+                My Requests
               </MenuItem>
               <MenuItem
                 className={classes.formMenuItem}
-                value={EViewOptions.MY_PARTICIPANT}
+                value={EViewOptions.MY_PARTICIPATIONS}
               >
-                My Participant
+                My Participants
               </MenuItem>
             </Select>
           </FormControl>
