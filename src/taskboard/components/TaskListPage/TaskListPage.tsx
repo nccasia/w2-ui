@@ -144,6 +144,10 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
                       value: "PM_APPROVAL",
                     },
                     {
+                      label: "IT_APPROVAL",
+                      value: "IT_APPROVAL",
+                    },
+                    {
                       label: "CUSTOMER_APPROVAL",
                       value: "CUSTOMER_APPROVAL",
                     },
@@ -152,8 +156,8 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
                       value: "CUSTOMER_OFFICE_APPROVAL",
                     },
                     {
-                      label: "IT_APPROVAL",
-                      value: "IT_APPROVAL",
+                      label: "DESTINATION_OFFICE_APPROVAL",
+                      value: "DESTINATION_OFFICE_APPROVAL",
                     },
                   ],
                 ),

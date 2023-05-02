@@ -13,7 +13,7 @@ const SelectResourceField: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      {fieldProps?.index === 1 && defaultOffice && (
+      {fieldProps?.name === "currentOffice" && defaultOffice && (
         <SelectField
           {...props}
           options={options}
@@ -21,7 +21,7 @@ const SelectResourceField: React.FC<Props> = (props: Props) => {
           disabled={true}
         />
       )}
-      {fieldProps?.index !== 1 && defaultOffice && (
+      {fieldProps?.name !== "currentOffice" && defaultOffice && (
         <SelectField {...props} options={options} />
       )}
       {/* @ts-ignore */}

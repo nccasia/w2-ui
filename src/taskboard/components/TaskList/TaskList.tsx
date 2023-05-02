@@ -28,6 +28,9 @@ const useStyles = makeStyles(
     },
     colTask: {
       width: 230,
+      "& .MuiChip-label": {
+        maxWidth: "170px",
+      },
     },
     colTitle: {
       width: "40%",

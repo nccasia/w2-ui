@@ -18,6 +18,7 @@ export enum TaskFilterKeys {
   DONE = "DONE",
   DOING = "DOING",
   PENDING = "PENDING",
+  DESTINATION_OFFICE_APPROVAL = "DESTINATION_OFFICE_APPROVAL",
 }
 
 export function getFilterQueryParam(
