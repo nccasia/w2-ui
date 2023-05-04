@@ -102,7 +102,11 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
         ) : (
           <>&nbsp;</>
         )}
-        {selectedType && <b>{selectedType?.title}</b>}
+        {selectedType && (
+          <span style={{ fontSize: "20px", fontWeight: 600 }}>
+            {selectedType?.title}
+          </span>
+        )}
         <CloseIcon
           className={closeIconClasses.root}
           onClick={() => onClose()}

@@ -62,6 +62,11 @@ const useStyles = makeStyles(
         display: "none",
       },
     },
+    capitalize: {
+      "& .MuiFormLabel-root": {
+        textTransform: "capitalize",
+      },
+    },
   }),
   { name: "FormSchema" },
 );
@@ -182,7 +187,11 @@ export function FormSchema(props: PropsFormSchema) {
   }
 
   return (
-    <div className={clsx({ [classes.root]: props.readonly })}>
+    <div
+      className={`${clsx({ [classes.root]: props.readonly })} ${
+        classes.capitalize
+      }`}
+    >
       {bridge && (
         <AutoForm
           schema={bridge}
