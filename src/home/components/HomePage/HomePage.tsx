@@ -1,13 +1,11 @@
 import CardSpacer from "@saleor/components/CardSpacer";
 import Container from "@saleor/components/Container";
-import Grid from "@saleor/components/Grid";
 import Tasks from "@saleor/icons/Tasks";
 import { makeStyles } from "@saleor/macaw-ui";
 import { IEventLog } from "@saleor/type/Task";
 import React from "react";
 
 import Sales from "../../../icons/Sales";
-import HomeActivityCard from "../HomeActivityCard";
 import HomeAnalyticsCard from "../HomeAnalyticsCard";
 import HomeHeader from "../HomeHeader";
 import HomeNotificationTable from "../HomeNotificationTable/HomeNotificationTable";
@@ -21,6 +19,7 @@ const useStyles = makeStyles(
       gridTemplateColumns: "1fr 1fr",
       [theme.breakpoints.down("sm")]: {
         gridColumnGap: theme.spacing(1),
+        gridTemplateColumns: "1fr",
       },
       [theme.breakpoints.down("xs")]: {
         gridTemplateColumns: "1fr",
@@ -58,7 +57,6 @@ const HomePage: React.FC<HomePageProps> = props => {
   const {
     userName,
     topTasks,
-    eventLog,
     myParticipatedTaskCount,
     myCreatedtaskCount,
     createNewChannelHref,
@@ -76,63 +74,51 @@ const HomePage: React.FC<HomePageProps> = props => {
     <Container>
       <HomeHeader userName={userName} />
       <CardSpacer />
-      <Grid>
-        <div>
-          <div className={classes.cardContainer}>
-            <HomeAnalyticsCard
-              title={"My Requests"}
-              testId="sales-analytics"
-              icon={
-                <Sales
-                  fontSize="inherit"
-                  className={classes.icon}
-                  viewBox="0 0 64 64"
-                />
-              }
-            >
-              <h1>{myCreatedtaskCount}</h1>
-            </HomeAnalyticsCard>
-            <HomeAnalyticsCard
-              title={"My Participations"}
-              testId="tasks-analytics"
-              icon={
-                <Tasks
-                  fontSize="inherit"
-                  className={classes.icon}
-                  viewBox="0 0 64 64"
-                />
-              }
-            >
-              <h1>{myParticipatedTaskCount}</h1>
-            </HomeAnalyticsCard>
-          </div>
-          <HomeNotificationTable
-            createNewChannelHref={createNewChannelHref}
-            tasksToFulfillHref={tasksToFulfillHref}
-            tasksToCaptureHref={tasksToCaptureHref}
-            tasksOutOfStockHref={tasksOutOfStockHref}
-            tasksToCapture={tasksToCapture}
-            tasksToFulfill={tasksToFulfill}
-            tasksOutOfStock={tasksOutOfStock}
-            noChannel={noChannel}
-          />
-          <CardSpacer />
-          {topTasks && topTasks.length > 0 && (
-            <>
-              <HomeProductListCard
-                testId="top-products"
-                topProducts={topTasks}
-              />
-            </>
-          )}
-          <CardSpacer />
-        </div>
-        {eventLog && (
-          <div>
-            <HomeActivityCard eventLog={eventLog} />
-          </div>
-        )}
-      </Grid>
+      <div className={classes.cardContainer}>
+        <HomeAnalyticsCard
+          title={"My Requests"}
+          testId="sales-analytics"
+          icon={
+            <Sales
+              fontSize="inherit"
+              className={classes.icon}
+              viewBox="0 0 64 64"
+            />
+          }
+        >
+          <h1>{myCreatedtaskCount}</h1>
+        </HomeAnalyticsCard>
+        <HomeAnalyticsCard
+          title={"My Participations"}
+          testId="tasks-analytics"
+          icon={
+            <Tasks
+              fontSize="inherit"
+              className={classes.icon}
+              viewBox="0 0 64 64"
+            />
+          }
+        >
+          <h1>{myParticipatedTaskCount}</h1>
+        </HomeAnalyticsCard>
+      </div>
+      <HomeNotificationTable
+        createNewChannelHref={createNewChannelHref}
+        tasksToFulfillHref={tasksToFulfillHref}
+        tasksToCaptureHref={tasksToCaptureHref}
+        tasksOutOfStockHref={tasksOutOfStockHref}
+        tasksToCapture={tasksToCapture}
+        tasksToFulfill={tasksToFulfill}
+        tasksOutOfStock={tasksOutOfStock}
+        noChannel={noChannel}
+      />
+      <CardSpacer />
+      {topTasks && topTasks.length > 0 && (
+        <>
+          <HomeProductListCard testId="top-products" topProducts={topTasks} />
+        </>
+      )}
+      <CardSpacer />
     </Container>
   );
 };
