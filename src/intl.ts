@@ -110,6 +110,10 @@ export const commonMessages = defineMessages({
     id: "TKmub+",
     defaultMessage: "This field is required",
   },
+  createSuccess: {
+    id: "gdQdWv",
+    defaultMessage: "Create request successfully",
+  },
   savedChanges: {
     id: "rqiCWU",
     defaultMessage: "Saved changes",

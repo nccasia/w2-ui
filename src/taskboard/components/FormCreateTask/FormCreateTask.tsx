@@ -37,7 +37,7 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
     onCompleted: () => {
       notify({
         status: "success",
-        text: intl.formatMessage(commonMessages.savedChanges),
+        text: intl.formatMessage(commonMessages.createSuccess),
       });
       onClose();
     },
