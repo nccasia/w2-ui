@@ -6,16 +6,16 @@ export const homeNotificationTableMessages = defineMessages({
     defaultMessage: "Create new channel",
   },
   deviceRequest: {
-    id: "UcSkKb",
-    defaultMessage: "Device request",
+    id: "KiEnyQ",
+    defaultMessage: "Device Request",
   },
   workFromHome: {
-    id: "ded6Gr",
-    defaultMessage: "Work from home",
+    id: "+zipwd",
+    defaultMessage: "Work From Home Request",
   },
   changeOffice: {
-    id: "PmO7qd",
-    defaultMessage: "Change office",
+    id: "TiQwGb",
+    defaultMessage: "Change Office Request",
   },
   pendingTasks: {
     id: "iYFScv",
