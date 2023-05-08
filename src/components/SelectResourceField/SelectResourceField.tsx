@@ -7,12 +7,25 @@ type Props = AutoFieldProps;
 
 const SelectResourceField: React.FC<Props> = (props: Props) => {
   const [fieldProps] = useField(props.name, props);
-  const { options } = useGetResourceList(fieldProps?.field?.uniforms?.resource);
+  const { options, defaultOffice } = useGetResourceList(
+    fieldProps?.field?.uniforms?.resource,
+  );
 
   return (
     <>
+      {fieldProps?.name === "currentOffice" && defaultOffice && (
+        <SelectField
+          {...props}
+          options={options}
+          value={defaultOffice?.value}
+          disabled={true}
+        />
+      )}
+      {fieldProps?.name !== "currentOffice" && defaultOffice && (
+        <SelectField {...props} options={options} />
+      )}
       {/* @ts-ignore */}
-      <SelectField {...props} options={options} />
+      {!defaultOffice && <SelectField {...props} options={options} />}
     </>
   );
 };

@@ -11,6 +11,7 @@ export const userByPk = gql`
         firstname
         fullName
         organizationId
+        branchCode
         MemberOnTeams {
           teamId
           Team {

@@ -2,9 +2,9 @@ import {
   Box,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
+  Typography,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { radioType } from "@saleor/styles/modal";
@@ -21,7 +21,9 @@ const FormCreatedTaskType: React.FC<Props> = ({ typeList, onSetType }) => {
     <>
       <Box>
         <FormControl style={{ width: "100%" }}>
-          <FormLabel style={{ fontWeight: 600 }}>Select a Type</FormLabel>
+          <Typography variant="h5" style={{ textAlign: "center" }}>
+            SELECT A TYPE
+          </Typography>
           <RadioGroup
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"

@@ -99,18 +99,101 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
   return (
     <Container>
       <PageHeader title={intl.formatMessage(sectionNames.tasks)}>
-        <ButtonWithSelect
-          options={[]}
-          data-test-id="create-task-button"
-          onClick={onAdd}
-          style={{ marginRight: 20 }}
-        >
-          <FormattedMessage
-            id="y26e0U"
-            defaultMessage="New task"
-            description="button"
+        {dataTaskBoard.viewType === "list" && (
+          <FilterBar
+            filterStructure={[
+              {
+                ...createOptionsField(
+                  "Status",
+                  "Status",
+                  [filterValue.status],
+                  false,
+                  [
+                    {
+                      label: "DONE",
+                      value: "DONE",
+                    },
+                    {
+                      label: "DOING",
+                      value: "DOING",
+                    },
+                    {
+                      label: "PENDING",
+                      value: "PENDING",
+                    },
+                  ],
+                ),
+              },
+              {
+                ...createOptionsField(
+                  "State",
+                  "State",
+                  [filterValue.state],
+                  false,
+                  [
+                    {
+                      label: "REJECTED",
+                      value: "REJECTED",
+                    },
+                    {
+                      label: "APPROVED",
+                      value: "APPROVED",
+                    },
+                    {
+                      label: "PM_APPROVAL",
+                      value: "PM_APPROVAL",
+                    },
+                    {
+                      label: "IT_APPROVAL",
+                      value: "IT_APPROVAL",
+                    },
+                    {
+                      label: "CUSTOMER_APPROVAL",
+                      value: "CUSTOMER_APPROVAL",
+                    },
+                    {
+                      label: "CUSTOMER_OFFICE_APPROVAL",
+                      value: "CUSTOMER_OFFICE_APPROVAL",
+                    },
+                    {
+                      label: "DESTINATION_OFFICE_APPROVAL",
+                      value: "DESTINATION_OFFICE_APPROVAL",
+                    },
+                  ],
+                ),
+              },
+            ]}
+            onFilterChange={function(
+              filter: Array<FilterElement<string>>,
+            ): void {
+              const filterState = filter.find(item => item.label === "State");
+              const filterStatus = filter.find(item => item.label === "Status");
+              changeFilters(filter);
+              setFilterValue({
+                state: !filterState.value.length
+                  ? ""
+                  : (filterState.value[0] as string),
+                status: !filterStatus.value.length
+                  ? ""
+                  : (filterStatus.value[0] as string),
+              });
+            }}
           />
-        </ButtonWithSelect>
+        )}
+        {dataTaskBoard.viewType !== "list" && (
+          <ButtonWithSelect
+            options={[]}
+            data-test-id="create-task-button"
+            onClick={onAdd}
+            style={{ marginRight: 20 }}
+          >
+            <FormattedMessage
+              id="y26e0U"
+              defaultMessage="New task"
+              description="button"
+            />
+          </ButtonWithSelect>
+        )}
         {dataTaskBoard.viewType === "Kanban" ? (
           <PopoverCustom>
             <div className={classes.settingViewContainer}>
@@ -168,7 +251,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
                 className={classes.formMenuItem}
                 value={EViewOptions.MY_PARTICIPATIONS}
               >
-                My Participations
+                My Participants
               </MenuItem>
             </Select>
           </FormControl>
@@ -181,84 +264,7 @@ const TaskListPage: React.FC<TaskListPageProps> = ({
         ></TaskBoard>
       )}
       {dataTaskBoard.viewType === "list" && (
-        <>
-          <FilterBar
-            filterStructure={[
-              {
-                ...createOptionsField(
-                  "Status",
-                  "Status",
-                  [filterValue.status],
-                  false,
-                  [
-                    {
-                      label: "DONE",
-                      value: "DONE",
-                    },
-                    {
-                      label: "DOING",
-                      value: "DOING",
-                    },
-                    {
-                      label: "PENDING",
-                      value: "PENDING",
-                    },
-                  ],
-                ),
-              },
-              {
-                ...createOptionsField(
-                  "State",
-                  "State",
-                  [filterValue.state],
-                  false,
-                  [
-                    {
-                      label: "REJECTED",
-                      value: "REJECTED",
-                    },
-                    {
-                      label: "APPROVED",
-                      value: "APPROVED",
-                    },
-                    {
-                      label: "PM_APPROVAL",
-                      value: "PM_APPROVAL",
-                    },
-                    {
-                      label: "CUSTOMER_APPROVAL",
-                      value: "CUSTOMER_APPROVAL",
-                    },
-                    {
-                      label: "CUSTOMER_OFFICE_APPROVAL",
-                      value: "CUSTOMER_OFFICE_APPROVAL",
-                    },
-                    {
-                      label: "IT_APPROVAL",
-                      value: "IT_APPROVAL",
-                    },
-                  ],
-                ),
-              },
-            ]}
-            onFilterChange={function(
-              filter: Array<FilterElement<string>>,
-            ): void {
-              const filterState = filter.find(item => item.label === "State");
-              const filterStatus = filter.find(item => item.label === "Status");
-              changeFilters(filter);
-              setFilterValue({
-                state: !filterState.value.length
-                  ? ""
-                  : (filterState.value[0] as string),
-                status: !filterStatus.value.length
-                  ? ""
-                  : (filterStatus.value[0] as string),
-              });
-            }}
-          />
-          <TaskList id={user.user.userId} data={data} />
-        </>
+        <TaskList id={user.user.userId} data={data} />
       )}
     </Container>
   );

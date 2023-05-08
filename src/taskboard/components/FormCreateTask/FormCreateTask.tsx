@@ -7,7 +7,6 @@ import {
   useCreateTaskMutation,
   useGetTaskDefinitionQuery,
 } from "@saleor/graphql";
-import useChoiceSearch from "@saleor/hooks/useChoiceSearch";
 import useNotifier from "@saleor/hooks/useNotifier";
 import { useTaskBoard } from "@saleor/hooks/useTaskBoard";
 import { commonMessages } from "@saleor/intl";
@@ -18,9 +17,7 @@ import { mapEdgesToItems } from "@saleor/utils/maps";
 import React, { useMemo, useState } from "react";
 import { useIntl } from "react-intl";
 
-import { useTaskDefinitionChoiceType } from "../TaskCreation/useTasksDefinitionChoiceType";
 import FormCreatedTaskDetail from "./FormCreatedTaskDetail/FormCreatedTaskDetail";
-import FormCreatedTaskType from "./FormCreatedTaskType/FormCreatedTaskType";
 
 interface Props {
   onClose: () => void;
@@ -56,8 +53,8 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
     );
   }, [TaskDefinitionQuery?.data]);
 
-  const { choiceType } = useTaskDefinitionChoiceType(data);
-  const { result } = useChoiceSearch(choiceType);
+  // const { choiceType } = useTaskDefinitionChoiceType(data);
+  // const { result } = useChoiceSearch(choiceType);
 
   const intl = useIntl();
 
@@ -120,12 +117,12 @@ const FormCreateTask: React.FC<Props> = ({ onClose, id }) => {
                   onNewRequest={handleNewRequest}
                 />
               )}
-              {!typeTask && (
+              {/* {!typeTask && (
                 <FormCreatedTaskType
                   typeList={result}
                   onSetType={setTypeTask}
                 />
-              )}
+              )} */}
             </>
           )}
           {id !== "my-tasks" && (
